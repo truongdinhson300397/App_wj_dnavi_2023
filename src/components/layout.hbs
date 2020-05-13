@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    {{> components/header }}
+</head>
+<body>
+<!--[if lte IE 10]>
+<div class="browserhappy">
+    Internet Explorerの安全ではないバージョンをお使いのようです。古いWebブラウザを使い続けるとパソコンに危険性が生じます。今すぐブラウザをアップグレードしましょう。
+    <a href="http://browsehappy.com/" target="_blank">今すぐアップグレード！</a>
+</div>
+<![endif]-->
+<div class="wrapper">
+    {{#block "main"}}{{/block}}
+</div><!--#wrp-->
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"
+        integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+<script src="/public/js/vendor/lodash.min.js"></script>
+<script src="/public/js/swiper.js"></script>
+<script src="/public/js/jquery.cookie.js"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-65746218-1"></script>
+<!--<script src="/public/js/common.js"></script>-->
+<script src="/public/js/shared/general.js"></script>
+<script>
+    $(function () {
+        $('.js-btn-register-1').on("click", function () {
+            $.cookie('contract_term_id', 1, {path: "/"});
+            $.cookie('contract_term', '2021', {path: "/"});
+            localStorage.setItem('contract_term', '2021');
+            setContractTerm(2011, 1);
+        });
+        $('.js-btn-register-2').on("click", function () {
+            $.cookie('contract_term_id', 2, {path: "/"});
+            $.cookie('contract_term', '2022', {path: "/"});
+            setContractTerm(2012, 2);
+        });
+
+        $('.js-btn-no-register-1').on('click', function (e) {
+            $.cookie('contract_term_id', 1, {path: "/"});
+            $.cookie('contract_term', '2021', {path: "/"});
+            setContractTerm(2011, 1);
+        });
+
+        $('.js-btn-no-register-2').on('click', function (e) {
+            $.cookie('contract_term_id', 2, {path: "/"});
+            $.cookie('contract_term', '2022', {path: "/"});
+            setContractTerm(2012, 2);
+        });
+    });
+</script>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TR6KZD" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+</body>
+</html>
