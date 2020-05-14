@@ -1,0 +1,196 @@
+{{#extend "components/layout" title="退会"}}
+    {{#content "header-scripts" mode="append"}}
+        <link rel="stylesheet" href="{{path}}css/form.css" type="text/css" media="all"/>
+        <style>
+            input[type="number"]::-webkit-outer-spin-button,
+            input[type="number"]::-webkit-inner-spin-button {
+                -webkit-appearance: none;
+                margin: 0;
+            }
+
+            input[type="number"] {
+                -moz-appearance: textfield;
+            }
+
+            .link-text-no-arrow {
+                color: #004f93;
+            }
+        </style>
+    {{/content}}
+    {{#content "main"}}
+        <div class="contents-box">
+            <!--  -->
+            <article class="article-box">
+                <header class="article-box-header">
+                    <h2 class="article-box-header-h2">
+                        <span class="article-box-header-h2-jp">退会手続き（仮IDをお持ちの方）</span>
+                    </h2>
+                </header>
+                <section class="drop-shadow-box">
+                    <div class="article-box-body">
+                        <div class="contact-preface">
+                            <div class="preface-outer-box">
+                                <div class="preface-box preface-box-flexible">
+                                    <p>
+                                        来年度以降に就職活動をすることになった方へ<br><br>
+                                        卒業年月・入社希望年月を変更することで、継続して来年度以降のインターンシップ・採用応募時期にサービスをご利用いただくことが可能です。<br><br>
+                                        <a class="link-text-no-arrow" href="/login/temporary_user">「会員登録 （仮IDをお持ちの方）」</a>より、事前にご登録されている情報を確認のうえ変更をおこなってください。<br><br>
+                                    </p>
+                                </div>
+                            </div>
+                            <dl class="contact-preface-dl mgnt30-50">
+                                <dt>ユーザーIDとパスワードをお持ちの方</dt>
+                                <dd>
+                                    マイページに<a class="link-text-no-arrow" href="/login/user">ログイン</a>後、「退会」メニューにて手続きをおこなってください。
+                                </dd>
+
+                                <dt>仮IDをお忘れの方</dt>
+                                <dd><a href="/forgetid" class="link-text">仮IDを確認する</a></dd>
+                            </dl>
+                            <span class="txt-reduired">＊</span>は必須項目です。
+                        </div>
+                        <div class="alert-box hidden">入力内容に誤りがあります。再度ご確認ください。</div>
+                        <form name="temporaryLeave" id="__temporaryLeaveForm" method="post" onsubmit="return __validateForm()">
+                            <table class="tbl-form tbl-th-25prc mgnb30-50">
+                                <tr>
+                                    <th class="required">姓名（漢字）</th>
+                                    <td>
+                                        <input type="text" class="input-text input-text-half input-text-left" name="family_name"
+                                               placeholder="姓"/>
+                                        <input type="text" class="input-text input-text-half" name="given_name" placeholder="名"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="required">仮ID</th>
+                                    <td>
+                                        <input type="number" class="input-text w100prc" name="temporary_id" placeholder="仮ID"/>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <div class="contact-preface">
+                                以下のうち登録されている項目を一つ入力してください。
+                            </div>
+                            <table class="tbl-form tbl-th-25prc mgnb30-50">
+                                <tr>
+                                    <th>学部・研究科等</th>
+                                    <td>
+                                        <input type="text" class="input-text w100prc" name="department" placeholder="学部・研究科等"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>学科・専攻等	</th>
+                                    <td>
+                                        <input type="text" class="input-text w100prc" name="section" placeholder="学科・専攻等	"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>電話番号	</th>
+                                    <td>
+                                        <input type="text" class="input-text input-text-tel" name="telBegin" placeholder="" onkeypress="preventNonNumericalInput(event, this, 4)"/> ー
+                                        <input type="text" class="input-text input-text-tel" name="telMiddle" placeholder="" onkeypress="preventNonNumericalInput(event, this, 4)"/> ー
+                                        <input type="text" class="input-text input-text-tel" name="telEnd" placeholder="" onkeypress="preventNonNumericalInput(event, this, 4)"/>
+                                    </td>
+                                </tr>
+                                <!-- <tr>
+                                  <th>メールアドレス</th>
+                                  <td>
+                                    <input type="text" class="input-text w100prc" placeholder="メールアドレス" />
+                                  </td>
+                                </tr> -->
+                            </table>
+
+                            <div class="talc">
+                                <button type="submit" class="btn-default btn-blue w100-50prc">確認</button>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+            </article>
+        </div>
+    {{/content}}
+    {{#content "footer-scripts" mode="append"}}
+        <script>
+            _headerUIHandler(null, null, null);
+            var inputHelper = new InputHelper();
+            var preventNonNumericalInput = inputHelper.preventNonNumericalInput;
+            var REQUIRED = ['family_name', 'given_name', 'temporary_id'];
+            var ONE_OF_REQUIRED = ['department', 'section'];
+            var TEL = ['telBegin', 'telMiddle', 'telEnd'];
+            var contractTerm = globalInfo('contract_term');
+
+            function scrollTop() {
+                $('body, html').animate({scrollTop: 0}, 500);
+            }
+
+            function __validateForm () {
+                var $form = $('#__temporaryLeaveForm');
+                var formData = $form.serializeArray();
+                var $error = $('div.alert-box');
+                var canSubmmit = false;
+
+                _.forEach(formData, function (_data) {
+                    if (_.includes(REQUIRED, _data['name']) && _.isEmpty(_data['value'])) {
+                        $error.show();
+                        scrollTop();
+                        return false;
+                    }
+                    if (_.includes(ONE_OF_REQUIRED, _data['name']) && !_.isEmpty(_data['value'])) {
+                        canSubmmit = true;
+                    }
+
+                    if (_.includes(TEL, _data['name']) && !_.isEmpty(_data['value'])) {
+                        _.forEach(TEL, function (_tel) {
+                            var $telValue = $('input[name=' + _tel + ']').val();
+                            if (_.isEmpty($telValue)) {
+                                $error.show();
+                                canSubmmit = false;
+                                scrollTop();
+                                return false;
+                            } else {
+                                canSubmmit = true;
+                            }
+                        });
+                    }
+                });
+
+                if (canSubmmit) {
+                    storeToCloud(formData);
+                }
+
+                return canSubmmit;
+            }
+
+            $(function () {
+                loadForm();
+                if(contractTerm === '2022') {
+                    $('#__temporaryLeaveForm').attr('action', '/2022/quitdnavi/temporary_user/confirm');
+                }
+                if(contractTerm === '2021') {
+                    $('#__temporaryLeaveForm').attr('action', '/2021/quitdnavi/temporary_user/confirm');
+                }
+            });
+
+            function loadForm () {
+                var FORM_SETTING = _.concat(REQUIRED, ONE_OF_REQUIRED, TEL);
+                _.forEach(FORM_SETTING, function (_form) {
+                    $('input[name=' + _form + ']').val(localStorage[_form]);
+                });
+
+                setTimeout(function () {
+                    localStorage.clear();
+                });
+            }
+
+            function storeToCloud (_formData) {
+                _.forEach(_formData, function (_field) {
+                    if (_field.name === 'temporary_id') {
+                        localStorage[_field.name] = parseInt(_field.value);
+                    } else {
+                        localStorage[_field.name] = _field.value;
+                    }
+                });
+            }
+        </script>
+    {{/content}}
+{{/extend}}

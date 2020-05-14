@@ -1,0 +1,42 @@
+{{#extend "components/layout" title="お問合せ"}}
+    {{#content "header-scripts" mode="append"}}
+        <link rel="stylesheet" href="/public/css/form.css" type="text/css" media="all" />
+        <style type="text/css">
+            @media (min-width: 769px){
+                .tbl-form th {
+                    width: 200px;
+                }
+            }
+        </style>
+    {{/content}}
+    {{#content "main"}}
+        <!--  -->
+        <div class="contents-box">
+            <article class="article-box">
+                <header class="article-box-header">
+                    <h2 class="article-box-header-h2">
+                        <span class="article-box-header-h2-jp">お問い合わせ</span>
+                        <!-- <br /><span class="article-box-header-h2-eng"></span> -->
+                    </h2>
+                </header>
+                <section class="drop-shadow-box">
+                    <div class="article-box-body">
+                        <div class="form-preface">お問い合わせを承りました。<br />後ほど担当者から回答いたしますので、今しばらくお待ちください。</div>
+
+                        <div class="form-btn-box">
+                            <a href="/" class="btn-default btn-blue w100-50prc">トップへ戻る</a>
+                        </div>
+                    </div>
+                </section>
+            </article>
+        </div>
+    {{/content}}
+    {{#content "footer-scripts" mode="append"}}
+        <script>
+            _headerUIHandler(null, null, null);
+            $(function(){
+
+            });
+        </script>
+    {{/content}}
+{{/extend}}

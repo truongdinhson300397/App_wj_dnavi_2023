@@ -1,0 +1,92 @@
+{{#extend "components/layout" title="サイトマップ"}}
+    {{#content "header-scripts" mode="append"}}
+        <link rel="stylesheet" href="{{path}}css/others.css" type="text/css" media="all" />
+    {{/content}}
+    {{#content "main"}}
+        <!--  -->
+        <div class="contents-box">
+            <article class="article-box">
+                <header class="article-box-header">
+                    <h2 class="article-box-header-h2">
+                        <span class="article-box-header-h2-jp">サイトマップ</span><br />
+                        <span class="article-box-header-h2-eng">SITE MAP</span>
+                    </h2>
+                </header>
+
+                <section class="drop-shadow-box">
+                    <div class="sitemap-box">
+                        <div class="sitemap-category-box">
+                            <h4 class="sitemap-category-h4">イベント</h4>
+                            <ul class="list-sitemap-ul">
+                                <li class="list-sitemap-ul-li"><a href="/event/eventlist">イベント 一覧</a></li>
+                                <li class="list-sitemap-ul-li"><a href="/mypage/applied_event">予約済みイベント 一覧</a></li>
+                            </ul>
+                        </div>
+                        <div class="sitemap-category-box">
+                            <h4 class="sitemap-category-h4">企業情報</h4>
+                            <ul class="list-sitemap-ul">
+                                <li class="list-sitemap-ul-li"><a href="/company/list">企業 一覧</a></li>
+                                <li class="list-sitemap-ul-li"><a href="/mypage/entered_company">エントリー済企業 一覧</a></li>
+                            </ul>
+                        </div>
+                        <div class="sitemap-category-box">
+                            <h4 class="sitemap-category-h4">インターンシップ</h4>
+                            <ul class="list-sitemap-ul">
+                                <li class="list-sitemap-ul-li"><a href="/internship/list">インターンシップ 一覧</a></li>
+                                <li class="list-sitemap-ul-li"><a href="/mypage/entered_internship">エントリー済<span class="ilb">インターンシップ </span><span class="ilb">一覧</span></a></li>
+                            </ul>
+                        </div>
+                        <div class="sitemap-category-box">
+                            <h4 class="sitemap-category-h4">検索機能</h4>
+                            <ul class="list-sitemap-ul">
+                                <li class="list-sitemap-ul-li"><a href="/company/search">企業 検索</a></li>
+                                <li class="list-sitemap-ul-li"><a href="/internship/search">インターンシップ 検索</a></li>
+                                <li class="list-sitemap-ul-li"><a href="/disclosure">情報公開度ランキング</a></li>
+                                <li class="list-sitemap-ul-li"><a href="/company_image">イメージ検索</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="sitemap-category-box">
+                            <h4 class="sitemap-category-h4">ユーティリティ</h4>
+                            <ul class="list-sitemap-ul">
+                                <li class="list-sitemap-ul-li"><a href="/contents">コンテンツ 一覧</a></li>
+                                <li class="list-sitemap-ul-li"><a href="/app">アプリ 一覧</a></li>
+                                <li class="list-sitemap-ul-li"><a href="/faq/list">FAQ（学生用）</a></li>
+                                <li class="list-sitemap-ul-li"><a href="/contact">お問合せ</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="sitemap-category-box">
+                            <h4 class="sitemap-category-h4">マイページ</h4>
+                            <ul class="list-sitemap-ul">
+                                <li class="list-sitemap-ul-li"><a href="/mypage/top">マイページ HOME</a></li>
+                                <li class="list-sitemap-ul-li"><a href="/mypage/mycode">マイコード</a></li>
+                                <li class="list-sitemap-ul-li"><a href="/mypage/memberinfo/edit">会員情報編集</a></li>
+                                <li class="list-sitemap-ul-li"><a href="/mypage/reset_mail">メールアドレス変更</a></li>
+                                <li class="list-sitemap-ul-li"><a href="/mypage/reset_password">パスワード変更</a></li>
+                                <li class="list-sitemap-ul-li"><a href="/mypage/quitdnavi/user/confirm">退会</a></li>
+                            </ul>
+                        </div>
+
+                        <!--            <div class="sitemap-category-box">-->
+                        <!--              <h4 class="sitemap-category-h4">その他</h4>-->
+                        <!--              <ul class="list-sitemap-ul">-->
+                        <!--                <li class="list-sitemap-ul-li"><a href="/mypage/top">掲載企業様用FAQ</a></li>-->
+                        <!--                <li class="list-sitemap-ul-li"><a href="/mypage/mycode">掲載企業用問い合わせ窓口</a></li>-->
+                        <!--              </ul>-->
+                        <!--            </div>-->
+                    </div>
+                </section>
+
+            </article>
+
+        </div>
+    {{/content}}
+    {{#content "footer-scripts" mode="append"}}
+        <script>
+            $(function(){
+                _headerUIHandler();
+            });
+        </script>
+    {{/content}}
+{{/extend}}

@@ -1,0 +1,130 @@
+{{#extend "components/layout" title="ダイヤモンド就活ナビ2021：学生のための就職活動・採用情報サイト | 玉手箱対策 mini模擬試験"}}
+    {{#content "header-scripts" mode="append"}}
+        <link rel="stylesheet" href="{{path}}css/form.css" type="text/css" media="all"/>
+        <link rel="stylesheet" href="{{path}}css/contents.css" type="text/css" media="all"/>
+        <style>
+            h3.sub {
+                margin-bottom: 15px;
+            }
+            .btn-inactive {
+                cursor: not-allowed;
+            }
+
+            .btn-inactive:before {
+                content: '';
+                background: gray;
+                cursor: not-allowed;
+            }
+
+            .btn-inactive:after {
+                content: '';
+                background: gray;
+                cursor: not-allowed;
+            }
+            #tempButton {
+                opacity: 0;
+                pointer-events: none;
+            }
+            @media only screen and (max-width: 479px) {
+                a.back-button{
+                    position: relative;
+                    top: 59px;
+                }
+                a.next-button{
+                    position: relative;
+                    bottom: 59px;
+                }
+                #tempButton {
+                    display: none;
+                }
+            }
+        </style>
+    {{/content}}
+    {{#content "main"}}
+        <div class="contents-box">
+            <!-- TODO: article -->
+            <article class="article-box">
+                <header class="article-box-header">
+                    <h2 class="article-box-header-h2">
+                        <span class="article-box-header-h2-jp">玉手箱対策 mini模擬試験</span>
+                        <!-- <br /><span class="article-box-header-h2-eng"></span> -->
+                    </h2>
+                </header>
+                <!-- TODO: number of questions and time -->
+                <section class="drop-shadow-box">
+                    <ul class="progress-ul">
+                        <li class="progress-ul-li">
+                            <div class="progress-ul-li-hd">回答数</div>
+                            <div class="progress-ul-li-num"><span class="current-number-answer progress-ul-li-num-cnt"></span> /
+                                <span class="total-number-question progress-ul-li-num-total"></span> 問
+                            </div>
+                            <div class="progress-ul-li-bar">
+                                <div class="progressbar-outer">
+                                    <div class="current-answer-counter progressbar-inner" style="width: 0%"></div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="progress-ul-li">
+                            <div class="progress-ul-li-hd">時間</div>
+                            <div class="progress-ul-li-num"><span class="current-user-time progress-ul-li-num-cnt"></span> / <span
+                                    class="total-user-time progress-ul-li-num-total"></span> 分
+                            </div>
+                            <div class="progress-ul-li-bar">
+                                <div class="progressbar-outer">
+                                    <div class="current-time-counter progressbar-inner" style="width: 0%"></div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </section>
+
+                <!-- TODO: problem number -->
+                <section class="drop-shadow-box mgnt30-50">
+                    <div class="contents-question-outer">
+                        <h4 class="problem-number contents-question-h4"></h4>
+                        <div class="problem-title contents-question-txt">
+                        </div>
+                        <div class="problem-content contents-question-box">
+                        </div>
+                    </div>
+
+                    <!-- TODO: question number -->
+                    <div class="contents-answer-outer">
+                        <h4 class="question-number contents-answer-h4"></h4>
+                        <div class="question-intro contents-question-txt txt-blue mgnb15-20">
+                        </div>
+                        <ul class="question-answer-list contents-answer-ul">
+                        </ul>
+
+                        <!-- TODO: next/back button -->
+                        <div class="button-container singon-btn-box mgnt30-50">
+                            <a href="javascript:void(0);" id="prev" class="back-button btn-default singon-btn-flex btn-blue btn-first"><span
+                                    class="spn-arr-l" onclick="this.disabled = true"></span>前の問題に戻る</a>
+                            <a href="javascript:void(0);" id="next" class="next-button btn-default singon-btn-flex btn-blue">次の問題へ進む<span
+                                    class="spn-arr-r" onclick="this.disabled = true"></span></a>
+                        </div>
+                        <div class="singon-btn-box mgnt30-50" style="justify-content: space-between;">
+                            <a href="javascript:void(0);" id="tempButton" class="finishQuiz btn-default singon-btn-flex btn-green">
+                            </a>
+                            <a href="javascript:void(0);" id="finishBelow" class="finishQuiz btn-default singon-btn-flex btn-green"
+                               onclick="this.disabled = true">終了<span
+                                    class="spn-arr-r"></span>
+                            </a>
+                        </div>
+                    </div>
+                    <h3 class="txt-blue mgnt30-50">＜ご注意ください＞「終了」を押すと今回は受験完了となり、次回開催まで受験ができなくなります。</h3>
+                </section>
+
+            </article>
+        </div>
+    {{/content}}
+    {{#content "footer-scripts" mode="append"}}
+        <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
+        <script src="{{path}}js/swiper.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="{{path}}js/content/http/api.js"></script>
+        <script src="{{path}}js/content/utils/index.js"></script>
+        <script src="{{path}}js/content/tamatebakomini_3.js"></script>
+    {{/content}}
+{{/extend}}

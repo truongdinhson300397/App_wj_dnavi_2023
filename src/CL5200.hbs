@@ -1,0 +1,193 @@
+{{#extend "components/layout" title="企業イメージ検索"}}
+    {{#content "header-scripts" mode="append"}}
+        <link rel="stylesheet" href="{{path}}css/search.css" type="text/css" media="all"/>
+        <link rel="stylesheet" href="{{path}}css/swiper.css" type="text/css" media="all"/>
+        <style>
+            .image-search-ul {
+                justify-content: flex-start;
+            }
+        </style>
+    {{/content}}
+    {{#content "main"}}
+        <!--  -->
+        <div class="contents-box">
+            <article class="article-box">
+                <header class="article-box-header">
+                    <h2 class="article-box-header-h2">
+                        <span class="article-box-header-h2-jp">イメージ検索</span><br/>
+                        <span class="article-box-header-h2-eng">IMAGE SEARCH</span>
+                    </h2>
+                </header>
+
+                <div class="mgnb20-30 clearfix search-box-50prc">
+                    <div class="select-box search-btn-s-counterpart">
+                        <select class="image-search-list-select">
+                        </select>
+                    </div>
+                    <a href="javascript:void(0);" class="btn-default search-btn-s btn-blue" onclick="_findMeCompanyImages(event)">検索</a>
+                </div>
+
+                <ul class="image-search-ul">
+                </ul>
+                <div class="intern-more-box hidden">
+                    <a href="javascript:void(0);" class="intern-more" onclick="showMoreImage(event, true)">more</a>
+                </div>
+            </article>
+        </div>
+    {{/content}}
+    {{#content "footer-scripts" mode="append"}}
+        <script src="{{path}}js/lightbox.js"></script>
+        <script>
+            _headerUIHandler(null, null, null);
+            var companyId = getUrlParameter('company_id');
+            var companyTagParam = getUrlParameter('company_image_tag_id');
+            var searchByTag = _.isUndefined(companyTagParam) ? '' : companyTagParam;
+            var contractTermId = globalInfo('contract_term_id');
+            var partnerId = globalInfo('partner_id');
+            var page = 1;
+            var firstShowMore = true;
+
+            $(function () {
+                _getCompanyImageTags(searchByTag);
+                _searchCompanyImages(searchByTag);
+            });
+
+            function _hideShowMore (_isHidden = true) {
+                var showMoreBtn = $('.intern-more-box');
+                _isHidden ? showMoreBtn.hide() : showMoreBtn.show();
+            }
+
+            function showMoreImage (e, _isShowMore) {
+                e.preventDefault();
+                _hideShowMore(true);
+
+                // first show more page 4
+                if(firstShowMore) {
+                    page = 4;
+                    firstShowMore = false;
+                }
+
+                _searchCompanyImages($('.image-search-list-select').val(), _isShowMore);
+            }
+
+            function _findMeCompanyImages (e, _isShowMore = false) {
+                e.preventDefault();
+
+                // set firstShowMore true
+                if(firstShowMore === false) {
+                    firstShowMore = true;
+                }
+
+                page = 1;
+                _searchCompanyImages($('.image-search-list-select').val(), _isShowMore);
+            }
+
+            function _searchCompanyImages (_company_image_tag_id, _isShowMore = false) {
+                var $imageSearchUl = $('ul.image-search-ul');
+                var reqToServer = '';
+                if (_.isUndefined(companyId)) {
+                    reqToServer = {
+                        contract_term_id: contractTermId,
+                        partner_id: _.isUndefined(partnerId) ? 0 : partnerId,
+                        per_page: _isShowMore ? 8 : 24,
+                        page: page
+                    };
+                } else {
+                    reqToServer = {
+                        contract_term_id: contractTermId,
+                        company_id: companyId,
+                        partner_id: _.isUndefined(partnerId) ? 0 : partnerId,
+                        per_page: _isShowMore ? 8 : 24,
+                        page: page
+                    };
+                }
+
+                if (!_.isUndefined(_company_image_tag_id)) {
+                    reqToServer.company_image_tag_id = _company_image_tag_id
+                }
+
+                $.ajax({
+                    url: rootVariables.apiUrl  + '/company_images',
+                    dataType: 'json',
+                    type: 'GET',
+                    contentType: 'application/json',
+                    accept: 'application/json',
+                    data: reqToServer,
+                    success: function (_res) {
+                        var companyImages = _res.data;
+
+                        if (_res.pagination.currentPage === _res.pagination.totalPages) {
+                            _hideShowMore(true);
+                        } else {
+                            page = page + 1;
+                            _hideShowMore(false);
+                        }
+
+                        if(companyImages.length === 0) {
+                            $imageSearchUl.empty();
+                        }
+
+                        if (companyImages.length > 0) {
+                            if (!_isShowMore) {
+                                $imageSearchUl.empty();
+                            }
+
+                            _.forEach(companyImages, function (_image) {
+                                var dTag ='';
+                                _.forEach(_image.tag_for_company_images, function (__tag) {
+                                    dTag = dTag + "<span class='tags'># " + __tag.tags + "</span>";
+                                });
+
+                                var imageDetail = "<a href=/" + globalInfo("contract_term") + "/company/detail?company_id=" + _image.company.company_id + "' class='cmpnm'>" + _image.company.company_name + "</a>" + _image.comment + "<section class='tagsbox'>" + dTag + "</section>";
+                                $imageSearchUl.append(
+                                        '<li class="image-search-ul-li">' +
+                                        '  <a href="' + _image.image_url + '" class="image-search-ul-li-a" data-lightbox="CL5200" data-title="' + imageDetail + '">' +
+                                        '    <img src="' + _image.image_url + '" alt="">' +
+                                        '  </a>' +
+                                        '</li>'
+                                );
+                            });
+
+                            setTimeout(function () {
+                                squarePhoto('image-search-ul-li-a');
+                            });
+                        }
+                    },
+                    error: function (jqXhr, textStatus, errorThrown) {
+                        console.log(errorThrown);
+                        $imageSearchUl.empty();
+                        _hideShowMore(true);
+                        $imageSearchUl.text('該当するイメージはありません。');
+                    }
+                });
+            }
+
+            function _getCompanyImageTags (_company_image_tag_id) {
+                $.ajax({
+                    url: rootVariables.apiUrl  + '/master_data/company_image',
+                    dataType: 'json',
+                    type: 'GET',
+                    contentType: 'application/json',
+                    accept: 'application/json',
+                    success: function (_res) {
+                        if (_res.data.length > 0) {
+                            var $imageSearchTags = $('select.image-search-list-select');
+                            var tags = '<option value="0"># すべて</option>';
+                            $imageSearchTags.append(tags);
+                            _.forEach(_res.data, function (_tag) {
+                                var isSelected = '';
+                                if (!_.isUndefined(_company_image_tag_id) && parseInt(_tag.item_key) === parseInt(_company_image_tag_id)) {
+                                    isSelected = 'selected';
+                                }
+                                $imageSearchTags.append('<option value="' + _tag.item_key + '" ' + isSelected + '># ' + _tag.item_value + '</option>');
+                            });
+                        }
+                    },
+                    error: function (jqXhr, textStatus, errorThrown) {
+                        console.log(errorThrown);
+                    }
+                });
+            }
+        </script>
+    {{/content}}
+{{/extend}}

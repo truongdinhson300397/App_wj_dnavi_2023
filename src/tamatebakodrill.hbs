@@ -1,0 +1,84 @@
+{{#extend "components/layout" title="ダイヤモンド就活ナビ2021：学生のための就職活動・採用情報サイト | 玉手箱対策 苦手克服ドリル"}}
+    {{#content "header-scripts" mode="append"}}
+        <link rel="stylesheet" href="{{path}}css/contents.css" type="text/css" media="all" />
+    {{/content}}
+    {{#content "main"}}
+        <div class="contents-box">
+            <!--  -->
+            <article class="article-box">
+                <header class="article-box-header">
+                    <h2 class="article-box-header-h2">
+                        <span class="article-box-header-h2-jp">玉手箱対策 苦手克服ドリル</span>
+                    </h2>
+                </header>
+                <div class="talc fsz-m">
+                    苦手克服のために、理解を深めるために、<br />
+                    自由に問題を選んで練習しましょう！
+                </div>
+                <!--  -->
+                <section class="drop-shadow-box mgnt30-50">
+                    <header class="section-box-header">
+                        <h3 class="section-box-header-h3">
+                            <span class="section-box-header-h3-jp">試験に関する注意</span>
+                        </h3>
+                    </header>
+                    <ul class="list-dot-ul">
+                        <li class="list-dot-ul-li">各問題、タイマー（時間制限）をつけるか、つけないかを選択できます。<br />問題は同じです。</li>
+                        <li class="list-dot-ul-li">何度でも受験をすることができます。</li>
+                        <li class="list-dot-ul-li">過去の結果は残りません。</li>
+                    </ul>
+                </section>
+
+                <!-- TODO: listLanguageCategory -->
+                <section class="drop-shadow-box mgnt30-50">
+                    <header class="section-box-header">
+                        <h3 class="section-box-header-h3">
+                            <span class="section-box-header-h3-jp">玉手箱／非言語カテゴリ</span>
+                        </h3>
+                    </header>
+                    <ul class="contents-drill-ul" id="list-quiz-language-category">
+                    </ul>
+                </section>
+
+                <!-- TODO: listNonLanguageCategory -->
+                <section class="drop-shadow-box mgnt30-50">
+                    <header class="section-box-header">
+                        <h3 class="section-box-header-h3">
+                            <span class="section-box-header-h3-jp">玉手箱／言語カテゴリ</span>
+                        </h3>
+                    </header>
+                    <ul class="contents-drill-ul" id="list-quiz-non-language-category">
+                    </ul>
+                </section>
+
+                <div class="mgnt30-50">
+                    <a href="/contents" class="btn-default btn-gray w100-50prc">コンテンツ一覧に戻る</a>
+                </div>
+
+            </article>
+        </div>
+    {{/content}}
+    {{#content "footer-scripts" mode="append"}}
+        <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
+        <script src="{{path}}js/swiper.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="{{path}}js/content/tamatebakodrill.js"></script>
+        <script>
+            $(function(){
+                _headerUIHandler(null, null, null);
+                localStorage.removeItem("resultQuestions");
+                localStorage.removeItem("time");
+                localStorage.removeItem("questions");
+                localStorage.removeItem("isSubmit");
+                localStorage.removeItem("quizId");
+                localStorage.removeItem("userAnswers");
+                localStorage.removeItem("contentId");
+                localStorage.removeItem("withTimer");
+                localStorage.removeItem("currentQuestion");
+                localStorage.removeItem("contentTitle");
+                getListQuiz();
+            });
+        </script>
+    {{/content}}
+{{/extend}}

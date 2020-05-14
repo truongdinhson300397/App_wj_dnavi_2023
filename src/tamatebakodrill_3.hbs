@@ -1,0 +1,116 @@
+{{#extend "components/layout" title="ダイヤモンド就活ナビ2021：学生のための就職活動・採用情報サイト | 玉手箱対策 苦手克服ドリル"}}
+    {{#content "header-scripts" mode="append"}}
+        <link rel="stylesheet" href="{{path}}css/form.css" type="text/css" media="all" />
+        <link rel="stylesheet" href="{{path}}css/contents.css" type="text/css" media="all" />
+        <style>
+            .question__content .contents-question-box img{
+                width: 100%;
+            }
+            h3.sub {
+                margin-bottom: 15px;
+            }
+            .btn-inactive {
+                cursor: not-allowed;
+            }
+
+            .btn-inactive:before {
+                content: '';
+                background: gray;
+                cursor: not-allowed;
+            }
+
+            .btn-inactive:after {
+                content: '';
+                background: gray;
+                cursor: not-allowed;
+            }
+            #tempButton {
+                opacity: 0;
+                pointer-events: none;
+            }
+            @media only screen and (max-width: 479px) {
+                a#button-prev-question{
+                    position: relative;
+                    top: 59px;
+                }
+                a#button-next-question{
+                    position: relative;
+                    bottom: 59px;
+                }
+                #tempButton {
+                    display: none;
+                }
+            }
+        </style>
+    {{/content}}
+    {{#content "main"}}
+        <div class="contents-box">
+            <!--  -->
+            <article class="article-box">
+                <header class="article-box-header">
+                    <h2 class="article-box-header-h2">
+                        <span class="article-box-header-h2-jp">玉手箱対策 苦手克服ドリル</span>
+                        <!-- <br /><span class="article-box-header-h2-eng"></span> -->
+                    </h2>
+                </header>
+                <!--  -->
+                <section class="section-box">
+                    <header class="section-box-header">
+                        <h3 class="section-box-header-h3">
+                            <span class="section-box-header-h3-jp txt-blue" id="title_content"></span>
+                        </h3>
+                    </header>
+                    <!-- TODO: Progress questions and time quiz -->
+                    <div class="drop-shadow-box">
+                        <ul class="progress-ul" id="render-progress-timer">
+                            <li class="progress-ul-li">
+                                <div class="progress-ul-li-hd">回答数</div>
+                                <div id="progress-number-quiz" class="progress-ul-li-num">
+                                    <!--                <span class="progress-ul-li-num-cnt">0</span> /-->
+                                    <!--                <span class="progress-ul-li-num-total">35</span> 問-->
+                                </div>
+                                <div class="progress-ul-li-bar">
+                                    <div class="progressbar-outer">
+                                        <div id="percent-number-answers" class="progressbar-inner" style="width: 0"></div>
+                                    </div>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+
+                    <!-- TODO: Render question and anwsers -->
+                    <div class="drop-shadow-box mgnt30-50 question__content">
+                        <div class="contents-question-outer" id="question-header">
+                        </div>
+
+                        <div class="contents-answer-outer" >
+                            <h4 class="contents-answer-h4" id="check-type-question"></h4>
+                            <div class="question-intro contents-question-txt txt-blue mgnb15-20 remove__image" id="question-detail-pr"></div>
+                            <ul class="contents-answer-ul" id="answersUl">
+                            </ul>
+
+                            <div class="singon-btn-box mgnt30-50">
+                                <a id="button-prev-question" class="btn-default singon-btn-flex btn-blue btn-first"><span class="spn-arr-l"></span>前の問題に戻る</a>
+                                <a id="button-next-question" class="btn-default singon-btn-flex btn-blue">次の問題へ進む<span class="spn-arr-r"></span></a>
+                            </div>
+                            <div class="singon-btn-box mgnt30-50 btn-finish" id="btn-finish">
+                                <a id="tempButton" class="btn-default singon-btn-flex btn-green"></a>
+                                <a id="finish-quiz" class="btn-default singon-btn-flex btn-green" style="display: none; cursor: pointer">終了
+                                    <span class="spn-arr-r"></span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </article>
+        </div>
+    {{/content}}
+    {{#content "footer-scripts" mode="append"}}
+        <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
+        <script src="{{path}}js/swiper.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="{{path}}js/content/tamatebakodrill_3.js"></script>
+    {{/content}}
+{{/extend}}

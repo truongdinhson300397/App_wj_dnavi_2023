@@ -1,0 +1,155 @@
+{{#extend "components/layout" title="退会"}}
+    {{#content "header-scripts" mode="append"}}
+        <link rel="stylesheet" href="{{path}}css/form.css" type="text/css" media="all"/>
+    {{/content}}
+    {{#content "main"}}
+        <div class="contents-box">
+            <!--  -->
+            <article class="article-box">
+                <header class="article-box-header">
+                    <h2 class="article-box-header-h2">
+                        <span class="article-box-header-h2-jp">退会手続き</span>
+                    </h2>
+                </header>
+                <section class="drop-shadow-box">
+                    <div class="article-box-body">
+                        <!--            <div class="contact-preface">-->
+                        <!--              <dl class="contact-preface-dl">-->
+                        <!--                <dt>IDとパスワードをお持ちの方</dt>-->
+                        <!--                <dd>マイページにログイン後、「登録変更/退会メニュー」より退会をおこなってください。</dd>-->
+
+                        <!--                <dt>IDのみお持ちの方</dt>-->
+                        <!--                <dd>下記の情報を入力してください。</dd>-->
+                        <!--              </dl>-->
+                        <!--              <span class="txt-reduired">＊</span>は必須項目です。-->
+                        <!--            </div>-->
+                        <div class="alert-box hidden">入力された内容に該当する会員情報はありませんでした。<br>他の項目で再度お試しいただいても退会手続きが完了できない場合は、「こちら」からお問合せください。</div>
+                        <table class="tbl-form tbl-th-25prc mgnb30-50">
+                            <tr>
+                                <th class="required">姓名（漢字）</th>
+                                <td id="full_name">手塚　心平</td>
+                            </tr>
+                            <tr>
+                                <th class="required">仮ID</th>
+                                <td id="temporary_id">00000000</td>
+                            </tr>
+                        </table>
+
+                        <!--            <div class="contact-preface">-->
+                        <!--              登録されている学部・学科・電話/携帯番号・ＰＣ/携帯キャリアメールアドレスのいずれか一つを入力してください。-->
+                        <!--            </div>-->
+                        <table class="tbl-form tbl-th-25prc mgnb30-50">
+                            <tr>
+                                <th>学部名</th>
+                                <td id="department">経済学部</td>
+                            </tr>
+                            <tr>
+                                <th>学科名</th>
+                                <td id="section"></td>
+                            </tr>
+                            <tr>
+                                <th>電話番号</th>
+                                <td id="tel"></td>
+                            </tr>
+                            <!-- <tr>
+                              <th>メールアドレス</th>
+                              <td></td>
+                            </tr> -->
+                        </table>
+
+                        <div class="singon-btn-box">
+                            <a href="/quitdnavi/temporary_user/edit" class="btn-default singon-btn-flex btn-blue btn-first">戻る</a>
+                            <a href="#" class="btn-default singon-btn-flex btn-blue" onclick="__letMeLeave(event)">退会</a>
+                        </div>
+                    </div>
+                </section>
+            </article>
+        </div>
+    {{/content}}
+    {{#content "footer-scripts" mode="append"}}
+        <script>
+            _headerUIHandler(null, null, null);
+            var REQUIRED = ['family_name', 'given_name', 'temporary_id'];
+            var ONE_OF_REQUIRED = ['department', 'section'];
+            var FORM_REQUEST = _.concat(REQUIRED, ONE_OF_REQUIRED);
+            var FORM_SETTING = ['full_name', 'temporary_id', 'department', 'section', 'tel'];
+            function scrollTop() {
+                $('body, html').animate({scrollTop: 0}, 500);
+            }
+
+            $(function () {
+                clearText();
+                $('.alert-box').hide();
+                var formData = _.map(FORM_SETTING, function (_form) {
+                    if (_form === 'full_name') {
+                        return {
+                            name: _form,
+                            value: localStorage['family_name'] + ' ' + localStorage['given_name']
+                        };
+                    } else if (_form === 'tel') {
+                        return {
+                            name: _form,
+                            value: !_.isEmpty(localStorage['telBegin']) ? localStorage['telBegin'] + '-' + localStorage['telMiddle'] + '-' + localStorage['telEnd'] : ''
+                        };
+                    } else {
+                        return {
+                            name: _form,
+                            value: localStorage[_form]
+                        };
+                    }
+                });
+
+                setTimeout(function () {
+                    loadForm(formData);
+                });
+            });
+
+            function __letMeLeave (e) {
+                e.preventDefault();
+                var paramToServer = {};
+                _.forEach(FORM_REQUEST, function (_key) {
+                    if (!_.isEmpty(localStorage[_key])) {
+                        paramToServer[_key] = localStorage[_key];
+                    }
+                });
+
+                if (!_.isEmpty(localStorage['telBegin'])) {
+                    paramToServer.tel = localStorage['telBegin'] + '-' + localStorage['telMiddle'] + '-' + localStorage['telEnd'];
+                }
+                // leave reason is empty
+                paramToServer['leave_reason'] = '';
+
+                $.ajax({
+                    url: rootVariables.apiUrl  + '/students/temporary_leave',
+                    dataType: 'json',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    accept: 'application/json',
+                    data: JSON.stringify(paramToServer),
+                    processData: false,
+                    success: function (data) {
+                        toLocationHref('/quitdnavi/temporary_user/complete');
+                        localStorage.clear();
+                    },
+                    error: function (error) {
+                        var errMessage = error.responseJSON.error.message;
+                        scrollTop();
+                        $('.alert-box').html(errMessage).show();
+                    }
+                });
+            }
+
+            function loadForm (_formData) {
+                _.forEach(_formData, function (_form) {
+                    $('#' + _form.name).text(_form.value);
+                });
+            }
+
+            function clearText () {
+                _.forEach(FORM_SETTING, function (_form) {
+                    $('#' + _form).text('');
+                });
+            }
+        </script>
+    {{/content}}
+{{/extend}}

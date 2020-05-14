@@ -1,0 +1,132 @@
+{{#extend "components/layout" title="メールアドレスの変更・配信停止"}}
+    {{#content "header-scripts" mode="append"}}
+        <link rel="stylesheet" href="{{path}}css/login.css" type="text/css" media="all"/>
+        <style type="text/css">
+            .link-text {
+                display: block;
+                margin: auto;
+                width: 230px;
+            }
+
+            @media (min-width: 769px) {
+                .tbl-form th {
+                    width: 220px;
+                }
+            }
+
+            .remind {
+                color: red;
+            }
+        </style>
+    {{/content}}
+    {{#content "main"}}
+        <!--  -->
+        <div class="contents-box">
+            <article class="article-box">
+                <header class="article-box-header">
+                    <h2 class="article-box-header-h2">
+                        <span class="article-box-header-h2-jp">メールアドレスの変更・配信停止</span>
+                        <!-- <br /><span class="article-box-header-h2-eng"></span> -->
+                    </h2>
+                </header>
+                <div class="article-box-body">
+                    <div class="form-preface">
+                        新しいメールアドレスを入力し、［設定］ボタンをクリックしてください。<br/>
+                        <span class="txt-reduired">＊</span>は必須項目です。<br/><br/>
+                        <span class="remind">
+              ！ご注意ください<br/>
+            「配信しない」に設定した場合、ダイヤモンド就活ナビを通じてエントリーした企業からの連絡の一部、掲載企業からのお知らせ、就活イベントのご案内等のメールは一切確認できなくなります。<br/>
+            <br/>
+            ※なお、重要なお知らせのみお送りする場合があります。あらかじめご了承ください。
+            </span>
+                        <div class="category-list-ul-li"><a href="/kiyaku">会員規約はこちら</a></div>
+                    </div>
+                    <div id="div-err" class="hidden alert-box mgnt30-50 "></div>
+                    <form>
+                        <!--email 1-->
+                        <section class="drop-shadow-box mgnt30-50">
+                            <header class="section-box-header">
+                                <h3 class="section-box-header-h3">
+                                    <span class="section-box-header-h3-jp">メールアドレス 1</span>
+                                </h3>
+                            </header>
+                            <table class="tbl-form tbl-th-30prc">
+                                <tr>
+                                    <th class="required">メールアドレス 1</th>
+                                    <td>
+                                        <input type="text" name="email1" class="input-text w100prc" placeholder="メールアドレス"/>
+                                        <span id="alert-email1" class="form-alert">入力してください</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="required">メールアドレス 1（確認）</th>
+                                    <td>
+                                        <input type="text" name="email1_confirmation" class="input-text w100prc" placeholder="メールアドレス（確認）"/>
+                                        <span id="alert-email1-confirmation" class="form-alert">入力してください</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="required">配信設定</th>
+                                    <td>
+                                        <label class="label-default"><input type="radio" name="can_email1" value="1" class="input-radio"/>
+                                            配信する</label>
+                                        <label class="label-default"><input type="radio" name="can_email1" value="0" class="input-radio"/>
+                                            配信しない</label>
+                                    </td>
+                                </tr>
+                            </table>
+                        </section>
+                        <!--email 2-->
+                        <section class="drop-shadow-box mgnt30-50">
+                            <header class="section-box-header">
+                                <h3 class="section-box-header-h3">
+                                    <span class="section-box-header-h3-jp">メールアドレス 2</span>
+                                </h3>
+                            </header>
+                            <div class="form-preface input-item">
+                                <table class="tbl-form tbl-th-30prc">
+                                    <tr>
+                                        <th>メールアドレス 2</th>
+                                        <td>
+                                            <input type="text" name="email2" class="input-text w100prc"
+                                                   placeholder="メールアドレス"/>
+                                            <span id="alert-email2" class="form-alert ">入力してください</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>メールアドレス 2（確認）</th>
+                                        <td>
+                                            <input type="text" name="email2_confirmation" class="input-text w100prc "
+                                                   placeholder="メールアドレス（確認）"/>
+                                            <span id="alert-email2-confirmation" class="form-alert">入力してください</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>配信設定</th>
+                                        <td>
+                                            <label class="label-default">
+                                                <input type="radio" name="can_email2" value="1" class="input-radio"
+                                                       disabled="true"/> 配信する
+                                            </label>
+                                            <label class="label-default">
+                                                <input type="radio" name="can_email2" value="0" class="input-radio"
+                                                       disabled="true"/> 配信しない
+                                            </label>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </section>
+                    </form>
+                    <div class="form-btn-box">
+                        <a id="update-email" href="javascript:void(0);" class="btn-default btn-blue w100-50prc">設定</a>
+                    </div>
+                    <div><a href="/mypage/memberinfo/edit#question_tab" class="link-text">各種情報の配信設定変更はこちら</a></div>
+                </div>
+            </article>
+        </div>
+    {{/content}}
+    {{#content "footer-scripts" mode="append"}}
+        <script src="{{path}}js/pages/CL7400.js"></script>
+    {{/content}}
+{{/extend}}

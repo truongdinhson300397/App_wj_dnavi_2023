@@ -1,0 +1,162 @@
+{{#extend "components/layout" title="お問合せ"}}
+    {{#content "header-scripts" mode="append"}}
+        <link rel="stylesheet" href="{{path}}css/form.css" type="text/css" media="all"/>
+    {{/content}}
+    {{#content "main"}}
+        <div class="contents-box">
+            <!--  -->
+            <article class="article-box">
+                <header class="article-box-header">
+                    <h2 class="article-box-header-h2">
+                        <span class="article-box-header-h2-jp">お問い合わせ</span>
+                        <!-- <br /><span class="article-box-header-h2-eng">ENTRY</span> -->
+                    </h2>
+                </header>
+                <section class="drop-shadow-box">
+                    <div class="article-box-body">
+                        <div class="contact-preface">
+                            お問い合わせの情報を確認してください。<br/>
+                            これでよろしければ、下の「送信」ボタンをクリックしてください。<br/>
+                        </div>
+                        <h3 class="subheading-h3">お問い合わせ内容</h3>
+                        <table class="tbl-form tbl-th-25prc mgnb30-50">
+                            <tr>
+                                <th class="required">姓名（漢字）</th>
+                                <td id="full_name"></td>
+                            </tr>
+                            <tr>
+                                <th>ID</th>
+                                <td id="login_id"></td>
+                            </tr>
+                            <tr>
+                                <th class="required">学校名</th>
+                                <td id="university"></td>
+                            </tr>
+                            <tr>
+                                <th class="required">学部・学科名</th>
+                                <td id="department"></td>
+                            </tr>
+                            <tr>
+                                <th class="required">メールアドレス</th>
+                                <td id="email"></td>
+                            </tr>
+
+                            <tr>
+                                <th class="required">電話番号</th>
+                                <td id="phone"></td>
+                            </tr>
+                            <tr>
+                                <th class="required">お問い合わせ区分</th>
+                                <td id="type"></td>
+                            </tr>
+                            <tr>
+                                <th>お問い合わせの内容</th>
+                                <td id="contents"></td>
+                            </tr>
+                        </table>
+                        <div class="singon-btn-box">
+                            <a href="/contact" class="btn-default singon-btn-flex btn-gray btn-first">戻る</a>
+                            <a href="#" class="btn-default singon-btn-flex btn-blue" onclick="__letMeContact(event)">送信</a>
+                        </div>
+                    </div>
+                </section>
+            </article>
+        </div>
+    {{/content}}
+    {{#content "footer-scripts" mode="append"}}
+        <script>
+            _headerUIHandler(null, null, null);
+            var REQUIRED = ['full_name', 'login_id', 'university', 'department', 'email', 'type', 'phone', 'contents'];
+
+            $(function () {
+                clearText();
+                if (_.isUndefined(localStorage['family_name'])) {
+                    toLocationHref("/contact");
+                }
+
+                var formData = _.map(REQUIRED, function (_form) {
+                    if (_form === 'full_name') {
+                        return {
+                            name: _form,
+                            value: localStorage['family_name'] + ' ' + localStorage['given_name']
+                        };
+                    } else if (_form === 'type') {
+                        return {
+                            name: _form,
+                            value: JSON.parse(localStorage['type']).selectValue
+                        };
+                    } else if (_form === 'phone') {
+                        return {
+                            name: _form,
+                            value: localStorage['phone1'] + '-' + localStorage['phone2'] + '-' + localStorage['phone3']
+                        };
+                    } else {
+                        return {
+                            name: _form,
+                            value: localStorage[_form]
+                        };
+                    }
+                });
+
+                setTimeout(function () {
+                    loadForm(formData);
+                });
+            });
+
+            function loadForm(_formData) {
+                _.forEach(_formData, function (_form) {
+                    $('#' + _form.name).text(_form.value);
+                });
+            }
+
+            function clearText() {
+                _.forEach(REQUIRED, function (_form) {
+                    $('#' + _form).text('');
+                });
+            }
+
+            function __letMeContact(e) {
+                e.preventDefault();
+                var REQUIRED = ['family_name', 'given_name', 'login_id', 'university', 'department', 'email', 'type', 'phone', 'contents'];
+                var paramToServer = {};
+                _.forEach(REQUIRED, function (_key) {
+                    if (!_.isEmpty(localStorage[_key]) || _key === 'phone') {
+                        if (_key === 'type') {
+                            paramToServer.type = JSON.parse(localStorage['type']).selectKey.toString();
+                        } else if (_key === 'phone') {
+                            paramToServer.phone =localStorage['phone1'] + '-' + localStorage['phone2'] + '-' + localStorage['phone3']
+                        } else {
+                            paramToServer[_key] = localStorage[_key];
+                        }
+                    }
+                });
+
+                var contractTermId = globalInfo("contract_term_id");
+                var userId = globalInfo('id_' + contractTermId);
+                var token = globalInfo('jwt_' + contractTermId);
+
+                // Send contract_term_id
+                paramToServer.contract_term_id = contractTermId;
+
+                $.ajax({
+                    url: rootVariables.apiUrl + '/students/contact',
+                    dataType: 'json',
+                    type: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                        'Authorization': 'Bearer ' + token
+                    },
+                    data: JSON.stringify(paramToServer),
+                    success: function () {
+                        toLocationHref("/contact/complete");
+                        localStorage.clear();
+                    },
+                    error: function (jqXhr, textStatus, errorThrown) {
+                        console.log(errorThrown);
+                    }
+                });
+            }
+        </script>
+    {{/content}}
+{{/extend}}

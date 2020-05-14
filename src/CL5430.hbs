@@ -1,0 +1,45 @@
+{{#extend "components/layout" title="退会"}}
+    {{#content "header-scripts" mode="append"}}
+        <link rel="stylesheet" href="/public/css/form.css" type="text/css" media="all" />
+        <style type="text/css">
+            @media (min-width: 769px){
+                .tbl-form th {
+                    width: 200px;
+                }
+            }
+        </style>
+    {{/content}}
+    {{#content "main"}}
+        <!--  -->
+        <div class="contents-box">
+            <article class="article-box">
+                <header class="article-box-header">
+                    <h2 class="article-box-header-h2">
+                        <span class="article-box-header-h2-jp">退会手続き</span>
+                    </h2>
+                </header>
+                <section class="drop-shadow-box">
+                    <div class="article-box-body">
+                        <div class="form-preface">
+                            退会手続きを承りました。<br />
+                            企業様が配信予約を行っている場合、一週間ほどメールが届くことがございますが、ご了承ください。<br />
+                            ご利用ありがとうございました。
+                        </div>
+
+                        <div class="form-btn-box">
+                            <a href="/" class="btn-default btn-blue w100-50prc">トップへ戻る</a>
+                        </div>
+                    </div>
+                </section>
+            </article>
+        </div>
+    {{/content}}
+    {{#content "footer-scripts" mode="append"}}
+        <script>
+            _headerUIHandler(null, null, null);
+            $(function(){
+
+            });
+        </script>
+    {{/content}}
+{{/extend}}

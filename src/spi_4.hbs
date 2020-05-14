@@ -1,0 +1,75 @@
+{{#extend "components/layout" title="ダイヤモンド就活ナビ2021：学生のための就職活動・採用情報サイト | SPI全国統一模擬試験"}}
+    {{#content "header-scripts" mode="append"}}
+        <link rel="stylesheet" href="{{path}}css/form.css" type="text/css" media="all" />
+        <link rel="stylesheet" href="{{path}}css/contents.css" type="text/css" media="all" />
+    {{/content}}
+    {{#content "main"}}
+        <div class="contents-box">
+            <!--  -->
+            <article class="article-box">
+                <header class="article-box-header">
+                    <h2 class="article-box-header-h2">
+                        <span class="article-box-header-h2-jp">SPI全国統一模擬試験</span>
+                        <!-- <br /><span class="article-box-header-h2-eng"></span> -->
+                    </h2>
+                </header>
+                <!--  -->
+                <section class="section-box">
+                    <header class="section-box-header">
+                        <h3 class="section-box-header-h3">
+                            <span class="section-box-header-h3-jp">結果</span>
+                            <!-- <br /><span class="section-box-header-h3-eng"></span> -->
+                        </h3>
+                    </header>
+                    <div class="drop-shadow-box">
+                        <ul class="progress-ul">
+                            <li id="total-time-spend" class="progress-ul-li">
+                                <div class="progress-ul-li-hd">時間</div>
+                                <div class="progress-ul-li-num"><span id="progress-bar-number" class="progress-ul-li-num-cnt"></span> /
+                                    <span class="progress-ul-li-num-total" id="time-total">30</span> 分
+                                </div>
+                                <div class="progress-ul-li-bar">
+                                    <div class="progressbar-outer">
+                                        <div id="progress-bar-percent-quiz-time" class="progressbar-inner" style="width: 0"></div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="drop-shadow-box mgnt30-50">
+                        <div class="contents-question-outer">
+                            <h4 class="contents-answer-h4">回答結果</h4>
+                            <div class="contents-question-txt">
+                                <div id="result-correct" class="contents-result-box">
+                                    <div class="contents-result-box-cell">
+                                        <span class="contents-result-th">正答数</span>
+                                        <span id="result-correct-number" class="contents-result-cnt"></span> 問 / <span
+                                            id="result-correct-total-number" class="contents-result-total"></span>問中
+                                    </div>
+                                    <div class="contents-result-box-cell">
+                                        <span class="contents-result-th">正答率</span>
+                                        <span id="result-correct-percent" class="contents-result-cnt"></span> %
+                                    </div>
+                                </div>
+                                <div class="contents-question-txt-exp">◯ 、× をクリックすると<span class="ilb">解説が見られます。</span></div>
+                            </div>
+                            <ul id="answer-result" class="contents-result-ul">
+                            </ul>
+                            <div class="singon-btn-box mgnt30-50">
+                                <a href="/contents/spi" class="btn-default btn-blue w100-50prc">SPIトップに戻る</a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </article>
+        </div>
+    {{/content}}
+    {{#content "footer-scripts" mode="append"}}
+        <script src="{{path}}js/content/spi_4.js"></script>
+        <script>
+            $(function(){
+                _headerUIHandler(null, null, true);
+            });
+        </script>
+    {{/content}}
+{{/extend}}

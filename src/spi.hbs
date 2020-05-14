@@ -1,0 +1,69 @@
+{{#extend "components/layout" title="ダイヤモンド就活ナビ2021：学生のための就職活動・採用情報サイト | SPI全国統一模擬試験"}}
+    {{#content "header-scripts" mode="append"}}
+        <link rel="stylesheet" href="{{path}}css/form.css" type="text/css" media="all" />
+        <link rel="stylesheet" href="{{path}}css/contents.css" type="text/css" media="all" />
+    {{/content}}
+    {{#content "main"}}
+        <div class="contents-box">
+            <!--  -->
+            <article class="article-box">
+                <header class="article-box-header">
+                    <h2 class="article-box-header-h2">
+                        <span class="article-box-header-h2-jp">SPI全国統一模擬試験</span>
+                        <!-- <br /><span class="article-box-header-h2-eng"></span> -->
+                    </h2>
+                </header>
+                <!-- TODO: Quiz Notice -->
+                <section class="quiz-notice drop-shadow-box">
+                    <header class="section-box-header">
+                        <h3 class="section-box-header-h3">
+              <span class="section-box-header-h3-jp txt-blue quiz-number">
+              </span>
+                        </h3>
+                    </header>
+                    <div class="talc quiz-time">
+                    </div>
+                </section>
+
+                <!--TODO: Quiz Schedule-->
+                <section class="quiz-schedule drop-shadow-box mgnt30-50">
+                    <header class="section-box-header">
+                        <h3 class="section-box-header-h3">
+                            <span class="section-box-header-h3-jp">試験スケジュール</span>
+                        </h3>
+                    </header>
+                    <div class="contents-preface talc">
+                        <div class="fsz-m">毎回、午前10:00にスタート<br/>試験期間は1週間です。</div>
+                        <br/>
+                        試験結果は試験終了後の結果画面で確認出来ます。<br/>
+                        <span class="note-kome ilb tall">画面を閉じた場合その結果は閲覧出来なくなりますのでご注意ください。</span>
+                    </div>
+                    <ul class="contents-ul quiz-list">
+                    </ul>
+                </section>
+                <div class="mgnt30-50">
+                    <a href="/contents" class="btn-default btn-gray w100-50prc">コンテンツ一覧に戻る</a>
+                </div>
+
+            </article>
+        </div>
+    {{/content}}
+    {{#content "footer-scripts" mode="append"}}
+        <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="{{path}}js/swiper.js"></script>
+        <script src="{{path}}js/content/spi.js"></script>
+        <script>
+            $(function () {
+                localStorage.removeItem("time");
+                _headerUIHandler(null, null, null);
+                localStorage.removeItem("current_quiz");
+                localStorage.removeItem("number_questions");
+                localStorage.removeItem("userAnswers");
+                localStorage.removeItem("count-answers");
+                localStorage.removeItem("is_submit");
+            });
+        </script>
+    {{/content}}
+{{/extend}}

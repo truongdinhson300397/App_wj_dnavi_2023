@@ -1,0 +1,120 @@
+{{#extend "components/layout" title="マイページメニュー"}}
+    {{#content "header-scripts" mode="append"}}
+        <link rel="stylesheet" href="{{path}}css/swiper.css" type="text/css" media="all" />
+        <link rel="stylesheet" href="{{path}}css/CL0020.css" type="text/css" media="all" />
+        <link rel="stylesheet" href="{{path}}css/others.css" type="text/css" media="all" />
+        <style>
+            .disabled {
+                background: #ccc;
+                pointer-events: none;
+            }
+            .disabled:after, .disabled:before {
+                background: #ccc;
+            }
+        </style>
+    {{/content}}
+    {{#content "main"}}
+        <div class="contents-box">
+            <!--  -->
+            <article class="article-box">
+                <header class="article-box-header">
+                    <h2 class="article-box-header-h2">
+                        <span class="article-box-header-h2-jp">マイページ</span><br />
+                        <span class="article-box-header-h2-eng">MY PAGE</span>
+                    </h2>
+                </header>
+                <section class="drop-shadow-box">
+                    <div class="member-info clearfix">
+                        <span id="student-name" class="member-name"></span>
+                        <span id="student-school" class="member-school"></span>
+                        <span class="member-grd"><span id="student-grd-year" class="member-grdy"></span><span class="member-grde">卒業予定</span></span>
+                    </div>
+                    <ul class="mypage-btn-ul">
+                        <li class="mypage-btn-ul-li">
+                            <a href="/mypage/applied_event" class="mypage-btn">
+                                <span class="mypage-btn-ttl mypage-btn-ttl-01">予約イベント</span>
+                                <span class="mypage-btn-txt">予約イベント（企業／合同イベント）の確認・キャンセル</span>
+                            </a>
+                        </li>
+                        <li class="mypage-btn-ul-li">
+                            <a id="applied-recruit"  href="/mypage/entered_company" class="mypage-btn">
+                                <span class="mypage-btn-ttl mypage-btn-ttl-02">エントリー済企業（採用）</span>
+                                <span class="mypage-btn-txt">エントリー済み企業の確認</span>
+                            </a>
+                        </li>
+                        <li class="mypage-btn-ul-li">
+                            <a id="applied-internship" href="/mypage/entered_internship" class="mypage-btn">
+                                <span class="mypage-btn-ttl mypage-btn-ttl-03">エントリー済企業（インターンシップ）</span>
+                                <span class="mypage-btn-txt">エントリー済み企業の確認</span>
+                            </a>
+                        </li>
+                        <li class="mypage-btn-ul-li">
+                            <a href="/mypage/memberinfo/edit" class="mypage-btn">
+                                <span class="mypage-btn-ttl mypage-btn-ttl-04">会員情報／志望条件の編集</span>
+                                <span class="mypage-btn-txt">氏名、住所、入社希望年月ほか、志望職種や業種、勤務地の編集はこちら</span>
+                            </a>
+                        </li>
+                        <li class="mypage-btn-ul-li">
+                            <a href="/mypage/reset_mail" class="mypage-btn">
+                                <span class="mypage-btn-ttl mypage-btn-ttl-05">メールアドレスの変更・配信停止</span>
+                                <span class="mypage-btn-txt">ご登録のメールアドレスごとに設定変更が可能です</span>
+                            </a>
+                        </li>
+                        <li class="mypage-btn-ul-li">
+                            <a href="/mypage/reset_password" class="mypage-btn"><span class="mypage-btn-ttl mypage-btn-ttl-06">パスワードの変更</span></a>
+                        </li>
+                        <li class="mypage-btn-ul-li">
+                            <a href="/mypage/quitdnavi/user/confirm" class="mypage-btn"><span class="mypage-btn-ttl mypage-btn-ttl-07">退会</span></a>
+                        </li>
+                        <li class="mypage-btn-ul-li">
+                            <a href="/logout" class="mypage-btn"><span class="mypage-btn-ttl mypage-btn-ttl-07">ログアウト</span></a>
+                        </li>
+                    </ul>
+                </section>
+            </article>
+        </div>
+    {{/content}}
+    {{#content "footer-scripts" mode="append"}}
+        <script>
+            _headerUIHandler(null, null, true);
+            $(function(){
+                var contractTermId = globalInfo("contract_term_id");
+                var studentId = globalInfo('id_' + contractTermId);
+                var token = globalInfo('jwt_' + contractTermId);
+
+                if (contractTermId === '2') {
+                    $('#applied-recruit').addClass('disabled');
+                    $('#applied-internship').addClass('disabled');
+                }
+
+                function _getStudentInfo () {
+                    $.ajax({
+                        url: rootVariables.apiUrl  + '/students/'+ studentId +'/me',
+                        dataType: 'json',
+                        type: 'GET',
+                        headers:{
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json',
+                            'Authorization': 'Bearer ' + token
+                        },
+                        success: function (res) {
+                            var studentName = res.data.family_name + ' ' + res.data.given_name;
+                            var studentSchool = res.data.university + ' ' + res.data.department + ' ' + res.data.section;
+                            var studentGrdYear = res.data.graduation_year + '年' + res.data.graduation_month + '月';
+                            $("#student-name").text(studentName);
+                            $("#student-school").text(studentSchool);
+                            $("#student-grd-year").text(studentGrdYear);
+                        },
+                        error: function (jqXhr, textStatus, errorThrown) {
+                            console.log(errorThrown);
+                            console.log(textStatus);
+                            console.log(XMLHttpRequest);
+                        }
+                    });
+                }
+
+                _getStudentInfo();
+            });
+        </script>
+    {{/content}}
+{{/extend}}

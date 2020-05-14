@@ -1,0 +1,56 @@
+{{#extend "components/layout" title="ダイヤモンド就活ナビ2021：学生のための就職活動・採用情報サイト | 玉手箱対策 mini模擬試験"}}
+    {{#content "header-scripts" mode="append"}}
+        <link rel="stylesheet" href="{{path}}css/form.css" type="text/css" media="all"/>
+        <link rel="stylesheet" href="{{path}}css/contents.css" type="text/css" media="all"/>
+        <style>
+            .bg-image-red{
+                /* fix link img here*/
+                background-image: url(img/input-radio-red.png);
+            }
+        </style>
+    {{/content}}
+    {{#content "main"}}
+        <div class="contents-box">
+            <!--  -->
+            <article class="article-box">
+                <header class="article-box-header">
+                    <h2 class="article-box-header-h2">
+                        <span class="article-box-header-h2-jp">玉手箱対策 mini模擬試験</span>
+                        <!-- <br /><span class="article-box-header-h2-eng"></span> -->
+                    </h2>
+                </header>
+                <!-- ssss -->
+                <section class="user-question-result-list section-box">
+                    <header class="section-box-header">
+                        <h3 class="section-box-header-h3">
+                            <span class="section-box-header-h3-jp">解説</span>
+                            <!-- <br /><span class="section-box-header-h3-eng"></span> -->
+                        </h3>
+                    </header>
+
+                    <!-- TODO: question-result-list -->
+
+                </section>
+                <div class="mgnt30-50">
+                    <a href="javascript:void(0);" class="btn-default btn-blue w100-50prc" id="btnToResult"><span
+                            class="spn-arr-l"></span>回答結果に戻る</a>
+                </div>
+
+            </article>
+        </div>
+    {{/content}}
+    {{#content "footer-scripts" mode="append"}}
+        <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
+        <script src="{{path}}js/swiper.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="{{path}}js/content/http/api.js"></script>
+        <script src="{{path}}js/content/utils/index.js"></script>
+        <script src="{{path}}js/content/tamatebakomini_5.js"></script>
+        <script>
+            $(function () {
+                _headerUIHandler(null, null, true);
+            });
+        </script>
+    {{/content}}
+{{/extend}}

@@ -1,0 +1,68 @@
+{{#extend "components/layout" title="ダイヤモンド就活ナビ2021：学生のための就職活動・採用情報サイト | 玉手箱対策 苦手克服ドリル"}}
+    {{#content "header-scripts" mode="append"}}
+        <link rel="stylesheet" href="{{path}}css/form.css" type="text/css" media="all" />
+        <link rel="stylesheet" href="{{path}}css/contents.css" type="text/css" media="all" />
+    {{/content}}
+    {{#content "main"}}
+        <div class="contents-box">
+            <!--  -->
+            <article class="article-box">
+                <header class="article-box-header">
+                    <h2 class="article-box-header-h2">
+                        <span class="article-box-header-h2-jp">玉手箱対策 苦手克服ドリル</span>
+                        <!-- <br /><span class="article-box-header-h2-eng"></span> -->
+                    </h2>
+                </header>
+                <!--  -->
+                <section class="section-box">
+                    <header class="section-box-header">
+                        <h3 class="section-box-header-h3">
+                            <span class="section-box-header-h3-jp txt-blue" id="title_content"></span><br />
+                            <span class="section-box-header-h3-jp">結果</span>
+                        </h3>
+                    </header>
+                    <div class="drop-shadow-box">
+                        <div class="contents-question-outer">
+                            <h4 class="contents-answer-h4">回答結果</h4>
+                            <div class="contents-question-txt">
+                                <div class="contents-result-box">
+                                    <div class="contents-result-box-cell">
+                                        <span class="contents-result-th">正答数</span>
+                                        <!-- TODO: Render number correct answer -->
+                                        <span class="contents-result-cnt" id="number-correct-answer"></span> 問 /
+                                        <span class="contents-result-total" id="total-question"></span>問中
+                                    </div>
+                                </div>
+                                <div class="contents-question-txt-exp">◯ 、× をクリックすると<span class="ilb">解説が見られます。</span></div>
+                            </div>
+
+                            <!-- TODO: Render list result questions -->
+                            <ul class="contents-result-ul" id="result-ul">
+                            </ul>
+
+                            <div class="singon-btn-box mgnt30-50">
+                                <a id="re-quiz" class="btn-default btn-green w100-50prc" style="cursor: pointer;">もう一度挑戦する</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="singon-btn-box mgnt30-50">
+                        <a href="/contents/tamatebako_drill" class="btn-default btn-blue w100-50prc">ドリル一覧に戻る</a>
+                    </div>
+                </section>
+            </article>
+        </div>
+    {{/content}}
+    {{#content "footer-scripts" mode="append"}}
+        <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
+        <script src="{{path}}js/swiper.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="{{path}}js/content/tamatebakodrill_4.js"></script>
+        <script>
+            $(function(){
+                _headerUIHandler(null, null, true);
+                getResultQuestions();
+            });
+        </script>
+    {{/content}}
+{{/extend}}

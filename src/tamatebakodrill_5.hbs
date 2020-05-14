@@ -1,0 +1,49 @@
+{{#extend "components/layout" title="ダイヤモンド就活ナビ2021：学生のための就職活動・採用情報サイト | 玉手箱対策 苦手克服ドリル"}}
+    {{#content "header-scripts" mode="append"}}
+        <link rel="stylesheet" href="{{path}}css/form.css" type="text/css" media="all" />
+        <link rel="stylesheet" href="{{path}}css/contents.css" type="text/css" media="all" />
+        <style>
+            .question__content .contents-question-box img{
+                width: 100%;
+            }
+            h3.sub {
+                margin-bottom: 15px;
+            }
+            .bg-image-red{
+                /* fix link img here*/
+                background-image: url(../Project-dNavi_content/img/input-radio-red.png);
+            }
+        </style>
+    {{/content}}
+    {{#content "main"}}
+        <div class="contents-box">
+            <!--  -->
+            <article class="article-box">
+                <header class="article-box-header">
+                    <h2 class="article-box-header-h2">
+                        <span class="article-box-header-h2-jp">玉手箱対策 苦手克服ドリル</span>
+                        <!-- <br /><span class="article-box-header-h2-eng"></span> -->
+                    </h2>
+                </header>
+                <!-- TODO: Render questions, answers, answers correct, user answers checked and answers incorecct -->
+                <section class="section-box question__content" id="quiz">
+                    <header class="section-box-header">
+                        <h3 class="section-box-header-h3">
+                            <span class="section-box-header-h3-jp txt-blue" id="title_content"></span><br />
+                            <span class="section-box-header-h3-jp">解説</span>
+                        </h3>
+                    </header>
+                </section>
+                <div class="mgnt30-50">
+                    <a id="btn-back-drill_4" class="btn-default btn-blue w100-50prc" style="cursor: pointer;"><span class="spn-arr-l"></span>回答結果に戻る</a>
+                </div>
+            </article>
+        </div>
+    {{/content}}
+    {{#content "footer-scripts" mode="append"}}
+        <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
+        <script src="{{path}}js/swiper.js"></script>
+        <script src="{{path}}js/content/tamatebakodrill_5.js"></script>
+    {{/content}}
+{{/extend}}
