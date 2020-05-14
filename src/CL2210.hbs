@@ -1,0 +1,675 @@
+{{#extend "components/layout" title="イベント 予約"}}
+    {{#content "header-scripts" mode="append"}}
+        <link rel="stylesheet" href="{{path}}css/others.css" type="text/css" media="all"/>
+        <link rel="stylesheet" href="{{path}}css/event.css" type="text/css" media="all"/>
+        <style>
+            .btn-disabled{
+                background: #ccc;
+                pointer-events: none;
+            }
+            .btn-disabled:after {
+                background: #cccccc !important;
+            }
+            .btn-disabled:before {
+                background: #cccccc !important;
+            }
+        </style>
+    {{/content}}
+    {{#content "main"}}
+        <div class="contents-box">
+            <!--  -->
+            <article class="article-box">
+                <div class="drop-shadow-box">
+                    <header class="article-box-header">
+                        <h2 class="article-box-header-h2">
+                            <span class="article-box-header-h2-jp">イベント 予約</span><br/>
+                            <span class="article-box-header-h2-eng">RESERVATION</span>
+                        </h2>
+                    </header>
+                    <div class="article-box-body">
+                        <div class="event-detail-info-box"></div>
+
+                        <div class="event-detail-box"></div>
+
+                        <div class="alert-box hidden"></div>
+
+                        <div class="form-btn-box">
+                            <div class="reserve-btn-note">上記のイベントに予約します。</div>
+                            <a href="javascript:void(0);" id="__event-btn-book" class="btn-default btn-blue w100-50prc"
+                               style="display: none">予約</a>
+                        </div>
+
+                        <div class="preface-outer-box">
+                            <div class="preface-box">
+                                <!-- <h4 class="preface-h4">イベントご予約時、ご登録情報から以下の情報が企業に送信されます。</h4> -->
+                                <div class="preface-emphasis talc">イベントご予約時、ご登録情報から以下の情報が企業に送信されます。</div>
+                                <ul class="list-disc-ul block-centering mgnt20-30 mgnb20-30">
+                                    <li class="list-disc-ul-li">姓名</li>
+                                    <li class="list-disc-ul-li">メールアドレス</li>
+                                    <li class="list-disc-ul-li">現住所</li>
+                                    <li class="list-disc-ul-li">電話番号</li>
+                                    <li class="list-disc-ul-li">休暇中の連絡先</li>
+                                    <li class="list-disc-ul-li">学校情報</li>
+                                    <li class="list-disc-ul-li">保有資格</li>
+                                </ul>
+
+                                登録情報は企業への送信の前に確認・変更が可能です。<br/>
+                                <a href="/mypage/memberinfo/edit" class="link-text">登録情報を確認・修正</a><br/><br/>
+                                個人情報の取り扱いについては利用規約からご確認ください。<br/>
+                                <a href="/kiyaku" class="link-text">利用規約を確認</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    {{/content}}
+    {{#content "footer-scripts" mode="append"}}
+        <script>
+            _headerUIHandler(null, null, true);
+            var contractTermId = globalInfo("contract_term_id");
+            var urlHelpers = new UrlHelper();
+            var eventId = urlHelpers.getParamByName('event_id');
+            var eventDateId = urlHelpers.getParamByName('event_date_id');
+            var stdId = globalInfo('id_' + contractTermId);
+            var jwt = globalInfo('jwt_' + contractTermId);
+            var registrantId = globalInfo('registrant_id');
+            var eventFrom = urlHelpers.getParamByName('event_from');
+
+            // For ASURA
+            var eventHeldDateId = parseInt(urlHelpers.getParamByName('event_held_date_id'));
+            var forAsura = urlHelpers.getParamByName('eventOf') === 'ASURA';
+            var stepId = urlHelpers.getParamByName('step_id');
+            var asuraCompanyId = urlHelpers.getParamByName('asura_company_id');
+            var postDataToAsura = {};
+            var formatedEvent = null;
+            var formatedEventDate = null;
+
+            function _checkEventIsBooked(checkedEventDateId, previousError) {
+                $.ajax({
+                    url: rootVariables.apiUrl + '/events/' + eventId,
+                    dataType: 'json',
+                    type: 'GET',
+                    headers: {
+                        Authorization: 'Bearer ' + jwt,
+                        ContentType: 'application/json',
+                        Accept: 'application/json'
+                    },
+                    success: function (_res) {
+                        var _event = _res.data;
+                        // check  checkedEventDateId has already booked or not
+                        var matchedEventDate = _event.event_dates.filter(function (eventDate) {
+                            if (eventDate.event_date_id == checkedEventDateId && !_.isEmpty(eventDate.event_user)) {
+                                return true;
+                            }
+                        });
+                        if (matchedEventDate.length > 0) {
+                            toLocationHref('/mypage/applied_event');
+                            localStorage.clear();
+                        } else {
+                            $('.alert-box').append(previousError);
+                            $('.alert-box').show();
+                        }
+
+                    },
+                    error: function (jqXhr, textStatus, errorThrown) {
+                        console.log(errorThrown);
+                        $('.alert-box').show();
+                    }
+                });
+            }
+
+            $(function () {
+                function _initEventDetail() {
+                    if (forAsura) {
+                        $.ajax({
+                            url: apiUrlAsura + '/outside_events/get_event_detail',
+                            dataType: 'json',
+                            type: 'POST',
+                            contentType: 'application/json',
+                            accept: 'application/json',
+                            data: JSON.stringify({
+                                asura_company_id: parseInt(asuraCompanyId),
+                                asura_student_id: parseInt(registrantId),
+                                step_id: parseInt(stepId),
+                                event_held_date_id: eventHeldDateId
+                            }),
+                            processData: false,
+                            success: function (_res) {
+                                _generateEventDetail(_refactorEventForAsura(_res.response));
+                                // Show join year alert
+                                // if (event.join_year_alert) {
+                                //   $('.alert-box').
+                                //     text('入社希望年が' + event.join_year_from + '年' + event.join_month_from + '月～' + event.join_year_to + '年' +
+                                //       event.join_month_to + '月の方が対象になっております。').
+                                //     show();
+                                // }
+                            },
+                            error: function (jqXhr, textStatus, errorThrown) {
+                                console.log(errorThrown);
+                                $('.alert-box').show();
+                            }
+                        });
+                    } else {
+                        $.ajax({
+                            url: rootVariables.apiUrl + '/events/' + eventId,
+                            dataType: 'json',
+                            type: 'GET',
+                            headers: {
+                                Authorization: 'Bearer ' + jwt,
+                                ContentType: 'application/json',
+                                Accept: 'application/json'
+                            },
+                            success: function (_res) {
+                                var event = _res.data;
+                                _generateEventDetail(event);
+
+                                // Show join year alert
+                                if (event.join_year_alert) {
+                                    $('.alert-box').text('入社希望年が' + event.join_year_from + '年' + event.join_month_from + '月～' + event.join_year_to + '年' +
+                                            event.join_month_to + '月の方が対象になっております。').show();
+                                }
+                            },
+                            error: function (jqXhr, textStatus, errorThrown) {
+                                console.log(errorThrown);
+                                $('.alert-box').show();
+                            }
+                        });
+                    }
+                }
+
+                // FOR ASURA
+                function _refactorEventForAsura(_eventAsura) {
+                    if (_.isEmpty(_eventAsura)) {
+                        return {};
+                    }
+                    var eventRefactored = {};
+                    var eventDates = [];
+
+                    _.forEach(_eventAsura.eventHeldVenues, function (eventHeldVenues) {
+                        var addresses = eventHeldVenues.address;
+
+                        eventRefactored.prefecture = eventHeldVenues.address.pref;
+                        eventRefactored.addressFromAsura = (_.isNull(addresses.pref) ? '' : addresses.pref) +
+                                (_.isNull(addresses.city) ? '' : addresses.city) + (_.isNull(addresses.town) ? '' : addresses.town) +
+                                (_.isNull(addresses.banchi) ? '' : addresses.banchi) + (_.isNull(addresses.building) ? '' :  addresses.building);
+                        eventRefactored.title = _eventAsura.eventName;
+                        eventRefactored.place_name = eventHeldVenues.placeName;
+                        eventRefactored.googlemap = eventHeldVenues.googlemap;
+                        eventRefactored.related_events = [];
+
+                        _.forEach(eventHeldVenues.eventHeldDates, function (_dates) {
+                            _.forEach(_dates.eventHeldTimezones, function (_times) {
+                                eventDates.push({
+                                    event_date_id: _times.eventTimezone.stepTimezoneId,
+                                    event_time_from: _times.eventTimezone.fromTime,
+                                    event_time_to: _times.eventTimezone.toTime,
+                                    entry_deadline_datetime_from: _dates.reserveOpen,
+                                    entry_deadline_datetime_to: _dates.reserveClose,
+                                    event_date: _dates.heldDate
+                                });
+                            });
+                        });
+                    });
+                    eventRefactored.event_dates = eventDates;
+
+                    return eventRefactored;
+                }
+
+                function _generateEventDetail(_event) {
+                    formatedEvent = _event;
+                    var eventDateData = _.find(_event.event_dates, function (_date) {
+                        return parseInt(_date.event_date_id) === parseInt(eventDateId);
+                    });
+
+                    formatedEventDate = eventDateData;
+
+                    var eventDate = moment(eventDateData.event_date).format('MM/D');
+                    var eventDay = moment(eventDateData.event_date).format('ddd').toUpperCase();
+                    var eventTimeFrom = moment(eventDateData.event_time_from, 'HH:mm:ss').format('HH:mm');
+                    var eventTimeTo = moment(eventDateData.event_time_to, 'HH:mm:ss').format('HH:mm');
+
+                    $('.event-detail-info-box').append(
+                            '<div class="event-detail-info-loc">' + _event.prefecture + '</div>' +
+                            '  <div class="event-detail-info-dateday">' +
+                            '    <span class="event-detail-info-date">' + eventDate + '</span>' +
+                            '    <span class="event-detail-info-day">' + eventDay + '</span>' +
+                            '  </div>' +
+                            '<div class="event-detail-info-time">' + eventTimeFrom + '〜' + eventTimeTo + '</div>'
+                    );
+
+                    var address1 = _.isNull(_event.place_address1) ? '' : _event.place_address1;
+                    var address2 = _.isNull(_event.place_address2) ? '' : '-' + _event.place_address2;
+                    var address = _.isUndefined(_event.addressFromAsura)
+                            ? _event.prefecture + _event.place_city + address1 + address2
+                            : _event.addressFromAsura;
+
+                    $('.event-detail-box').append(
+                            '<h3 class="event-detail-h3">' + _event.title + '</h3>' +
+                            '<div class="map-venue-name">' + _event.place_name + '</div>' +
+                            '<div class="map-venue-address">住所：' + address + '</div>'
+                    );
+                    $('#__event-btn-book').fadeIn();
+                }
+
+                function _letMeBookIt() {
+                    var postData = {
+                        event_id: eventId,
+                        event_date_id: eventDateId
+                    };
+
+                    if (eventFrom === 'admin') {
+                        _.assign(postData, {'event_from': 'admin'});
+                    }
+
+                    $.ajax({
+                        url: rootVariables.apiUrl + '/students/' + stdId + '/book_event',
+                        dataType: 'json',
+                        type: 'PUT',
+                        headers: {
+                            Authorization: 'Bearer ' + jwt,
+                            ContentType: 'application/json',
+                            Accept: 'application/json'
+                        },
+                        data: postData,
+                        success: function (_res) {
+                            localStorage.clear();
+                            toLocationHref('/mypage/applied_event');
+                        },
+                        error: function (jqXhr, textStatus, errorThrown) {
+                            console.log(errorThrown);
+                            if (jqXhr && jqXhr.responseJSON && jqXhr.responseJSON.error) {
+                                _checkEventIsBooked(eventDateId, jqXhr.responseJSON.error.message);
+                            }
+                        }
+                    });
+                }
+
+                function _updateRegistrantId(_registrantId, _e2rProId) {
+                    $.ajax({
+                        url: rootVariables.apiUrl + '/students/' + stdId + '/update_registrant_id',
+                        dataType: 'json',
+                        type: 'POST',
+                        headers: {
+                            Authorization: 'Bearer ' + jwt,
+                            ContentType: 'application/json',
+                            Accept: 'application/json'
+                        },
+                        data: {
+                            registrant_id: _registrantId,
+                            e2r_pro_id: _e2rProId
+                        },
+                        processData: true,
+                        success: function (_res) {
+                            localStorage.clear();
+                            toLocationHref('/mypage/applied_event');
+                        },
+                        error: function (jqXhr, textStatus, errorThrown) {
+                            console.log(errorThrown);
+                        }
+                    });
+                }
+
+                function changeExecInfoCase1() {
+                    postDataToAsura.execInfo.asura_student_id = null;
+                    postDataToAsura.execInfo.dnavi_entry_route.major.id = 7;
+                    postDataToAsura.execInfo.dnavi_entry_route.major.name = '企業セミナー予約';
+                    postDataToAsura.execInfo.dnavi_entry_route.inter.id = '';
+                    postDataToAsura.execInfo.dnavi_entry_route.inter.name = '';
+                    postDataToAsura.execInfo.dnavi_entry_route.minor.id = '';
+                    postDataToAsura.execInfo.dnavi_entry_route.minor.name = '';
+                }
+
+                // function changeExecInfoCase2(asuraUser) {
+                //
+                //   var eventTimeFrom = moment(formatedEventDate.event_time_from, 'HH:mm:ss').format('HH:mm');
+                //   var eventTimeTo = moment(formatedEventDate.event_time_to, 'HH:mm:ss').format('HH:mm');
+                //   var minorName = moment(formatedEventDate.event_date).format('YYYY/MM/DD') + ' ' + eventTimeFrom + '~' + eventTimeTo;
+                //
+                //   postDataToAsura.execInfo.asura_student_id = asuraUser.registrant_id;
+                //   postDataToAsura.execInfo.dnavi_entry_route.major.id = 3;
+                //   postDataToAsura.execInfo.dnavi_entry_route.major.name = 'LIVEセミナー参加';
+                //   postDataToAsura.execInfo.dnavi_entry_route.inter.id = parseInt(eventDateId);
+                //   postDataToAsura.execInfo.dnavi_entry_route.inter.name = formatedEvent.title;
+                //   postDataToAsura.execInfo.dnavi_entry_route.minor.id = parseInt(eventDateId);
+                //   postDataToAsura.execInfo.dnavi_entry_route.minor.name = minorName;
+                // }
+
+
+                function dumpPostDataForAsura(asuraUserDatas, stuDatas) {
+                    var datas = stuDatas;
+                    var dayNow = moment().tz('Asia/Tokyo').format('YYYY/MM/DD HH:mm');
+                    if (datas !== null) {
+                        postDataToAsura = {
+                            'execInfo': {
+                                'asura_company_code': parseInt(asuraCompanyId),
+                                'asura_student_id': null,
+                                'dnavi_entry_route': {
+                                    'major': {
+                                        'id': '',
+                                        'name': ''
+                                    },
+                                    'inter': {
+                                        'id': '',
+                                        'name': ''
+                                    },
+                                    'minor': {
+                                        'id': '',
+                                        'name': ''
+                                    },
+                                    'entryDatetime': dayNow
+                                },
+                                'reservationInfo': {
+                                    'step_id': parseInt(stepId),
+                                    'step_timezone_id': parseInt(eventDateId)
+                                }
+                            },
+                            'fieldValues': []
+                        };
+
+                        var graduationYearMonth = null;
+                        if (_.isNull(datas.graduation_year_month)) {
+                            graduationYearMonth = datas.graduation_year + '/' + datas.graduation_month;
+                        } else {
+                            graduationYearMonth = moment(datas.graduation_year_month, 'YYYYMM').format('YYYY/MM');
+                        }
+
+                        var joinYearMonth = null;
+                        if (_.isNull(datas.join_year_month)) {
+                            joinYearMonth = datas.join_year + '/' + datas.join_month;
+                        } else {
+                            joinYearMonth = moment(datas.join_year_month, 'YYYYMM').format('YYYY/MM');
+                        }
+
+                        var prefCode = datas.prefecture_id.toString().length === 1
+                                ? '0' + datas.prefecture_id
+                                : datas.prefecture_id.toString();
+
+                        var homePrefCode = datas.home_prefecture_id.toString().length === 1
+                                ? '0' + datas.home_prefecture_id
+                                : datas.home_prefecture_id.toString();
+
+                        var mobileFlg1 = '0';
+                        if (datas.mobile_flg1 === 1) {
+                            mobileFlg1 = '1';
+                        }
+
+                        var mobileFlg2 = '0';
+                        if (datas.mobile_flg2 === 1 ) {
+                            mobileFlg2 = '1';
+                        }
+
+                        var publicCode = datas.city_id.toString();
+                        if (publicCode.length === 4) {
+                            publicCode = '0' + datas.city_id;
+                        }
+
+                        var homePublicCode = null;
+                        if (datas.is_same_address) {
+                            homePublicCode = publicCode
+                        } else {
+                            homePublicCode = datas.home_city_id.toString();
+                            if (homePublicCode.length === 4) {
+                                homePublicCode = '0' + datas.home_city_id;
+                            }
+                        }
+
+                        var departmentCode = null;
+                        if (!_.isNull(datas.department_code)) {
+                            if (datas.department_code.length === 3) {
+                                departmentCode = '0' + datas.department_code;
+                            } else {
+                                departmentCode = datas.department_code;
+                            }
+                        }
+
+                        var sectionCode = null;
+                        if (!_.isNull(datas.section_code)) {
+                            if(datas.section_code.length === 4) {
+                                sectionCode = '0' + datas.section_code;
+                            } else {
+                                sectionCode = datas.section_code;
+                            }
+                        }
+
+                        var dataDepartmentCode = null;
+                        if (!_.isNull(datas.university_code) && !_.isNull(departmentCode)) {
+                            dataDepartmentCode = datas.university_code + departmentCode
+                        }
+
+                        var dataMajorCode = null;
+                        if (!_.isNull(datas.university_code) && !_.isNull(departmentCode) && !_.isNull(sectionCode)) {
+                            dataMajorCode = datas.university_code + departmentCode + sectionCode;
+                        }
+
+                        var postData = [
+                            {
+                                'name': {
+                                    'first': datas.given_name,
+                                    'last': datas.family_name
+                                }
+                            },
+                            {
+                                'furigana': {
+                                    'first': datas.given_name_kana,
+                                    'last': datas.family_name_kana
+                                }
+                            },
+                            {
+                                'mail': datas.email1
+                            },
+                            {
+                                'mail_sub': datas.email2
+                            },
+                            {
+                                'address': {
+                                    'region_code': '101',
+                                    'country_code': '392',
+                                    'pref_code': prefCode,
+                                    'city_code': publicCode ? publicCode.toString() : null,
+                                    'zip_code': datas.postcode,
+                                    'banchi_text': datas.address_line1,
+                                    'building_text': datas.address_line2
+                                }
+                            },
+                            {
+                                'address_home': {
+                                    'region_code': '101',
+                                    'country_code': '392',
+                                    'pref_code': homePrefCode,
+                                    'city_code': homePublicCode ? homePublicCode.toString() : null,
+                                    'zip_code': datas.home_postcode,
+                                    'banchi_text': datas.home_address_line1,
+                                    'building_text': datas.home_address_line2
+                                }
+                            },
+                            {
+                                'tel': {
+                                    'phone_type': mobileFlg2 ? mobileFlg2 : null,
+                                    'phone_no': datas.tel !== null ? datas.tel : '00000000000'
+                                }
+                            },
+                            {
+                                'mobile': {
+                                    'phone_type': mobileFlg1 ? mobileFlg1 : null,
+                                    'phone_no': datas.mobile !== null ? datas.mobile : '00000000000'
+                                }
+                            },
+                            {
+                                'phone_home': {
+                                    'phone_type': 'phone',
+                                    'country_no': '81',
+                                    'phone_no': datas.home_tel !== null ? datas.home_tel : '00000000000'
+                                }
+                            },
+                            {
+                                'graduate': {
+                                    'is_oversea': '1',
+                                    'country_code': '392',
+                                    'school_type': datas.university_type_id
+                                            ? datas.university_type_id.toString()
+                                            : null,
+                                    'school_code': datas.university_code,
+                                    'department_code': dataDepartmentCode,
+                                    'major_code': dataMajorCode,
+                                    'school_text': datas.university,
+                                    'department_text': datas.department,
+                                    'major_text': datas.section
+                                }
+                            },
+                            {
+                                'dnavi_self_declaration_kokukoushi': datas.university_public_type
+                                        ? datas.university_public_type.toString()
+                                        : null
+                            },
+                            {
+                                'dnavi_self_declaration_bunri': datas.department_type_id
+                                        ? datas.department_type_id.toString()
+                                        : datas.department_type_id
+                            },
+                            {
+                                'dnavi_self_declaration_major_field': datas.department_category
+                                        ? datas.department_category.toString()
+                                        : datas.department_category
+                            },
+                            {
+                                'graduation_date': graduationYearMonth ? graduationYearMonth.toString() : graduationYearMonth
+                            },
+                            {
+                                'join_year': joinYearMonth ? joinYearMonth.toString() : joinYearMonth
+                            },
+                            {
+                                'dnavi_desired_jobs': datas.job_category_code ? datas.job_category_code.toString() : null
+                            },
+                            {
+                                'dnavi_desired_industry': datas.industry_type_code ? datas.industry_type_code.toString() : null
+                            },
+                            {
+                                'dnavi_desired_work_location': datas.working_place ? datas.working_place.toString() : null
+                            },
+                            {
+                                'dnavi_desired_qualification': datas.qualification_code ? datas.qualification_code.toString() : null
+                            }
+                        ];
+
+                        //delete object have value null
+                        _.forEach(postData, function (fields) {
+                            _.forIn(fields, function (_fieldValue, _fieldKey) {
+                                if (!_.isNull(_fieldValue) && typeof _fieldValue === 'object') {
+                                    _.forIn(_fieldValue, function (__fieldValue, __fieldKey) {
+                                        if (_.isNull(__fieldValue) || _.isEmpty(__fieldValue)) {
+                                            delete _fieldValue[__fieldKey];
+                                        }
+                                    });
+                                    postDataToAsura.fieldValues.push(fields);
+                                } else {
+                                    if (!_.isNull(_fieldValue)) {
+                                        postDataToAsura.fieldValues.push(fields);
+                                    }
+                                }
+                            });
+                        });
+
+
+                        //check case
+                        // case 1
+                        // Add requestType is reservation
+                        _.assign(postDataToAsura.execInfo, {'requestType': 'reservation'});
+                        // Map registrantId with event company
+                        if (_.isEmpty(asuraUserDatas)) {
+                            changeExecInfoCase1();
+                        } else {
+                            var asuraUser = _.find(asuraUserDatas, function (asuraUser) {
+                                return asuraUser.e2r_pro_id === parseInt(asuraCompanyId);
+                            });
+
+                            if (_.isUndefined(asuraUser)) {
+                                changeExecInfoCase1();
+                            } else {
+                                changeExecInfoCase1(asuraUser);
+                            }
+                        }
+                    }
+                }
+
+                function fetchStudent() {
+                    return $.ajax({
+                        url: rootVariables.apiUrl + '/students/' + stdId + '/me',
+                        dataType: 'json',
+                        type: 'GET',
+                        headers: {
+                            Authorization: 'Bearer ' + jwt,
+                            ContentType: 'application/json',
+                            Accept: 'application/json'
+                        }
+                    });
+                }
+
+                function _bookedEventAsura() {
+                    $.ajax({
+                        url: apiUrlAsura + '/outside/dnavi_entries/entry_procedure',
+                        dataType: 'json',
+                        type: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        data: JSON.stringify(postDataToAsura),
+                        success: function (_res) {
+                            var asuraStudentId = _res.asura_student_id;
+                            if (asuraStudentId !== null && _.isNull(postDataToAsura.execInfo.asura_student_id)) {
+                                // Update registranId
+                                _updateRegistrantId(asuraStudentId, asuraCompanyId);
+                            } else {
+                                toLocationHref('/mypage/applied_event');
+                            }
+                        },
+                        error: function (jqXhr, textStatus, errorThrown) {
+                            $('.alert-box').empty();
+                            $('.alert-box').append(jqXhr.responseJSON.functionMessage);
+                            $('.alert-box').show();
+                            $('#__event-btn-book').addClass('btn-disabled');
+                        }
+                    });
+                }
+
+                function _letMeBookThisEvent() {
+                    $('#__event-btn-book').click(function () {
+                        if (forAsura) {
+                            $('#__event-btn-book').addClass('btn-disabled');
+                        }
+                        // Check student is ASURA?
+                        $.ajax({
+                            url: rootVariables.apiUrl + '/students/' + stdId + '/is_asura_student',
+                            dataType: 'json',
+                            type: 'GET',
+                            headers: {
+                                Authorization: 'Bearer ' + jwt,
+                                ContentType: 'application/json',
+                                Accept: 'application/json'
+                            },
+                            success: function (isAsuraStudentRes) {
+                                fetchStudent().done(function (studentRes) {
+                                    dumpPostDataForAsura(isAsuraStudentRes.data, studentRes.data);
+                                    if (forAsura) {
+                                        _bookedEventAsura();
+                                    } else {
+                                        _letMeBookIt();
+                                    }
+                                }).fail(function () {
+                                    alert('error');
+                                });
+                            },
+                            error: function (jqXhr, textStatus, errorThrown) {
+                                console.log(errorThrown);
+                            }
+                        });
+                    });
+                }
+
+                // inforStudent();
+                _letMeBookThisEvent();
+                _initEventDetail();
+            });
+        </script>
+    {{/content}}
+{{/extend}}

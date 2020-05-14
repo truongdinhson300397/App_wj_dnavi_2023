@@ -1,12 +1,18 @@
-{{#extend "components/layout" }}
+{{#extend "components/layout" hideHeader=true }}
+    {{#content "header-scripts" mode="append"}}
+        <link rel="stylesheet" href="{{path}}css/login.css" type="text/css" media="all"/>
+        <style>
+            #download-app {
+                margin-top: 50px;
+            }
+            @media (max-width: 769px) {
+                .logo-app-img {
+                    width: 150px;
+                }
+            }
+        </style>
+    {{/content}}
     {{#content "main"}}
-    <!-- btn-back-to-top -->
-    <div id="btnBackToTopBox" class="btn-back-to-top-float-box">
-        <div class="btn-back-to-top-box">
-            <a href="javascript:void(0);" id="btnBackToTop" class="btn-back-to-top"></a>
-        </div>
-    </div>
-
 
     <!-- header -->
     <header id="header" class="header-box header-box-pt1 clearfix">
@@ -53,10 +59,10 @@
                         </header>
                         <div class="app-logo-box">
                             <a href="https://itunes.apple.com/jp/app/ダイヤモンド就活ナビ2021/id1456341589?mt=8" target="_blank">
-                                <img src="/public/img/logo-apple-app-store.png" class="logo-app-img" alt=""/>
+                                <img src="{{path}}img/logo-apple-app-store.png" class="logo-app-img" alt=""/>
                             </a>
                             <a href="https://play.google.com/store/apps/details?id=tokyo.eventos.diamondhr2021" target="_blank">
-                                <img src="/public/img/logo-google-play.png" class="logo-app-img" alt=""/>
+                                <img src="{{path}}img/logo-google-play.png" class="logo-app-img" alt=""/>
                             </a>
                         </div>
                     </article>
@@ -89,7 +95,7 @@
     <footer id="footer" class="footer footer-pt1">
         <div class="footer-box">
             <div class="footer-top">
-                <img src="/public/img/logo-dhr-01.gif" class="footer-logo-dhr-img" alt=""/>
+                <img src="{{path}}img/logo-dhr-01.gif" class="footer-logo-dhr-img" alt=""/>
             </div>
         </div>
         <div class="footer-copyright">
@@ -98,5 +104,34 @@
             </div>
         </div>
     </footer>
+    {{/content}}
+    {{#content "footer-scripts" mode="append"}}
+        <script>
+            $(function () {
+                $('.js-btn-register-1').on("click", function () {
+                    globalInfo('contract_term_id', 1, {path: "/"});
+                    globalInfo('contract_term', '2021', {path: "/"});
+                    localStorage.setItem('contract_term', '2021');
+                    setContractTerm(2011, 1);
+                });
+                $('.js-btn-register-2').on("click", function () {
+                    globalInfo('contract_term_id', 2, {path: "/"});
+                    globalInfo('contract_term', '2022', {path: "/"});
+                    setContractTerm(2012, 2);
+                });
+
+                $('.js-btn-no-register-1').on('click', function (e) {
+                    globalInfo('contract_term_id', 1, {path: "/"});
+                    globalInfo('contract_term', '2021', {path: "/"});
+                    setContractTerm(2011, 1);
+                });
+
+                $('.js-btn-no-register-2').on('click', function (e) {
+                    globalInfo('contract_term_id', 2, {path: "/"});
+                    globalInfo('contract_term', '2022', {path: "/"});
+                    setContractTerm(2012, 2);
+                });
+            });
+        </script>
     {{/content}}
 {{/extend}}

@@ -1,0 +1,535 @@
+{{#extend "components/layout" title="企業 一覧"}}
+    {{#content "header-scripts" mode="append"}}
+        <link rel="stylesheet" href="{{path}}css/companies.css" type="text/css" media="all"/>
+    {{/content}}
+    {{#content "main"}}
+        <!--	-->
+        <div class="contents-box">
+            <article class="article-box">
+                <header class="article-box-header">
+                    <h2 class="article-box-header-h2">
+                        <span class="article-box-header-h2-jp">企業をさがす</span><br/>
+                        <span class="article-box-header-h2-eng">SEARCH</span>
+                    </h2>
+                </header>
+                <section class="companies-search">
+                    <div class="search-input-box clearfix">
+                        <form action="javascript:">
+                            <input type="text" class="input-text search-btn-s-counterpart" id="input-keyword"
+                                   placeholder="企業名、事業内容など"/>
+                            <button type="submit" id="search" class="btn-default search-btn-s btn-blue">検索</button>
+                        </form>
+                    </div>
+                    <div class="keywords-box">
+                        <span class="input_keywords"></span>
+                        <span class="industry_type"></span>
+                        <span class="job_category"></span>
+                        <span class="address_prefecture"></span>
+                        <span class="employee_size"></span>
+                        <span class="capital_stock"></span>
+                        <span class="working_place"></span>
+                    </div>
+                    <div class="search-result-box"></div>
+                    <div class="">
+                        <a href="/company/search" class="btn-default btn-green w100prc mgnt20-30">さらに絞り込む</a>
+                    </div>
+                </section>
+                <section class="companies-result">
+                    <ul class="companies-result-ul" id="company_list"></ul>
+                    <div class="some-more-box">
+                        <a href="javascript:void(0);" class="some-more" id="more" style="display:none;">more</a>
+                    </div>
+                </section>
+            </article>
+        </div>
+    {{/content}}
+    {{#content "footer-scripts" mode="append"}}
+        <!-- page script -->
+        <script>
+            // redirect to landing page when user typing url company list
+            var currentPage = window.location.href;
+            if(_.includes(currentPage, '2022/company/list')) {
+                var redirectToLandingPage = currentPage.replace('2022/company/list', '2022/navi22/top');
+                window.location.href = redirectToLandingPage;
+            }
+
+            _headerUIHandler(null, null, null);
+            $(document).ready(function () {
+
+                //// 初期設定
+                // 初期表示件数設定（仮2、実運用10予定）
+                var defaultShowNum = 10;
+                // moreで追加表示する件数（仮2、実運用5予定）
+                var moreShowNum = 5;
+
+                var currentPage = 1;
+                var isFirstGetData = true;
+                var isLastPage = false;
+
+                // 年度・県ID
+                var partnerId = _.isEmpty(parseInt(globalInfo('partner_id'))) ? parseInt(globalInfo('partner_id')) : 0;
+                // 追加パラメーター用
+                var searchParamePlus = {};
+                // タグ用変数
+                var values = '';
+                var keywords = '';
+                var moreBtn = $('#more');
+
+                // For asura
+                var companyIds = [];
+
+                // moreボタン処理
+                moreBtn.on('click', function () {
+                    moreAction();
+                });
+
+                function resetKey() {
+                    currentPage = 1;
+                    isFirstGetData = true;
+                    isLastPage = false;
+                }
+
+                // URLパラメーター確認
+                var searchParame = window.location.search;
+                // パラメーター確認＆連結用置換
+                if (searchParame) {
+                    if (searchParame.includes('keyword')) {
+                        searchParame = decodeURI(searchParame);
+                    }
+                    var paramArr = searchParame.replace(/\?/g, '').split('&');
+                    paramArr.forEach(function (str) {
+                        var keyValue = str.split('=');
+                        searchParamePlus[keyValue[0]] = keyValue[1];
+                    });
+                }
+
+                //// パラメーターから各処理
+                parameCheck();
+
+                // 検索タグ出力処理
+                // キーワード
+                if (parame.keyword) {
+                    values = parame.keyword.split(',');
+                    keywords = '';
+                    for (i in values) {
+                        keywords = keywords + '<span class="keywords">' + decodeURI(values[i]) + '</span>';
+                    }
+                    $('.keywords-box .input_keywords').append(keywords);
+                }
+
+                // 業種
+                if (parame.industry_id) {
+                    values = parame.industry_id.split(',');
+                    localStorage.setItem('search_industry_id', values);
+                    keyword(values, 'industry_type', 'industry_type_for_company', 'industry_types_for_company');
+                } else {
+                    localStorage.removeItem('search_industry_id');
+                }
+
+                // 職種
+                if (parame.job_category) {
+                    values = parame.job_category.split(',');
+                    localStorage.setItem('search_job_category', values);
+                    keyword(values, 'job_category', 'job_category', 'categories');
+                } else {
+                    localStorage.removeItem('search_job_category');
+                }
+
+                // 本社所在地
+                if (parame.address_prefecture_id) {
+                    values = parame.address_prefecture_id.split(',');
+                    localStorage.setItem('search_address_prefecture_id', values);
+                    keyword(values, 'address_prefecture', 'prefecture', 'prefectures');
+                } else {
+                    localStorage.removeItem('search_address_prefecture_id');
+                }
+
+                // 勤務地
+                if (parame.working_place) {
+                    values = parame.working_place.split(',');
+                    localStorage.setItem('search_working_place', values);
+                    keyword(values, 'working_place', 'prefecture', 'prefectures');
+                } else {
+                    localStorage.removeItem('search_working_place');
+                }
+
+                // 従業員数
+                if (parame.employee_size) {
+                    values = parame.employee_size.split(',');
+                    localStorage.setItem('search_employee_size', values);
+                    keywordsTagCommon(values, 'employee_size');
+                } else {
+                    localStorage.removeItem('search_employee_size');
+                }
+
+                // 資本金
+                if (parame.capital_stock) {
+                    values = parame.capital_stock.split(',');
+                    localStorage.setItem('search_capital_stock', values);
+                    keywordsTagCommon(values, 'capital_stock');
+                } else {
+                    localStorage.removeItem('search_capital_stock');
+                }
+
+                // キーワード検索
+                $('#search').on('click', function () {
+                    resetKey();
+                    // 追加パラメータリセット
+                    searchParamePlus = {};
+                    // 検索結果系リセット
+                    $('.keywords-box span,#company_list,.search-result-box').html('');
+                    // 入力内容取得
+                    var inputKeyword = $('#input-keyword').val();
+                    // 入力処理・タグ出力
+                    if (inputKeyword) {
+                        inputKeyword = inputKeyword.replace(/ /g, ',').replace(/　/g, ',').replace(/、/g, ',').replace(/,,/g, ',');
+                        searchParamePlus['keyword'] = inputKeyword;
+                        // 検索タグ出力処理
+                        var inputKeywordArr = inputKeyword.split(',');
+                        keywords = '';
+                        for (i in inputKeywordArr) {
+                            keywords = keywords + '<span class="keywords">' + decodeURI(inputKeywordArr[i]) + '</span>';
+                        }
+                        $('.keywords-box .input_keywords').append(keywords);
+                    }
+                    companySearch();
+                });
+
+                companySearch();
+
+
+                // 企業検索
+                function companySearch() {
+                    var param = searchParamePlus;
+                    param['contract_term_id'] = contractTermId;
+                    param['partner_id'] = partnerId;
+                    if (isFirstGetData) {
+                        param['per_page'] = defaultShowNum;
+                        param['page'] = 1;
+                    } else {
+                        param['per_page'] = moreShowNum;
+                        currentPage++;
+                        param['page'] = currentPage;
+                    }
+                    param["from_top"] = true;
+
+                    $.ajax({
+                        url: rootVariables.apiUrl + '/companies',
+                        type: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json'
+                        },
+                        data: param,
+                        success: function (res) {
+                            if (res.data && res.data.length > 0) {
+                                if (isFirstGetData) {
+                                    currentPage = 2; // double the first
+                                }
+                                isLastPage = res.pagination.links.next ? false : true;
+                                isFirstGetData = false;
+                                companyDataGetSuccess(res);
+                            } else {
+                                companyDataGetError();
+                            }
+
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            companyDataGetError();
+                        }
+                    });
+
+                    // call api get companies have asura events
+                    $.ajax({
+                        url: apiUrlAsura + '/outside_events/get_event_index',
+                        type: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        success: function (data) {
+                            var companies = data.response;
+                            if (typeof companies !== 'undefined' && companies.length > 0) {
+                                companyIds = _.uniq(_.map(companies, 'companyId'));
+                            }
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+                        }
+                    });
+                }
+
+                function companyDataGetSuccess(data) {
+                    var companyData = data['data'];
+                    var companyNum = data['pagination'].total;
+                    // 会社数挿入
+                    $('.search-result-box').html('<span class="search-result-num">' + companyNum + '</span>社が検索されました。');
+                    // 対象件数が初期表示数よりも多い場合、moreを表示
+                    if (!isLastPage) {
+                        moreBtn.fadeIn();
+                    } else {
+                        moreBtn.hide();
+                    }
+
+                    for (i in companyData) {
+                        companyRender(companyData[i]);
+                    }
+                }
+
+                function companyDataGetError(data) {
+                    $('.search-result-box').html('該当の企業はありません');
+                }
+
+                // レンダリング
+                function companyRender(companyData) {
+                    var rankingPercent = companyData['ranking_percent'];
+                    var address1 = '';
+                    var address2 = '';
+                    var address3 = '';
+                    var businessDescription = '';
+                    var liveSeminar = '';
+                    var companyImageMain = '';
+                    var companyImages = '';
+                    var industryTypeMain = '';
+                    var showItemClass = 'show';
+
+                    // リンクにパラメータ付与
+                    var companyDetailUrlParam = companyDetailUrl + '?company_id=' + companyData['company_id'];
+
+                    // ライブセミナー
+                    if (companyData['have_live_event'] == true) {
+                        liveSeminar = '<span class="companies-event-label companies-event-category">LIVEセミナー出展企業</span>';
+                    }
+
+                    // 画像系
+                    // comment with WD-509
+                    // var companyGetDataImages = companyData['company_images'];
+                    // if (companyGetDataImages[0] == '' || companyGetDataImages[0] == null || companyGetDataImages[0] == undefined) {
+                    //   companyImageMain = '<figure class="companies-main-fig"><img src="' + companyData.company_main_visual_image_url + '" class="companies-main-img" alt="' + noimageUrl + '" /></figure>';
+                    // } else {
+                    //   companyImageMain = '<figure class="companies-main-fig"><img src="' + companyGetDataImages[0]['image_url'] + '" class="companies-main-img" alt="' + companyGetDataImages[0]['comment'] + '" /></figure>';
+                    //   for (i in companyGetDataImages) {
+                    //     companyImages = companyImages + '<li class="swiper-slide companies-images-ul-li"><a href="' + companyDetailUrlParam + '" class="companies-images-ul-li-a"><img src="' + companyGetDataImages[i]['image_url'] + '" class="companies-images-img" alt="' + companyGetDataImages[i]['comment'] + '" /></a></li>';
+                    //   }
+                    // }
+
+                    var mainVisual = (companyData && companyData.company_main_visual_image_url) || noimageUrl;
+
+                    var companyGetDataImages = companyData['company_images'];
+                    companyImageMain = '<figure class="companies-main-fig"><img src="' + mainVisual + '" class="companies-main-img" alt="" /></figure>';
+                    for (var i in companyGetDataImages) {
+                        companyImages = companyImages + '<li class="swiper-slide companies-images-ul-li"><a href="' + companyDetailUrlParam + '" class="companies-images-ul-li-a"><img src="' + companyGetDataImages[i]['image_url'] + '" class="companies-images-img" alt="' + companyGetDataImages[i]['comment'] + '" /></a></li>';
+                    }
+
+
+                    // 業種
+                    if (companyData['industry_type_main']) {
+                        industryTypeMain = companyData['industry_type_main'];
+                    }
+
+                    // 企業情報
+                    if (companyData['business_description']) {
+                        businessDescription = '<tr><th>事業内容</th><td><p class="line-break">' + companyData['business_description'] + '</p></td></tr>';
+                    }
+
+                    // 住所系
+                    address1 = '<tr><th>' + (companyData['address1_title'] || '') + '</th><td>' + (companyData['address1_prefecture_name'] || '') + (companyData['address1_city_id'] || '') + '</td></tr>';
+
+                    if (companyData['address2_title']) {
+                        address2 = '<tr><th>' + (companyData['address2_title'] || '') + '</th><td>' + (companyData['address2_prefecture_name'] || '') + (companyData['address2_city_id'] || '') + '</td></tr>';
+                    }
+                    if (companyData['address3_title']) {
+                        address3 = '<tr><th>' + (companyData['address3_title'] || '') + '</th><td>' + (companyData['address3_prefecture_name'] || '') + (companyData['address3_city_id'] || '') + '</td></tr>';
+                    }
+
+                    // Asura
+                    var asuraEventLabel = '';
+                    var companyContract = companyData.contract;
+
+                    if (companyContract && companyContract.e2r_pro) {
+                        if (companyIds.length > 0 && _.includes(companyIds, parseInt(companyContract.e2r_pro_id))) {
+                            asuraEventLabel = '<span class="companies-event-label companies-event-reservation company-have-asura-event"  data-company-id="asura-com-' + companyData['company_id'] + '">企業セミナー予約受付中</span>';
+                        }
+                    }
+
+                    //ranking disclosure
+                    var rankingDisclosure = '';
+                    if(!_.isNull(rankingPercent)) {
+                        rankingDisclosure = '<span class="companies-disclosure-span">情報公開度 ' + rankingPercent + ' / 100%</span>';
+                    }
+
+                    // 全体
+                    var companyListDetail = '' +
+                            '<li class="companies-result-ul-li show">' +
+                            '	<div class="companies-nm"><a href="' + companyDetailUrlParam + '">' + companyData['company_name'] + '</a></div>' +
+                            '	<div class="companies-type clearfix">' + industryTypeMain + '<a href="' + companyDetailUrlParam + '" class="companies-arrow"></a></div>' +
+                            '	<div class="companies-disclosure clearfix">' +
+                            rankingDisclosure +
+                            '		<div class="companies-event-label-box">' +
+                            liveSeminar +
+                            asuraEventLabel +
+                            '		</div>' +
+                            '	</div>' +
+                            '	<div class="clearfix">' +
+                            '		<div class="companies-vis-box">' + companyImageMain + '' +
+                            '			<div class="swiper-container companies-images-box">' +
+                            '				<ul class="swiper-wrapper companies-images-ul">' + companyImages + '</ul>' +
+                            '				<div class="swiper-button-prev swiper-comapnies-images"></div>' +
+                            '				<div class="swiper-button-next swiper-comapnies-images"></div>' +
+                            '			</div>' +
+                            '		</div>' +
+                            '		<div class="companies-info-box-outer">' +
+                            '			<table class="companies-info-box">' +
+                            businessDescription +
+                            address1 +
+                            address2 +
+                            address3 +
+                            '			</table>' +
+                            '			<a href="' + companyDetailUrlParam + '" class="btn-small btn-blue">詳細</a>' +
+                            '		</div>' +
+                            '	</div>' +
+                            '</li>';
+                    $('#company_list').append(companyListDetail);
+                    $('.companies-result-ul-li:nth-child(-n+' + defaultShowNum + ')').removeClass('more').addClass('show');
+                    companySlide();
+                }
+
+                // スライド
+                function companySlide() {
+                    var mainVisSwiper = new Swiper('.companies-images-box', {
+                        slidesPerView: 5,
+                        loop: false,
+                        centeredSlides: true,
+                        spaceBetween: 0,
+                        speed: 1000,
+                        autoplay: {
+                            delay: 5000,
+                            disableOnInteraction: false
+                        },
+                        navigation: {
+                            nextEl: '.swiper-button-next',
+                            prevEl: '.swiper-button-prev'
+                        },
+                        breakpoints: {
+                            768: {
+                                slidesPerView: 5
+                            },
+                            640: {
+                                slidesPerView: 4
+                            },
+                            480: {
+                                slidesPerView: 3
+                            }
+                        }
+                    });
+                }
+
+                // moreボタン処理
+                function moreAction() {
+                    companySearch();
+                    // // var target = $('.companies-result-ul-li.more');
+                    // // for (i = 0; i < moreShowNum; i++) {
+                    // //   target.eq(i).fadeIn().removeClass('more').addClass('show');
+                    // // }
+                    // // companySlide();
+                    // // // 表示状態が取得件数を超えたらmore非表示
+                    // // if ($('.companies-result-ul-li.show').length >= companyNum) {
+                    // //   moreBtn.hide();
+                    // // }
+                }
+
+                function keyword(values, wrapClass, targetId, api) {
+                    $.ajax({
+                        url: rootVariables.apiUrl + '/master_data/' + api + '?per_page=999',
+                        type: 'get',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        success: function (data) {
+                            keywordsTagRender(values, wrapClass, targetId, data);
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+//					console.log(errorThrown);
+//					console.log(textStatus);
+//					console.log(XMLHttpRequest);
+                        }
+                    });
+                }
+
+                function keywordsTagRender(values, wrapClass, targetId, data) {
+
+                    keywords = '';
+                    for (i in data['data']) {
+                        // パラメータのナンバーに含まれていたら出力
+                        var prameNums = String(data['data'][i][targetId + '_id']);
+                        if (values.indexOf(prameNums) >= 0) {
+                            if (targetId === 'industry_type_for_company') {
+                                keywords = keywords + '<span class="keywords">' + data['data'][i]['industry_type'] + '</span>';
+                            } else {
+                                keywords = keywords + '<span class="keywords">' + data['data'][i][targetId] + '</span>';
+                            }
+                        }
+                    }
+                    $('.keywords-box .' + wrapClass + '').append(keywords);
+                }
+
+                function keywordsTagCommon(values, target) {
+                    var keyEmployeeSize = '';
+                    var keyCapitalStock = '';
+
+                    for (i in values) {
+                        if (target === 'employee_size') {
+                            switch (parseInt(values[i])) {
+                                case 1:
+                                    keyEmployeeSize = keyEmployeeSize + '<span class="keywords">1名〜50名</span>';
+                                    break;
+                                case 2:
+                                    keyEmployeeSize = keyEmployeeSize + '<span class="keywords">51名〜100名</span>';
+                                    break;
+                                case 3:
+                                    keyEmployeeSize = keyEmployeeSize + '<span class="keywords">101名〜300名</span>';
+                                    break;
+                                case 4:
+                                    keyEmployeeSize = keyEmployeeSize + '<span class="keywords">301名〜500名</span>';
+                                    break;
+                                case 5:
+                                    keyEmployeeSize = keyEmployeeSize + '<span class="keywords">501名〜1000名</span>';
+                                    break;
+                                case 6:
+                                    keyEmployeeSize = keyEmployeeSize + '<span class="keywords">1001名〜3000名</span>';
+                                    break;
+                                case 7:
+                                    keyEmployeeSize = keyEmployeeSize + '<span class="keywords">1001名〜3000名</span>';
+                                    break;
+                                case 8:
+                                    keyEmployeeSize = keyEmployeeSize + '<span class="keywords">10001名～</span>';
+                                    break;
+                            }
+                        }
+                        if (target === 'capital_stock') {
+                            if (values[i] === '0-5000') {
+                                keyCapitalStock = keyCapitalStock + '<span class="keywords">〜5000万円未満</span>';
+                            } else if (values[i] === '30000-') {
+                                keyCapitalStock = keyCapitalStock + '<span class="keywords">3億円以上</span>';
+                            } else if(values[i] === '5000-10000') {
+                                keyCapitalStock = keyCapitalStock + '<span class="keywords">5000万円〜1億円未満</span>';
+                            } else if(values[i] === '10000-30000') {
+                                keyCapitalStock = keyCapitalStock + '<span class="keywords">1億円〜3億円未満</span>';
+                            }
+                        }
+                    }
+                    $('.employee_size').append(keyEmployeeSize);
+                    $('.capital_stock').append(keyCapitalStock);
+                }
+
+            });
+        </script>
+
+        <style>
+
+            .companies-result-ul-li.more {
+                display: none;
+            }
+
+        </style>
+    {{/content}}
+{{/extend}}

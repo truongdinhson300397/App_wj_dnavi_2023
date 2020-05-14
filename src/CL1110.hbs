@@ -1,0 +1,295 @@
+{{#extend "components/layout" title="ログイン"}}
+    {{#content "header-scripts" mode="append"}}
+        <style>
+            #modalWarning {
+                position: fixed;
+                z-index: 100;
+            }
+            #modalWarning .modal-body {
+                height: auto;
+            }
+            #modalWarning .modal-body .fix-margin {
+                margin: 1.5em auto;
+            }
+            #modalWarning .modal-body .fix-margin a {
+                color: #0070c0;
+            }
+        </style>
+    {{/content}}
+    {{#content "main"}}
+        <!-- main -->
+        <div id="main" class="contents">
+
+            <!-- ログイン登録等 -->
+            <div class="contents-box">
+                <!-- <div class="contents-preface">
+                  ダイヤモンド就活ナビは、就活情報をはじめ、就活生に役立つコンテンツを数多く配信しています。
+                </div> -->
+
+                <article class="article-box">
+                    <div class="drop-shadow-box">
+                        <header class="article-box-header">
+                            <h2 class="article-box-header-h2">
+                                <span class="article-box-header-h2-jp">ログイン</span><br/>
+                                <span class="article-box-header-h2-eng">LOGIN</span>
+                            </h2>
+                        </header>
+                        <div class="article-box-body">
+                            <!-- <div class="form-preface">すでに登録済みの方は、こちらからログインしてください。<br />
+                            ユーザーID、パスワードを入力し、［ログイン］ボタンをクリックしてください。</div> -->
+                            <div class="alert-box error" style="display: none">入力内容に誤りがあります。再度ご確認ください。</div>
+                            <div class="alert-box success" style="display: none">ログインできました</div>
+                            <div id="form">
+                                <input type="text" class="input-text w100prc mgnb20-30 postdata" placeholder="ユーザーID" name="login_id"
+                                       id="login_id"/>
+                                <input type="password" class="input-text w100prc postdata" placeholder="PASSWORD" name="password"
+                                       id="password"/>
+                            </div>
+                            <div class="form-btn-box">
+                                <label class="login-label"><input type="checkbox" name="save_login"/> 次回から自動でログインする</label>
+                                <button class="btn-default btn-blue w100-50prc" id="login-btn">ログイン</button>
+                            </div>
+                            <div>
+                                <p class="txt-advice-login">学校や公共機関の共有ＰＣ等でダイヤモンド就活ナビにログインした場合、終了後必ずログアウトしてください。</p>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="article-box pddb0">
+                    <div class="drop-shadow-box">
+                        <div class="article-box-body">
+                            <ul class="list-nomark-ul block-centering mgnb30-50">
+                                <li class="list-nomark-ul-li"><a href="/reminder" class="link-text">ID・パスワードをお忘れの方はこちら</a></li>
+                                <li class="list-nomark-ul-li"><a href="/login/temporary_user" class="link-text">仮IDをお持ちの方はこちら</a></li>
+                                <li class="list-nomark-ul-li"> ※学校のガイダンスカードやWEB共通登録で登録した方、登録ハガキを投函した方、他連携サービスで同時登録を希望した方が対象となります。</li>
+                                <li class="list-nomark-ul-li"><a href="/regist" class="link-text">会員登録</a></li>
+                                <li class="list-nomark-ul-li"><a href="/faq/list" class="link-text">お問い合わせ</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </article>
+
+                <!--<article class="article-box">-->
+                <!--<div class="drop-shadow-box">-->
+                <!--<header class="article-box-header">-->
+                <!--<h2 class="article-box-header-h2">-->
+                <!--<span class="article-box-header-h2-jp">新規会員登録</span>-->
+                <!--</h2>-->
+                <!--</header>-->
+                <!--<div class="article-box-body">-->
+                <!--<div class="mgnb30-50">-->
+                <!--<a href="/regist" class="btn-default btn-blue w100-50prc">会員登録</a>-->
+                <!--</div>-->
+                <!--<div class="form-preface">学校のガイダンスカードやWEB共通登録で登録した方、登録ハガキを投函した方、他連携サービスで同時登録を希望した方が対象となります。</div>-->
+                <!--<div class="form-btn-box">-->
+                <!--<a href="/login/temporary_user" class="btn-default btn-blue w100-50prc">仮IDをお持ちの方はこちら</a>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--</article>-->
+
+                <!--<article class="article-box">-->
+                <!--<div class="drop-shadow-box">-->
+                <!--<header class="article-box-header">-->
+                <!--<h2 class="article-box-header-h2">-->
+                <!--<span class="article-box-header-h2-jp">IDとパスワードの<span class="ilb">再発行</span></span>-->
+                <!--</h2>-->
+                <!--</header>-->
+                <!--<div class="article-box-body">-->
+                <!--&lt;!&ndash; <div class="form-preface">IDやパスワードをお忘れの方は、下のボタンから再発行してください。</div> &ndash;&gt;-->
+                <!--<div class="">-->
+                <!--<a href="/reminder" class="btn-default btn-blue w100-50prc">ID・パスワードをお忘れの方</a>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--</article>-->
+
+                <!--<article class="article-box pddb0">-->
+                <!--<div class="drop-shadow-box">-->
+                <!--<header class="article-box-header">-->
+                <!--<h2 class="article-box-header-h2">-->
+                <!--<span class="article-box-header-h2-jp">お問い合わせはこちら</span>-->
+                <!--</h2>-->
+                <!--</header>-->
+                <!--<div class="article-box-body">-->
+                <!--&lt;!&ndash; <div class="form-preface">お問い合わせは、下のボタンからご連絡ください。</div> &ndash;&gt;-->
+                <!--<div>-->
+                <!--<a href="/faq/list" class="btn-default btn-blue w100-50prc">お問い合わせ</a>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--</article>-->
+            </div>
+
+        </div>
+        <!-- #main -->
+        <!-- modal -->
+        <div id="modalWarning" class="modal-overlay" style="display: none;">
+            <div class="modal">
+                <header class="modal-header">
+                    <h2 class="modal-header-h2"><span class="modal-header-h2-jp">ログインエラー</span></h2>
+                    <a href="javascript:void(0);" class="btn-modal-close" onclick="hideModal('modalWarning');"></a>
+                </header>
+                <div class="modal-body">
+                    <div class="alert-box mgnt10-15 mgnb10-15">
+                        このアカウントは、<span class="current-contract-term">2022</span>卒サイトでの登録がありません。
+                    </div>
+                    <p class="fix-margin">
+                        <span class="current-contract-term">2022</span>卒サイトでも同じアカウントを使用される場合は、下記ボタンより会員編集に行き、登録サイト「<span class="current-contract-term">2022</span>卒」をチェックし登録を行ってください。
+                    </p>
+                    <button class="btn-default btn-blue w100-50prc" id="moveToMemberEdit">会員編集画面へ</button>
+                    <div class="fix-margin" style="text-align: center;">
+                        <p style="margin-bottom: 0.5em;">
+                            <a id="loginUserContractTerm" href="#"><span class="user-contract-term">2021</span>卒サイトログインに移動</a>
+                        </p>
+                        <p>
+                            <a id="loginCurrentContractTerm" href="#"><span class="current-contract-term">2022</span>卒サイトログインに戻る</a>
+                        </p>
+                    </div>
+                </div><!-- /modal-body -->
+            </div>
+        </div>
+        <!-- /modal-outer -->
+    {{/content}}
+    {{#content "footer-scripts" mode="append"}}
+        <script>
+            _headerUIHandler(null, null, false, true);
+            $(document).ready(function () {
+                var userDataTemp, loginTermTemp;
+                // ログインボタン押下処理
+                $('#login-btn').on('click', function () {
+                    memberLogin();
+                });
+
+                // ログイン処理
+                function memberLogin() {
+
+                    // 送信データ取得整形
+                    var formSerial = $('.postdata').serializeArray();
+                    var postData = formAdjust(formSerial);
+
+                    // ログイン状態の保存のチェック判定&データ追加
+                    if ($('input[name="save_login"]:checked').val() == 'on') {
+                        postData = JSON.stringify(Object.assign(postData, {'save_login': true}));
+                        var loginTerm = 30;
+                    } else {
+                        postData = JSON.stringify(Object.assign(postData, {'save_login': false}));
+                        var loginTerm = 1;
+                    }
+
+                    $.ajax({
+                        url: rootVariables.apiUrl + '/students/login',
+                        dataType: 'json',
+                        type: 'POST',
+                        contentType: 'application/json',
+                        accept: 'application/json',
+                        data: postData,
+                        processData: false,
+                        success: function (data) {
+                            // console.log(data);
+                            loginSuccess(data.data, loginTerm);
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            $('.alert-box').hide();
+                            $('.alert-box.error').fadeIn();
+                            console.log(errorThrown);
+                            console.log(textStatus);
+                            console.log(XMLHttpRequest);
+                        }
+                    });
+
+                }
+
+// 送信データ処理
+                function formAdjust(a) {
+
+                    // 配列を逆順にチェックしてvalueが空のものを削除
+                    for (i = a.length - 1; i > -1; i--) {
+                        if (a[i]['value'] == '') {
+                            a.splice(i, 1);
+                        }
+                    }
+
+                    // nameに[]が含まれるものをカンマを付けてまとめる
+                    var p = [];
+
+                    for (i = a.length - 1; i > -1; i--) {
+                        var n = a[i]['name'];
+                        if (n.match(/\[\]/)) {
+                            n = n.replace(/\[\]/g, '');
+                            if (!p[n]) {
+                                p[n] = [];
+                            }
+                            p[n] = a[i]['value'] + ',' + p[n];
+                            a.splice(i, 1);
+                        }
+                    }
+
+                    // カンマを付けてまとめたものを配列に戻す
+                    for (key in p) {
+                        p[key] = p[key].replace(/\,$/g, '');
+                        a.push({name: key, value: p[key]});
+                    }
+
+                    // 整理できた配列を検索APIに投げやすいようにオブジェクト形式に変更
+                    var obj = {};
+                    for (i in a) {
+                        obj[a[i]['name']] = a[i]['value'];
+                    }
+                    return obj;
+                }
+                function saveUserData(data, loginTerm) {
+                    var contractTermId = globalInfo("contract_term_id");
+                    globalInfo('jwt_' + contractTermId, data.jwt, {expires: loginTerm, path: "/"});
+                    globalInfo('id_' + contractTermId, data.id, {expires: loginTerm, path: "/"});
+                    // 1 user have only 1 contract term
+                    globalInfo('user_contract_term', data.user_contract_term[0].contract_term_id, {expires: loginTerm, path: "/"});
+                    globalInfo('user_contract_term_name', data.user_contract_term[0].term_name, {expires: loginTerm, path: "/"});
+                }
+// ログイン成功＆前の画面に戻る処理
+                $('#moveToMemberEdit').on('click', function () {
+                    saveUserData(userDataTemp, loginTermTemp);
+                    globalInfo('warn_contract_term', 1, {expires: 1, path: "/"});
+                    toLocationHref('/mypage/memberinfo/edit');
+                });
+                function loginSuccess(data, loginTerm) {
+                    if (data.user_contract_term.length > 0) {
+                        var matchUserContractTerm = _.find(data.user_contract_term, function (contractTerm) {
+                            return contractTerm.contract_term_id == globalInfo('contract_term_id');
+                        });
+                        if (!matchUserContractTerm) {
+                            var lastUserContractTerm = _.last(data.user_contract_term);
+                            var modalWarning = $('#modalWarning');
+                            $('.current-contract-term').text(globalInfo('contract_term'));
+                            $('.user-contract-term').text(lastUserContractTerm.term_name);
+                            $('#loginUserContractTerm').attr('href', '/' + lastUserContractTerm.term_name + '/login/user');
+                            $('#loginCurrentContractTerm').attr('href', '/' + globalInfo('contract_term') + '/login/user');
+                            userDataTemp = data;
+                            loginTermTemp = loginTerm;
+                            modalWarning.show();
+                            return;
+                        }
+                        saveUserData(data, loginTerm);
+                        var returnUrl = globalInfo('returnUrl');
+
+                        if (!returnUrl) {
+                            // 仮
+                            toLocationHref('/mypage/top');
+                        } else {
+                            removeGlobalInfo('returnUrl', { path: '/' });
+                            var isOpenNewTab = globalInfo('isOpenNewTab');
+                            if (isOpenNewTab) {
+                                removeGlobalInfo('isOpenNewTab');
+                                window.open(returnUrl); //  new tab
+                            } else {
+                                window.location = returnUrl;
+                            }
+                        }
+                    }
+                }
+
+            });
+        </script>
+    {{/content}}
+{{/extend}}

@@ -1,0 +1,219 @@
+{{#extend "components/layout" title="イベント 自己紹介カード"}}
+    {{#content "header-scripts" mode="append"}}
+        <link rel="stylesheet" href="{{path}}css/event.css" type="text/css" media="all"/>
+        <style type="text/css">
+            @media screen {
+                .intro-qr-fig-print {
+                    display: none;
+                }
+            }
+
+            @media print {
+                .wrapper {
+                    /*transform: scale(0.8);*/
+                }
+
+                #header {
+                    display: none;
+                }
+
+                #footer {
+                    display: none;
+                }
+
+                #privacyPolicy {
+                    display: none;
+                }
+
+                #main {
+                    margin-top: 0 !important;
+                    padding-top: 0 !important;
+                }
+
+                #printBtn {
+                    display: none;
+                }
+
+                #btnBackToTopBox {
+                    display: none;
+                }
+
+                .article-box {
+                    margin: 0;
+                    padding: 0;
+                    width: auto;
+                }
+
+                .drop-shadow-box {
+                    padding: 0;
+                    box-shadow: none;
+                }
+
+                .intro-event-tbl {
+                    display: table;
+                    width: 100%;
+                }
+
+                .intro-event-detail {
+                    display: table-cell;
+                    vertical-align: top;
+                }
+
+                .intro-qr-fig-print {
+                    margin: 0;
+                    padding: 0;
+                    display: table-cell;
+                    vertical-align: top;
+                }
+
+                .intro-box th {
+                    padding-bottom: 10px;
+                    width: 10em;
+                    font-size: 100%;
+                }
+
+                .intro-box td {
+                    padding-bottom: 10px;
+                    font-size: 17.5px;
+                }
+
+                .intro-qr-fig-print {
+                    width: 200px;
+                }
+
+                .intro-event-detail dd {
+                    padding-bottom: 10px;
+                    font-size: 100%;
+                }
+
+                .intro-qr-img {
+                    max-width: 150px;
+                }
+            }
+
+            @page {
+                size: auto;
+            }
+
+        </style>
+    {{/content}}
+    {{#content "main"}}
+        <div class="contents-box">
+            <article class="article-box">
+                <div class="drop-shadow-box">
+                    <header class="article-box-header">
+                        <h2 class="article-box-header-h2">
+                            <span class="article-box-header-h2-jp">自己紹介カード</span>
+                            <!-- <br /><span class="article-box-header-h2-eng"></span> -->
+                        </h2>
+                    </header>
+                    <div class="article-box-body">
+                        <h3 class="intro-event-h3">予約イベント情報</h3>
+                        <h4 data-api="event_title" class="intro-event-ttl"></h4>
+                        <div class="intro-event-tbl">
+                            <dl class="intro-event-detail">
+                                <dt>日時</dt>
+                                <dd data-api="event_datetime">
+                                    <div class="intro-event-detail-dateday"><span class="event-detail-info-date"></span><span
+                                            class="event-detail-info-day"></span></div>
+                                    <div class="intro-event-detail-time"></div>
+                                </dd>
+                                <dt>会場</dt>
+                                <dd data-api="event_place"></dd>
+                                <dt>住所</dt>
+                                <dd data-api="event_address"></dd>
+                                <dt id="event_date_target_wrapper">対象</dt>
+                                <dd data-api="event_date_target"></dd>
+                            </dl>
+                        </div>
+
+                        <!--  -->
+                        <div>
+                            <h3 class="intro-event-h3">参加者情報</h3>
+                            <table class="intro-box">
+                                <tr>
+                                    <th>氏名</th>
+                                    <td data-api="user_name"></td>
+                                </tr>
+                                <tr>
+                                    <th>学校種別 <span class="ilb">/ 文理区分</span></th>
+                                    <td data-api="user_university_dept_type"></td>
+                                </tr>
+                                <tr>
+                                    <th>学校情報</th>
+                                    <td data-api="user_university_dept"></td>
+                                </tr>
+                                <tr>
+                                    <th>卒業年⽉</th>
+                                    <td data-api="user_graduation_date"></td>
+                                </tr>
+                                <tr>
+                                    <th>現住所</th>
+                                    <td data-api="user_location"></td>
+                                </tr>
+                                <tr>
+                                    <th>電話番号1</th>
+                                    <td data-api="user_phone_1"></td>
+                                </tr>
+                                <tr>
+                                    <th>電話番号2</th>
+                                    <td data-api="user_phone_2"></td>
+                                </tr>
+                                <tr>
+                                    <th>メール<span class="ilb">アドレス1</span></th>
+                                    <td data-api="user_email_1"></td>
+                                </tr>
+                                <tr>
+                                    <th>メール<span class="ilb">アドレス2</span></th>
+                                    <td data-api="user_email_2"></td>
+                                </tr>
+                                <tr >
+                                    <th>休暇中<span class="ilb">連絡先</span></th>
+                                    <td data-api="user_hometown_contact" class="user_hometown_contact"></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <figure id="qrScreen" class="intro-qr-fig intro-border-top">
+                            <img data-api="qr-data" src="" class="intro-qr-img" alt=""/>
+                        </figure>
+                        <!--  -->
+                        <div id="privacyPolicy">
+                            <h3 class="intro-event-h3">プライバシーポリシー</h3>
+                            <div class="privacy-policy-box">
+                                <h4 class="privacy-policy-h4">あなたの「個⼈情報の収集と個⼈情報の保護」について</h4>
+                                <dl class="privacy-policy-dl">
+                                    <dt class="privacy-policy-dl-dt">【個⼈情報取得の⽬的について】</dt>
+                                    <dd class="privacy-policy-dl-dd">
+                                        この⾃⼰紹介カードやアンケートで取得した「あなたに関する個⼈情報」（以下「個⼈情報」といいます）は、就職情報の提供や社会人になるための就活準備活動等に使⽤し、それ以外の⽬的で使⽤することはありません。
+                                    </dd>
+                                    <dt class="privacy-policy-dl-dt">【個⼈情報の委託について】</dt>
+                                    <dd class="privacy-policy-dl-dd">第三者（委託者除く）に提供することはありません。業務を委託する場合は規定に従い契約を締結します。</dd>
+                                    <dt class="privacy-policy-dl-dt">【個⼈情報提供は任意です】</dt>
+                                    <dd class="privacy-policy-dl-dd">各項⽬の記⼊はあくまでも任意ですが、記⼊漏れ・記⼊ミスがあった場合、就職情報の提供ができない場合もございます。</dd>
+                                    <dt class="privacy-policy-dl-dt">【個⼈情報取得の⽬的について】</dt>
+                                    <dd class="privacy-policy-dl-dd">
+                                        この⾃⼰紹介カードやアンケートで取得した「あなたに関する個⼈情報」（以下「個⼈情報」といいます）は、就職情報の提供や社会⼈なるための準備活動等に使⽤し、それ以外の⽬的で使⽤することはありません。
+                                    </dd>
+                                    <dt class="privacy-policy-dl-dt">【個⼈情報の委託について】</dt>
+                                    <dd class="privacy-policy-dl-dd">第三者（委託者除く）に提供することはありません。業務を委託する場合は規定に従い契約を締結します。</dd>
+                                    <dt class="privacy-policy-dl-dt">【個⼈情報提供は任意です】</dt>
+                                    <dd class="privacy-policy-dl-dd">各項⽬の記⼊はあくまでも任意ですが、記⼊漏れ・記⼊ミスがあった場合、就職情報の提供ができない場合もございます。</dd>
+                                    <dt class="privacy-policy-dl-dt">【企業に提出した自己紹介カードの管理について】</dt>
+                                    <dd class="privacy-policy-dl-dd">企業へ自己紹介カードを提出すると、以後そこに含まれる個人情報の管理は提出先企業が行います。</dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="printBtn" class="talc">
+                    <h1 style="padding: 10px 0">プライバシーボリシーに同意して印刷します。</h1>
+                    <a href="javascript:void(0);" class="btn-print" onclick="printCard()"><span
+                            class="btn-print-blue">印刷する</span><span class="btn-print-white">印刷する</span></a>
+                </div>
+            </article>
+        </div>
+    {{/content}}
+    {{#content "footer-scripts" mode="append"}}
+        <script src="{{path}}js/pages/CL2300.js"></script>
+    {{/content}}
+{{/extend}}

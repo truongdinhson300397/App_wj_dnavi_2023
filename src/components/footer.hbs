@@ -1,0 +1,42 @@
+{{#block "footer-scripts"}}
+    <!--    libraries-->
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"
+            integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+    <script src="{{path}}js/vendor/moment.js"></script>
+    <script src="{{path}}js/vendor/moment-timezone-with-data.min.js"></script>
+    <script src="{{path}}js/vendor/lodash.min.js"></script>
+    {{#unless isApplican}}
+        <script src="{{path}}js/jquery.cookie.js"></script>
+    {{else}}
+        <script src="{{path}}js/applican.helpers.js"></script>
+    {{/unless}}
+    <script>
+        var assetsPath = '{{path}}';
+            {{#if isApplican}}
+            var isApplican = true;
+            var globalInfo, removeGlobalInfo;
+            if (typeof $ === "function" && typeof $.cookie === "function") {
+                globalInfo = $.cookie;
+            }
+            if (typeof $ === "function" && typeof $.cookie === "function") {
+                removeGlobalInfo = removeGlobalInfo;
+            }
+            globalInfo('contract_term_id', 1);
+            {{/if}}
+    </script>
+    <script src="{{path}}js/shared/nav_component.js"></script>
+    <script src="{{path}}js/swiper.js"></script>
+    <script src="{{path}}js/common.js"></script>
+    <!-- common functions -->
+    <script src="{{path}}js/functions.js"></script>
+    <script src="{{path}}js/gumi_helpers.js"></script>
+    <script src="{{path}}js/shared/general.js"></script>
+    <script src="{{path}}js/shared/footer_component.js"></script>
+    <script src="{{path}}js/sites/apiSend.js"></script>
+{{/block}}
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-65746218-1"></script>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TR6KZD" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->

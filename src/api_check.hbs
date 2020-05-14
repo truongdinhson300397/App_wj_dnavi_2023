@@ -1,0 +1,48 @@
+{{#extend "components/layout" title="APIチェック" }}
+    {{#content "header-scripts" mode="append"}}
+        <link rel="stylesheet" href="{{path}}css/login.css" type="text/css" media="all"/>
+    {{/content}}
+    {{#content "main"}}
+        <!-- main -->
+        <div id="main" class="contents">
+
+            <!--  -->
+            <div class="contents-box">
+                <!-- <div class="contents-preface">
+                  ダイヤモンド就活ナビは、就活情報をはじめ、就活生に役立つコンテンツを数多く配信しています。
+                </div> -->
+
+                <article class="article-box pddb0">
+                    <h1>APIチェック</h1>
+                </article>
+            </div>
+
+        </div><!-- #main -->
+    {{/content}}
+    {{#content "footer-scripts" mode="append"}}
+        <script>
+            $(document).ready(function() {
+                $.ajax({
+                    url :  apiUrl+'api/v1/master_data/categories?per_page=999',
+                    type : 'get',
+                    headers : {
+                        'Accept' : 'application/json'
+                    },
+                    success: function(data) {
+                        console.log(data);
+                        render(data);
+                    },
+                    error: function(XMLHttpRequest, textStatus, errorThrown){
+                        console.log(textStatus);
+                        console.log(XMLHttpRequest);
+                    }
+                });
+                function render(data){
+                    for ( i in data[data] ){
+                        $('.article-box').append('<p></p>');
+                    }
+                }
+            });
+        </script>
+    {{/content}}
+{{/extend}}

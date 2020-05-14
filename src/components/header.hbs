@@ -15,17 +15,8 @@
 <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" /> -->
 <!-- <meta name="robots" content="noindex,nofollow"/> -->
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-<title>ダイヤモンド就活ナビ：学生のための就職活動・採用・IS情報サイト</title>
-
-<link rel="stylesheet" href="/public/css/common.css" type="text/css" media="all"/>
-<link rel="stylesheet" href="/public/css/login.css" type="text/css" media="all"/>
-<style>
-    #download-app {
-        margin-top: 50px;
-    }
-    @media (max-width: 769px) {
-        .logo-app-img {
-            width: 150px;
-        }
-    }
-</style>
+<title>{{#if title}}{{title}}{{else}}ダイヤモンド就活ナビ：学生のための就職活動・採用・IS情報サイト{{/if}}</title>
+{{#block "header-scripts"}}
+    <link rel="stylesheet" href="{{path}}css/common.css" type="text/css" media="all"/>
+    <link rel="stylesheet" href="{{path}}css/shared/general.css" type="text/css" media="all"/>
+{{/block}}
