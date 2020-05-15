@@ -49,7 +49,7 @@
                         </div>
                         <div class="singon-btn-box">
                             <a href="/2021/regist" class="btn-default singon-btn-flex btn-blue js-btn-register-1">会員登録</a>
-                            <a href="/2021" class="btn-default singon-btn-flex btn-white js-btn-no-register-1">登録せずに進む</a>
+                            <a href="/2021/" class="btn-default singon-btn-flex btn-white js-btn-no-register-1">登録せずに進む</a>
                         </div>
                     </div>
 
@@ -107,6 +107,7 @@
     {{/content}}
     {{#content "footer-scripts" mode="append"}}
         <script>
+            var notChangeLogo = true;
             $(function () {
                 $('.js-btn-register-1').on("click", function () {
                     globalInfo('contract_term_id', 1, {path: "/"});

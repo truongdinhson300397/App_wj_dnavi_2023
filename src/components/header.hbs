@@ -19,4 +19,7 @@
 {{#block "header-scripts"}}
     <link rel="stylesheet" href="{{path}}css/common.css" type="text/css" media="all"/>
     <link rel="stylesheet" href="{{path}}css/shared/general.css" type="text/css" media="all"/>
+    {{#if isApplican}}
+        <link rel="stylesheet" href="{{path}}css/app.css" type="text/css" media="all"/>
+    {{/if}}
 {{/block}}

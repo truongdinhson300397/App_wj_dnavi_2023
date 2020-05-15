@@ -1,4 +1,7 @@
 {{#block "footer-scripts"}}
+    <script>
+        var assetsPath = '{{path}}';
+    </script>
     <!--    libraries-->
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"
             integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
@@ -9,23 +12,19 @@
     <script src="{{path}}js/vendor/lodash.min.js"></script>
     {{#unless isApplican}}
         <script src="{{path}}js/jquery.cookie.js"></script>
+        <script src="{{path}}js/shared/function_controller.js"></script>
     {{else}}
+        <script src="applican.js"></script>
+        <script>
+            var isApplican = true;
+        </script>
         <script src="{{path}}js/applican.helpers.js"></script>
     {{/unless}}
+    {{#if isApplican}}
     <script>
-        var assetsPath = '{{path}}';
-            {{#if isApplican}}
-            var isApplican = true;
-            var globalInfo, removeGlobalInfo;
-            if (typeof $ === "function" && typeof $.cookie === "function") {
-                globalInfo = $.cookie;
-            }
-            if (typeof $ === "function" && typeof $.cookie === "function") {
-                removeGlobalInfo = removeGlobalInfo;
-            }
-            globalInfo('contract_term_id', 1);
-            {{/if}}
+        globalInfo('contract_term_id', 1);
     </script>
+    {{/if}}
     <script src="{{path}}js/shared/nav_component.js"></script>
     <script src="{{path}}js/swiper.js"></script>
     <script src="{{path}}js/common.js"></script>
@@ -33,7 +32,9 @@
     <script src="{{path}}js/functions.js"></script>
     <script src="{{path}}js/gumi_helpers.js"></script>
     <script src="{{path}}js/shared/general.js"></script>
+    {{#unless isApplican}}
     <script src="{{path}}js/shared/footer_component.js"></script>
+    {{/unless}}
     <script src="{{path}}js/sites/apiSend.js"></script>
 {{/block}}
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-65746218-1"></script>

@@ -57,6 +57,10 @@ const webpackConfig = {
             onEnd: {
                 copy: [
                     { source: './assets/{css,img,js}/**/*', destination: path.join(...buildPath) },
+                    { source: './applican-assets/**/*', destination: path.join(...buildPath) },
+                ],
+                move: [
+                    { source: path.join(...buildPath, 'CL0020.html'), destination: path.join(...buildPath, 'index.html') },
                 ],
                 archive: [
                     { source: path.join(...buildPath), destination: path.join(...buildZipPath, zipName) },

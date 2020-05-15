@@ -1,0 +1,5 @@
+<applican-whitelist>
+	<allowed>https://*/*</allowed>
+	<allowed>http://*/*</allowed>
+	<allowed>http://*</allowed>
+</applican-whitelist>

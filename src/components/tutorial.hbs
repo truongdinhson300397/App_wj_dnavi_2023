@@ -1,0 +1,214 @@
+<style>
+    /* first open */
+    .swiper-container {
+        overflow-y: hidden;
+        width: 100%;
+        height: 100%;
+    }
+    .swiper-slide {
+        text-align: center;
+        font-size: 18px;
+        background: #fff;
+        /* Center slide text vertically */
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+    }
+    .swiper-wrapper {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        display: flex;
+        transition-property: transform;
+        box-sizing: content-box;
+    }
+    .swiper-slide {
+        flex-shrink: 0;
+        width: 100%;
+        position: relative;
+        transition-property: transform;
+    }
+    .swiper-pagination {
+        position: absolute;
+        text-align: center;
+        transition: .3s opacity;
+        transform: translate3d(0,0,0);
+        z-index: 10;
+    }
+    .swiper-container-horizontal>.swiper-pagination-bullets, .swiper-pagination-custom, .swiper-pagination-fraction {
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background: white;
+        height: 40px;
+    }
+    .swiper-pagination-bullet-active {
+        opacity: 1 !important;
+    }
+    .swiper-pagination-bullet {
+        margin-top: 15px;
+        margin-left: 5px;
+        width: 8px;
+        height: 8px;
+        display: inline-block;
+        border-radius: 100%;
+        background: #000;
+        opacity: .2;
+    }
+
+    .swiper-button-next, .swiper-button-prev {
+        position: absolute;
+        top: 96%;
+        z-index: 999;
+    }
+    .swiper-button-next:after, .swiper-button-prev:after {
+        letter-spacing: 0;
+        text-transform: none;
+        font-variant: initial;
+    }
+    .swiper-button-next, .swiper-container-rtl .swiper-button-prev {
+        border-right: unset;
+        border-top: unset;
+        transform: unset;
+        height: 25px;
+    }
+    .swiper-button-prev, .swiper-container-rtl .swiper-button-next {
+        border-left: unset;
+        border-top: unset;
+        transform: unset;
+        height: 25px;
+    }
+
+    /* image toturial */
+    .img-tutorial {
+        width: 100%;
+        height: 100%;
+    }
+    /* tutorial modal */
+    .swiper-button-next {
+        color: #2d6ba9;
+        font-weight: 600;
+    }
+    .swiper-button-prev {
+        color: #a6a6a6;
+    }
+    .swiper-pagination-bullet-active {
+        background: #2d6ba9;
+    }
+    /* iPhone X 375x812 */
+    /* iPhone 5,6,7 375x667 */
+    /* default is iPhone 6,7,8 */
+    .iphone-x {
+        display: none;
+    }
+    .iphone-678 {
+        display: block;
+    }
+    /* iphone-X */
+    @media only screen and (min-height: 684px) {
+        .iphone-x {
+            display: block;
+        }
+        .iphone-678 {
+            display: none;
+        }
+    }
+    .hidden {
+        display: none;
+    }
+
+</style>
+<div id="first-open-app" class="swiper-container swiper-tutorial" style="display: none">
+    <div class="swiper-wrapper">
+    </div>
+    <!-- Add Arrows -->
+    <div id="btn-next" class="swiper-button-next">次へ</div>
+    <div id="btn-skip" class="swiper-button-next hidden">開始</div>
+    <div class="swiper-button-prev target-skip">スキップ</div>
+    <!-- Add Pagination -->
+    <div class="swiper-pagination"></div>
+</div>
+<script>
+    $(function () {
+        firstOpen();
+
+        // when 1st open
+        function firstOpen () {
+            if(_.isUndefined(localStorage.getItem('isFirstOpen')) || _.isNull(localStorage.getItem('isFirstOpen'))) {
+                //
+                $("#first-open-app").css("display", "block");
+                $(".wrapper").css("display", "none");
+                // default is Android even if current device isn't mobile device
+                var platform = applican.device.platform;
+                // set image
+                if (platform === 'Android') {
+                    $('#first-open-app .swiper-wrapper').html('' +
+                            '<div class="swiper-slide">\n' +
+                            '      <img class="img-tutorial" src="./img/android_tutorial_1.png" alt="">' +
+                            '    </div>' +
+                            '<div class="swiper-slide">\n' +
+                            '      <img class="img-tutorial" src="./img/android_tutorial_2.png" alt="">' +
+                            '    </div>' +
+                            '<div class="swiper-slide">\n' +
+                            '      <img class="img-tutorial" src="./img/android_tutorial_3.png" alt="">' +
+                            '    </div>');
+                } else {
+                    $('#first-open-app .swiper-wrapper').html('' +
+                            '<div class="swiper-slide">\n' +
+                            '      <img class="img-tutorial iphone-678" src="./img/iphone678_tutorial_1.png" alt="">' +
+                            '      <img class="img-tutorial iphone-x" src="./img/iphoneX_tutorial_1.png" alt="">' +
+                            '    </div>' +
+                            '<div class="swiper-slide">\n' +
+                            '      <img class="img-tutorial iphone-678" src="./img/iphone678_tutorial_2.png" alt="">' +
+                            '      <img class="img-tutorial iphone-x" src="./img/iphoneX_tutorial_2.png" alt="">' +
+                            '    </div>' +
+                            '<div class="swiper-slide">\n' +
+                            '      <img class="img-tutorial iphone-678" src="./img/iphone678_tutorial_3.png" alt="">' +
+                            '      <img class="img-tutorial iphone-x" src="./img/iphoneX_tutorial_3.png" alt="">' +
+                            '    </div>');
+                }
+                var swiper = new Swiper('.swiper-tutorial', {
+                    navigation: {
+                        nextEl: '.swiper-button-next',
+                        prevEl: '.swiper-button-prev',
+                    },
+                    pagination: {
+                        el: '.swiper-pagination',
+                    },
+                    mousewheel: {
+                        releaseOnEdges: true,
+                    },
+                });
+                console.log(swiper);
+                swiper.on('slideChange', function () {
+                    if(swiper.realIndex === 2) {
+                        $('#btn-next').hide();
+                        $('#btn-skip').show();
+                        $('.target-skip').hide();
+                    } else {
+                        $('#btn-next').show();
+                        $('#btn-skip').hide();
+                        $('.target-skip').show();
+                    }
+                });
+            }
+        }
+
+        $('#btn-skip, .target-skip').click(function () {
+            localStorage.setItem('isFirstOpen', '1');
+            localStorage.setItem('contract_term_id', 1);
+            setContractTerm(2021, 1);
+            window.location.href = "index.html";
+        });
+    });
+</script>

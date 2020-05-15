@@ -1,5 +1,6 @@
 {{#extend "components/layout" title="企業 一覧"}}
-    {{#content "header-scripts" mode="append"}}
+    {{#content "header-scripts" mode="prepend"}}
+        <link rel="stylesheet" href="{{path}}css/swiper.css" type="text/css" media="all"/>
         <link rel="stylesheet" href="{{path}}css/companies.css" type="text/css" media="all"/>
     {{/content}}
     {{#content "main"}}

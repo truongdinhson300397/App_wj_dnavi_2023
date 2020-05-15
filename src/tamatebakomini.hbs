@@ -79,5 +79,15 @@
         <script src="{{path}}js/content/http/api.js"></script>
         <script src="{{path}}js/content/utils/index.js"></script>
         <script src="{{path}}js/content/tamatebakomini.js"></script>
+        <script>
+            $(function () {
+                _headerUIHandler(null, null, null);
+                window.onpageshow = function (event) {
+                    if (event.persisted) {
+                        window.location.reload()
+                    }
+                };
+            });
+        </script>
     {{/content}}
 {{/extend}}

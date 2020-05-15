@@ -2,11 +2,130 @@
     {{#content "header-scripts" mode="append"}}
         <link rel="stylesheet" href="{{path}}css/form.css" type="text/css" media="all" />
         <link rel="stylesheet" href="{{path}}css/contents.css" type="text/css" media="all" />
+        <style>
+            #tempButton {
+                opacity: 0;
+                pointer-events: none;
+            }
+            @media only screen and (max-width: 479px) {
+                a#prev {
+                    position: relative;
+                    top: 59px;
+                }
+
+                a#next {
+                    position: relative;
+                    bottom: 59px;
+                }
+                #tempButton {
+                    display: none;
+                }
+            }
+
+            .btn-inactive {
+                cursor: not-allowed;
+            }
+
+            .btn-inactive:before {
+                content: '';
+                background: gray;
+                cursor: not-allowed;
+            }
+
+            .btn-inactive:after {
+                content: '';
+                background: gray;
+                cursor: not-allowed;
+            }
+
+            img {
+                max-width: 100%;
+            }
+        </style>
     {{/content}}
     {{#content "main"}}
+        <div class="contents-box">
+            <!--  -->
+            <article class="article-box">
+                <header class="article-box-header">
+                    <h2 class="article-box-header-h2">
+                        <span class="article-box-header-h2-jp">SPI全国統一模擬試験</span>
+                        <!-- <br /><span class="article-box-header-h2-eng"></span> -->
+                    </h2>
+                </header>
+                <!--  -->
+                <section class="drop-shadow-box">
+                    <ul class="progress-ul">
+                        <li class="progress-ul-li">
+                            <div class="progress-ul-li-hd">回答数</div>
+                            <div id="progress-number-quiz" class="progress-ul-li-num">
+                                <!--                <span class="progress-ul-li-num-cnt">0</span> /-->
+                                <!--                <span class="progress-ul-li-num-total">35</span> 問-->
+                            </div>
+                            <div class="progress-ul-li-bar">
+                                <div class="progressbar-outer">
+                                    <div id="percent-number-answers" class="progressbar-inner" style="width: 0"></div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="progress-ul-li">
+                            <div class="progress-ul-li-hd">時間</div>
+                            <div class="progress-ul-li-num">
+                                <span id="time-start" class="progress-ul-li-num-cnt"></span> / <span
+                                    class="progress-ul-li-num-total" id="time-total"></span> 分
+                            </div>
+                            <div class="progress-ul-li-bar">
+                                <div class="progressbar-outer">
+                                    <div id="percent-time" class="progressbar-inner" style="width: 0"></div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </section>
+                <section id="question-content" class="drop-shadow-box mgnt30-50">
+                    <div id="question-header" class="contents-question-outer">
+                        <!--TODO: Quiz Header-->
+                    </div>
+                    <div class="contents-answer-outer">
+                        <h4 class="contents-answer-h4">選択肢</h4>
+                        <!--TODO: Answers-->
+                        <ul id="answersUl" class="contents-answer-ul">
+                        </ul>
+                        <div class="singon-btn-box mgnt30-50">
+                            <a href="javascript:void(0);" id="prev"
+                               class="btn-default singon-btn-flex btn-blue btn-first">
+                                <span class="spn-arr-l"></span>
+                                前の問題に戻る
+                            </a>
+                            <a href="javascript:void(0);" id="next"
+                               class="btn-default singon-btn-flex btn-blue">
+                                次の問題へ進む
+                                <span class="spn-arr-r"></span>
+                            </a>
+                        </div>
+                        <div class="singon-btn-box mgnt30-50" style="justify-content: space-between;">
+                            <a href="javascript:void(0);" id="tempButton" class="btn-default singon-btn-flex btn-green"></a>
+                            <a href="javascript:void(0);" id="finishQuiz" class="btn-default singon-btn-flex btn-green"
+                               style="cursor: pointer">終了
+                                <span class="spn-arr-r"></span>
+                            </a>
+                        </div>
+                    </div>
+                </section>
 
+            </article>
+        </div>
     {{/content}}
     {{#content "footer-scripts" mode="append"}}
-
+        <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="{{path}}js/swiper.js"></script>
+        <script src="{{path}}js/content/spi_3.js"></script>
+        <script>
+            $(function () {
+                _headerUIHandler(null, null, true);
+            });
+        </script>
     {{/content}}
 {{/extend}}
