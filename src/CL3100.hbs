@@ -32,7 +32,7 @@
                     </div>
                     <div class="search-result-box"></div>
                     <div class="">
-                        <a href="/company/search" class="btn-default btn-green w100prc mgnt20-30">さらに絞り込む</a>
+                        <a href="{{companySearch}}" class="btn-default btn-green w100prc mgnt20-30">さらに絞り込む</a>
                     </div>
                 </section>
                 <section class="companies-result">
@@ -49,8 +49,8 @@
         <script>
             // redirect to landing page when user typing url company list
             var currentPage = window.location.href;
-            if(_.includes(currentPage, '2022/company/list')) {
-                var redirectToLandingPage = currentPage.replace('2022/company/list', '2022/navi22/top');
+            if(_.includes(currentPage, '2022{{companyList}}')) {
+                var redirectToLandingPage = currentPage.replace('2022{{companyList}}', '2022/navi22/top');
                 window.location.href = redirectToLandingPage;
             }
 

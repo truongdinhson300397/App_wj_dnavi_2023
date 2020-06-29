@@ -18,14 +18,14 @@
                         <div class="faq-category-box">
                             <h4 class="faq-category-h4">就活ナビへの会員登録・変更・退会、ID/パスワードについて</h4>
                             <ul class="list-faq-ul">
-                                <li class="list-faq-ul-li"><a href="/faq/detail#q1-01">就活ナビへの会員登録の方法がわからない</a></li>
-                                <li class="list-faq-ul-li"><a href="/faq/detail#q1-02">就活ナビのID、パスワードがわからない（なくしてしまった）</a></li>
-                                <li class="list-faq-ul-li"><a href="/faq/detail#q1-03">就活ナビに登録した内容を変更したい</a></li>
-                                <li class="list-faq-ul-li"><a href="/faq/detail#q1-04">就活ナビに登録した覚えがない</a></li>
-                                <li class="list-faq-ul-li"><a href="/faq/detail#q1-05">就活ナビから退会したい</a></li>
-                                <li class="list-faq-ul-li"><a href="/faq/detail#q1-06">登録のための条件について知りたい</a></li>
-                                <li class="list-faq-ul-li"><a href="/faq/detail#q1-08">すでにIDのお持ちの方について</a></li>
-                                <li class="list-faq-ul-li"><a href="/faq/detail#q1-09">就活ナビの会員規約</a></li>
+                                <li class="list-faq-ul-li"><a href="{{faqDetail}}#q1-01">就活ナビへの会員登録の方法がわからない</a></li>
+                                <li class="list-faq-ul-li"><a href="{{faqDetail}}#q1-02">就活ナビのID、パスワードがわからない（なくしてしまった）</a></li>
+                                <li class="list-faq-ul-li"><a href="{{faqDetail}}#q1-03">就活ナビに登録した内容を変更したい</a></li>
+                                <li class="list-faq-ul-li"><a href="{{faqDetail}}#q1-04">就活ナビに登録した覚えがない</a></li>
+                                <li class="list-faq-ul-li"><a href="{{faqDetail}}#q1-05">就活ナビから退会したい</a></li>
+                                <li class="list-faq-ul-li"><a href="{{faqDetail}}#q1-06">登録のための条件について知りたい</a></li>
+                                <li class="list-faq-ul-li"><a href="{{faqDetail}}#q1-08">すでにIDのお持ちの方について</a></li>
+                                <li class="list-faq-ul-li"><a href="{{faqDetail}}#q1-09">就活ナビの会員規約</a></li>
                             </ul>
                         </div>
                     </div>
@@ -41,7 +41,7 @@
                             (就活ナビへの登録・利用は無料です)<br />
                             <ol class="list-decimal-ol">
                                 <li class="list-decimal-ol-li">就活ナビに初めて登録する方<br /><a href="https://www.shukatsu.jp/2021/regist" target="_blank">https://www.shukatsu.jp/2021/regist</a></li>
-                                <li class="list-decimal-ol-li">就活ナビのユーザーIDが記載されたメール、ハガキをお持ちの方<br /><a href="https://www.shukatsu.jp/2021/login/temporary_user" target="_blank">https://www.shukatsu.jp/2021/login/temporary_user</a></li>
+                                <li class="list-decimal-ol-li">就活ナビのユーザーIDが記載されたメール、ハガキをお持ちの方<br /><a href="{{loginTemporary}}" target="_blank">https://www.shukatsu.jp/2021/login/temporary_user</a></li>
                             </ol>
                             <!--              <div class="note-kome">会員登録の流れについてはこちらをご参照ください。<br />-->
                             <!--                <a href="http://navi21.shukatsu.jp/21/help/howto/flow.php" target="_blank">http://navi21.shukatsu.jp/21/help/howto/flow.php</a>-->
@@ -54,7 +54,7 @@
                         <h5 class="faq-question-h5">就活ナビのID、パスワードがわからない（なくしてしまった）</h5>
                         <div class="faq-answer-body">
                             下記のURLよりご自身でパスワードの再設定をお願いします。<br />
-                            <a href="https://www.shukatsu.jp/2021/reminder" target="_blank">https://www.shukatsu.jp/2021/reminder</a>
+                            <a href="{{reminder}}" target="_blank">https://www.shukatsu.jp/2021/reminder</a>
                         </div>
                     </div>
 
@@ -72,9 +72,9 @@
                                 <li class="list-decimal-ol-li">就活ナビからの退会手続き</li>
                             </ol>
                             <div class="mgnt10-15">
-                                <a href="/kiyaku" target="_blank">就活ナビTOPへ</a>
+                                <a href="{{kiyaku}}" target="_blank">就活ナビTOPへ</a>
                             </div>
-                            <div class="note-kome">登録内容の変更についてはこちら<br /><a href="https://www.shukatsu.jp/2021/mypage/top" target="_blank">https://www.shukatsu.jp/2021/mypage/top</a>
+                            <div class="note-kome">登録内容の変更についてはこちら<br /><a href="https://www.shukatsu.jp/2021{{myPageTop}}" target="_blank">https://www.shukatsu.jp/2021{{myPageTop}}</a>
                             </div>
                         </div>
                     </div>
@@ -94,13 +94,13 @@
                                 万が一今後のご利用予定のない場合、以下の退会方法をご確認のうえ、退会処理をお願いします。
                             </div>
                             <div class="note-kome">退会の方法についてはこちら<br />
-                                <a href="https://shukatsu.jp/2021/quitdnavi/temporary_user/edit" target="_blank">https://shukatsu.jp/2021/quitdnavi/temporary_user/edit</a>
+                                <a href="https://shukatsu.jp/2021{{quitdnaviTemporaryUserEdit}}" target="_blank">https://shukatsu.jp/2021{{quitdnaviTemporaryUserEdit}}</a>
                             </div>
                             <div class="note-kome">弊社プライバシーポリシーについてはこちら<br />
-                                <a href="https://shukatsu.jp/2021/privacy" target="_blank">https://shukatsu.jp/2021/privacy</a>
+                                <a href="https://shukatsu.jp/2021/{{privacy}}" target="_blank">https://shukatsu.jp/2021/privacy</a>
                             </div>
                             <div class="note-kome">就活ナビ会員規約についてはこちら<br />
-                                <a href="https://shukatsu.jp/2021/kiyaku" target="_blank">https://shukatsu.jp/2021/kiyaku</a>
+                                <a href="https://shukatsu.jp/2021{{kiyaku}}" target="_blank">https://shukatsu.jp/2021{{kiyaku}}</a>
                             </div>
                         </div>
                     </div>
@@ -122,7 +122,7 @@
                             <div>
                                 就活ナビにIDのみ登録されている方は、ナビTOPページのフッタ(下部メニュー)の「退会はこちら」より退会ができます。<br />
                                 ID、姓(漢字)、名(漢字)と、学部・学科・電話番号のいずれかを入力して【次へ⇒】ボタンをクリックして【退会⇒】をクリックしてください。<br/>
-                                <a href="https://shukatsu.jp/2021/quitdnavi/temporary_user/edit" target="_blank">https://shukatsu.jp/2021/quitdnavi/temporary_user/edit</a><br>
+                                <a href="https://shukatsu.jp/2021{{quitdnaviTemporaryUserEdit}}" target="_blank">https://shukatsu.jp/2021{{quitdnaviTemporaryUserEdit}}</a><br>
                             </div>
                         </div>
                     </div>
@@ -141,7 +141,7 @@
                         <h5 class="faq-question-h5">IDのみお持ちの方について</h5>
                         <div class="faq-answer-body">
                             本登録手続を行うことでパスワードが発行され、就活ナビの全てのサービスを無料でご利用いただくことができます。<br />
-                            登録については <a href="/faq/detail#q1-01">会員登録の方法がわからない</a> をご確認ください。
+                            登録については <a href="{{faqDetail}}#q1-01">会員登録の方法がわからない</a> をご確認ください。
                         </div>
                         <div class="faq-answer-body">
                             就活ナビからのメールやハガキがお手元に届いている方で、マイページに1度もログインしたことがない方は、下記のいずれかの経緯により、就活ナビにIDのみ登録されています。
@@ -158,13 +158,13 @@
                         <span id="q1-09" class="anchor"></span>
                         <h5 class="faq-question-h5">就活ナビの会員規約</h5>
                         <div class="faq-answer-body">
-                            <a href="https://shukatsu.jp/2021/kiyaku" target="_blank">こちらをご確認ください。</a>
+                            <a href="https://shukatsu.jp/2021{{kiyaku}}" target="_blank">こちらをご確認ください。</a>
                         </div>
                     </div>
 
                     <div class="talc mgnt30-50">
                         <div class="mgnb20-30">問題が解決しない場合、お問合せ内容がFAQに無い場合は、<span class="ilb">こちらよりお問い合わせください。</span></div>
-                        <a href="/contact" class="btn-default btn-blue w100-50prc">お問い合わせ</a>
+                        <a href="{{contact}}" class="btn-default btn-blue w100-50prc">お問い合わせ</a>
                     </div>
                 </section>
             </article>

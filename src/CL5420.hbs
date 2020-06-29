@@ -58,7 +58,7 @@
                         </table>
 
                         <div class="singon-btn-box">
-                            <a href="/quitdnavi/temporary_user/edit" class="btn-default singon-btn-flex btn-blue btn-first">戻る</a>
+                            <a href="{{quitdnaviTemporaryUserEdit}}" class="btn-default singon-btn-flex btn-blue btn-first">戻る</a>
                             <a href="#" class="btn-default singon-btn-flex btn-blue" onclick="__letMeLeave(event)">退会</a>
                         </div>
                     </div>
@@ -128,7 +128,7 @@
                     data: JSON.stringify(paramToServer),
                     processData: false,
                     success: function (data) {
-                        toLocationHref('/quitdnavi/temporary_user/complete');
+                        toLocationHref('{{quitdnaviTemporaryUserComplete}}');
                         localStorage.clear();
                     },
                     error: function (error) {

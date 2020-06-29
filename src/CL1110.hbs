@@ -60,11 +60,11 @@
                     <div class="drop-shadow-box">
                         <div class="article-box-body">
                             <ul class="list-nomark-ul block-centering mgnb30-50">
-                                <li class="list-nomark-ul-li"><a href="/reminder" class="link-text">ID・パスワードをお忘れの方はこちら</a></li>
-                                <li class="list-nomark-ul-li"><a href="/login/temporary_user" class="link-text">仮IDをお持ちの方はこちら</a></li>
+                                <li class="list-nomark-ul-li"><a href="{{reminder}}" class="link-text">ID・パスワードをお忘れの方はこちら</a></li>
+                                <li class="list-nomark-ul-li"><a href="{{loginTemporary}}" class="link-text">仮IDをお持ちの方はこちら</a></li>
                                 <li class="list-nomark-ul-li"> ※学校のガイダンスカードやWEB共通登録で登録した方、登録ハガキを投函した方、他連携サービスで同時登録を希望した方が対象となります。</li>
-                                <li class="list-nomark-ul-li"><a href="/regist" class="link-text">会員登録</a></li>
-                                <li class="list-nomark-ul-li"><a href="/faq/list" class="link-text">お問い合わせ</a></li>
+                                <li class="list-nomark-ul-li"><a href="{{regist}}" class="link-text">会員登録</a></li>
+                                <li class="list-nomark-ul-li"><a href="{{faqList}}" class="link-text">お問い合わせ</a></li>
                             </ul>
                         </div>
                     </div>
@@ -251,7 +251,7 @@
                 $('#moveToMemberEdit').on('click', function () {
                     saveUserData(userDataTemp, loginTermTemp);
                     globalInfo('warn_contract_term', 1, {expires: 1, path: "/"});
-                    toLocationHref('/mypage/memberinfo/edit');
+                    toLocationHref('{{myPageMemberinfoEdit}}');
                 });
                 function loginSuccess(data, loginTerm) {
                     if (data.user_contract_term.length > 0) {
@@ -263,8 +263,8 @@
                             var modalWarning = $('#modalWarning');
                             $('.current-contract-term').text(globalInfo('contract_term'));
                             $('.user-contract-term').text(lastUserContractTerm.term_name);
-                            $('#loginUserContractTerm').attr('href', '/' + lastUserContractTerm.term_name + '/login/user');
-                            $('#loginCurrentContractTerm').attr('href', '/' + globalInfo('contract_term') + '/login/user');
+                            $('#loginUserContractTerm').attr('href', '/' + lastUserContractTerm.term_name + '{{loginUser}}');
+                            $('#loginCurrentContractTerm').attr('href', '/' + globalInfo('contract_term') + '{{loginUser}}');
                             userDataTemp = data;
                             loginTermTemp = loginTerm;
                             modalWarning.show();
@@ -275,7 +275,7 @@
 
                         if (!returnUrl) {
                             // 仮
-                            toLocationHref('/mypage/top');
+                            toLocationHref('{{myPageTop}}');
                         } else {
                             removeGlobalInfo('returnUrl', { path: '/' });
                             var isOpenNewTab = globalInfo('isOpenNewTab');

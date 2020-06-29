@@ -52,7 +52,7 @@
                             </tr>
                         </table>
                         <div class="form-btn-box">
-                            <a href="/mypage/reset_password/complete" id="confirm" class="btn-default btn-blue w100-50prc">設定</a>
+                            <a href="{{myPageResetPassword}}/complete" id="confirm" class="btn-default btn-blue w100-50prc">設定</a>
                             <!--              <button id="login" class="btn-default btn-blue w100-50prc">設定</button>-->
                         </div>
                     </div>
@@ -113,7 +113,7 @@
                             data: JSON.stringify(formData),
                             success: function (data) {
                                 console.log(data.message);
-                                toLocationHref("/mypage/reset_password/complete");
+                                toLocationHref("{{myPageResetPassword}}/complete");
                                 //remove id and jwt when change password successfully
                                 // var cookies = globalInfo();
                                 // for (var cookie in cookies) {

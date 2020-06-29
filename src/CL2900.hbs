@@ -260,7 +260,7 @@
                         //Generate Event Button
                         if (moment(__eventDate).tz('Asia/Tokyo').format('YYYY-MM-DD') >= currentDate) {
                             if (_eventData.beLongToAsura) {
-                                eventButtonHml = '<a href="/event/detail?eventOf=ASURA&step_id=' + _eventData.event_id +
+                                eventButtonHml = '<a href="{{eventDetail}}?eventOf=ASURA&step_id=' + _eventData.event_id +
                                         '&asura_company_id=' + _eventData.company_id +
                                         '&event_held_date_id=' + _eventData.eventHeldDateId +
                                         '&asura_student_id=' + registrantId + '" class="btn-small btn-blue">詳細</a>';
@@ -268,12 +268,12 @@
                                 if (!(_eventData.is_open) && !_.isNull(_eventData.close_event_url)) {
                                     eventButtonHml = '<a href="' + _eventData.close_event_url + '" class="btn-small btn-blue">詳細</a>';
                                 } else {
-                                    eventButtonHml = '<a href="/event/detail?event_id=' + _eventData.event_id +
+                                    eventButtonHml = '<a href="{{eventDetail}}?event_id=' + _eventData.event_id +
                                             '" class="btn-small btn-blue">詳細</a>';
                                 }
                             }
                         } else {
-                            eventButtonHml = '<a href="/event/detail" class="btn-small btn-disabled">開催終了</a>';
+                            eventButtonHml = '<a href="{{eventDetail}}" class="btn-small btn-disabled">開催終了</a>';
                         }
                         // Generate event time by date
                         _.forEach(__eventTime, function (__date) {

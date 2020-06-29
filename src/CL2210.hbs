@@ -54,9 +54,9 @@
                                 </ul>
 
                                 登録情報は企業への送信の前に確認・変更が可能です。<br/>
-                                <a href="/mypage/memberinfo/edit" class="link-text">登録情報を確認・修正</a><br/><br/>
+                                <a href="{{myPageMemberinfoEdit}}" class="link-text">登録情報を確認・修正</a><br/><br/>
                                 個人情報の取り扱いについては利用規約からご確認ください。<br/>
-                                <a href="/kiyaku" class="link-text">利用規約を確認</a>
+                                <a href="{{kiyaku}}" class="link-text">利用規約を確認</a>
                             </div>
                         </div>
                     </div>
@@ -104,7 +104,7 @@
                             }
                         });
                         if (matchedEventDate.length > 0) {
-                            toLocationHref('/mypage/applied_event');
+                            toLocationHref('{{myPageAppliedEvent}}');
                             localStorage.clear();
                         } else {
                             $('.alert-box').append(previousError);
@@ -274,7 +274,7 @@
                         data: postData,
                         success: function (_res) {
                             localStorage.clear();
-                            toLocationHref('/mypage/applied_event');
+                            toLocationHref('{{myPageAppliedEvent}}');
                         },
                         error: function (jqXhr, textStatus, errorThrown) {
                             console.log(errorThrown);
@@ -302,7 +302,7 @@
                         processData: true,
                         success: function (_res) {
                             localStorage.clear();
-                            toLocationHref('/mypage/applied_event');
+                            toLocationHref('{{myPageAppliedEvent}}');
                         },
                         error: function (jqXhr, textStatus, errorThrown) {
                             console.log(errorThrown);
@@ -620,7 +620,7 @@
                                 // Update registranId
                                 _updateRegistrantId(asuraStudentId, asuraCompanyId);
                             } else {
-                                toLocationHref('/mypage/applied_event');
+                                toLocationHref('{{myPageAppliedEvent}}');
                             }
                         },
                         error: function (jqXhr, textStatus, errorThrown) {

@@ -270,7 +270,7 @@
                             '    <div class="event-ttl">' + _eventData.title + '</div>' +
                             '  </div>' +
                             '  <div class="event-btn-box">' +
-                            '    <a href="/event/detail?event_id=' + _eventData.event_id + '" class="btn-small btn-blue">詳細・予約</a>' +
+                            '    <a href="{{eventDetail}}?event_id=' + _eventData.event_id + '" class="btn-small btn-blue">詳細・予約</a>' +
                             '  </div>' +
                             '</li>'
                     );
@@ -480,7 +480,7 @@
                             '    <div class="event-com">' + _eventData.companyName + '</div>' +
                             '  </div>' +
                             '  <div class="event-btn-box">' +
-                            '    <a href="/event/detail?eventOf=ASURA&step_id=' + _eventData.stepId + '&asura_company_id=' +
+                            '    <a href="{{eventDetail}}?eventOf=ASURA&step_id=' + _eventData.stepId + '&asura_company_id=' +
                             _eventData.companyId + '&event_held_date_id=' + _eventData.eventHeldDateId + '" class="btn-small btn-blue">詳細・予約</a>' +
                             '  </div>' +
                             '</li>'

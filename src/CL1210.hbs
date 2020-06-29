@@ -110,10 +110,10 @@
                     </header> -->
                     <div class="article-box-body">
                         <ul class="list-nomark-ul block-centering mgnb30-50">
-                            <li class="list-nomark-ul-li"><a href="/forgetid" class="link-text">仮IDがわからない方はこちら</a></li>
-                            <li class="list-nomark-ul-li"><a href="/regist" class="link-text">新規に会員登録をしたい方はこちら</a></li>
-                            <li class="list-nomark-ul-li"><a href="/login/user" class="link-text">既に本会員の方はこちらからログインしてください</a></li>
-                            <li class="list-nomark-ul-li"><a href="/faq/list" class="link-text">お問い合わせ</a></li>
+                            <li class="list-nomark-ul-li"><a href="{{forgetId}}" class="link-text">仮IDがわからない方はこちら</a></li>
+                            <li class="list-nomark-ul-li"><a href="{{regist}}" class="link-text">新規に会員登録をしたい方はこちら</a></li>
+                            <li class="list-nomark-ul-li"><a href="{{loginUser}}" class="link-text">既に本会員の方はこちらからログインしてください</a></li>
+                            <li class="list-nomark-ul-li"><a href="{{faqList}}" class="link-text">お問い合わせ</a></li>
                         </ul>
                     </div>
                 </div>
@@ -301,7 +301,7 @@
                             $('.current-contract-term').text(globalInfo('contract_term'));
                             $('.user-contract-term').text(lastUserContractTerm.term_name);
                             $('#moveToUserContractTermLoginPage').off().on('click', function () {
-                                window.location = '/' + lastUserContractTerm.term_name + '/login/temporary_user';
+                                window.location = '/' + lastUserContractTerm.term_name + '{{loginTemporary}}';
                             });
                             $('#registerUserContractTerm').off().on('click', _.debounce(function () {
                                 $('#registerUserContractTerm').attr('disabled', true);

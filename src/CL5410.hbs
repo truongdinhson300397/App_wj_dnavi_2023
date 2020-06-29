@@ -34,18 +34,18 @@
                                     <p>
                                         来年度以降に就職活動をすることになった方へ<br><br>
                                         卒業年月・入社希望年月を変更することで、継続して来年度以降のインターンシップ・採用応募時期にサービスをご利用いただくことが可能です。<br><br>
-                                        <a class="link-text-no-arrow" href="/login/temporary_user">「会員登録 （仮IDをお持ちの方）」</a>より、事前にご登録されている情報を確認のうえ変更をおこなってください。<br><br>
+                                        <a class="link-text-no-arrow" href="{{loginTemporary}}">「会員登録 （仮IDをお持ちの方）」</a>より、事前にご登録されている情報を確認のうえ変更をおこなってください。<br><br>
                                     </p>
                                 </div>
                             </div>
                             <dl class="contact-preface-dl mgnt30-50">
                                 <dt>ユーザーIDとパスワードをお持ちの方</dt>
                                 <dd>
-                                    マイページに<a class="link-text-no-arrow" href="/login/user">ログイン</a>後、「退会」メニューにて手続きをおこなってください。
+                                    マイページに<a class="link-text-no-arrow" href="{{loginUser}}">ログイン</a>後、「退会」メニューにて手続きをおこなってください。
                                 </dd>
 
                                 <dt>仮IDをお忘れの方</dt>
-                                <dd><a href="/forgetid" class="link-text">仮IDを確認する</a></dd>
+                                <dd><a href="{{forgetId}}" class="link-text">仮IDを確認する</a></dd>
                             </dl>
                             <span class="txt-reduired">＊</span>は必須項目です。
                         </div>
@@ -164,10 +164,10 @@
             $(function () {
                 loadForm();
                 if(contractTerm === '2022') {
-                    $('#__temporaryLeaveForm').attr('action', '/2022/quitdnavi/temporary_user/confirm');
+                    $('#__temporaryLeaveForm').attr('action', '/2022{{quitdnaviTemporaryUserConfirm}}');
                 }
                 if(contractTerm === '2021') {
-                    $('#__temporaryLeaveForm').attr('action', '/2021/quitdnavi/temporary_user/confirm');
+                    $('#__temporaryLeaveForm').attr('action', '/2021{{quitdnaviTemporaryUserConfirm}}');
                 }
             });
 

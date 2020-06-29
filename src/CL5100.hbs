@@ -66,8 +66,8 @@
         <script>
             // redirect to landing page when user typing url disclosure
             var currentPage = window.location.href;
-            if(_.includes(currentPage, '2022/disclosure')) {
-                var redirectToLandingPage = currentPage.replace('2022/disclosure', '2022/navi22/top');
+            if(_.includes(currentPage, '2022/{{disclosure}}')) {
+                var redirectToLandingPage = currentPage.replace('2022/{{disclosure}}', '2022/navi22/top');
                 window.location.href = redirectToLandingPage;
             }
             _headerUIHandler();
@@ -138,7 +138,7 @@
 
                 _formatedDisclosures.forEach(function (disclose, index) {
                     var _discloseLi = '<li class="ranking-list-ul-li">' +
-                            '                  <a href="/company/detail?go_tab=disclosure&company_id=' + disclose.company.company_id +
+                            '                  <a href="{{companyDetail}}?go_tab=disclosure&company_id=' + disclose.company.company_id +
                             '" class="ranking-list-ul-li-a">' +
                             '                   <img src="' + disclose.company.company_main_visual_image_url + '" alt="' + disclose.company.company_main_visual_image_name +
                             '"/>' +
