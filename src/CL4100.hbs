@@ -3,91 +3,91 @@
         <link rel="stylesheet" href="{{path}}css/event.css" type="text/css" media="all"/>
     {{/content}}
     {{#content "main"}}
-        <div class="contents-box">
-            <!--  -->
+      <div class="contents-box">
+        <!--  -->
+        <header class="article-box-header">
+          <h2 class="article-box-header-h2">
+            <span class="article-box-header-h2-jp">インターンシップ＆<br>キャリア支援プログラムをさがす</span><br/>
+            <span class="article-box-header-h2-eng">INTERNSHIP SEARCH</span>
+          </h2>
+        </header>
+        <article id="searchBox" class="article-box">
+          <div id="group-search-all" class="drop-shadow-box">
             <header class="article-box-header">
-                <h2 class="article-box-header-h2">
-                    <span class="article-box-header-h2-jp">インターンシップ＆<br>キャリア支援プログラムをさがす</span><br/>
-                    <span class="article-box-header-h2-eng">INTERNSHIP SEARCH</span>
-                </h2>
+              <h2 class="article-box-header-h2">
+                <span class="article-box-header-h2-jp">条件からさがす</span><br/>
+                <span class="article-box-header-h2-eng">SEARCH</span>
+              </h2>
             </header>
-            <article id="searchBox" class="article-box">
-                <div id="group-search-all" class="drop-shadow-box">
-                    <header class="article-box-header">
-                        <h2 class="article-box-header-h2">
-                            <span class="article-box-header-h2-jp">条件からさがす</span><br/>
-                            <span class="article-box-header-h2-eng">SEARCH</span>
-                        </h2>
-                    </header>
-                    <div class="search-input-box clearfix">
-                        <input id="value-search-keyword" type="text" class="input-text search-btn-s-counterpart"
-                               placeholder="企業名、タイトル等"/>
-                        <!--            <a href="CL4100_2.html" class="btn-default search-btn-s btn-blue">検索</a>-->
-                        <button id="search-by-keyword-btn" class="btn-default search-btn-s btn-blue">検索</button>
-                    </div>
-                    <!--          -->
-                    <div id="group-search-select-box" class="search-select-box-outer">
-                        <div class="search-select-box">
-                            <select id="industries" class="search-select">
+            <div class="search-input-box clearfix">
+              <input id="value-search-keyword" type="text" class="input-text search-btn-s-counterpart"
+                     placeholder="企業名、タイトル等"/>
+              <!--            <a href="CL4100_2.html" class="btn-default search-btn-s btn-blue">検索</a>-->
+              <button id="search-by-keyword-btn" class="btn-default search-btn-s btn-blue">検索</button>
+            </div>
+            <!--          -->
+            <div id="group-search-select-box" class="search-select-box-outer">
+              <div class="search-select-box">
+                <select id="industries" class="search-select">
 
-                            </select>
-                        </div>
-                        <div class="search-select-box">
-                            <select id="select-box-month" class="search-select">
-                                <option value="">開催月</option>
-                                <option value="1" name="1月">1月</option>
-                                <option value="2" name="2月">2月</option>
-                                <option value="3" name="3月">3月</option>
-                                <option value="4" name="4月">4月</option>
-                                <option value="5" name="5月">5月</option>
-                                <option value="6" name="6月">6月</option>
-                                <option value="7" name="7月">7月</option>
-                                <option value="8" name="8月">8月</option>
-                                <option value="9" name="9月">9月</option>
-                                <option value="10" name="10月">10月</option>
-                                <option value="11" name="11月">11月</option>
-                                <option value="12" name="12月">12月</option>
-                            </select>
-                        </div>
-                        <div class="search-select-box">
-                            <select id="prefectures" class="search-select">
+                </select>
+              </div>
+              <div class="search-select-box">
+                <select id="select-box-month" class="search-select">
+                  <option value="">開催月</option>
+                  <option value="1" name="1月">1月</option>
+                  <option value="2" name="2月">2月</option>
+                  <option value="3" name="3月">3月</option>
+                  <option value="4" name="4月">4月</option>
+                  <option value="5" name="5月">5月</option>
+                  <option value="6" name="6月">6月</option>
+                  <option value="7" name="7月">7月</option>
+                  <option value="8" name="8月">8月</option>
+                  <option value="9" name="9月">9月</option>
+                  <option value="10" name="10月">10月</option>
+                  <option value="11" name="11月">11月</option>
+                  <option value="12" name="12月">12月</option>
+                </select>
+              </div>
+              <div class="search-select-box">
+                <select id="prefectures" class="search-select">
 
-                            </select>
-                        </div>
-                    </div>
+                </select>
+              </div>
+            </div>
 
-                    <div class="keywords-box hidden">
+            <div class="keywords-box hidden">
 
-                    </div>
-                    <div class="search-result-box hidden">
+            </div>
+            <div class="search-result-box hidden">
 
-                    </div>
-                    <div id="group-search-select-btn">
-                        <button id="js-search-btn" class="btn-default btn-blue w100-50prc">上記の条件で検索</button>
-                        <a href="/internship/search" class="btn-default btn-green w100-50prc mgnt20-30">より詳しく探す</a>
-                    </div>
-                </div>
-            </article>
+            </div>
+            <div id="group-search-select-btn">
+              <button id="js-search-btn" class="btn-default btn-blue w100-50prc">上記の条件で検索</button>
+              <a href="/internship/search" class="btn-default btn-green w100-50prc mgnt20-30">より詳しく探す</a>
+            </div>
+          </div>
+        </article>
 
-            <!--  -->
-            <article class="article-box">
-                <header id="imminentHeader" class="article-box-header">
-                    <h2 class="article-box-header-h2">
-                        <span class="article-box-header-h2-jp">締切間際のインターンシップ&<br />キャリア支援プログラム</span>
-                        <!-- <br /><span class="article-box-header-h2-eng"></span> -->
-                    </h2>
-                </header>
+        <!--  -->
+        <article class="article-box">
+          <header id="imminentHeader" class="article-box-header">
+            <h2 class="article-box-header-h2">
+              <span class="article-box-header-h2-jp">締切間際のインターンシップ&<br />キャリア支援プログラム</span>
+              <!-- <br /><span class="article-box-header-h2-eng"></span> -->
+            </h2>
+          </header>
 
-                <section class="intern-section">
-                    <ul id="internshipWrapper" class="intern-ul">
+          <section class="intern-section">
+            <ul id="internshipWrapper" class="intern-ul">
 
-                    </ul>
-                    <div id="btn-more" class="intern-more-box">
-                        <a href="javascript:void(0);" class="intern-more hidden" onclick="_showMore(event)">more</a>
-                    </div>
-                </section>
-            </article>
-        </div>
+            </ul>
+            <div id="btn-more" class="intern-more-box">
+              <a href="javascript:void(0);" class="intern-more hidden" onclick="_showMore(event)">more</a>
+            </div>
+          </section>
+        </article>
+      </div>
     {{/content}}
     {{#content "footer-scripts" mode="append"}}
         <script src="{{path}}js/pages/CL4100.js"></script>

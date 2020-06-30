@@ -4,262 +4,262 @@
         <link rel="stylesheet" href="{{path}}css/event.css" type="text/css" media="all"/>
     {{/content}}
     {{#content "main"}}
-        <!--  -->
-        <div class="contents-box">
-            <article class="article-box">
-                <header class="article-box-header">
-                    <h2 class="article-box-header-h2">
-                        <span class="article-box-header-h2-jp">インターンシップをさがす</span><br/>
-                        <span class="article-box-header-h2-eng">INTERNSHIP SEARCH</span>
-                    </h2>
+      <!--  -->
+      <div class="contents-box">
+        <article class="article-box">
+          <header class="article-box-header">
+            <h2 class="article-box-header-h2">
+              <span class="article-box-header-h2-jp">インターンシップをさがす</span><br/>
+              <span class="article-box-header-h2-eng">INTERNSHIP SEARCH</span>
+            </h2>
+          </header>
+          <h3 class="search-header-h3">
+            <span class="search-header-h3-search">詳細検索</span>
+          </h3>
+          <div class="drop-shadow-box">
+            <form action="">
+              <table class="search-tbl">
+                <tr>
+                  <th>キーワード</th>
+                  <td>
+                    <input id="keyowrds" type="text" class="input-text w100prc" name="keywords" placeholder="企業名、タイトルなど"/>
+                  </td>
+                </tr>
+              </table>
+
+              <div class="search-checkbox-box">
+                <header class="search-checkbox-header search-checkbox-header-large"
+                        onclick="toggleBody('dvGyoshu',this);">業種
                 </header>
-                <h3 class="search-header-h3">
-                    <span class="search-header-h3-search">詳細検索</span>
-                </h3>
-                <div class="drop-shadow-box">
-                    <form action="">
-                        <table class="search-tbl">
-                            <tr>
-                                <th>キーワード</th>
-                                <td>
-                                    <input id="keyowrds" type="text" class="input-text w100prc" name="keywords" placeholder="企業名、タイトルなど"/>
-                                </td>
-                            </tr>
-                        </table>
+                <div id="dvGyoshu" class="search-checkbox-body dspn">
 
-                        <div class="search-checkbox-box">
-                            <header class="search-checkbox-header search-checkbox-header-large"
-                                    onclick="toggleBody('dvGyoshu',this);">業種
-                            </header>
-                            <div id="dvGyoshu" class="search-checkbox-body dspn">
-
-                            </div>
-                        </div>
-
-                        <div class="search-checkbox-box">
-                            <header class="search-checkbox-header search-checkbox-header-large" onclick="toggleBody('dvMonth',this);">
-                                開催月
-                            </header>
-                            <div id="dvMonth" class="search-checkbox-body dspn">
-                                <label class="search-checkbox-label w7em"><input type="checkbox" name="months" value="1"/>1月</label>
-                                <label class="search-checkbox-label w7em"><input type="checkbox" name="months" value="2"/>2月</label>
-                                <label class="search-checkbox-label w7em"><input type="checkbox" name="months" value="3"/>3月</label>
-                                <label class="search-checkbox-label w7em"><input type="checkbox" name="months" value="4"/>4月</label>
-                                <label class="search-checkbox-label w7em"><input type="checkbox" name="months" value="5"/>5月</label>
-                                <label class="search-checkbox-label w7em"><input type="checkbox" name="months" value="6"/>6月</label>
-                                <label class="search-checkbox-label w7em"><input type="checkbox" name="months" value="7"/>7月</label>
-                                <label class="search-checkbox-label w7em"><input type="checkbox" name="months" value="8"/>8月</label>
-                                <label class="search-checkbox-label w7em"><input type="checkbox" name="months" value="9"/>9月</label>
-                                <label class="search-checkbox-label w7em"><input type="checkbox" name="months" value="10"/>10月</label>
-                                <label class="search-checkbox-label w7em"><input type="checkbox" name="months" value="11"/>11月</label>
-                                <label class="search-checkbox-label w7em"><input type="checkbox" name="months" value="12"/>12月</label>
-                            </div>
-                        </div>
-
-                        <div class="search-checkbox-box">
-                            <header class="search-checkbox-header search-checkbox-header-large"
-                                    onclick="toggleBody('dvTiming',this);">実施期間
-                            </header>
-                            <div id="dvTiming" class="search-checkbox-body dspn">
-                                <div id="implements" class="search-checkbox-body-inner">
-
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="search-checkbox-box">
-                            <header class="search-checkbox-header search-checkbox-header-large" onclick="toggleBody('dvPlace',this);">
-                                開催場所
-                            </header>
-                            <div id="dvPlace" class="search-checkbox-body dspn">
-                            </div>
-                        </div>
-
-                        <div class="">
-                            <a id="search" href="javascript:void(0);" class="btn-default btn-blue w100-50prc">上記の条件で検索</a>
-                        </div>
-                    </form>
                 </div>
+              </div>
 
-            </article>
-        </div>
+              <div class="search-checkbox-box">
+                <header class="search-checkbox-header search-checkbox-header-large" onclick="toggleBody('dvMonth',this);">
+                  開催月
+                </header>
+                <div id="dvMonth" class="search-checkbox-body dspn">
+                  <label class="search-checkbox-label w7em"><input type="checkbox" name="months" value="1"/>1月</label>
+                  <label class="search-checkbox-label w7em"><input type="checkbox" name="months" value="2"/>2月</label>
+                  <label class="search-checkbox-label w7em"><input type="checkbox" name="months" value="3"/>3月</label>
+                  <label class="search-checkbox-label w7em"><input type="checkbox" name="months" value="4"/>4月</label>
+                  <label class="search-checkbox-label w7em"><input type="checkbox" name="months" value="5"/>5月</label>
+                  <label class="search-checkbox-label w7em"><input type="checkbox" name="months" value="6"/>6月</label>
+                  <label class="search-checkbox-label w7em"><input type="checkbox" name="months" value="7"/>7月</label>
+                  <label class="search-checkbox-label w7em"><input type="checkbox" name="months" value="8"/>8月</label>
+                  <label class="search-checkbox-label w7em"><input type="checkbox" name="months" value="9"/>9月</label>
+                  <label class="search-checkbox-label w7em"><input type="checkbox" name="months" value="10"/>10月</label>
+                  <label class="search-checkbox-label w7em"><input type="checkbox" name="months" value="11"/>11月</label>
+                  <label class="search-checkbox-label w7em"><input type="checkbox" name="months" value="12"/>12月</label>
+                </div>
+              </div>
+
+              <div class="search-checkbox-box">
+                <header class="search-checkbox-header search-checkbox-header-large"
+                        onclick="toggleBody('dvTiming',this);">実施期間
+                </header>
+                <div id="dvTiming" class="search-checkbox-body dspn">
+                  <div id="implements" class="search-checkbox-body-inner">
+
+                  </div>
+                </div>
+              </div>
+
+              <div class="search-checkbox-box">
+                <header class="search-checkbox-header search-checkbox-header-large" onclick="toggleBody('dvPlace',this);">
+                  開催場所
+                </header>
+                <div id="dvPlace" class="search-checkbox-body dspn">
+                </div>
+              </div>
+
+              <div class="">
+                <a id="search" href="javascript:void(0);" class="btn-default btn-blue w100-50prc">上記の条件で検索</a>
+              </div>
+            </form>
+          </div>
+
+        </article>
+      </div>
     {{/content}}
     {{#content "footer-scripts" mode="append"}}
         <script>
-            _headerUIHandler(null, null, null);
-            var $industriesWrapper = $('#dvGyoshu');
-            var $prefecturesWrapper = $('#dvPlace');
-            var $implementWrapper = $('#implements');
-            var params = '?';
-            var allVals = null;
+          _headerUIHandler(null, null, null);
+          var $industriesWrapper = $('#dvGyoshu');
+          var $prefecturesWrapper = $('#dvPlace');
+          var $implementWrapper = $('#implements');
+          var params = '?';
+          var allVals = null;
 
-            function _fetchAllIndustries() {
-                $.ajax({
-                    url: rootVariables.apiUrl  + '/industry_by_group',
-                    dataType: 'json',
-                    type: 'GET',
-                    headers: {
-                        contentType: 'application/json',
-                        accept: 'application/json'
-                    },
-                    success: function (res) {
-                        var industries = res.data;
-                        if (industries.length > 0) {
-                            _generateIndustry(industries);
-                        }
-                    },
-                    error: function (jqXhr, textStatus, errorThrown) {
-                        console.log(errorThrown);
-                    }
-                });
-            }
-
-            function _fetchAllImplement() {
-                $.ajax({
-                    url: rootVariables.apiUrl  + '/master_data/perform_term?per_page=999999',
-                    dataType: 'json',
-                    type: 'GET',
-                    headers: {
-                        contentType: 'application/json',
-                        accept: 'application/json'
-                    },
-                    success: function (res) {
-                        var implements = res.data;
-                        if (implements.length > 0) {
-                            _generateImplement(implements);
-                        }
-                    },
-                    error: function (jqXhr, textStatus, errorThrown) {
-                        console.log(errorThrown);
-                    }
-                });
-            }
-
-            function _fetchPrefectureByGroup() {
-                $.ajax({
-                    url: rootVariables.apiUrl  + '/prefecture_by_group',
-                    dataType: 'json',
-                    type: 'GET',
-                    headers: {
-                        contentType: 'application/json',
-                        accept: 'application/json'
-                    },
-                    success: function (res) {
-                        var prefectures = res.data;
-                        if (prefectures.length > 0) {
-                            _generatePrefecture(prefectures);
-                        }
-                    },
-                    error: function (jqXhr, textStatus, errorThrown) {
-                        console.log(errorThrown);
-                    }
-                });
-            }
-
-            function _generateIndustry(_industries) {
-                _.forEach(_industries, function (__industry, __idx) {
-                    var ITEM_ID = 'industry-' + __industry.disp_class_code + '-' + __idx;
-                    var CHECK_ALL_ID = 'industry-' + __industry.disp_class_code;
-                    var $marker = $(
-                            '<div class="search-checkbox-header" onclick="toggleBody(' + '\'' + ITEM_ID + '\'' + ',this);">');
-                    $marker.text(__industry.industry_group_name);
-
-                    var $searchCheckBoxBody = $('<div id="' + ITEM_ID + '" class="search-checkbox-body dspn">');
-                    var $searchCheckBoxInner = $('<div class="search-checkbox-body-inner">');
-                    var $checkAll = (
-                            '<div class="mgnb10-15 fb100">' +
-                            '  <label class="search-checkbox-label">' +
-                            '    <input type="checkbox" name="" class="input-check" onclick="checkAllByClass(' + '\'' + CHECK_ALL_ID +
-                            '\'' + ',this)" /><span class="checkbox-span"></span> 全て選択する' +
-                            '  </label>' +
-                            '</div>'
-                    );
-
-                    $searchCheckBoxInner.append($checkAll);
-
-                    var $item = '';
-                    _.forEach(__industry.attributes, function (_item_) {
-                        $item = $item + '<label class="search-checkbox-label">' +
-                                '<input type="checkbox" name="industries"  value="' + _item_.industry_type_for_company_id + '" class="input-check ' +
-                                CHECK_ALL_ID + '" />' +
-                                '<span class="checkbox-span"></span>' +
-                                _item_.industry_type +
-                                '</label>';
-                    });
-
-                    $searchCheckBoxInner.append($item);
-                    $searchCheckBoxBody.append($searchCheckBoxInner);
-                    $industriesWrapper.append($marker);
-                    $industriesWrapper.append($searchCheckBoxBody);
-                });
-            }
-
-            function _generateImplement(_implements) {
-                _.forEach(_implements, function (__implement) {
-                    $implementWrapper.append(
-                            '<label class="search-checkbox-label"><input type="checkbox" name="implements" value=' +
-                            __implement.item_key + ' /><span class="checkbox-span"></span>' + __implement.item_value + '</label>');
-                });
-            }
-
-            function _generatePrefecture(_prefectures) {
-                _.forEach(_prefectures, function (_prefecture, __idx) {
-                    var ID = 'prefecture-' + _prefecture.group_id + '-' + __idx;
-                    var $marker = $('<div class="search-checkbox-header" onclick="toggleBody(' + '\'' + ID + '\'' + ',this);">' +
-                            _prefecture.group_name + '</div>');
-
-                    var $searchCheckBoxBody = $('<div id="' + ID + '" class="search-checkbox-body dspn">');
-
-                    var $item = '';
-                    _.forEach(_prefecture.attributes, function (_item_) {
-                        $item = $item + '<label class="search-checkbox-label w7em"><input type="checkbox" name="prefectures" value=' +
-                                _item_.prefecture_id + ' /><span class="checkbox-span"></span>' + _item_.prefecture + '</label>';
-                    });
-
-                    $searchCheckBoxBody.append($item);
-                    $prefecturesWrapper.append($marker);
-                    $prefecturesWrapper.append($searchCheckBoxBody);
-                });
-            }
-
-            function getValueSearch() {
-                $('#search').click(function () {
-                    var arr = [];
-                    var $parentCheckBox = $('form input[type=\'checkbox\']:checked').parent();
-                    var getNameKeywords = $('#keyowrds').val();
-
-                    if (getNameKeywords !== '') {
-                        arr.push(getNameKeywords);
-                    }
-
-                    _.forEach($parentCheckBox, function (item) {
-                        arr.push(item.textContent);
-                    });
-                    localStorage.setItem('searchDetail', JSON.stringify(arr));
-
-                    var index = 0;
-                    var fields = $(':input').serializeArray();
-
-                    allVals = _.groupBy(fields, 'name');
-                    _.forIn(allVals, function (_data, _key) {
-                        index = index + 1;
-                        allVals[_key] = _.map(_data, 'value');
-                        if (index === 1) {
-                            params = params + _key + '=' + allVals[_key];
-                        } else {
-                            params = params + '&' + _key + '=' + allVals[_key];
-                        }
-                    });
-                    toLocationHref('/internship/list' + params);
-                });
-            }
-
-            $(function () {
-                _fetchAllIndustries();
-                _fetchPrefectureByGroup();
-                _fetchAllImplement();
-                getValueSearch();
+          function _fetchAllIndustries() {
+            $.ajax({
+              url: rootVariables.apiUrl  + '/industry_by_group',
+              dataType: 'json',
+              type: 'GET',
+              headers: {
+                contentType: 'application/json',
+                accept: 'application/json'
+              },
+              success: function (res) {
+                var industries = res.data;
+                if (industries.length > 0) {
+                  _generateIndustry(industries);
+                }
+              },
+              error: function (jqXhr, textStatus, errorThrown) {
+                console.log(errorThrown);
+              }
             });
+          }
+
+          function _fetchAllImplement() {
+            $.ajax({
+              url: rootVariables.apiUrl  + '/master_data/perform_term?per_page=999999',
+              dataType: 'json',
+              type: 'GET',
+              headers: {
+                contentType: 'application/json',
+                accept: 'application/json'
+              },
+              success: function (res) {
+                var implements = res.data;
+                if (implements.length > 0) {
+                  _generateImplement(implements);
+                }
+              },
+              error: function (jqXhr, textStatus, errorThrown) {
+                console.log(errorThrown);
+              }
+            });
+          }
+
+          function _fetchPrefectureByGroup() {
+            $.ajax({
+              url: rootVariables.apiUrl  + '/prefecture_by_group',
+              dataType: 'json',
+              type: 'GET',
+              headers: {
+                contentType: 'application/json',
+                accept: 'application/json'
+              },
+              success: function (res) {
+                var prefectures = res.data;
+                if (prefectures.length > 0) {
+                  _generatePrefecture(prefectures);
+                }
+              },
+              error: function (jqXhr, textStatus, errorThrown) {
+                console.log(errorThrown);
+              }
+            });
+          }
+
+          function _generateIndustry(_industries) {
+            _.forEach(_industries, function (__industry, __idx) {
+              var ITEM_ID = 'industry-' + __industry.disp_class_code + '-' + __idx;
+              var CHECK_ALL_ID = 'industry-' + __industry.disp_class_code;
+              var $marker = $(
+                '<div class="search-checkbox-header" onclick="toggleBody(' + '\'' + ITEM_ID + '\'' + ',this);">');
+              $marker.text(__industry.industry_group_name);
+
+              var $searchCheckBoxBody = $('<div id="' + ITEM_ID + '" class="search-checkbox-body dspn">');
+              var $searchCheckBoxInner = $('<div class="search-checkbox-body-inner">');
+              var $checkAll = (
+                '<div class="mgnb10-15 fb100">' +
+                '  <label class="search-checkbox-label">' +
+                '    <input type="checkbox" name="" class="input-check" onclick="checkAllByClass(' + '\'' + CHECK_ALL_ID +
+                '\'' + ',this)" /><span class="checkbox-span"></span> 全て選択する' +
+                '  </label>' +
+                '</div>'
+              );
+
+              $searchCheckBoxInner.append($checkAll);
+
+              var $item = '';
+              _.forEach(__industry.attributes, function (_item_) {
+                $item = $item + '<label class="search-checkbox-label">' +
+                  '<input type="checkbox" name="industries"  value="' + _item_.industry_type_for_company_id + '" class="input-check ' +
+                  CHECK_ALL_ID + '" />' +
+                  '<span class="checkbox-span"></span>' +
+                  _item_.industry_type +
+                  '</label>';
+              });
+
+              $searchCheckBoxInner.append($item);
+              $searchCheckBoxBody.append($searchCheckBoxInner);
+              $industriesWrapper.append($marker);
+              $industriesWrapper.append($searchCheckBoxBody);
+            });
+          }
+
+          function _generateImplement(_implements) {
+            _.forEach(_implements, function (__implement) {
+              $implementWrapper.append(
+                '<label class="search-checkbox-label"><input type="checkbox" name="implements" value=' +
+                __implement.item_key + ' /><span class="checkbox-span"></span>' + __implement.item_value + '</label>');
+            });
+          }
+
+          function _generatePrefecture(_prefectures) {
+            _.forEach(_prefectures, function (_prefecture, __idx) {
+              var ID = 'prefecture-' + _prefecture.group_id + '-' + __idx;
+              var $marker = $('<div class="search-checkbox-header" onclick="toggleBody(' + '\'' + ID + '\'' + ',this);">' +
+                _prefecture.group_name + '</div>');
+
+              var $searchCheckBoxBody = $('<div id="' + ID + '" class="search-checkbox-body dspn">');
+
+              var $item = '';
+              _.forEach(_prefecture.attributes, function (_item_) {
+                $item = $item + '<label class="search-checkbox-label w7em"><input type="checkbox" name="prefectures" value=' +
+                  _item_.prefecture_id + ' /><span class="checkbox-span"></span>' + _item_.prefecture + '</label>';
+              });
+
+              $searchCheckBoxBody.append($item);
+              $prefecturesWrapper.append($marker);
+              $prefecturesWrapper.append($searchCheckBoxBody);
+            });
+          }
+
+          function getValueSearch() {
+            $('#search').click(function () {
+              var arr = [];
+              var $parentCheckBox = $('form input[type=\'checkbox\']:checked').parent();
+              var getNameKeywords = $('#keyowrds').val();
+
+              if (getNameKeywords !== '') {
+                arr.push(getNameKeywords);
+              }
+
+              _.forEach($parentCheckBox, function (item) {
+                arr.push(item.textContent);
+              });
+              localStorage.setItem('searchDetail', JSON.stringify(arr));
+
+              var index = 0;
+              var fields = $(':input').serializeArray();
+
+              allVals = _.groupBy(fields, 'name');
+              _.forIn(allVals, function (_data, _key) {
+                index = index + 1;
+                allVals[_key] = _.map(_data, 'value');
+                if (index === 1) {
+                  params = params + _key + '=' + allVals[_key];
+                } else {
+                  params = params + '&' + _key + '=' + allVals[_key];
+                }
+              });
+              toLocationHref('/internship/list' + params);
+            });
+          }
+
+          $(function () {
+            _fetchAllIndustries();
+            _fetchPrefectureByGroup();
+            _fetchAllImplement();
+            getValueSearch();
+          });
         </script>
     {{/content}}
 {{/extend}}
