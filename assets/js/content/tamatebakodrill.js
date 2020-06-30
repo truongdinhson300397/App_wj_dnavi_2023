@@ -24,10 +24,10 @@ function generateQuizLanguageCategory (_quiz_language_category) {
       '（全' + listQuizLanguageCategory[i].questions.length + '問）' +
       '</div>' +
       '<div class="contents-drill-ul-li-btn">' +
-      '<a href="/contents/tamatebako_drill_3?content_id='+ listQuizLanguageCategory[i].content_id +
+      '<a href="' + link.contentsTamatebako_drill_3 + '?content_id='+ listQuizLanguageCategory[i].content_id +
       '&with_timer=true' +
       '" class="btn-small btn-blue btn-flex btn-first clear-local-storage">タイマーつき</a>' +
-      '<a href="/contents/tamatebako_drill_3?content_id=' + listQuizLanguageCategory[i].content_id +
+      '<a href="' + link.contentsTamatebako_drill_3 + '?content_id=' + listQuizLanguageCategory[i].content_id +
       '&with_timer=false" class="btn-small btn-green btn-flex clear-local-storage">タイマーなし</a>' +
       '</div>' +
       '</li>'
@@ -49,10 +49,10 @@ function generateQuizNonLanguageCategory (_quiz_non_language_category) {
       listQuizNonLanguageCategory[i].questions.length + '問）' +
       '</div>' +
       '<div class="contents-drill-ul-li-btn">' +
-      '<a href="/contents/tamatebako_drill_3?content_id='+ listQuizNonLanguageCategory[i].content_id +
+      '<a href="' + link.contentsTamatebako_drill_3 + '?content_id='+ listQuizNonLanguageCategory[i].content_id +
       '&with_timer=true' +
       '" class="btn-small btn-blue btn-flex btn-first clear-local-storage">タイマーつき</a>' +
-      '<a href="/contents/tamatebako_drill_3?content_id=' + listQuizNonLanguageCategory[i].content_id +
+      '<a href="' + link.contentsTamatebako_drill_3 + '?content_id=' + listQuizNonLanguageCategory[i].content_id +
       '&with_timer=false" class="btn-small btn-green btn-flex clear-local-storage">タイマーなし</a>' +
       '</div>' +
       '</li>'

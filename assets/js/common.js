@@ -20,17 +20,154 @@ var navHeight = $('#nav').outerHeight();
 var ul1MaxHeight = windowHeight-headerLogoBoxHeight;
 var mainPaddingTop = Number($('#main').css('padding-top').replace('px',''));
 
-var routeMap = [];
-var fileMap = [];
-function appendRoute(route, file) {
-  routeMap.push(route);
-  fileMap.push(file);
+
+var link = {};
+if (typeof isApplican !== "undefined" && isApplican) {
+  link = {
+    "top": "index.html",
+    "regist": "CL1010.html",
+    "loginUser": "CL1110.html",
+    "loginTemporary": "CL1210.html",
+    "reminder": "CL1310.html",
+    "reminderComplete": "CL1320.html",
+    "passwordReset": "CL1410.html",
+    "passwordResetComplete": "CL1420.html",
+    "forgetId": "CL1510.html",
+    "forgetIdComplete": "CL1520.html",
+    "eventList": "CL2100.html",
+    "eventDetail": "CL2200.html",
+    "eventApply": "CL2210.html",
+    "eventProfilecard": "CL2300.html",
+    "companyList": "CL3100.html",
+    "companySearch": "CL3110.html",
+    "companyDetail": "CL3200.html",
+    "companyDisclosure": "CL3300.html",
+    "companyRecruitmentinfo": "CL3400.html",
+    "companyInternship": "CL3500.html",
+    "entryRecruitguide": "CL3410.html",
+    "entryInternship": "CL3510.html",
+    "internshipList": "CL4100.html",
+    "internshipSearch": "CL4110.html",
+    "disclosure": "CL5100.html",
+    "companyImage": "CL5200.html",
+    "contact": "CL5310.html",
+    "contactConfirm": "CL5320.html",
+    "contactComplete": "CL5330.html",
+    "contents": "CL6100.html",
+    "contentsSpi": "spi.html",
+    "contentsSpi_3": "spi_3.html",
+    "contentsSpi_4": "spi_4.html",
+    "contentsSpi_5": "spi_5.html",
+    "contentsTamatebako_drill": "tamatebakodrill.html",
+    "contentsTamatebako_drill_3": "tamatebakodrill_3.html",
+    "contentsTamatebako_drill_4": "tamatebakodrill_4.html",
+    "contentsTamatebako_drill_5": "tamatebakodrill_5.html",
+    "contentsTamatebako_test": "tamatebakomini.html",
+    "contentsTamatebako_test_3": "tamatebakomini_3.html",
+    "contentsTamatebako_test_4": "tamatebakomini_4.html",
+    "contentsTamatebako_test_5": "tamatebakomini_5.html",
+    "myPageAppliedEvent": "CL2900.html",
+    "myPageEnteredInternship": "CL4900.html",
+    "myPageMycode": "CL7100.html",
+    "myPageTop": "CL7200.html",
+    "myPageMemberinfoEdit": "CL7300.html",
+    "myPageResetMail": "CL7400.html",
+    "myPageResetMailComplete": "CL7410.html",
+    "myPageResetPassword": "CL7500.html",
+    "myPageResetPasswordComplete": "CL7510.html",
+    "myPageResetQuitdnaviUserConfirm": "CL7600.html",
+    "myPageResetQuitdnaviUserComplete": "CL7610.html",
+    "quitdnaviTemporaryUserEdit": "CL5410.html",
+    "quitdnaviTemporaryUserConfirm": "CL5420.html",
+    "quitdnaviTemporaryUserComplete": "CL5430.html",
+    "kiyaku": "CL9600.html",
+    "privacy": "CL9700.html",
+    "logout": "CL9000.html",
+    "faqList": "CL9200.html",
+    "faqDetail": "CL9210.html",
+    "faqDetail_2": "CL9220.html",
+    "faqDetail_3": "CL9230.html",
+    "faqDetail_4": "CL9240.html",
+    "faqDetail_5": "CL9250.html",
+    "faqDetail_6": "CL9260.html",
+    "faqDetail_7": "CL9270.html",
+    "faqDetail_8": "CL9280.html",
+    "sitemap": "CL9300.html"
+  }
+} else {
+  link = {
+    "top": "/top",
+    "regist": "/regist",
+    "loginUser": "/login/user",
+    "loginTemporary": "/login/temporary_user",
+    "reminder": "/reminder",
+    "reminderComplete": "/reminder/complete",
+    "passwordReset": "/passwordreset",
+    "passwordResetComplete": "/passwordreset/complete",
+    "forgetId": "/forgetid",
+    "forgetIdComplete": "/forgetid/complete",
+    "eventList": "/event/eventlist",
+    "eventDetail": "/event/detail",
+    "eventApply": "/event/apply",
+    "eventProfilecard": "/event/profilecard",
+    "companyList": "/company/list",
+    "companySearch": "/company/search",
+    "companyDetail": "/company/detail",
+    "companyDisclosure": "/company/disclosure",
+    "companyRecruitmentinfo": "/company/recruitmentinfo",
+    "companyInternship": "/company/internship",
+    "entryRecruitguide": "/entry/recruitguide",
+    "entryInternship": "/entry/internship",
+    "internshipList": "/internship/list",
+    "internshipSearch": "/internship/search",
+    "disclosure": "/disclosure",
+    "companyImage": "/company_image",
+    "contact": "/contact",
+    "contactConfirm": "/contact/confirm",
+    "contactComplete": "/contact/complete",
+    "contents": "/contents",
+    "contentsSpi": "/contents/spi",
+    "contentsSpi_3": "/contents/spi_3",
+    "contentsSpi_4": "/contents/spi_4",
+    "contentsSpi_5": "/contents/spi_5",
+    "contentsTamatebako_drill": "/contents/tamatebako_drill",
+    "contentsTamatebako_drill_3": "/contents/tamatebako_drill_3",
+    "contentsTamatebako_drill_4": "/contents/tamatebako_drill_4",
+    "contentsTamatebako_drill_5": "/contents/tamatebako_drill_5",
+    "contentsTamatebako_test": "/contents/tamatebako_test",
+    "contentsTamatebako_test_3": "/contents/tamatebako_test_3",
+    "contentsTamatebako_test_4": "/contents/tamatebako_test_4",
+    "contentsTamatebako_test_5": "/contents/tamatebako_test_5",
+    "myPageAppliedEvent": "/mypage/applied_event",
+    "myPageEnteredInternship": "/mypage/entered_internship",
+    "myPageMycode": "/mypage/mycode",
+    "myPageTop": "/mypage/top",
+    "myPageMemberinfoEdit": "/mypage/memberinfo/edit",
+    "myPageResetMail": "/mypage/reset_mail",
+    "myPageResetMailComplete": "/mypage/reset_mail/complete",
+    "myPageResetPassword": "/mypage/reset_password",
+    "myPageResetPasswordComplete": "/mypage/reset_password/complete",
+    "myPageResetQuitdnaviUserConfirm": "/mypage/quitdnavi/user/confirm",
+    "myPageResetQuitdnaviUserComplete": "/mypage/quitdnavi/user/complete",
+    "quitdnaviTemporaryUserEdit": "/quitdnavi/temporary_user/edit",
+    "quitdnaviTemporaryUserConfirm": "/quitdnavi/temporary_user/confirm",
+    "quitdnaviTemporaryUserComplete": "/quitdnavi/temporary_user/complete",
+    "kiyaku": "/kiyaku",
+    "privacy": "/privacy",
+    "logout": "/logout",
+    "faqList": "/faq/list",
+    "faqDetail": "/faq/detail",
+    "faqDetail_2": "/faq/detail_2",
+    "faqDetail_3": "/faq/detail_3",
+    "faqDetail_4": "/faq/detail_4",
+    "faqDetail_5": "/faq/detail_5",
+    "faqDetail_6": "/faq/detail_6",
+    "faqDetail_7": "/faq/detail_7",
+    "faqDetail_8": "/faq/detail_8",
+    "sitemap": "/sitemap"
+  }
 }
-function appendMultiRoute(routes) {
-  _.forEach(routes, function (value) {
-    appendRoute(value[0], value[1]);
-  });
-}
+
 function removeAllParams(sourceURL) {
   var index = 0;
   var newURL = sourceURL;
@@ -42,16 +179,6 @@ function removeAllParams(sourceURL) {
     newURL = sourceURL.substring(0, index);
   }
   return newURL;
-}
-function realUrl(sourceRoute) {
-  var route = removeAllParams(sourceRoute);
-  var routeIndex = routeMap.findIndex(function (ele) {
-    return ele.indexOf(route) > -1;
-  });
-  if (routeIndex > -1) {
-    return sourceRoute.replace(route, fileMap[routeIndex]);
-  }
-  return sourceRoute;
 }
 
 function getGlobalVariable(){
@@ -757,16 +884,7 @@ if (!Array.prototype.findIndex) {
 //=============================== ADD CONTRACT TERM ================================================
 // Add contract year to href
 function toLocationHref(path) {
-  var checkContractTermPattern = /^\/([0-9]{4})\//;
   if (typeof isApplican !== "undefined" && isApplican) {
-    if (checkContractTermPattern.test(path)) {
-      path = path.slice(6);
-    }
-    location.href = realUrl(path);
-  }
-  else if (checkContractTermPattern.test(path)) {
-    var findContractTerm = path.match(checkContractTermPattern);
-    globalInfo('contract_term_id', (findContractTerm[1] - 2021 + 1));
     location.href = path;
   } else {
     var contractTerm = globalInfo("contract_term");
@@ -792,6 +910,7 @@ var contentAllowButtons = {
 
 $(document).on('click', 'a', function (e) {
   var href = $(this).attr("href") || "";
+
   // Check whether the href is one of those path which is no need of attached contract term year
   var noAttachedPathList = ["tamatebako_drill_3", "tamatebako_test_3", "spi_3"];
   var currentPath = noAttachedPathList.filter(function(path) {

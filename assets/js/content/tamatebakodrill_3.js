@@ -91,7 +91,7 @@ function getQuiz() {
       if (isSubmit === true) {
         // Get contentId from localStorage
         var contentId = localStorage.getItem('contentId');
-        toLocationHref('/contents/tamatebako_drill_4?content_id=' + contentId);
+        toLocationHref(link.contentsTamatebako_drill_4 + '?content_id=' + contentId);
       }
     }
     else {
@@ -512,7 +512,7 @@ function uploadUserData(body) {
   };
   axios(options).then(function () {
     // Update link root here
-    toLocationHref('/contents/tamatebako_drill_4?content_id=' + contentId + '&with_timer='+ withTimer);
+    toLocationHref(link.contentsTamatebako_drill_4 + '?content_id=' + contentId + '&with_timer='+ withTimer);
   }).catch(function (error) {
     // handle error
     console.log('Error:', error);

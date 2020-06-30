@@ -45,7 +45,7 @@ function getResultQuestions() {
     renderResultQuestions(resultQuestions, userAnswers);
 
     $('#re-quiz').click(function () {
-      toLocationHref('/contents/tamatebako_drill_3?content_id=' + contentId + '&with_timer='+ withTimer);
+      toLocationHref(link.contentsTamatebako_drill_3 + '?content_id=' + contentId + '&with_timer='+ withTimer);
       removeItemLocalStorage();
     });
   })
@@ -82,7 +82,7 @@ function renderResultQuestions (_resultQuestions, _userAnswers) {
         '                   </div>' +
         '                  <div class="contents-result-mark">' +
         // Edit link here
-        '                    <a href="/contents/tamatebako_drill_5?content_id=' + contentId + '&with_timer=' + withTimer +
+        '                    <a href="' + link.contentsTamatebako_drill_5 + '?content_id=' + contentId + '&with_timer=' + withTimer +
         '#q' + (index + 1) + '" class="contents-result-a contents-result-a-correct"></a>' +
         '                  </div>' +
         '                </li>'
@@ -96,7 +96,7 @@ function renderResultQuestions (_resultQuestions, _userAnswers) {
         '                   </div>' +
         '                  <div class="contents-result-mark">' +
         // Edit link here
-        '                   <a href="/contents/tamatebako_drill_5?content_id=' + contentId + '&with_timer=' + withTimer +
+        '                   <a href="' + link.contentsTamatebako_drill_5 + '?content_id=' + contentId + '&with_timer=' + withTimer +
         '#q' + (index + 1) + '" class="contents-result-a contents-result-a-incorrect"></a>' +
         '                  </div>' +
         '                </li>'

@@ -26,6 +26,7 @@ var term = [
     id: 4
   }
 ];
+
 // set version
 var version = {
   "android":"1.1.1",
@@ -70,8 +71,8 @@ function checkVersion () {
       }
     },
     error: function (error, jqXhr, textStatus, errorThrown) {
-      // maintenance
-      // window.location.href = 'https://dev.admin.dia-navi.cloud3rs.io/';
+      //maintenance
+      window.location.href = 'https://dev.admin.dia-navi.cloud3rs.io/';
     }
   });
 }
@@ -101,13 +102,10 @@ var currentContractTerm = requestName.split(/\/([0-9]{4})/g)[1];
 
 var contractTerm = globalInfo('contract_term');
 var contractTermId = globalInfo('contract_term_id');
-
 if(!_.isUndefined(currentContractTerm) && !_.isNaN(+currentContractTerm)) {
-
   var termIndex = _.findIndex(term, function (o) {
     return o.term == currentContractTerm;
   });
-
   if (termIndex > -1) {
     contractTermId = term[termIndex].id;
     contractTerm = currentContractTerm;
@@ -175,7 +173,7 @@ function _checkIsToken(sucFn, errorFn) {
 }
 
 function _redirectToLogin() {
-  toLocationHref('/login/user');
+  toLocationHref(link.loginUser);
 }
 
 function _checkContractTermAndPartner() {
@@ -206,24 +204,15 @@ function dumpUserHeader() {
   var userId = string2literal(parseInt(globalInfo('id_' + contractTermId)));
   // get path and query string
   var _screenParse = $(location).attr('pathname');
-  if (isNaN(userId) && _screenParse !== '/login/user') {
+  if (isNaN(userId) && _screenParse !== link.loginUser) {
     globalInfo('returnUrl', _screenParse, {path: "/"});
     // _redirectToLogin();
   }
 
   var $headerNav = $('[data-global="header_check_login_user"]');
-  var _temp = '<a href="/mypage/mycode" class="header-nav-icon nav-icon-qr"><span class="header-nav-text">マイコード</span></a>' +
-    '          <a href="/mypage/top" class="header-nav-icon nav-icon-key"><span class="header-nav-text">マイページ</span></a>' +
-    '          <a href="/logout" class="header-nav-icon nav-icon-logout"><span class="header-nav-text">ログアウト</span></a>';
-
-  $headerNav.empty();
-  $headerNav.append(_temp);
-}
-
-function dumpGuestHeader() {
-  var $headerNav = $('[data-global="header_check_login_user"]');
-  var _temp = '<a href="/regist" class="header-nav-icon nav-icon-user"><span class="header-nav-text">会員登録</span></a>' +
-    '          <a href="/login/user" class="header-nav-icon nav-icon-login"><span class="header-nav-text">ログイン</span></a>';
+  var _temp = '<a href="' + link.myPageMycode + '" class="header-nav-icon nav-icon-qr"><span class="header-nav-text">マイコード</span></a>' +
+    '          <a href="' + link.myPageTop + '" class="header-nav-icon nav-icon-key"><span class="header-nav-text">マイページ</span></a>' +
+    '          <a href="' + link.logout + '" class="header-nav-icon nav-icon-logout"><span class="header-nav-text">ログアウト</span></a>';
 
   $headerNav.empty();
   $headerNav.append(_temp);
@@ -327,7 +316,7 @@ function headeFooterApp (isLogin) {
       ' </a>' +
       ' </span>' +
       ' <span class="app-header-nav">' +
-      '   <a href="CL7100.html" class="app-header-nav-icon app-nav-icon-qr"></a>マイコード' +
+      '   <a href="CL7100.html" class="app-header-nav-icon app-nav-icon-qr"></a>' +
       '  </span>' +
       '</div>';
 
@@ -364,13 +353,10 @@ function headeFooterApp (isLogin) {
       '    </li>' +
       '   </ul>' +
       '   <ul class="app-left-nav-ul-1">' +
-      '    <li class="app-av-ul-1-li">' +
-      '     <a href="#" class="app-left-nav-ul-1-li-a-main-menu">MENU</a>' +
+      '    <li class="napp-av-ul-1-li">' +
+      '     <a href="#" class="app-left-nav-ul-1-li-a">MENU</a>' +
       '    </li>' +
       menuLogin +
-      '    <li class="app-left-nav-ul-1-li">' +
-      '     <a href="CL5100.html" class="app-left-nav-ul-1-li-a">イベント</a>' +
-      '    </li>' +
       '    <li class="app-left-nav-ul-1-li">' +
       '     <a href="CL5100.html" class="app-left-nav-ul-1-li-a">情報公開度でさがす</a>' +
       '    </li>' +
@@ -387,40 +373,20 @@ function headeFooterApp (isLogin) {
       '     </ul>' +
       '    </div>' +
       '   </li>' +
-      '  <li class="app-left-nav-ul-1-li">' +
-      '   <a href="CL6100.html" class="app-left-nav-ul-1-li-a">選考対策</a>' +
-      '  </li>' +
       '   </ul>' +
       '  </div>' +
       '  </li>' +
-      '   <ul class="app-left-nav-ul-1">' +
-      '    <li class="app-av-ul-1-li">' +
-      '     <a href="#" class="app-left-nav-ul-1-li-a-main-menu">その他</a>' +
-      '    </li>' +
-      '    <li class="app-left-nav-ul-1-li">' +
-      '     <a href="CL5100.html" class="app-left-nav-ul-1-li-a">チュートリアル</a>' +
-      '    </li>' +
-      '    <li class="app-left-nav-ul-1-li">' +
-      '     <a href="CL5100.html" class="app-left-nav-ul-1-li-a">FAQ</a>' +
-      '    </li>' +
-      '    <li class="app-left-nav-ul-1-li">' +
-      '     <a href="CL5100.html" class="app-left-nav-ul-1-li-a">利用規約</a>' +
-      '    </li>' +
-      '    <li class="app-left-nav-ul-1-li">' +
-      '     <a href="CL5100.html" class="app-left-nav-ul-1-li-a">プライバシーポリシー</a>' +
-      '    </li>' +
-      '    </ul>' +
-      '    <div class="app-left-nav-ul-1-li-version">' +
-      '     <span>バージョン　1.1.0</span>' +
-      '    </div>' +
+      '  <li class="app-left-nav-ul-1-li">' +
+      '   <a href="CL6100.html" class="app-left-nav-ul-1-li-a">選考対策</a>' +
+      '  </li>' +
       ' </ul>' +
       '</nav>';
 
   var footer= '<ul class="app-footer-nav-ul">' +
       ' <li class="app-footer-nav-ul-li"><a href="index.html" class="app-footer-nav-a"><img src="' + assetsPath + 'img/icon-home.png" class="app-footer-nav-img" alt="top" />TOP</a></li>' +
       ' <li class="app-footer-nav-ul-li"><a href="CL2100.html" class="app-footer-nav-a"><img src="' + assetsPath + 'img/icon-event.png" class="app-footer-nav-img" alt="イベント" />イベント</a></li>' +
-      ' <li class="app-footer-nav-ul-li"><a href="CL3100.html" class="app-footer-nav-a"><img src="' + assetsPath + 'img/icon-company.png" class="app-footer-nav-img" alt="企業" />インターン</a></li>' +
-      ' <li class="app-footer-nav-ul-li"><a href="CL4100.html" class="app-footer-nav-a"><img src="' + assetsPath + 'img/icon-contents.png" class="app-footer-nav-img" alt="選考対策" />選考対策</a></li>' +
+      ' <li class="app-footer-nav-ul-li"><a href="CL3100.html" class="app-footer-nav-a"><img src="' + assetsPath + 'img/icon-company.png" class="app-footer-nav-img" alt="企業" />企業</a></li>' +
+      // ' <li class="app-footer-nav-ul-li"><a href="CL4100.html" class="app-footer-nav-a"><img src="' + assetsPath + 'img/icon-internship.png" class="app-footer-nav-img" alt="インターン" />インターン</a></li>' +
       ' <li class="app-footer-nav-ul-li"><a href="CL7200.html" class="app-footer-nav-a"><img src="' + assetsPath + 'img/icon-mypage.png" class="app-footer-nav-img" alt="マイページ" />マイページ</a></li>' +
       '</ul>';
 
@@ -431,12 +397,21 @@ function headeFooterApp (isLogin) {
 }
 // end header, footer app
 
+function dumpGuestHeader() {
+  var $headerNav = $('[data-global="header_check_login_user"]');
+  var _temp = '<a href="' + link.regist + '" class="header-nav-icon nav-icon-user"><span class="header-nav-text">会員登録</span></a>' +
+    '          <a href="' + link.loginUser + '" class="header-nav-icon nav-icon-login"><span class="header-nav-text">ログイン</span></a>';
+
+  $headerNav.empty();
+  $headerNav.append(_temp);
+}
+
 function isUserLoggedIn() {
   var contractTermId = globalInfo("contract_term_id");
   var id = globalInfo("id_" + contractTermId);
   var jwt = globalInfo("jwt_" + contractTermId);
-  var hasJWT = jwt !== null && jwt !== "null" && jwt !== undefined;
-  var hasID = id !== null && id !== "null" && id !== undefined;
+  var hasJWT = jwt !== "null" && jwt !== undefined;
+  var hasID = id !== "null" && id !== undefined;
   return hasJWT && hasID;
 }
 
@@ -553,7 +528,11 @@ function _generateUIJobHuntingLocal(_partnerGroups) {
       globalInfo('partner_name', '', {path: "/"});
       globalInfo('partner_id', 0,{path: "/"});
       globalInfo('prefecture_ids', '', {path: "/"});
-      toLocationHref("/");
+      if (typeof isApplican !== "undefined" && isApplican) {
+        toLocationHref("/");
+      } else {
+        toLocationHref("/" + partner.partner_id);
+      }
     }
   });
 }
@@ -569,11 +548,7 @@ function writePartnerInfoIntoCookie(partner) {
       globalInfo('partner_name', partner.partner_name ? encodeURIComponent(partner.partner_name) : '', {path: "/"});
       globalInfo('partner_id', parseInt(partner.partner_id) || '', {path: "/"});
       globalInfo('prefecture_ids', JSON.stringify(partner.prefecture_ids) || '', {path: "/"});
-      if (typeof isApplican !== "undefined" && isApplican) {
-        toLocationHref("/");
-      } else {
-        toLocationHref("/" + partner.partner_id);
-      }
+      toLocationHref("/" + partner.partner_id);
     }
   }
 }
@@ -609,65 +584,10 @@ function isEmailCorrect(_email) {
   return _email.match(pattern);
 }
 
-function getPushToken() {
-  function getPushTokenSuccess(res){
-    registerDevice(res.pushToken)
-  }
-  function getPushTokenError(res) {
-
-  }
-  applican.device.getPushToken(getPushTokenSuccess, getPushTokenError);
-}
-
-function registerDevice(token) {
-  const headers = {
-    'Content-Type': 'application/json',
-    'Accept': 'application/json'
-  };
-  var authToken = localStorage.getItem('jwt');
-  if (authToken !== null && authToken !== 'null') {
-    headers['Authorization'] = 'Bearer ' + authToken;
-  }
-  const postData = {
-    name: applican.device.name,
-    platform: applican.device.platform,
-    token: token,
-    uuid: applican.device.uuid_rfc4122,
-    version: applican.device.version,
-    applican_version: applican.device.applican,
-    applican_type: applican.device.applican_type,
-    package_name: applican.device.package_name,
-  };
-  return $.ajax({
-    url: rootVariables.apiUrl + '/device/register',
-    dataType: 'json',
-    type: 'POST',
-    headers,
-    data: JSON.stringify(postData),
-    success: function (res) {
-      if (authToken !== null && authToken !== 'null') {
-        localStorage.setItem('is_registered', 'true');
-      }
-      localStorage.setItem('push_token', token);
-    },
-    error: function (jqXhr, textStatus, errorThrown) {
-      // What's next?
-    }
-  });
-}
-if (typeof isApplican !== "undefined" && isApplican === true) {
-  (function checkRegisterDevice() {
-    // delay 2s, waiting for applican was loaded
-    setTimeout(() => {
-      if (typeof applican === 'undefined') return;
-      if (localStorage.getItem('is_registered') === 'true') return;
-      getPushToken();
-    }, 2000);
-  })();
-}
-
 function getPartnerFromUrl (_partners) {
-  var currentPartner = window.location.href.split(/([0-9]{4})/g).slice(-1)[0].split('/')[1];
+  // need to remove query parameters before check
+  var newHref = window.location.href.split("?")[0].split("#")[0];
+  var currentPartner = newHref.split(/([0-9]{4})/g).slice(-1)[0].split('/')[1];
   var currentPartnerId = parseInt(currentPartner);
 
   if (_.isEmpty(currentPartner)) {
@@ -729,107 +649,21 @@ function isDateBetween (_now, _from, _to) {
   return checkStartDate && checkEndDate;
 }
 
-
-appendMultiRoute([
-  ['/2021', 'CL0020.html'],
-  ['/2021/', 'CL0020.html'],
-  ['/2022', 'index.html'],
-  ['/2022/', 'index.html'],
-  ['/saiyou-ryoku', 'saiyou-ryoku.html'],
-  ['/diamond_enquete', 'diamond_enquete.html'],
-  ['/diamond-ninki', 'diamond-ninki.html'],
-  ['/regist', 'CL1010.html'],
-  ['/login/user', 'CL1110.html'],
-  ['/login/temporary_user', 'CL1210.html'],
-  ['/reminder', 'CL1310.html'],
-  ['/reminder/complete', 'CL1320.html'],
-  ['/passwordreset/', 'CL1410.html'],
-  ['/passwordreset/complete', 'CL1420.html'],
-  ['/forgetid', 'CL1510.html'],
-  ['/forgetid/complete', 'CL1520.html'],
-
-  ['/disclosure', 'CL5100.html'],
-
-  // event
-  ['/event/eventlist', 'CL2100.html'],
-  ['/event/detail', 'CL2200.html'],
-  ['/event/apply', 'CL2210.html'],
-  ['/event/profilecard', 'CL2300.html'],
-
-  ['/company/list', 'CL3100.html'],
-  ['/company/search', 'CL3110.html'],
-  ['/company/detail', 'CL3200.html'],
-  ['/company/disclosure', 'CL3300.html'],
-  ['/company/recruitmentinfo', 'CL3400.html'],
-  ['/company/internship', 'CL3500.html'],
-
-  ['/entry/recruitguide', 'CL3410.html'],
-  ['/entry/internship', 'CL3510.html'],
-
-  ['/internship/list', 'CL4100.html'],
-  ['/internship/search', 'CL4110.html'],
-
-
-  ['/company_image', 'CL5200.html'],
-
-  ['/contact', 'CL5310.html'],
-  ['/contact/confirm', 'CL5320.html'],
-  ['/contact/complete', 'CL5330.html'],
-
-  // content
-  ['/contents', 'CL6100.html'],
-  ['/contents/spi', 'spi.html'],
-  ['/contents/spi_3', 'spi_3.html'],
-  ['/contents/spi_4', 'spi_4.html'],
-  ['/contents/spi_5', 'spi_5.html'],
-  ['/contents/tamatebako_drill', 'tamatebakodrill.html'],
-  ['/contents/tamatebako_drill_3', 'tamatebakodrill_3.html'],
-  ['/contents/tamatebako_drill_4', 'tamatebakodrill_4.html'],
-  ['/contents/tamatebako_drill_5', 'tamatebakodrill_5.html'],
-  ['/contents/tamatebako_test', 'tamatebakomini.html'],
-  ['/contents/tamatebako_test_3', 'tamatebakomini_3.html'],
-  ['/contents/tamatebako_test_4', 'tamatebakomini_4.html'],
-  ['/contents/tamatebako_test_5', 'tamatebakomini_5.html'],
-
-  ['/mypage/applied_event', 'CL2900.html'],
-  ['/mypage/entered_internship', 'CL4900.html'],
-  ['/mypage/entered_company', 'CL3900.html'],
-  ['/mypage/mycode', 'CL7100.html'],
-  ['/mypage/top', 'CL7200.html'],
-  ['/mypage/memberinfo/edit', 'CL7300.html'],
-  ['/mypage/reset_mail', 'CL7400.html'],
-  ['/mypage/reset_mail/complete', 'CL7410.html'],
-  ['/mypage/reset_password', 'CL7500.html'],
-  ['/mypage/reset_password/complete', 'CL7510.html'],
-  ['/mypage/quitdnavi/user/confirm', 'CL7600.html'],
-  ['/mypage/quitdnavi/user/complete', 'CL7610.html'],
-
-  ['/quitdnavi/temporary_user/edit', 'CL5410.html'],
-  ['/quitdnavi/temporary_user/confirm', 'CL5420.html'],
-  ['/quitdnavi/temporary_user/complete', 'CL5430.html'],
-
-  ['/privacy', 'CL9700.html'],
-  ['/logout', 'CL9000.html'],
-
-  ['/faq/list', 'CL9200.html'],
-  ['/faq/detail', 'CL9210.html'],
-  ['/faq/detail_2', 'CL9220.html'],
-  ['/faq/detail_3', 'CL9230.html'],
-  ['/faq/detail_4', 'CL9240.html'],
-  ['/faq/detail_5', 'CL9250.html'],
-  ['/faq/detail_6', 'CL9260.html'],
-  ['/faq/detail_7', 'CL9270.html'],
-  ['/faq/detail_8', 'CL9280.html'],
-
-  ['/sitemap', 'CL9300.html'],
-]);
-
-if (contractTermId == 1) {
-  appendRoute('/kiyaku', 'CL9600.html');
-  appendRoute('/app', 'CL9400.html');
-  appendRoute('/', 'CL0020.html');
+function changeContractTerm(content, oldContractTerm, newContractTerm) {
+  var re = new RegExp(oldContractTerm,'gm');
+  return content.replace(re, newContractTerm);
 }
-if (contractTermId == 2) {
-  appendRoute('/kiyaku', 'CL9600_2022.html');
-  appendRoute('/app', 'CL9400_2022.html');
+
+function fixMetaTag() {
+  var currentContractTerm = globalInfo('contract_term');
+  // Fix title too
+  var $title = $('title');
+  var newContent = changeContractTerm($title.text(), 2021, currentContractTerm);
+  $title.text(newContent);
+
+  _.forEach($('meta[name="keywords"], meta[name="description"]'), function (ele) {
+    var newContent = changeContractTerm($(ele).attr('content'), 2021, currentContractTerm);
+    $(ele).attr('content', newContent);
+  });
 }
+fixMetaTag();

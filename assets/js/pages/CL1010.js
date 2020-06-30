@@ -108,7 +108,8 @@ function isValidNumber(parts) {
 
 function isMobileFormat (parts) {
   var mobileNum = formTel(parts);
-  var isCorrect = mobileNum.length === 10 || mobileNum.length === 11;
+  // ([0-9]){2,5}-([0-9]){1,4}-([0-9]){4}
+  var isCorrect = mobileNum.length >= 7 && mobileNum.length <= 13;
   if (!isCorrect) {
     parts.forEach(function(t) {
       $('#' + t).addClass('error');

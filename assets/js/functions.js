@@ -1,15 +1,15 @@
 // 各ページURL
 var apiUrl = 'https://dev.admin.dia-navi.cloud3rs.io/api/v1',
-  registUrl = '/regist',
-  mypageUrl = '/mypage/top',
-  loginUrl = '/login/user',
-  resetRequestUrl = '/reminder',
-  companySearchUrl = '/company/list',
-  companyDetailUrl = '/company/detail',
-  recruitEntryUrl = '/entry/recruitguide',
-  internshipsEntryUrl = '/entry/internship',
-  imageSearchUrl = '/company_image',
-  noimageUrl = '/public/img/noimg320.png',
+  registUrl = link.regist,
+  mypageUrl = link.myPageTop, // '/mypage/top',
+  loginUrl = link.loginUser, // '/login/user',
+  resetRequestUrl = link.reminder, // '/reminder',
+  companySearchUrl = link.companyList, // '/company/list',
+  companyDetailUrl = link.companyDetail, // '/company/detail',
+  recruitEntryUrl = link.entryRecruitguide, // '/entry/recruitguide',
+  internshipsEntryUrl = link.entryInternship, // '/entry/internship',
+  imageSearchUrl = link.companyImage, // '/company_image',
+  noimageUrl = assetsPath + 'img/noimg320.png',
   parame = new Object;
 
 

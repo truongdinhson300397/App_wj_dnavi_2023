@@ -31,7 +31,7 @@ function _fetchUpdateEmail(_postData) {
         success: function (res) {
             var status = res.status;
             if (status === 'success') {
-                toLocationHref('/mypage/reset_mail/complete');
+                toLocationHref(link.myPageResetMailComplete);
             }
         },
         error: function (error, jqXhr, textStatus, errorThrown) {

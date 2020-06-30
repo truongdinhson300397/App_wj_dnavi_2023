@@ -18,7 +18,7 @@ $(document).ready(function () {
   fetchSpanById();
 
   $('#__btn-back').append(
-    '<a href="/contents/spi_4?quizId=' + getQuizId + '" class="btn-default btn-blue w100-50prc"><span class="spn-arr-l"></span>回答結果に戻る</a>'
+    '<a href="' + link.contentsSpi_4 + '?quizId=' + getQuizId + '" class="btn-default btn-blue w100-50prc"><span class="spn-arr-l"></span>回答結果に戻る</a>'
   );
 });
 

@@ -1,6 +1,6 @@
 var partner = null;
 var requestName = window.location.href.replace(window.location.protocol + '//' + window.location.host, '');
-var currentPartner = requestName.split(/\/([0-9]{4})/g).slice(-1)[0].split('/')[1];
+var currentPartner = requestName.split(/([0-9]{4})/g).slice(-1)[0].split('/')[1];
 
 if(!_.isUndefined(currentPartner) && !_.isNaN(+currentPartner)) {
   partner = currentPartner;
@@ -58,7 +58,16 @@ function initPage() {
   if (partnerId && partnerId != null && partnerId != 0) {
     $('#ninkitop-image').hide();
     $('#enquete-image').hide();
+    $('.banner-image, .banner-image-2022').hide();
+  } else {
+    if (contractTermId == 1) {
+      $('#ouen-image').show();
+      $('.banner-image').show();
+    } else if (contractTermId == 2) {
+      $('.banner-image-2022').show();
+    }
   }
+
 
   // Hide current event
   if(global.partner_id === 0) {
@@ -204,7 +213,7 @@ function dumpReservedEvents(events) {
         '                <div class="event-ttl">' + event.title + '</div>' +
         '              </div>' +
         '              <div class="event-btn-box">' +
-        '                <a href="/event/detail?event_id=' + event.event_id + '" class="btn-small btn-blue">詳細</a>' +
+        '                <a href="' + link.eventDetail + '?event_id=' + event.event_id + '" class="btn-small btn-blue">詳細</a>' +
         '              </div>' +
         '            </li>');
       $eventUl.append($eventLi);
@@ -328,7 +337,7 @@ function dumpLiveSeminar(events) {
         '                 </div>' +
         '                 <div class="live-seminar-time">' + _eventTimeFrom.format('HH:mm') + '〜' + _eventTimeTo.format('HH:mm') + '</div>' +
         '                 <div class="live-seminar-cmp">' + event.title + '</div>' +
-        '                 <a href="/event/detail?event_id=' + event.event_id + '" class="btn-xsmall live-seminar-btn btn-blue">詳細・予約</a>' +
+        '                 <a href="' + link.eventDetail + '?event_id=' + event.event_id + '" class="btn-xsmall live-seminar-btn btn-blue">詳細・予約</a>' +
         '               </li>');
       $liveSeminarUl.append($seminarLi);
     });
@@ -443,8 +452,10 @@ function displaySearchCompanyButtons() {
         return self.indexOf(value) === index;
       }).join(',');
     }
-    jsBtnSearchDetail2.attr('href', '/company/list?working_place=' + prefectures);
-    $('#find-company .js-btn-search-detail-2.hidden').removeClass('hidden');
+    jsBtnSearchDetail2.attr('href', link.companyList + '?working_place=' + prefectures);
+    if (contractTermId != 2) {
+      $('#find-company .js-btn-search-detail-2.hidden').removeClass('hidden');
+    }
     fetchCompanyEmployeeSize();
   } else {
     fetchAllPrefecture();
@@ -459,7 +470,11 @@ function findCompanyLogic() {
   onSearchCompanyFull();
   // fetch
   fetchAllIndustry();
-  fetchAllJobCategory();
+  if (contractTermId != 2) {
+    fetchAllJobCategory();
+  } else {
+    $('.js-job-category-div').remove();
+  }
 }
 
 function dumpEmployeeSizeSelection(employeeSizes) {
@@ -497,7 +512,7 @@ function fetchCompanyEmployeeSize(query) {
 function onSearchCompanyKeyword() {
   $('#find-company .js-btn-search-keyword').on('click', function (e) {
     e.preventDefault();
-    var _url = '/company/list';
+    var _url = link.companyList;
     var _kw = $('#find-company .js-keyword-input').val() || null;
     var _paramStr = urlHelper.objectToQueryString({keyword: _kw});
     toLocationHref(_url + '?' + _paramStr);
@@ -507,7 +522,7 @@ function onSearchCompanyKeyword() {
 function onSearchCompanyFull() {
   $('#find-company .js-btn-search-full').on('click', function (e) {
     e.preventDefault();
-    var _url = '/company/list';
+    var _url = link.companyList;
     var _kw = $('#find-company .js-keyword-input').val() || null;
     var _indus = $('#find-company .js-industry-select').val() || null;
     var _categ = $('#find-company .js-category-select').val() || null;
@@ -654,7 +669,7 @@ function dumpCurrentEvents(events) {
         '                <div class="event-ttl">' + event.title + '</div>' +
         '              </div>' +
         '              <div class="event-btn-box">' +
-        '                <a href="/event/detail?event_id=' + event.event_id + '" class="btn-small btn-blue">詳細・予約</a>' +
+        '                <a href="' + link.eventDetail + '?event_id=' + event.event_id + '" class="btn-small btn-blue">詳細・予約</a>' +
         '              </div>' +
         '            </li>');
       $eventUl.append($eventLi);
@@ -745,7 +760,7 @@ function _contentUrl(content) {
   // if the content requried login and user does not login
   if (parseInt(content.is_login) === 1 && !global.isLogin) {
     globalInfo('returnUrl', content.link_url, {path: "/"});
-    return toLocationHref('/login/user');
+    return toLocationHref(link.loginUser);
   }
 
   return window.location = content.link_url;
@@ -884,7 +899,7 @@ function dumpCompanyImage(images) {
   });
   _formatImages.forEach(function (image, index) {
     var _$imageLi = $(' <li class="image-search-ul-li">' +
-      '                   <a href="/company/detail?company_id=' + image.company_id + '" class="image-search-ul-li-a">' +
+      '                   <a href="' + link.companyDetail + '?company_id=' + image.company_id + '" class="image-search-ul-li-a">' +
       '                     <img src="' + image.image_url + '" alt="' + image.image_name + '"/>' +
       '                   </a></li>');
     if (index + 1 > 8) {
@@ -955,7 +970,7 @@ function fetchCompanyImageTag(query) {
 function onSearchCompanyImage() {
   $('#company-images .js-btn-search').on('click', function (e) {
     e.preventDefault();
-    var _url = '/company_image';
+    var _url = link.companyImage;
     var _tagId = $('#company-images .js-company-image-tag-select').val() || null;
     var _paramStr = urlHelper.objectToQueryString({company_image_tag_id: _tagId});
     toLocationHref(_url + '?' + _paramStr);
@@ -984,7 +999,7 @@ function dumpDisclosure(disclosures, $disclosureUl) {
   _formatedDisclosures.forEach(function (disclose, index) {
     var urlParam = 'company_id=' + disclose.company.company_id + '&go_tab=disclosure&disclosure_id=' + disclose.disclosure.disclosure_id;
     var _discloseLi = '<li class="ranking-ul-li">' +
-      '                  <a href="/company/detail?' + urlParam + '" class="ranking-ul-li-a">' +
+      '                  <a href="' + link.companyDetail + '?' + urlParam + '" class="ranking-ul-li-a">' +
       '                   <img src="' + disclose.company.company_main_visual_image_url + '" alt="' + disclose.company.company_main_visual_image_url + '"/>' +
       '                     <br/>' + (disclose.company.company_name || '') + '</a>' +
       '                </li>';
@@ -994,7 +1009,7 @@ function dumpDisclosure(disclosures, $disclosureUl) {
       var _tab = parseInt($disclosureUl.data('tab'));
       // if there is 5 item then add MORE button
       $disclosureUl.append(' <li class="ranking-ul-li ranking-ul-li-more">' +
-        '                  <a href="/disclosure?active_tab=' + _tab + '" class="ranking-ul-li-a ranking-ul-li-a-more"><img' +
+        '                  <a href="' + link.disclosure + '?active_tab=' + _tab + '" class="ranking-ul-li-a ranking-ul-li-a-more"><img' +
         '                          src="' + assetsPath + 'img/img-company-more.png"' +
         '                          alt=""/><br/>more</a>' +
         '                </li>');
@@ -1254,7 +1269,7 @@ function __generateEventItemForAsura(_eventData, _idx) {
     '    <div class="event-com">' + _eventData.companyName + '</div>' +
     '  </div>' +
     '  <div class="event-btn-box">' +
-    '    <a href="/event/detail?eventOf=ASURA&step_id=' + _eventData.stepId + '&asura_company_id=' +
+    '    <a href="' + link.eventDetail + '?eventOf=ASURA&step_id=' + _eventData.stepId + '&asura_company_id=' +
     _eventData.companyId + '&event_held_date_id=' + _eventData.eventHeldDateId + '" class="btn-small btn-blue">詳細・予約</a>' +
     '  </div>' +
     '</li>'

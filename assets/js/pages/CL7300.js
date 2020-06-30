@@ -86,11 +86,17 @@ function scrollToContractTerm() {
   var warn = globalInfo('warn_contract_term');
   if (!_.isEmpty(warn)) {
     removeGlobalInfo('warn_contract_term', { path: '/' });
-    $('#warnContractTerm').show();
     $('html, body').animate({
       scrollTop: $("#warnContractTerm").offset().top - 800
     }, 1500);
   }
+}
+
+function linkTo(href) {
+  event.preventDefault();
+  event.stopPropagation();
+  window.open(href, '_blank');
+  return true;
 }
 
 function _dumpPrefecture (prefectureGrs) {
@@ -169,7 +175,8 @@ function isValidNumber(parts) {
 
 function isMobileFormat (parts) {
   var mobileNum = formTel(parts);
-  var isCorrect = mobileNum.length === 10 || mobileNum.length === 11;
+  // ([0-9]){2,5}-([0-9]){1,4}-([0-9]){4}
+  var isCorrect = mobileNum.length >= 7 && mobileNum.length <= 13;
   if (!isCorrect) {
     parts.forEach(function(t) {
       $('#' + t).addClass('error');
@@ -1054,6 +1061,8 @@ $(document).ready(function () {
     $(".link-text").hide();
     $('#regist_btn').show();
     scrollTop();
+    // TODO: this is temporary fix current contract term missing
+    checkCurrentContractTerm(currentContractTerm, term);
   }
 
   function registCheckError (err) {
@@ -1193,6 +1202,8 @@ $(document).ready(function () {
     $('#regist_btn').hide();
     $('#mypage_btn').show();
     scrollTop();
+    // TODO: this is temporary fix current contract term missing
+    checkCurrentContractTerm(currentContractTerm, term);
   }
 
   function memberRegistError (data) {
@@ -1537,5 +1548,18 @@ $(document).ready(function () {
         console.log(XMLHttpRequest);
       }
     });
+  }
+  function checkCurrentContractTerm(currentContractTerm, term) {
+    if(!_.isUndefined(currentContractTerm) && !_.isNaN(+currentContractTerm)) {
+      var termIndex = _.findIndex(term, function (o) {
+        return o.term == currentContractTerm;
+      });
+      if (termIndex > -1) {
+        contractTermId = term[termIndex].id;
+        contractTerm = currentContractTerm;
+        globalInfo('contract_term', contractTerm, {path: "/"});
+        globalInfo('contract_term_id', parseInt(contractTermId) || '', {path: "/"});
+      }
+    }
   }
 });

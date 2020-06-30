@@ -482,7 +482,7 @@ function guest() {
 
 $(document).ready(function () {
   // if contract term id is 2 add text
-  if(contractTermId === 2) {
+  if(contractTermId === 2 || contractTermId === '2') {
     $('.text-top-tabs').append('2020年3月現在の企業情報です。ダイヤモンド就活ナビ2022でのインターンシップ情報掲載や募集要項の掲載をお約束するものではありません。');
   }
 
@@ -590,7 +590,7 @@ $(document).ready(function () {
             '     <div class="event-ttl">' + item.title + '</div>' +
             '    </div>' +
             '   <div class="event-btn-box">' +
-            '     <a href="/event/detail?event_id=' + item.event_id + '" class="btn-small btn-blue">詳細・予約</a>' +
+            '     <a href="' + link.eventDetail + '?event_id=' + item.event_id + '" class="btn-small btn-blue">詳細・予約</a>' +
             '   </div>' +
             ' </li>';
 
@@ -601,7 +601,7 @@ $(document).ready(function () {
 
     if (i > 10) {
       var btnShowMore = '<div id="corporateSeminar-show-more" class="event-more-box">' +
-        '  <a href="/event/eventlist" class="event-more">more</a>' +
+        '  <a href="' + link.eventList + '" class="event-more">more</a>' +
         '</div>';
       $('#data-dnavi').append(btnShowMore);
     }
@@ -1571,7 +1571,7 @@ function dumpListCompanyAsura(_datas) {
         '     <div class="event-ttl">' + item.publicName + '</div>' +
         '    </div>' +
         '   <div class="event-btn-box">' +
-        '     <a href="/event/detail?eventOf=ASURA&step_id=' + item.stepId + '&asura_company_id=' + item.companyId +
+        '     <a href="' + link.eventDetail + '?eventOf=ASURA&step_id=' + item.stepId + '&asura_company_id=' + item.companyId +
         '&event_held_date_id=' + item.eventHeldDateId + '&asura_student_id=' + (registrantId ? registrantId : null) +
         '" class="btn-small btn-blue">詳細・予約</a>' +
         '   </div>' +
@@ -1582,7 +1582,7 @@ function dumpListCompanyAsura(_datas) {
   });
   if (_datas.length > 10) {
     var btnShowMore = '<div id="corporateSeminar-show-more" class="event-more-box">' +
-      '  <a href="/event/eventlist" class="event-more">more</a>' +
+      '  <a href="' + link.eventList + '" class="event-more">more</a>' +
       '</div>';
     $('#data-asura').append(btnShowMore);
   }

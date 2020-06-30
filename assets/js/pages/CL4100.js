@@ -19,7 +19,7 @@ var cPartnerId = globalInfo('partner_id');
 var partnerId = _.isUndefined(cPartnerId) || _.isEmpty(cPartnerId) ? 0 : cPartnerId;
 
 // Pagination
-var perPage = 5;
+var perPage = 10;
 var page = 1;
 var searchKeyWord = null;
 var searchIndustrie = null;
@@ -103,7 +103,11 @@ function _fetchInternship(_isShowMore, _page, _perPage) {
                 _generateIntership(internships);
 
                 var totalItem = res.pagination.total;
-                if (totalItem > 10) {
+                var totalPages = parseInt(res.pagination.totalPages);
+                if (page < totalPages) {
+                    page = _page + 1;
+                }
+                if (totalItem > _perPage) {
                     $showMore.show();
                 } else {
                     $showMore.hide();
@@ -111,9 +115,7 @@ function _fetchInternship(_isShowMore, _page, _perPage) {
 
                 if (_isShowMore) {
                     var totalPages = parseInt(res.pagination.totalPages);
-                    if (page < totalPages) {
-                        page = _page + 1;
-                    } else {
+                    if (page >= totalPages) {
                         $showMore.hide();
                     }
                 }
@@ -160,7 +162,7 @@ function _generateIntership(_internships) {
             '  </div>' +
             '  <div class="intern-btn-box">' +
             monthDateTemplate +
-            '    <a href="/company/detail?company_id=' + __internship.company_id + '&go_tab=internship&internship_id=' + __internship.internship_id + '" class="btn-small btn-blue">詳細</a>' +
+            '    <a href="' + link.companyDetail + '?company_id=' + __internship.company_id + '&go_tab=internship&internship_id=' + __internship.internship_id + '" class="btn-small btn-blue">詳細</a>' +
             '  </div>' +
             '</li>'
         );
@@ -186,7 +188,7 @@ function _clearText() {
 
 function _resetPagination() {
     page = 1;
-    perPage = 5;
+    perPage = 10;
     // searchKeyWord = null;
 }
 

@@ -6,8 +6,18 @@ $(function () {
     if (isUserLoggedIn()) {
       $("#send_api_form").submit();
     } else {
-      globalInfo("returnUrl", location.href, {path: "/"});
-      toLocationHref("/login/user");
+      var formElement = $(this).next();
+      if (formElement
+        && formElement.prop
+        && formElement.attr
+        && formElement.prop('tagName') === 'FORM'
+        && formElement.attr('action').trim().length > 0) {
+        globalInfo("returnUrl", $(this).next().attr('action'), {path: "/"});
+        globalInfo("isFormReturnUrl", 1, {path: "/"});
+      } else {
+        globalInfo("returnUrl", location.href, {path: "/"});
+      }
+      toLocationHref(link.loginUser);
     }
   });
 
@@ -24,7 +34,7 @@ $(function () {
           'Authorization': 'Bearer ' + jwt,
           'Content-Type': 'application/json'
         }
-      }).then(wrapUserData).fail(function (err) {
+      }).done(wrapUserData).fail(function (err) {
         console.log(err);
       });
     }

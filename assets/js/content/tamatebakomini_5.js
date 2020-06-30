@@ -17,7 +17,7 @@
     e.preventDefault();
     var quizId = util.getQueryParam("quizId");
     // Update root link
-    toLocationHref('/contents/tamatebako_test_4?quizId=' + quizId);
+    toLocationHref(link.contentsTamatebako_test_4 + '?quizId=' + quizId);
 
   });
 
@@ -220,7 +220,7 @@
   /*---------------------FUNCTION CALL----------------------------*/
   if (!state || !(util.getStorage('isSubmit')) || parseInt(util.getQueryParam('quizId')) !== state.quizId) {
     // Update root link
-    toLocationHref('/contents/tamatebako_test');
+    toLocationHref(link.contentsTamatebako_test);
   } else {
     questions = state.questionList;
     renderExplainList(checkAnswer);

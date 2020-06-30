@@ -62,7 +62,7 @@ function resultAnswers () {
       '<li class="contents-result-ul-li">'
       + '<div class="contents-result-num">' + (_idx + 1) + '</div>'
       + '<div class="contents-result-mark">'
-      + '<a href="/contents/spi_5?quizId=' + getQuizId + '#q' + (_idx + 1) + '" class="contents-result-a" id="styleCorrect' + (_idx + 1) + '"></a>'
+      + '<a href="' + link.contentsSpi_5 + '?quizId=' + getQuizId + '#q' + (_idx + 1) + '" class="contents-result-a" id="styleCorrect' + (_idx + 1) + '"></a>'
       + '</div>'
       + '</li>'
     );

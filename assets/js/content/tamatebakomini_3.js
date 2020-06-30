@@ -142,7 +142,7 @@
     axios(options).then(function (resp) {
       can_do_quiz = resp.data.data.can_do;
       if (!can_do_quiz || can_do_quiz === 0) {
-        toLocationHref('/contents/tamatebako_test');
+        toLocationHref(link.contentsTamatebako_test);
       } else {
         userCurrentTime = moment();
         data = resp.data.data.questions;
@@ -392,7 +392,7 @@
   scrollByHash();
 
   if (!util.getQueryParam('quizId') || isSubmit) {
-    toLocationHref('/contents/tamatebako_test');
+    toLocationHref(link.contentsTamatebako_test);
   } else {
     fetchApi();
   }
@@ -418,7 +418,7 @@
 
     axios.post(url, body, options).then(function () {
       // Update link root here PLEASEEEEEEEEEEEEEEEEEEEEE
-      toLocationHref('/contents/tamatebako_test_4?quizId=' + quizId);
+      toLocationHref(link.contentsTamatebako_test_4 + '?quizId=' + quizId);
     }).catch(function (error) {
       throw error;
     })

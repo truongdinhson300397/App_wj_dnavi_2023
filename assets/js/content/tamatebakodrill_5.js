@@ -241,7 +241,7 @@ function renderQuestionsAndAnswers (_questions, _resultQuestions, _userAnswers, 
   // responsiveImage();
   // Finish question
   $('#btn-back-drill_4').click(function () {
-    toLocationHref('/contents/tamatebako_drill_4?content_id=' + quizId + '&with_timer='+ withTimer);
+    toLocationHref(link.contentsTamatebako_drill_4 + '?content_id=' + quizId + '&with_timer='+ withTimer);
   });
 }
 

@@ -16,51 +16,23 @@ function onReady() {
   }
 
   // Logo url
-  if (typeof notChangeLogo === "undefined" || notChangeLogo === false) {
-    var $logo = $('.header-logo-a');
-    var baseUrl = '/';
-    if (parseInt(partnerId) !== 0) {
-      baseUrl = '/' + partnerId;
-    }
-    $logo.attr('href', baseUrl);
-    $logo.addClass('header-logo-' + contractTerm);
+  var $logo = $('.header-logo-a');
+  var baseUrl = '/';
+  if (parseInt(partnerId) !== 0) {
+    baseUrl = '/' + partnerId;
   }
-
+  $logo.attr('href', baseUrl);
+  $logo.addClass('header-logo-' + contractTerm);
 
   var currentPage = $(location).attr('pathname');
-  if (user_contract_term !== undefined && user_contract_term === '2022' && jwt !== undefined ) {
-    if (!_.includes(currentPage, 'event')
-      && !_.includes(currentPage, 'contents')
-      && !_.includes(currentPage, 'login')
-      && !_.includes(currentPage, 'regist')
-      && currentPage !== '/2022') {
-      window.location.href = '2022/navi22/top';
-    }
-  }
-
-  // redirect to Landing if page is:
-  // 2022/disclosure, 2022/company/list, 2022/company/search, 2022/company_image, 2022/2 (partner)
-  if(!_.includes(currentPage, '/2022/navi22/top')) {
-    if (_.includes(currentPage, '2022/disclosure')
-      || _.includes(currentPage, '2022/company/list')
-      || _.includes(currentPage, '2022/company/search')
-      || _.includes(currentPage, '2022/company_image')
-      ) {
-      window.location.href = '/2022/navi22/top';
-    }
-  }
-
 
   // DISABLE NAV FOR 2022
   var btnDisabled = '';
-  if (_.includes(currentPage, '/2022')) {
-    btnDisabled = 'btn-disabled'
-  }
 
   var tabInternship = '';
   if (_.includes(currentPage, '/2022')) {
     tabInternship = '<li class="nav-ul-1-li">'+
-                      '<a href="/internship/list" class="nav-ul-1-li-a ' + btnDisabled + ' line-break">インターンシップ＆\n キャリア支援プログラム</a>'+
+                      '<a href="' + link.internshipList +'" class="nav-ul-1-li-a ' + btnDisabled + ' line-break">インターンシップ＆\n キャリア支援プログラム</a>'+
                     '</li>';
   }
 
@@ -68,9 +40,9 @@ function onReady() {
 }
 
 function renderNavigation(partnerId, btnDisabled, tabInternship) {
-  var eventUrl = '/event/eventlist';
+  var eventUrl = link.eventList;
   if (partnerId && parseInt(partnerId) !== 0) {
-    eventUrl = '/' + partnerId + '/event/eventlist';
+    eventUrl = '/' + partnerId + link.eventList;
   }
 
   var navigation = (
@@ -81,14 +53,14 @@ function renderNavigation(partnerId, btnDisabled, tabInternship) {
             '<a href="' + eventUrl + '" class="nav-ul-1-li-a line-height">イベント</a>'+
           '</li>'+
           '<li class="nav-ul-1-li">'+
-            '<a href="/disclosure" class="nav-ul-1-li-a ' + btnDisabled + ' line-height">情報公開度でさがす</a>'+
+            '<a href="' + link.disclosure + '" class="nav-ul-1-li-a ' + btnDisabled + ' line-height">情報公開度でさがす</a>'+
           '</li>'+
           '<li class="nav-ul-1-li">'+
-            '<a href="/company/list" class="nav-ul-1-li-a ' + btnDisabled + ' line-height">企業をさがす</a>'+
+            '<a href="' + link.companyList + '" class="nav-ul-1-li-a ' + btnDisabled + ' line-height">企業をさがす</a>'+
           '</li>'+
           tabInternship +
           // '<li class="nav-ul-1-li">'+
-          //   '<a href="/internship/list" class="nav-ul-1-li-a">インターンシップ</a>'+
+          //   '<a href="' + link.internshipList +'" class="nav-ul-1-li-a">インターンシップ</a>'+
           // '</li>'+
           '<li class="nav-ul-1-li nav-1-has-submenu ' + btnDisabled + '">'+
             '<a href="#" id="nav1LiIcon" class="nav-ul-1-li-a ' + btnDisabled + ' line-height">UIターン・地元就活 <span id="nav1ArrowIcon" class="nav-1-has-submenu-arrow"></span></a>'+
@@ -99,7 +71,7 @@ function renderNavigation(partnerId, btnDisabled, tabInternship) {
             '</div>'+
           '</li>'+
           '<li class="nav-ul-1-li">'+
-            '<a href="/contents" class="nav-ul-1-li-a line-height">選考対策</a>'+
+            '<a href="' + link.contents + '" class="nav-ul-1-li-a line-height">選考対策</a>'+
           '</li>'+
         '</ul>'+
       '</div>'+

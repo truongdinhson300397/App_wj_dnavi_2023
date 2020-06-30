@@ -80,7 +80,7 @@ function generateQuizs (_quizs) {
     } else {
       /*Có bài thi đang diễn */
       /*There are ongoing exams*/
-      todayQuizNum = todayQuizNum - 2;
+      todayQuizNum = todayQuizNum - 1;
       $quizNumber.append(
         '第' + todayQuizNum + '回　模擬試験 <span class="ilb">開催中</span>'
       );
@@ -111,16 +111,16 @@ function generateQuizSchedule (_quizs) {
     var button = '';
     var dateBetween = isDateBetween(now, _quiz.start_date, _quiz.end_date);
     if (dateBetween) {
-      button = '<a href="/contents/spi_3?quizId=' + _quiz.content_id + '" class="btn-xsmall btn-green">受験する</a>';
+      button = '<a href="' + link.contentsSpi_3 + '?quizId=' + _quiz.content_id + '" class="btn-xsmall btn-green">受験する</a>';
     } else {
       // Quiz is in future
       if (isShowButton) {
         if (moment(now).isBefore(_quiz.start_date)) {
-          button = '<a href="/contents/spi_3?quizId=' + _quiz.content_id + '" class="btn-xsmall btn-disabled">次回</a>';
+          button = '<a href="' + link.contentsSpi_3 + '?quizId=' + _quiz.content_id + '" class="btn-xsmall btn-disabled">次回</a>';
           isShowButton = false;
         } else if (_quiz.is_active) {
           // Quiz was in the past
-          button = '<a href="/contents/spi_3?quizId=' + _quiz.content_id + '" class="btn-xsmall btn-blue">過去問にチャレンジ</a>';
+          button = '<a href="' + link.contentsSpi_3 + '?quizId=' + _quiz.content_id + '" class="btn-xsmall btn-blue">過去問にチャレンジ</a>';
         }
       }
     }

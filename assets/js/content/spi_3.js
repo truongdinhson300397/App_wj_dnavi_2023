@@ -11,7 +11,7 @@ if (countCheckAnswersLocal) {
 }
 var isSubmitLocal = localStorage.getItem('is_submit');
 if (isSubmitLocal) {
-  toLocationHref('/contents/spi');
+  toLocationHref(link.contentsSpi);
 }
 // Quiz start from question 1
 // var urlParams = new URLSearchParams(window.location.search);
@@ -74,10 +74,10 @@ function isCheckQueryParams () {
     if (isQuestions) {
       questions = isQuestions.questions;
     } else {
-      toLocationHref('/contents');
+      toLocationHref(link.contents);
     }
   } else {
-    toLocationHref('/contents');
+    toLocationHref(link.contents);
   }
 }
 
@@ -362,7 +362,7 @@ function uploadUserData (body) {
     url: rootVariables.apiUrl + '/students/user_contents'
   };
   axios(options).then(function () {
-    toLocationHref('/contents/spi_4?quizId=' + queryQuizId);
+    toLocationHref(link.contentsSpi_4 + '?quizId=' + queryQuizId);
   }).catch(function (error) {
     // handle error
     throw error;

@@ -108,7 +108,7 @@
       var end = moment(quizs[i].end_date).format('M月D日(ddd)');
       var checkStart = now.isSameOrAfter(quizs[i].start_date);
       var checkEnd = now.isSameOrBefore(quizs[i].end_date);
-      var btn = '<a href="/contents/tamatebako_test_3?quizId=' + quizs[i].content_id + '" class="btn-xsmall btn-green">受験する</a>';
+      var btn = '<a href="' + link.contentsTamatebako_test_3 + '?quizId=' + quizs[i].content_id + '" class="btn-xsmall btn-green">受験する</a>';
 
       if (i === 0) {
         var qNumber = contractTermId === '2' ? i + 1 : '';
@@ -166,7 +166,7 @@
         }
 
         if ((checkStart && checkEnd)) {
-          btn = '<a href="/contents/tamatebako_test_3?quizId=' + quizs[i].content_id + '" class="btn-xsmall btn-green">受験する</a>';
+          btn = '<a href="' + link.contentsTamatebako_test_3 + '?quizId=' + quizs[i].content_id + '" class="btn-xsmall btn-green">受験する</a>';
           if (quizs[i].can_do === 0) {
             btn = '<a class="btn-xsmall btn-disabled">受験完了</a>';
           }

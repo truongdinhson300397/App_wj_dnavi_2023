@@ -52,7 +52,7 @@
             '<li class="contents-result-ul-li">' +
             '<div class="contents-result-num">' + (index + 1) + '</div>' +
             '<div class="contents-result-mark">' +
-            '<a href="/contents/tamatebako_test_5' + '?quizId=' + quizId + '#q' + (index + 1) + '"' +
+            '<a href="' + link.contentsTamatebako_test_5 + '?quizId=' + quizId + '#q' + (index + 1) + '"' +
             ' class="contents-result-a contents-result-a-correct">' +
             '</a>' +
             '</div>' +
@@ -65,7 +65,7 @@
             '<li class="contents-result-ul-li">' +
             '<div class="contents-result-num">' + (index + 1) + '</div>' +
             '<div class="contents-result-mark">' +
-            '<a href="/contents/tamatebako_test_5' + '?quizId=' + quizId + '#q' + (index + 1) + '"' +
+            '<a href="' + link.contentsTamatebako_test_5 + '?quizId=' + quizId + '#q' + (index + 1) + '"' +
             ' class="contents-result-a contents-result-a-incorrect">' +
             '</a>' +
             '</div>' +
@@ -85,7 +85,7 @@
 
     /*---------------------FUNCTION CALL----------------------------*/
     if (!state || parseInt(util.getQueryParam('quizId')) !== state.quizId) {
-        toLocationHref('/contents/tamatebako_test');
+        toLocationHref(link.contentsTamatebako_test);
     } else {
         totalTimeCounter();
         renderResultList(totalAnswerCounter);

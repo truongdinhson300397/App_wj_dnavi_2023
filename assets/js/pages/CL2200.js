@@ -302,7 +302,7 @@ function dumpEventData(event) {
     var companyContent = '';
     event.companies.forEach(function (company, index) {
       var _companyDetail = company.company;
-      companyContent += '<a href="/company/detail?company_id=' + _companyDetail.company_id + '">' +
+      companyContent += '<a href="' + link.companyDetail + '?company_id=' + _companyDetail.company_id + '">' +
         _companyDetail.company_name + '</a><span class="cmp-type-label">' + _companyDetail.industry_type_main +
         '</span><br/>';
       if (index === limit) {
@@ -381,7 +381,7 @@ function dumpChildEventData(childrenEvents) {
       '                <div data-api="eventchild_title" class="event-ttl">講演タイトル１</div>' +
       '              </div>' +
       '              <div class="event-btn-box">' +
-      '                <a href="/event/detail?event_id=' + event.event_id + '" class="btn-small btn-blue">詳細・予約</a>' +
+      '                <a href="' + link.eventDetail + '?event_id=' + event.event_id + '" class="btn-small btn-blue">詳細・予約</a>' +
       '              </div>' +
       '            </li>');
     // prefecture
@@ -498,7 +498,7 @@ function goToBookDetail() {
 
   $('#js-book-event').on('click', function (e) {
     e.preventDefault();
-    var _url = '/event/apply';
+    var _url = link.eventApply;
 
     if (forAsura) {
       _url += '?eventOf=ASURA&asura_company_id=' + asuraCompanyId + '&step_id=' + stepId + '&event_date_id=' +
@@ -566,7 +566,7 @@ function _dumpBookedEventButton(event, eventDate) {
 
   var disabledCancel = canCancel ? '' : 'btn-disabled';
 
-  var btnDetail = isSelfcard ? '<a href="/event/profilecard?event_id=' + event.event_id +
+  var btnDetail = isSelfcard ? '<a href="' + link.eventProfilecard + '?event_id=' + event.event_id +
     '" class="btn-default singon-btn-flex btn-green btn-first">自己紹介カードを表示</a>' : '';
 
   // if user is joined this event then hide cancel button
@@ -577,7 +577,7 @@ function _dumpBookedEventButton(event, eventDate) {
     '</a>' : '';
 
   if (forAsura) {
-    btnDetail = isSelfcard ? '<a href="/event/profilecard?eventOf=ASURA&step_id=' + stepId + '&asura_company_id=' + asuraCompanyId +
+    btnDetail = isSelfcard ? '<a href="' + link.eventProfilecard + '?eventOf=ASURA&step_id=' + stepId + '&asura_company_id=' + asuraCompanyId +
       '&event_held_date_id=' + eventDateId + '&asura_student_id=' + global.registrantId +
       '" class="btn-default singon-btn-flex btn-green btn-first">自己紹介カードを表示</a>' : '';
 
@@ -753,7 +753,7 @@ function cancelBooking(event_id, event_date_id, canCancel) {
     var _url = '/students/' + global.userId + '/cancel_event?' + _query;
 
     function successFn(res) {
-      toLocationHref('/mypage/applied_event');
+      toLocationHref(link.myPageAppliedEvent);
     }
 
     http.updateOne(_url, null, _query, global.jwt, successFn, null, false);
@@ -784,7 +784,7 @@ function cancelBookingAsura(_eventDateId, canCancel) {
       },
       data: JSON.stringify(postDataToAsura),
       success: function (res) {
-        toLocationHref('/mypage/applied_event');
+        toLocationHref(link.myPageAppliedEvent);
       },
       error: function (error, jqXhr, textStatus, errorThrown) {
         console.log(errorThrown);
