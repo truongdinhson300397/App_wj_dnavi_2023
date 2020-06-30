@@ -132,7 +132,7 @@
 
             _formatedDisclosures.forEach(function (disclose, index) {
               var _discloseLi = '<li class="ranking-list-ul-li">' +
-                '                  <a href="/company/detail?go_tab=disclosure&company_id=' + disclose.company.company_id +
+                '                  <a href="{{link.companyDetail}}?go_tab=disclosure&company_id=' + disclose.company.company_id +
                 '" class="ranking-list-ul-li-a">' +
                 '                   <img src="' + disclose.company.company_main_visual_image_url + '" alt="' + disclose.company.company_main_visual_image_name +
                 '"/>' +

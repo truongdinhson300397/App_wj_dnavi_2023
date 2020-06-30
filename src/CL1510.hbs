@@ -87,7 +87,7 @@
             },
             processData: true,
             success: function (data) {
-              toLocationHref("/forgetid/complete");
+              toLocationHref("{{link.forgetIdComplete}}");
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
               displayError('入力された内容に該当するデータはありません。');

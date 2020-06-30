@@ -55,7 +55,7 @@
                 </tr>
               </table>
               <div class="singon-btn-box">
-                <a href="/contact" class="btn-default singon-btn-flex btn-gray btn-first">戻る</a>
+                <a href="{{link.contact}}" class="btn-default singon-btn-flex btn-gray btn-first">戻る</a>
                 <a href="#" class="btn-default singon-btn-flex btn-blue" onclick="__letMeContact(event)">送信</a>
               </div>
             </div>
@@ -71,7 +71,7 @@
           $(function () {
             clearText();
             if (_.isUndefined(localStorage['family_name'])) {
-              toLocationHref("/contact");
+              toLocationHref("{{link.contact}}");
             }
 
             var formData = _.map(REQUIRED, function (_form) {
@@ -149,7 +149,7 @@
               },
               data: JSON.stringify(paramToServer),
               success: function () {
-                toLocationHref("/contact/complete");
+                toLocationHref("{{link.contactComplete}}");
                 localStorage.clear();
               },
               error: function (jqXhr, textStatus, errorThrown) {

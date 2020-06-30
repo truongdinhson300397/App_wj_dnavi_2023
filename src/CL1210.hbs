@@ -98,10 +98,10 @@
             </header> -->
             <div class="article-box-body">
               <ul class="list-nomark-ul block-centering mgnb30-50">
-                <li class="list-nomark-ul-li"><a href="/forgetid" class="link-text">仮IDがわからない方はこちら</a></li>
-                <li class="list-nomark-ul-li"><a href="/regist" class="link-text">新規に会員登録をしたい方はこちら</a></li>
-                <li class="list-nomark-ul-li"><a href="/login/user" class="link-text">既に本会員の方はこちらからログインしてください</a></li>
-                <li class="list-nomark-ul-li"><a href="/faq/list" class="link-text">お問い合わせ</a></li>
+                <li class="list-nomark-ul-li"><a href="{{link.forgetId}}" class="link-text">仮IDがわからない方はこちら</a></li>
+                <li class="list-nomark-ul-li"><a href="{{link.regist}}" class="link-text">新規に会員登録をしたい方はこちら</a></li>
+                <li class="list-nomark-ul-li"><a href="{{link.loginUser}}" class="link-text">既に本会員の方はこちらからログインしてください</a></li>
+                <li class="list-nomark-ul-li"><a href="{{link.faqList}}" class="link-text">お問い合わせ</a></li>
               </ul>
             </div>
           </div>
@@ -115,7 +115,11 @@
           var inputHelper = new InputHelper();
           var preventNonNumericalInput = inputHelper.preventNonNumericalInput;
           function redirectToTemporaryLogin2021() {
-            location.href = '/2021/login/temporary_user';
+              if (typeof isApplican !== "undefined" && isApplican) {
+                  location.href = '/2021/login/temporary_user';
+              } else {
+                  location.href = '{{link.loginTemporary}}';
+              }
           }
           $(document).ready(function () {
             if (globalInfo('contract_term_id') == 2) {

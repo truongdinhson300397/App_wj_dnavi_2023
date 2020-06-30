@@ -138,7 +138,7 @@
                   dTag = dTag + "<span class='tags'># " + __tag.tags + "</span>";
                 });
 
-                var imageDetail = "<a href=/" + globalInfo("contract_term") + "/company/detail?company_id=" + _image.company.company_id + "' class='cmpnm'>" + _image.company.company_name + "</a>" + _image.comment + "<section class='tagsbox'>" + dTag + "</section>";
+                var imageDetail = "<a href=/" + globalInfo("contract_term") + "{{link.companyDetail}}?company_id=" + _image.company.company_id + "' class='cmpnm'>" + _image.company.company_name + "</a>" + _image.comment + "<section class='tagsbox'>" + dTag + "</section>";
                 $imageSearchUl.append(
                   '<li class="image-search-ul-li">' +
                   '  <a href="' + _image.image_url + '" class="image-search-ul-li-a" data-lightbox="CL5200" data-title="' + imageDetail + '">' +

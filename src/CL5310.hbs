@@ -39,7 +39,7 @@
               お問い合わせの情報を入力してください。<br/>
               <span class="txt-reduired">＊</span>は必須項目です。<br/>
               ID/パスワードについてのお問い合わせは、FAQの『<a
-              href="/reminder">ID/パスワードを忘れた方</a>』をご確認いただき、解決しなかった場合に下記のフォームからお問い合わせください。<br/>
+              href="{{link.reminder}}">ID/パスワードを忘れた方</a>』をご確認いただき、解決しなかった場合に下記のフォームからお問い合わせください。<br/>
             </div>
             <div class="alert-box field-missing hidden"></div>
             <h3 class="subheading-h3">お問い合わせ内容</h3>
@@ -358,11 +358,13 @@
 
       $(function () {
         // dynamic action form
-        if (contractTermId === '1') {
-          $('#__studentContactForm').attr('action', '/2021/contact/confirm');
+        if (typeof isApplican !== "undefined" && isApplican) {
+            $('#__studentContactForm').attr('action', '{{link.contactConfirm}}');
+        } else if (contractTermId === '1') {
+          $('#__studentContactForm').attr('action', '/2021' + '{{link.contactConfirm}}');
         }
-        if (contractTermId === '2') {
-          $('#__studentContactForm').attr('action', '/2022/contact/confirm');
+        else if (contractTermId === '2') {
+          $('#__studentContactForm').attr('action', '/2022' + '{{link.contactConfirm}}');
         }
         _generateType();
 

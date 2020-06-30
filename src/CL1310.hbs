@@ -138,7 +138,7 @@
               if (msg.error.message === "まだ本会員ではありません。本会員登録を行ってください。") {
                 $('.alert-box').html('<p>' + msg.error.message + '5秒後に登録画面へ自動で遷移します</p>').fadeIn();
                 setTimeout(function() {
-                  toLocationHref("/login/temporary_user");
+                  toLocationHref("{{link.loginTemporary}}");
                 }, 5000)
               } else {
                 $('.alert-box').html('<p>' + msg.error.message + '</p>').fadeIn();

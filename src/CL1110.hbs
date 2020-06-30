@@ -60,11 +60,11 @@
               <div class="drop-shadow-box">
                 <div class="article-box-body">
                   <ul class="list-nomark-ul block-centering mgnb30-50">
-                    <li class="list-nomark-ul-li"><a href="/reminder" class="link-text">ID・パスワードをお忘れの方はこちら</a></li>
-                    <li class="list-nomark-ul-li"><a href="/login/temporary_user" class="link-text">仮IDをお持ちの方はこちら</a></li>
+                    <li class="list-nomark-ul-li"><a href="{{link.reminder}}" class="link-text">ID・パスワードをお忘れの方はこちら</a></li>
+                    <li class="list-nomark-ul-li"><a href="{{link.loginTemporary}}" class="link-text">仮IDをお持ちの方はこちら</a></li>
                     <li class="list-nomark-ul-li"> ※学校のガイダンスカードやWEB共通登録で登録した方、登録ハガキを投函した方、他連携サービスで同時登録を希望した方が対象となります。</li>
-                    <li class="list-nomark-ul-li"><a href="/regist" class="link-text">会員登録</a></li>
-                    <li class="list-nomark-ul-li"><a href="/faq/list" class="link-text">お問い合わせ</a></li>
+                    <li class="list-nomark-ul-li"><a href="{{link.regist}}" class="link-text">会員登録</a></li>
+                    <li class="list-nomark-ul-li"><a href="{{link.faqList}}" class="link-text">お問い合わせ</a></li>
                   </ul>
                 </div>
               </div>
@@ -79,11 +79,11 @@
             <!--</header>-->
             <!--<div class="article-box-body">-->
             <!--<div class="mgnb30-50">-->
-            <!--<a href="/regist" class="btn-default btn-blue w100-50prc">会員登録</a>-->
+            <!--<a href="{{link.regist}}" class="btn-default btn-blue w100-50prc">会員登録</a>-->
             <!--</div>-->
             <!--<div class="form-preface">学校のガイダンスカードやWEB共通登録で登録した方、登録ハガキを投函した方、他連携サービスで同時登録を希望した方が対象となります。</div>-->
             <!--<div class="form-btn-box">-->
-            <!--<a href="/login/temporary_user" class="btn-default btn-blue w100-50prc">仮IDをお持ちの方はこちら</a>-->
+            <!--<a href="{{link.loginTemporary}}" class="btn-default btn-blue w100-50prc">仮IDをお持ちの方はこちら</a>-->
             <!--</div>-->
             <!--</div>-->
             <!--</div>-->
@@ -115,7 +115,7 @@
             <!--<div class="article-box-body">-->
             <!--&lt;!&ndash; <div class="form-preface">お問い合わせは、下のボタンからご連絡ください。</div> &ndash;&gt;-->
             <!--<div>-->
-            <!--<a href="/faq/list" class="btn-default btn-blue w100-50prc">お問い合わせ</a>-->
+            <!--<a href="{{link.faqList}}" class="btn-default btn-blue w100-50prc">お問い合わせ</a>-->
             <!--</div>-->
             <!--</div>-->
             <!--</div>-->
@@ -248,7 +248,7 @@
                 $('#moveToMemberEdit').on('click', function () {
                     saveUserData(userDataTemp, loginTermTemp);
                     globalInfo('warn_contract_term', 1, {expires: 1, path: "/"});
-                    toLocationHref('/mypage/memberinfo/edit');
+                    toLocationHref('{{link.myPageMemberinfoEdit}}');
                 });
                 function loginSuccess(data, loginTerm) {
                     if (data.user_contract_term.length > 0) {
@@ -260,8 +260,13 @@
                             var modalWarning = $('#modalWarning');
                             $('.current-contract-term').text(globalInfo('contract_term'));
                             $('.user-contract-term').text(lastUserContractTerm.term_name);
-                            $('#loginUserContractTerm').attr('href', '/' + lastUserContractTerm.term_name + '/login/user');
-                            $('#loginCurrentContractTerm').attr('href', '/' + globalInfo('contract_term') + '/login/user');
+                            if (typeof isApplican !== "undefined" && isApplican) {
+                                $('#loginUserContractTerm').attr('href', '/' + lastUserContractTerm.term_name + '{{link.loginUser}}');
+                                $('#loginCurrentContractTerm').attr('href', '/' + globalInfo('contract_term') + '{{link.loginUser}}');
+                            } else {
+                                $('#loginUserContractTerm').attr('href',  '{{link.loginUser}}');
+                                $('#loginCurrentContractTerm').attr('href', '{{link.loginUser}}');
+                            }
                             userDataTemp = data;
                             loginTermTemp = loginTerm;
                             modalWarning.show();
@@ -272,7 +277,7 @@
 
                         if (!returnUrl) {
                             // 仮
-                            toLocationHref('/mypage/top');
+                            toLocationHref('{{link.myPageTop}}');
                         } else {
                             removeGlobalInfo('returnUrl', { path: '/' });
                             var isOpenNewTab = globalInfo('isOpenNewTab');
