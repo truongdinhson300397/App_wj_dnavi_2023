@@ -1,0 +1,23 @@
+@charset 'UTF-8';
+
+.event-com {
+    width: 100%;
+}
+
+/*mobile*/
+
+
+/*event list*/
+#corporateSeminar-wrapper .event-time {
+    display: inline-block;
+}
+/*sm*/
+@media all and (min-width: 768px) {
+}
+
+
+
+/*md*/
+@media all and (min-width: 992px) {
+
+}

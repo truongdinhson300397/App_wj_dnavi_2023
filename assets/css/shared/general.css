@@ -1,0 +1,36 @@
+button {
+  cursor: pointer;
+  outline: none;
+}
+
+.hidden {
+  display: none;
+}
+
+input.error {
+  background: #ffffff;
+}
+
+.intern-more-box {
+  text-align: center;
+}
+
+.intern-more {
+  margin-bottom: 50px;
+  color: #909090;
+  font-size: 133.3%;
+  text-decoration: none;
+}
+
+.return-link {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  max-width: 1100px;
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+  padding: 0 50px;
+  margin-left: auto;
+  margin-right: auto;
+}

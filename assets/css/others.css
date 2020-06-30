@@ -1,0 +1,338 @@
+@charset 'UTF-8';
+
+/*********************************************************************************************
+ app
+*********************************************************************************************/
+
+.preface-outer-box {
+	text-align: center;
+}
+
+.preface-box {
+	margin: 0 auto;
+	padding: 20px;
+	border: 3px solid #0079A5;
+	display: inline-block;
+	text-align: left;
+	/*width: 500px;*/
+}
+
+.preface-h4 {
+	margin-bottom: 20px;
+	font-size: 150%;
+}
+
+.download-logo-app-img {
+	width: 220px;
+}
+
+.preface-emphasis {
+	font-size:114.3%;
+	font-weight: bold;
+}
+
+@media (min-width: 769px){
+}
+
+
+/*********************************************************************************************
+ sitemap
+*********************************************************************************************/
+.sitemap-box {
+	margin-top: -30px;
+	align-items: stretch;
+	display: -ms-flexbox;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	flex-flow: row wrap;
+	-ms-flex-direction: row;
+	-ms-flex-pack: justify;
+	-ms-flex-wrap: wrap;
+	justify-content: space-between;
+	box-sizing: content-box;
+}
+
+.sitemap-category-box {
+	margin-top: 30px;
+	flex-basis: 100%;
+}
+
+.sitemap-category-box.first-row {
+	margin-top: 0;
+}
+
+.sitemap-category-h4 {
+	font-size: 125%;
+	color: #004F93;
+}
+
+.list-sitemap-ul-li {
+	margin: 20px 0 0;
+	padding-left: 20px;
+	position: relative;
+}
+
+.list-sitemap-ul-li:before {
+	border-right: 1px solid #0079A5;
+	border-top: 1px solid #0079A5;
+	content: '';
+	cursor: pointer;
+	display: inline-block;
+	height: .5em;
+	margin: auto;
+	position: absolute;
+	left: 0;
+	top: 0.5em;
+	-ms-transform: rotate(45deg);
+	-webkit-transform: rotate(45deg);
+	transform: rotate(45deg);
+	width: .5em;
+}
+
+@media (min-width: 480px){
+	.sitemap-category-box {
+		flex-basis: 49%;
+	}
+}
+
+@media (min-width: 769px){
+	.sitemap-box {
+		margin-top: -50px;
+	}
+
+	.sitemap-category-box {
+		margin-top: 50px;
+		flex-basis: 30%;
+	}
+}
+
+
+/*********************************************************************************************
+ FAQ
+*********************************************************************************************/
+.faq-box {}
+
+.faq-category-box {
+	margin-top: 30px;
+	flex-basis: 100%;
+}
+
+.faq-category-box.first-row {
+	margin-top: 0;
+}
+
+.faq-category-h4 {
+	font-size: 125%;
+	color: #004F93;
+}
+
+.list-faq-ul-li {
+	margin: 20px 0 0;
+	padding-left: 20px;
+	position: relative;
+}
+
+.list-faq-ul-li:before {
+	border-right: 1px solid #0079A5;
+	border-top: 1px solid #0079A5;
+	content: '';
+	cursor: pointer;
+	display: inline-block;
+	height: .5em;
+	margin: auto;
+	position: absolute;
+	left: 0;
+	top: 0.5em;
+	-ms-transform: rotate(45deg);
+	-webkit-transform: rotate(45deg);
+	transform: rotate(45deg);
+	width: .5em;
+}
+
+.faq-answer-box {
+
+}
+
+.faq-question-h5 {
+	padding: 10px 0 20px;
+	border-top: 3px solid #004F93;
+	font-size: 114.3%;
+}
+
+.faq-answer-header-h6 {
+	padding-bottom: 5px;
+}
+
+.faq-answer-body {
+	padding: 0 0 20px 10px;
+}
+
+.mgnt10 {
+	margin-top: 10px;
+}
+
+.mgnb10 {
+	margin-bottom: 10px;
+}
+
+@media (min-width: 769px){
+	.faq-question-h5 {
+		margin-bottom: 15px;
+		padding: 0 0 0 15px;
+		border-top: 0;
+		border-left: 3px solid #004F93;
+	}
+
+	.faq-answer-body {
+		padding: 0 0 30px 20px;
+	}
+}
+
+
+/*********************************************************************************************
+ mypage
+*********************************************************************************************/
+.mypage-btn-ul-li {
+	padding-top: 20px;
+}
+
+.mypage-btn {
+	padding: 20px;
+	border-radius: 10px;
+	display: block;
+	color: #fff;
+	height: 100%;
+	text-decoration: none;
+	position: relative;
+	z-index: 0;
+}
+
+.mypage-btn:before {
+	border-radius: 10px;
+	content: '';
+	background: linear-gradient(170deg, #38A5DE, #004F93);
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	opacity: 1;
+	z-index: -1;
+	-ms-transition: opacity .5s ease-in-out 0;
+	transition-property: opacity;
+	transition-duration: .5s;
+	transition-timing-function: ease-in-out;
+	transition-delay: 0;
+}
+
+.mypage-btn:after {
+	border-radius: 10px;
+	content: '';
+	background: linear-gradient(170deg, #004F93, #38A5DE);
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	opacity: 1;
+	z-index: -2;
+}
+
+.mypage-btn:hover {
+	color: #fff;
+	text-decoration: none;
+}
+
+.mypage-btn:hover:before {
+  opacity: 0;
+}
+
+.mypage-btn-ttl {
+	padding-left: 30px;
+	display: block;
+	font-size: 128.6%;
+	font-weight: bold;
+}
+
+.mypage-btn-txt {
+	padding-top: 10px;
+	display: block;
+}
+
+.mypage-btn-ttl-01 {
+	background: url(../img/icon-pin-white-02.png) left top no-repeat;
+	background-size: auto 23px;
+}
+
+.mypage-btn-ttl-02 {
+	background: url(../img/icon-building-white-01.png) left top no-repeat;
+	background-size: auto 23px;
+}
+
+.mypage-btn-ttl-03 {
+	background: url(../img/icon-building-white-02.png) left top no-repeat;
+	background-size: auto 23px;
+}
+
+.mypage-btn-ttl-04 {
+	background: url(../img/icon-edit-white.png) left top no-repeat;
+	background-size: auto 23px;
+}
+
+.mypage-btn-ttl-05 {
+	background: url(../img/icon-mail-white.png) left top no-repeat;
+	background-size: auto 23px;
+}
+
+.mypage-btn-ttl-06 {
+	background: url(../img/icon-key-white-02.png) left top no-repeat;
+	background-size: auto 23px;
+}
+
+.mypage-btn-ttl-07 {
+	background: url(../img/icon-stop-white-02.png) left top no-repeat;
+	background-size: auto 23px;
+}
+
+
+@media (min-width: 769px){
+	.mypage-btn-ul {
+		box-sizing: content-box;
+		display: -ms-flexbox;
+		display: -webkit-box;
+		display: flex;
+		flex-flow: row wrap;
+		-ms-flex-direction: row;
+		-ms-flex-pack: justify;
+		-ms-flex-wrap: wrap;
+		-webkit-box-align: stretch;
+		-webkit-box-direction: normal;
+		-webkit-box-orient: horizontal;
+		-webkit-box-pack: justify;
+		justify-content: space-between;
+		align-items: stretch;
+	}
+
+	.mypage-btn-ul-li {
+		flex-basis: 48%;
+	}
+
+	.mypage-btn {
+		padding: 30px;
+	}
+
+	.mypage-btn-ttl {
+		padding-left: 35px;
+	}
+
+	.mypage-btn-ttl-01,
+	.mypage-btn-ttl-02,
+	.mypage-btn-ttl-03,
+	.mypage-btn-ttl-04,
+	.mypage-btn-ttl-05,
+	.mypage-btn-ttl-06,
+	.mypage-btn-ttl-07 {
+		background-size: auto 27px;
+	}
+}
