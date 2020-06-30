@@ -316,7 +316,7 @@ function headeFooterApp (isLogin) {
       ' </a>' +
       ' </span>' +
       ' <span class="app-header-nav">' +
-      '   <a href="CL7100.html" class="app-header-nav-icon app-nav-icon-qr"></a>' +
+      '   <a href="CL7100.html" class="app-header-nav-icon app-nav-icon-qr"></a>マイコード' +
       '  </span>' +
       '</div>';
 
@@ -324,12 +324,6 @@ function headeFooterApp (isLogin) {
   if (isLogin) {
     var btnLogin = '<a href="CL9000.html" class="app-left-nav-btn-login-a">ログアウト</a>';
     var btnJoin = '<a href="CL7200.html" class="app-left-nav-btn-join-a">マイページ</a>';
-    menuLogin = '<li class="napp-av-ul-1-li">' +
-        ' <a href="CL2100.html" class="app-left-nav-ul-1-li-a">お知らせ</a>' +
-        '</li>'+
-        '<li class="napp-av-ul-1-li">' +
-        ' <a href="CL7100.html" class="app-left-nav-ul-1-li-a">マイコード</a>' +
-        '</li>';
   } else {
     var btnLogin = '<a href="CL1110.html" class="app-left-nav-btn-login-a">ログイン</a>';
     var btnJoin = '<a href="CL1010.html" class="app-left-nav-btn-join-a">会員登録</a>';
@@ -353,19 +347,22 @@ function headeFooterApp (isLogin) {
       '    </li>' +
       '   </ul>' +
       '   <ul class="app-left-nav-ul-1">' +
-      '    <li class="napp-av-ul-1-li">' +
-      '     <a href="#" class="app-left-nav-ul-1-li-a">MENU</a>' +
+      '    <li class="app-av-ul-1-li">' +
+      '     <a href="#" class="app-left-nav-ul-1-li-a-main-menu">MENU</a>' +
       '    </li>' +
       menuLogin +
+      '    <li class="app-left-nav-ul-1-li">' +
+      '     <a href="CL2100.html" class="app-left-nav-ul-1-li-a">イベント</a>' +
+      '    </li>' +
       '    <li class="app-left-nav-ul-1-li">' +
       '     <a href="CL5100.html" class="app-left-nav-ul-1-li-a">情報公開度でさがす</a>' +
       '    </li>' +
       '     <li class="app-left-nav-ul-1-li">' +
       '      <a href="CL3100.html" class="app-left-nav-ul-1-li-a">企業をさがす</a>' +
       '     </li>' +
-      // '     <li class="app-left-nav-ul-1-li">' +
-      // '      <a href="CL4100.html" class="app-left-nav-ul-1-li-a">インターンシップ</a>' +
-      // '     </li>' +
+      '     <li class="app-left-nav-ul-1-li">' +
+      '      <a href="CL4100.html" class="app-left-nav-ul-1-li-a">インターンシップ＆キャリア支援プログラム</a>' +
+      '     </li>' +
       '     <li class="app-left-nav-ul-1-li app-left-nav-1-has-submenu">' +
       '      <a href="#" class="app-left-nav-ul-1-li-a">UIターン・地元就活 <span class="app-left-nav-1-has-submenu-arrow"></span></a>' +
       '    <div class="app-left-nav-ul-2-outer">' +
@@ -373,20 +370,40 @@ function headeFooterApp (isLogin) {
       '     </ul>' +
       '    </div>' +
       '   </li>' +
-      '   </ul>' +
-      '  </div>' +
-      '  </li>' +
       '  <li class="app-left-nav-ul-1-li">' +
       '   <a href="CL6100.html" class="app-left-nav-ul-1-li-a">選考対策</a>' +
       '  </li>' +
+      '   </ul>' +
+      '  </div>' +
+      '  </li>' +
+      '   <ul class="app-left-nav-ul-1">' +
+      '    <li class="app-av-ul-1-li">' +
+      '     <a href="#" class="app-left-nav-ul-1-li-a-main-menu">その他</a>' +
+      '    </li>' +
+      '    <li class="app-left-nav-ul-1-li">' +
+      '     <a href="CL5100.html" class="app-left-nav-ul-1-li-a">チュートリアル</a>' +
+      '    </li>' +
+      '    <li class="app-left-nav-ul-1-li">' +
+      '     <a href="CL9200.html" class="app-left-nav-ul-1-li-a">FAQ</a>' +
+      '    </li>' +
+      '    <li class="app-left-nav-ul-1-li">' +
+      '     <a href="CL610.html" class="app-left-nav-ul-1-li-a">利用規約</a>' +
+      '    </li>' +
+      '    <li class="app-left-nav-ul-1-li">' +
+      '     <a href="CL9700.html" class="app-left-nav-ul-1-li-a">プライバシーポリシー</a>' +
+      '    </li>' +
+      '    </ul>' +
+      '    <div class="app-left-nav-ul-1-li-version">' +
+      '     <span>バージョン　1.1.0</span>' +
+      '    </div>' +
       ' </ul>' +
       '</nav>';
 
   var footer= '<ul class="app-footer-nav-ul">' +
       ' <li class="app-footer-nav-ul-li"><a href="index.html" class="app-footer-nav-a"><img src="' + assetsPath + 'img/icon-home.png" class="app-footer-nav-img" alt="top" />TOP</a></li>' +
       ' <li class="app-footer-nav-ul-li"><a href="CL2100.html" class="app-footer-nav-a"><img src="' + assetsPath + 'img/icon-event.png" class="app-footer-nav-img" alt="イベント" />イベント</a></li>' +
-      ' <li class="app-footer-nav-ul-li"><a href="CL3100.html" class="app-footer-nav-a"><img src="' + assetsPath + 'img/icon-company.png" class="app-footer-nav-img" alt="企業" />企業</a></li>' +
-      // ' <li class="app-footer-nav-ul-li"><a href="CL4100.html" class="app-footer-nav-a"><img src="' + assetsPath + 'img/icon-internship.png" class="app-footer-nav-img" alt="インターン" />インターン</a></li>' +
+      ' <li class="app-footer-nav-ul-li"><a href="CL3100.html" class="app-footer-nav-a"><img src="' + assetsPath + 'img/icon-company.png" class="app-footer-nav-img" alt="企業" />インターン</a></li>' +
+      ' <li class="app-footer-nav-ul-li"><a href="CL4100.html" class="app-footer-nav-a"><img src="' + assetsPath + 'img/icon-contents.png" class="app-footer-nav-img" alt="選考対策" />選考対策</a></li>' +
       ' <li class="app-footer-nav-ul-li"><a href="CL7200.html" class="app-footer-nav-a"><img src="' + assetsPath + 'img/icon-mypage.png" class="app-footer-nav-img" alt="マイページ" />マイページ</a></li>' +
       '</ul>';
 
