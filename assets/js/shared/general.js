@@ -1,8 +1,3 @@
-var applican = {
-  device: {
-    platform: 'Android'
-  }
-};
 var rootVariables = {
   apiUrl: 'https://dev.admin.dia-navi.cloud3rs.io/api/v1'
 };
@@ -72,7 +67,7 @@ function checkVersion () {
     },
     error: function (error, jqXhr, textStatus, errorThrown) {
       //maintenance
-      window.location.href = 'https://dev.admin.dia-navi.cloud3rs.io/';
+      // window.location.href = 'https://dev.admin.dia-navi.cloud3rs.io/';
     }
   });
 }
@@ -312,26 +307,26 @@ function headeFooterApp (isLogin) {
       '  <a href="javascript:void(0);" id="navIconOpen" class="app-header-nav-icon app-nav-icon-menu nav-icon-menu-open"></a>' +
       ' </span>' +
       ' <span class="app-header-logo">' +
-      ' <a href="index.html" class="app-header-logo-a app-header-logo-img header-logo-a">' +
+      ' <a href="' + link.top + '" class="app-header-logo-a app-header-logo-img header-logo-a">' +
       ' </a>' +
       ' </span>' +
       ' <span class="app-header-nav">' +
-      '   <a href="CL7100.html" class="app-header-nav-icon app-nav-icon-qr"></a>マイコード' +
+      '   <a href="' + link.myPageMycode + '" class="app-header-nav-icon app-nav-icon-qr"></a>マイコード' +
       '  </span>' +
       '</div>';
 
   var menuLogin = '';
   if (isLogin) {
-    var btnLogin = '<a href="CL9000.html" class="app-left-nav-btn-login-a">ログアウト</a>';
-    var btnJoin = '<a href="CL7200.html" class="app-left-nav-btn-join-a">マイページ</a>';
+    var btnLogin = '<a href="' + link.logout + '" class="app-left-nav-btn-login-a">ログアウト</a>';
+    var btnJoin = '<a href="' + link.myPageTop + '" class="app-left-nav-btn-join-a">マイページ</a>';
   } else {
-    var btnLogin = '<a href="CL1110.html" class="app-left-nav-btn-login-a">ログイン</a>';
-    var btnJoin = '<a href="CL1010.html" class="app-left-nav-btn-join-a">会員登録</a>';
+    var btnLogin = '<a href="' + link.loginUser + '" class="app-left-nav-btn-login-a">ログイン</a>';
+    var btnJoin = '<a href="' + link.regist + '" class="app-left-nav-btn-join-a">会員登録</a>';
   }
   var leftNavOuter= '<nav id="leftNav" class="app-left-nav">' +
       ' <div class="app-left-nav-logo-box">' +
       '   <div class="app-left-nav-logo">' +
-      '     <a href="index.html" class="app-left-nav-logo-a app-header-logo-img header-logo-a">' +
+      '     <a href="' + link.top + '" class="app-left-nav-logo-a app-header-logo-img header-logo-a">' +
       '     </a>' +
       '    </div>' +
       '    <div class="app-left-nav-icon">' +
@@ -352,16 +347,16 @@ function headeFooterApp (isLogin) {
       '    </li>' +
       menuLogin +
       '    <li class="app-left-nav-ul-1-li">' +
-      '     <a href="CL2100.html" class="app-left-nav-ul-1-li-a">イベント</a>' +
+      '     <a href="' + link.eventList + '" class="app-left-nav-ul-1-li-a">イベント</a>' +
       '    </li>' +
       '    <li class="app-left-nav-ul-1-li">' +
-      '     <a href="CL5100.html" class="app-left-nav-ul-1-li-a">情報公開度でさがす</a>' +
+      '     <a href="' + link.disclosure + '" class="app-left-nav-ul-1-li-a">情報公開度でさがす</a>' +
       '    </li>' +
       '     <li class="app-left-nav-ul-1-li">' +
-      '      <a href="CL3100.html" class="app-left-nav-ul-1-li-a">企業をさがす</a>' +
+      '      <a href="' + link.companyList + '" class="app-left-nav-ul-1-li-a">企業をさがす</a>' +
       '     </li>' +
       '     <li class="app-left-nav-ul-1-li">' +
-      '      <a href="CL4100.html" class="app-left-nav-ul-1-li-a">インターンシップ＆キャリア支援プログラム</a>' +
+      '      <a href="' + link.internshipList + '" class="app-left-nav-ul-1-li-a">インターンシップ＆キャリア支援プログラム</a>' +
       '     </li>' +
       '     <li class="app-left-nav-ul-1-li app-left-nav-1-has-submenu">' +
       '      <a href="#" class="app-left-nav-ul-1-li-a">UIターン・地元就活 <span class="app-left-nav-1-has-submenu-arrow"></span></a>' +
@@ -371,7 +366,7 @@ function headeFooterApp (isLogin) {
       '    </div>' +
       '   </li>' +
       '  <li class="app-left-nav-ul-1-li">' +
-      '   <a href="CL6100.html" class="app-left-nav-ul-1-li-a">選考対策</a>' +
+      '   <a href="' + link.contents + '" class="app-left-nav-ul-1-li-a">選考対策</a>' +
       '  </li>' +
       '   </ul>' +
       '  </div>' +
@@ -381,16 +376,16 @@ function headeFooterApp (isLogin) {
       '     <a href="#" class="app-left-nav-ul-1-li-a-main-menu">その他</a>' +
       '    </li>' +
       '    <li class="app-left-nav-ul-1-li">' +
-      '     <a href="CL5100.html" class="app-left-nav-ul-1-li-a">チュートリアル</a>' +
+      '     <a href="javascript:removeFirstOpen()" class="app-left-nav-ul-1-li-a">チュートリアル</a>' +
       '    </li>' +
       '    <li class="app-left-nav-ul-1-li">' +
-      '     <a href="CL9200.html" class="app-left-nav-ul-1-li-a">FAQ</a>' +
+      '     <a href="' + link.faqList + '" class="app-left-nav-ul-1-li-a">FAQ</a>' +
       '    </li>' +
       '    <li class="app-left-nav-ul-1-li">' +
-      '     <a href="CL610.html" class="app-left-nav-ul-1-li-a">利用規約</a>' +
+      '     <a href="' + link.kiyaku + '" class="app-left-nav-ul-1-li-a">利用規約</a>' +
       '    </li>' +
       '    <li class="app-left-nav-ul-1-li">' +
-      '     <a href="CL9700.html" class="app-left-nav-ul-1-li-a">プライバシーポリシー</a>' +
+      '     <a href="' + link.privacy + '" class="app-left-nav-ul-1-li-a">プライバシーポリシー</a>' +
       '    </li>' +
       '    </ul>' +
       '    <div class="app-left-nav-ul-1-li-version">' +
@@ -400,11 +395,11 @@ function headeFooterApp (isLogin) {
       '</nav>';
 
   var footer= '<ul class="app-footer-nav-ul">' +
-      ' <li class="app-footer-nav-ul-li"><a href="index.html" class="app-footer-nav-a"><img src="' + assetsPath + 'img/icon-home.png" class="app-footer-nav-img" alt="top" />TOP</a></li>' +
-      ' <li class="app-footer-nav-ul-li"><a href="CL2100.html" class="app-footer-nav-a"><img src="' + assetsPath + 'img/icon-event.png" class="app-footer-nav-img" alt="イベント" />イベント</a></li>' +
-      ' <li class="app-footer-nav-ul-li"><a href="CL3100.html" class="app-footer-nav-a"><img src="' + assetsPath + 'img/icon-company.png" class="app-footer-nav-img" alt="企業" />インターン</a></li>' +
-      ' <li class="app-footer-nav-ul-li"><a href="CL4100.html" class="app-footer-nav-a"><img src="' + assetsPath + 'img/icon-contents.png" class="app-footer-nav-img" alt="選考対策" />選考対策</a></li>' +
-      ' <li class="app-footer-nav-ul-li"><a href="CL7200.html" class="app-footer-nav-a"><img src="' + assetsPath + 'img/icon-mypage.png" class="app-footer-nav-img" alt="マイページ" />マイページ</a></li>' +
+      ' <li class="app-footer-nav-ul-li"><a href="' + link.top + '" class="app-footer-nav-a"><img src="' + assetsPath + 'img/icon-home.png" class="app-footer-nav-img" alt="top" />TOP</a></li>' +
+      ' <li class="app-footer-nav-ul-li"><a href="' + link.eventList + '" class="app-footer-nav-a"><img src="' + assetsPath + 'img/icon-event.png" class="app-footer-nav-img" alt="イベント" />イベント</a></li>' +
+      ' <li class="app-footer-nav-ul-li"><a href="' + link.companyList + '" class="app-footer-nav-a"><img src="' + assetsPath + 'img/icon-company.png" class="app-footer-nav-img" alt="企業" />インターン</a></li>' +
+      ' <li class="app-footer-nav-ul-li"><a href="' + link.internshipList + '" class="app-footer-nav-a"><img src="' + assetsPath + 'img/icon-contents.png" class="app-footer-nav-img" alt="選考対策" />選考対策</a></li>' +
+      ' <li class="app-footer-nav-ul-li"><a href="' + link.myPageTop + '" class="app-footer-nav-a"><img src="' + assetsPath + 'img/icon-mypage.png" class="app-footer-nav-img" alt="マイページ" />マイページ</a></li>' +
       '</ul>';
 
   $('#header').append(hearder);
@@ -684,3 +679,8 @@ function fixMetaTag() {
   });
 }
 fixMetaTag();
+
+function removeFirstOpen() {
+  localStorage.removeItem('isFirstOpen');
+  window.location.href = link.top;
+}

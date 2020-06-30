@@ -63,7 +63,7 @@ const webpackConfig = {
                     { source: path.join(...buildPath, 'CL0020.html'), destination: path.join(...buildPath, 'index.html') },
                 ],
                 archive: [
-                    { source: path.join(...buildPath), destination: path.join(...buildZipPath, zipName) },
+                    { source: path.join(...buildZipPath), destination: path.join(...buildZipPath, zipName) },
                 ]
             }
         }),

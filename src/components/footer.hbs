@@ -1,4 +1,7 @@
 {{#block "footer-scripts"}}
+    {{#if isApplican}}
+    <script async=false defer=false src="applican.js"></script>
+    {{/if}}
     <script>
         var assetsPath = '{{path}}';
     </script>
@@ -13,7 +16,6 @@
         <script src="{{path}}js/jquery.cookie.js"></script>
         <script src="{{path}}js/shared/function_controller.js"></script>
     {{else}}
-        <script src="applican.js"></script>
         <script>
             var isApplican = true;
         </script>
