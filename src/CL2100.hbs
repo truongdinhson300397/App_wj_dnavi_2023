@@ -39,7 +39,7 @@
             </h3>
           </header>
           <figure class="mainvis-box">
-            <img src="/public/img/banner-events-01.png" class="event-mainvis-img"/>
+            <img src="{{path}}img/banner-events-01.png" class="event-mainvis-img"/>
           </figure>
           <ul id="liveSeminar" class="event-ul">
           </ul>
@@ -60,7 +60,7 @@
             </h3>
           </header>
           <figure class="mainvis-box">
-            <img src="/public/img/banner-events-02.png" class="event-mainvis-img"/>
+            <img src="{{path}}img/banner-events-02.png" class="event-mainvis-img"/>
           </figure>
           <ul id="joinedEventAndOther" class="event-ul">
           </ul>
@@ -81,7 +81,7 @@
             </h3>
           </header>
           <figure class="mainvis-box">
-            <img src="/public/img/banner-events-03.png" class="event-mainvis-img"/>
+            <img src="{{path}}img/banner-events-03.png" class="event-mainvis-img"/>
           </figure>
           <ul id="corporateSeminar" class="event-ul">
           </ul>
@@ -105,9 +105,9 @@
 
       if(!_.isUndefined(currentPartner) && !_.isNaN(+currentPartner)) {
         partner = currentPartner;
-        $.cookie('partner_id', parseInt(partner) || '', {path: "/"});
+        globalInfo('partner_id', parseInt(partner) || '', {path: "/"});
       } else {
-        partner = $.cookie('partner_id');
+        partner = globalInfo('partner_id');
       }
 
       _headerUIHandler(null, null, null);
@@ -121,7 +121,7 @@
         var isShowErrorLive = false;
         var isShowErrorOther = false;
         var isShowErrorAsura = false;
-        var prefectureIds = $.cookie('prefecture_ids') ? JSON.parse($.cookie('prefecture_ids')) : [];
+        var prefectureIds = globalInfo('prefecture_ids') ? JSON.parse(globalInfo('prefecture_ids')) : [];
         var webDomain = rootVariables.apiUrl;
         var partnerId = partner;
         var arrE2rProId = [];

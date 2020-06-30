@@ -62,7 +62,7 @@
         var isLastPage = false;
 
         // 年度・県ID
-        var partnerId = _.isEmpty(parseInt($.cookie('partner_id'))) ? parseInt($.cookie('partner_id')) : 0;
+        var partnerId = _.isEmpty(parseInt(globalInfo('partner_id'))) ? parseInt(globalInfo('partner_id')) : 0;
         // 追加パラメーター用
         var searchParamePlus = {};
         // タグ用変数

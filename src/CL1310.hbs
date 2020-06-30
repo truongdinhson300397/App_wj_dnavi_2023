@@ -72,7 +72,7 @@
         <script>
           _headerUIHandler(null, null, false, true);
           $(document).ready(function () {
-            var contractTermId = $.cookie('contract_term_id');
+            var contractTermId = globalInfo('contract_term_id');
             // 送信ボタン制御
             $('#email').on('keydown keyup keypress change', function () {
               if ($(this).val() != '') {

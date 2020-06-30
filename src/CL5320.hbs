@@ -131,9 +131,9 @@
               }
             });
 
-            var contractTermId = $.cookie("contract_term_id");
-            var userId = $.cookie('id_' + contractTermId);
-            var token = $.cookie('jwt_' + contractTermId);
+            var contractTermId = globalInfo("contract_term_id");
+            var userId = globalInfo('id_' + contractTermId);
+            var token = globalInfo('jwt_' + contractTermId);
 
             // Send contract_term_id
             paramToServer.contract_term_id = contractTermId;

@@ -83,13 +83,13 @@
   {{#content "footer-scripts" mode="append"}}
     <script>
       _headerUIHandler(null, null, true);
-      var contractTermId = $.cookie("contract_term_id");
+      var contractTermId = globalInfo("contract_term_id");
       var urlHelpers = new UrlHelper();
       var eventId = urlHelpers.getParamByName('event_id');
       var eventDateId = urlHelpers.getParamByName('event_date_id');
-      var stdId = $.cookie('id_' + contractTermId);
-      var jwt = $.cookie('jwt_' + contractTermId);
-      var registrantId = $.cookie('registrant_id');
+      var stdId = globalInfo('id_' + contractTermId);
+      var jwt = globalInfo('jwt_' + contractTermId);
+      var registrantId = globalInfo('registrant_id');
       var eventFrom = urlHelpers.getParamByName('event_from');
 
       // For ASURA

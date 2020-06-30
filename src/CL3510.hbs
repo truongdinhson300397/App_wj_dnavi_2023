@@ -83,11 +83,11 @@
   {{#content "footer-scripts" mode="append"}}
     <script>
       _headerUIHandler(null, null, true);
-      var contractTermId = $.cookie("contract_term_id");
+      var contractTermId = globalInfo("contract_term_id");
       var urlHelper = new UrlHelper();
       var internshipEntryId = urlHelper.getParamByName('internship_id');
-      var studentId = parseInt($.cookie('id_' + contractTermId));
-      var token = $.cookie('jwt_' + contractTermId);
+      var studentId = parseInt(globalInfo('id_' + contractTermId));
+      var token = globalInfo('jwt_' + contractTermId);
       var $internshipTitle = $('.internship-entry-h3');
       var $companyName = $('.internship-entry-h4');
       var $internshipPlace = $('#internship-place');

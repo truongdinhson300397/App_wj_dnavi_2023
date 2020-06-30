@@ -71,13 +71,13 @@
   {{#content "footer-scripts" mode="append"}}
     <script>
       _headerUIHandler(null, null, true);
-      var contractTermId = $.cookie("contract_term_id");
+      var contractTermId = globalInfo("contract_term_id");
       var urlHelper = new UrlHelper();
       var recruitGuideId = urlHelper.getParamByName('recruit_guide_id');
       var companyId = urlHelper.getParamByName('company_id');
-      var studentId = $.cookie('id_' + contractTermId);
-      var token = $.cookie('jwt_' + contractTermId);
-      var cPartnerId = $.cookie('partner_id');
+      var studentId = globalInfo('id_' + contractTermId);
+      var token = globalInfo('jwt_' + contractTermId);
+      var cPartnerId = globalInfo('partner_id');
       var partnerId = _.isUndefined(cPartnerId) || _.isEmpty(cPartnerId) ? 0 : cPartnerId;
       var companyName = null;
       var asuraCompanyId = null;

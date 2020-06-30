@@ -26,13 +26,13 @@
     {{#content "footer-scripts" mode="append"}}
         <script>
           _headerUIHandler(null, null, true);
-          var contractTermId = $.cookie("contract_term_id");
+          var contractTermId = globalInfo("contract_term_id");
           var urlHelper = new UrlHelper();
           var global = {
-            jwt: $.cookie('jwt_' + contractTermId),
-            userId: $.cookie('id_' + contractTermId),
+            jwt: globalInfo('jwt_' + contractTermId),
+            userId: globalInfo('id_' + contractTermId),
             contractTermId: contractTermId,
-            registrantId: $.cookie('registrant_id'),
+            registrantId: globalInfo('registrant_id'),
             baseApiUrl: rootVariables.apiUrl,
             nextPage: 2,
             isFirstLoad: true

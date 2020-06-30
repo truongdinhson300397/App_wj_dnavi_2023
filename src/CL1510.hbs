@@ -47,7 +47,7 @@
   {{/content}}
   {{#content "footer-scripts" mode="append"}}
     <script>
-      var contractTermId = $.cookie('contract_term_id');
+      var contractTermId = globalInfo('contract_term_id');
       _headerUIHandler(null, null, null);
 
       function displayError(content) {

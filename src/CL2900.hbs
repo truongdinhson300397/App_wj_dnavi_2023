@@ -40,12 +40,12 @@
       $(function () {
         $('#__no-event-error').hide();
         var apiUrl = rootVariables.apiUrl;
-        var contractTermId = $.cookie('contract_term_id');
-        var partnerId = $.cookie('partner_id');
+        var contractTermId = globalInfo('contract_term_id');
+        var partnerId = globalInfo('partner_id');
         var webDomain = rootVariables.apiUrl;
-        var jwt = $.cookie('jwt_' + contractTermId);
-        var id = $.cookie('id_' + contractTermId);
-        var registrantId = parseInt($.cookie('registrant_id'));
+        var jwt = globalInfo('jwt_' + contractTermId);
+        var id = globalInfo('id_' + contractTermId);
+        var registrantId = parseInt(globalInfo('registrant_id'));
         var start = 0;
         var end = 10;
         var totalPage = 0;

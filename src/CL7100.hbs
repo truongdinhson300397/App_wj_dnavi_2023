@@ -78,7 +78,7 @@
                     var height = 300;
                     var size = width + 'x' + height;
                     var userInfo = '{"id":"' + id + '","email":"' + data['data']['login_id'] + '","code":"QRCodeDiamond","name":"' + data['data']['family_name'] + data['data']['given_name'] + '"}';
-                    $('#qr-code').attr('src', 'https://api.qrserver.com/v1/create-qr-code/?size=' + size + '&data=' + userInfo);
+                    $('#qr-code').attr('src', 'https://chart.googleapis.com/chart?cht=qr&chs=' + size + '&chl=' + userInfo);
                 }
             });
         </script>

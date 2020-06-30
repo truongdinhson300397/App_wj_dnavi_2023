@@ -179,7 +179,7 @@
       var TOTAL = ['family_name', 'given_name', 'login_id', 'university', 'department', 'email', 'phone', 'type', 'contents'];
       var REQUIRED = ['family_name', 'given_name', 'login_id', 'university', 'department', 'email', 'type', 'contents'];
       var alertBox = $('.article-box-body .alert-box');
-      var contractTermId = $.cookie('contract_term_id');
+      var contractTermId = globalInfo('contract_term_id');
 
       function scrollTop() {
         $('body, html').animate({scrollTop: 0}, 500);

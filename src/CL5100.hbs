@@ -71,7 +71,7 @@
             userId: null,
             isLogin: false,
             baseApiUrl: rootVariables.apiUrl,
-            partner_id: !(_.isEmpty($.cookie('partner_id'))) ? $.cookie('partner_id') : 0,
+            partner_id: !(_.isEmpty(globalInfo('partner_id'))) ? globalInfo('partner_id') : 0,
             contract_term_id: contractTermId,
             nextPages: [null, null, null, null],
             perPage: 8,

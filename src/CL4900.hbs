@@ -32,9 +32,9 @@
     <script>
       _headerUIHandler(null, null, true);
       $(function () {
-        var contractTermId = $.cookie("contract_term_id");
-        var jwt = $.cookie('jwt_' + contractTermId);
-        var id = $.cookie('id_' + contractTermId);
+        var contractTermId = globalInfo("contract_term_id");
+        var jwt = globalInfo('jwt_' + contractTermId);
+        var id = globalInfo('id_' + contractTermId);
         var page = 1;
 
         function __initEventList() {

@@ -118,7 +118,7 @@
             location.href = '/2021/login/temporary_user';
           }
           $(document).ready(function () {
-            if ($.cookie('contract_term_id') == 2) {
+            if (globalInfo('contract_term_id') == 2) {
               $('.only-2022').show();
             } else {
               $('.only-2022').hide();

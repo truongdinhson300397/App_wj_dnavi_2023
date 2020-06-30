@@ -121,8 +121,8 @@
       var searchWorkingPlace = localStorage.getItem('search_working_place');
       var searchEmployeeSize = localStorage.getItem('search_employee_size');
       var searchCapitalStock = localStorage.getItem('search_capital_stock');
-      var contractTermId = $.cookie('contract_term_id');
-      var partnerId = $.cookie('partner_id');
+      var contractTermId = globalInfo('contract_term_id');
+      var partnerId = globalInfo('partner_id');
 
       if (contractTermId == 2) {
         $('#job_category_wrap').parents('.search-checkbox-box').hide();
