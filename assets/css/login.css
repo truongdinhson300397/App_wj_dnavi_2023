@@ -1,0 +1,57 @@
+@charset 'UTF-8';
+
+/*********************************************************************************************
+ login
+*********************************************************************************************/
+.login-label {
+  margin-bottom: 10px;
+  display: block;
+}
+
+.singon-btn-box {
+  margin: 30px 0 0;
+  align-items: center;
+  display: -ms-flexbox;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  flex-flow: row wrap;
+  -ms-flex-direction: row;
+  -ms-flex-pack: justify;
+  -ms-flex-wrap: wrap;
+  justify-content: space-between;
+  box-sizing: content-box;
+}
+
+.singon-btn-flex {
+  flex-basis: 100%;
+}
+
+.btn-first {
+  margin-bottom: 20px;
+}
+
+@media (min-width: 480px) {
+  .singon-btn-box {
+    flex-flow: row nowrap;
+    -ms-flex-wrap: nowrap;
+  }
+
+  .singon-btn-flex {
+    flex-basis: 49%;
+    margin: auto;
+  }
+
+  .btn-first {
+    margin-bottom: 0;
+  }
+}
+
+/***** ↓tablet/pc *************************/
+@media (min-width: 769px) {
+
+  .singon-btn-box {
+    margin: 50px 0 0;
+  }
+}
+/***** ↑tablet/pc *************************/

@@ -43,7 +43,7 @@
             });
         } else {
             globalInfo("returnUrl", location.href, {path: "/"});
-            toLocationHref("/login/user");
+            toLocationHref("{{link.loginUser}}");
         }
 
         function wrapUserData(rs) {

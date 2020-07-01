@@ -1,4 +1,7 @@
 {{#block "footer-scripts"}}
+    {{#if isApplican}}
+    <script async=false defer=false src="applican.js"></script>
+    {{/if}}
     <script>
         var assetsPath = '{{path}}';
     </script>
@@ -13,7 +16,6 @@
         <script src="{{path}}js/jquery.cookie.js"></script>
         <script src="{{path}}js/shared/function_controller.js"></script>
     {{else}}
-        <script src="applican.js"></script>
         <script>
             var isApplican = true;
         </script>
@@ -21,7 +23,7 @@
     {{/unless}}
     {{#if isApplican}}
     <script>
-        globalInfo('contract_term_id', 1);
+        globalInfo('contract_term_id', 2);
     </script>
     {{/if}}
     <script src="{{path}}js/shared/nav_component.js"></script>

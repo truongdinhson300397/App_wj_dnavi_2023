@@ -1,100 +1,100 @@
 {{#extend "components/layout" title="仮ID確認"}}
-    {{#content "header-scripts" mode="append"}}
-        <style type="text/css">
-            @media (min-width: 769px){
-                .tbl-form th {
-                    width: 200px;
-                }
-            }
-        </style>
-    {{/content}}
-    {{#content "main"}}
-        <!--  -->
-        <div class="contents-box">
-            <article class="article-box pddb0">
-                <div class="drop-shadow-box">
-                    <header class="article-box-header">
-                        <h2 class="article-box-header-h2">
-                            <span class="article-box-header-h2-jp">仮ID再発行</span>
-                            <!-- <br /><span class="article-box-header-h2-eng"></span> -->
-                        </h2>
-                    </header>
-                    <div class="article-box-body">
-                        <div class="form-preface">
-                            登録されているメールアドレスを入力し、［送信］ボタンをクリックしてください。<br />
-                            <span class="txt-reduired">＊</span>は必須項目です。
-                        </div>
-                        <div class="alert-box mgnt30-50" id="forgotTemporaryIdAlert" style="display: none">入力内容に誤りがあります。再度ご確認ください。</div>
-                        <table class="tbl-form">
-                            <tr>
-                                <th class="required">メールアドレス</th>
-                                <td>
-                                    <input type="email" id="emailForgotTemporaryId" class="input-text w100prc" placeholder="メールアドレス" />
-                                </td>
-                            </tr>
-                        </table>
-                        <div class="form-btn-box">
-                            <button class="btn-default btn-blue w100-50prc" id="btnSubmitForgotTemporaryId">送信</button>
-                        </div>
+  {{#content "header-scripts" mode="append"}}
+    <style type="text/css">
+      @media (min-width: 769px) {
+        .tbl-form th {
+          width: 200px;
+        }
+      }
+    </style>
+  {{/content}}
+  {{#content "main"}}
+    <!--  -->
+    <div class="contents-box">
+      <article class="article-box pddb0">
+        <div class="drop-shadow-box">
+          <header class="article-box-header">
+            <h2 class="article-box-header-h2">
+              <span class="article-box-header-h2-jp">仮ID再発行</span>
+              <!-- <br /><span class="article-box-header-h2-eng"></span> -->
+            </h2>
+          </header>
+          <div class="article-box-body">
+            <div class="form-preface">
+              登録されているメールアドレスを入力し、［送信］ボタンをクリックしてください。<br />
+              <span class="txt-reduired">＊</span>は必須項目です。
+            </div>
+            <div class="alert-box mgnt30-50" id="forgotTemporaryIdAlert" style="display: none">入力内容に誤りがあります。再度ご確認ください。</div>
+            <table class="tbl-form">
+              <tr>
+                <th class="required">メールアドレス</th>
+                <td>
+                  <input type="email" id="emailForgotTemporaryId" class="input-text w100prc" placeholder="メールアドレス" />
+                </td>
+              </tr>
+            </table>
+            <div class="form-btn-box">
+              <button class="btn-default btn-blue w100-50prc" id="btnSubmitForgotTemporaryId">送信</button>
+            </div>
 
-                        <div class="mgnt30-50">
-                            メールアドレスを２つ登録されている場合は両方に送信します。
-                        </div>
-                    </div>
-                </div>
-            </article>
+            <div class="mgnt30-50">
+              メールアドレスを２つ登録されている場合は両方に送信します。
+            </div>
+          </div>
         </div>
-    {{/content}}
-    {{#content "footer-scripts" mode="append"}}
-        <script>
-            var contractTermId = globalInfo('contract_term_id');
-            _headerUIHandler(null, null, null);
+      </article>
+    </div>
+  {{/content}}
+  {{#content "footer-scripts" mode="append"}}
+    <script>
+      var contractTermId = globalInfo('contract_term_id');
+      _headerUIHandler(null, null, null);
 
-            function displayError(content) {
-                var divAlert = $('#forgotTemporaryIdAlert');
-                if (_.isEmpty(content)) {
-                    content = '入力内容に誤りがあります。再度ご確認ください。';
-                }
-                divAlert.text(content);
-                divAlert.hide();
-                setTimeout(function() {
-                    divAlert.show();
-                }, 250);
+      function displayError(content) {
+        var divAlert = $('#forgotTemporaryIdAlert');
+        if (_.isEmpty(content)) {
+          content = '入力内容に誤りがあります。再度ご確認ください。';
+        }
+        divAlert.text(content);
+        divAlert.hide();
+        setTimeout(function() {
+          divAlert.show();
+        }, 250);
+      }
+
+      $(function(){
+        $('#btnSubmitForgotTemporaryId').on('click', function (e) {
+          // validate
+          var emailValue = $('#emailForgotTemporaryId').val();
+          if (!isEmailCorrect(emailValue)) {
+            return displayError();
+          }
+          // prepare data
+          var postData = {
+            email: emailValue,
+            contract_term_id: contractTermId,
+          };
+
+          // send request
+          $.ajax({
+            url: rootVariables.apiUrl + '/students/temporary_forget',
+            type: 'post',
+            dataType: 'json',
+            data: JSON.stringify(postData),
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json',
+            },
+            processData: true,
+            success: function (data) {
+              toLocationHref("{{link.forgetIdComplete}}");
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+              displayError('入力された内容に該当するデータはありません。');
             }
-
-            $(function(){
-                $('#btnSubmitForgotTemporaryId').on('click', function (e) {
-                    // validate
-                    var emailValue = $('#emailForgotTemporaryId').val();
-                    if (!isEmailCorrect(emailValue)) {
-                        return displayError();
-                    }
-                    // prepare data
-                    var postData = {
-                        email: emailValue,
-                        contract_term_id: contractTermId,
-                    };
-
-                    // send request
-                    $.ajax({
-                        url: rootVariables.apiUrl + '/students/temporary_forget',
-                        type: 'post',
-                        dataType: 'json',
-                        data: JSON.stringify(postData),
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Accept': 'application/json',
-                        },
-                        processData: true,
-                        success: function (data) {
-                            toLocationHref("/forgetid/complete");
-                        },
-                        error: function (XMLHttpRequest, textStatus, errorThrown) {
-                            displayError('入力された内容に該当するデータはありません。');
-                        }
-                    });
-                });
-            });
-        </script>
-    {{/content}}
+          });
+        });
+      });
+    </script>
+  {{/content}}
 {{/extend}}

@@ -1,496 +1,510 @@
 {{#extend "components/layout" title="企業情報エントリー"}}
-    {{#content "header-scripts" mode="append"}}
-        <link rel="stylesheet" href="{{path}}css/others.css" type="text/css" media="all"/>
-        <link rel="stylesheet" href="{{path}}css/companies.css" type="text/css" media="all"/>
-        <style>
-            .hidden {
-                display: none;
-            }
-        </style>
-    {{/content}}
-    {{#content "main"}}
-        <div class="contents-box">
+  {{#content "header-scripts" mode="append"}}
+    <link rel="stylesheet" href="{{path}}css/others.css" type="text/css" media="all"/>
+    <link rel="stylesheet" href="{{path}}css/companies.css" type="text/css" media="all"/>
+    <style>
+      .hidden {
+        display: none;
+      }
+
+      .note {
+        font-size: 12px;
+        color: #d00;
+      }
+    </style>
+  {{/content}}
+  {{#content "main"}}
+    <div class="contents-box">
+      <!--  -->
+      <article class="article-box">
+        <div class="drop-shadow-box">
+          <header class="article-box-header">
+            <h2 class="article-box-header-h2">
+              <span class="article-box-header-h2-jp">企業 エントリー</span><br/>
+              <span class="article-box-header-h2-eng">PREENTRY</span>
+            </h2>
+          </header>
+          <div class="article-box-body">
             <!--  -->
-            <article class="article-box">
-                <div class="drop-shadow-box">
-                    <header class="article-box-header">
-                        <h2 class="article-box-header-h2">
-                            <span class="article-box-header-h2-jp">企業 エントリー</span><br/>
-                            <span class="article-box-header-h2-eng">PREENTRY</span>
-                        </h2>
-                    </header>
-                    <div class="article-box-body">
-                        <!--  -->
-                        <h3 class="companies-entry-h3"></h3>
-                        <!--  -->
-                        <div class="form-btn-box">
-                            <div class="alert-box hidden"></div>
-                            <div class="companies-btn-note">上記の企業にエントリーします。</div>
-                            <a id="btn-entry-company" href="javascript:void(0);" class="btn-default btn-blue w100-50prc"
-                               style="display: block">エントリー</a>
-                        </div>
-                        <!-- -->
-                        <div class="preface-outer-box mgnt30-50">
-                            <div class="preface-box">
-                                <div class="preface-emphasis talc">企業エントリー時、ご登録情報から以下の情報が企業に送信されます。</div>
-                                <ul class="list-disc-ul block-centering mgnt20-30 mgnb20-30">
-                                    <li class="list-disc-ul-li">姓名</li>
-                                    <li class="list-disc-ul-li">メールアドレス</li>
-                                    <li class="list-disc-ul-li">現住所</li>
-                                    <li class="list-disc-ul-li">電話番号</li>
-                                    <li class="list-disc-ul-li">休暇中の連絡先</li>
-                                    <li class="list-disc-ul-li">学校情報</li>
-                                    <li class="list-disc-ul-li">保有資格</li>
-                                </ul>
+            <h3 class="companies-entry-h3"></h3>
+            <!--  -->
+            <div class="form-btn-box">
+              <div class="alert-box hidden"></div>
+              <div class="companies-btn-note">上記の企業にエントリーします。</div>
+              <a id="btn-entry-company" href="javascript:void(0);" class="btn-default btn-blue w100-50prc"
+                 style="display: block">エントリー</a>
+            </div>
+            <!-- -->
+            <div class="form-btn-box">
+              <div class="w100-50prc note">
+                【注意】<br/>
+                エントリーボタンを押した後、<br/>
+                『エントリーが完了するまでブラウザは閉じずにお待ちください。』<br/>
+                エントリーが完了すると、マイページのエントリー済企業の一覧に移動します。<br/>
+              </div>
+            </div>
+            <!-- -->
+            <div class="preface-outer-box mgnt30-50">
+              <div class="preface-box">
+                <div class="preface-emphasis talc">企業エントリー時、ご登録情報から以下の情報が企業に送信されます。</div>
+                <ul class="list-disc-ul block-centering mgnt20-30 mgnb20-30">
+                  <li class="list-disc-ul-li">姓名</li>
+                  <li class="list-disc-ul-li">メールアドレス</li>
+                  <li class="list-disc-ul-li">現住所</li>
+                  <li class="list-disc-ul-li">電話番号</li>
+                  <li class="list-disc-ul-li">休暇中の連絡先</li>
+                  <li class="list-disc-ul-li">学校情報</li>
+                  <li class="list-disc-ul-li">保有資格</li>
+                </ul>
 
-                                登録情報は企業への送信の前に確認・変更が可能です。<br/>
-                                <a href="/mypage/memberinfo/edit" class="link-text">登録情報を確認・修正</a><br/><br/>
-                                個人情報の取り扱いについては利用規約からご確認ください。<br/>
-                                <a href="/kiyaku" class="link-text">利用規約を確認</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
+                登録情報は企業への送信の前に確認・変更が可能です。<br/>
+                <a href="{{link.myPageMemberinfoEdit}}" class="link-text">登録情報を確認・修正</a><br/><br/>
+                個人情報の取り扱いについては利用規約からご確認ください。<br/>
+                <a href="{{link.kiyaku}}" class="link-text">利用規約を確認</a>
+              </div>
+            </div>
+          </div>
         </div>
-    {{/content}}
-    {{#content "footer-scripts" mode="append"}}
-        <script>
-            _headerUIHandler(null, null, true);
-            var contractTermId = globalInfo("contract_term_id");
-            var urlHelper = new UrlHelper();
-            var recruitGuideId = urlHelper.getParamByName('recruit_guide_id');
-            var companyId = urlHelper.getParamByName('company_id');
-            var studentId = globalInfo('id_' + contractTermId);
-            var token = globalInfo('jwt_' + contractTermId);
-            var cPartnerId = globalInfo('partner_id');
-            var partnerId = _.isUndefined(cPartnerId) || _.isEmpty(cPartnerId) ? 0 : cPartnerId;
-            var companyName = null;
-            var asuraCompanyId = null;
-            var postDataToAsura = [];
-            var studentAsuraAndDnavi = null;
+      </article>
+    </div>
+  {{/content}}
+  {{#content "footer-scripts" mode="append"}}
+    <script>
+      _headerUIHandler(null, null, true);
+      var contractTermId = globalInfo("contract_term_id");
+      var urlHelper = new UrlHelper();
+      var recruitGuideId = urlHelper.getParamByName('recruit_guide_id');
+      var companyId = urlHelper.getParamByName('company_id');
+      var studentId = globalInfo('id_' + contractTermId);
+      var token = globalInfo('jwt_' + contractTermId);
+      var cPartnerId = globalInfo('partner_id');
+      var partnerId = _.isUndefined(cPartnerId) || _.isEmpty(cPartnerId) ? 0 : cPartnerId;
+      var companyName = null;
+      var asuraCompanyId = null;
+      var postDataToAsura = [];
+      var studentAsuraAndDnavi = null;
 
-            function _entryCompany() {
-                $.ajax({
-                    url: rootVariables.apiUrl + '/students/' + studentId +
-                            '/entry_company?recruit_guide_id=' + recruitGuideId,
-                    dataType: 'json',
-                    type: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json',
-                        'Authorization': 'Bearer ' + token
-                    },
-                    success: function (res) {
-                        var status = res.success;
-                        console.log(status);
-                        if (status === true) {
-                            localStorage.clear();
-                            toLocationHref('/mypage/entered_company');
-                        }
-                    },
-                    error: function (jqXhr, textStatus, errorThrown) {
-                        console.log(jqXhr);
-                        console.log(textStatus);
-                    }
-                });
+      function _entryCompany() {
+        $.ajax({
+          url: rootVariables.apiUrl + '/students/' + studentId +
+            '/entry_company?recruit_guide_id=' + recruitGuideId,
+          dataType: 'json',
+          type: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ' + token
+          },
+          success: function (res) {
+            var status = res.success;
+            console.log(status);
+            if (status === true) {
+              localStorage.clear();
+              toLocationHref('/mypage/entered_company');
             }
+          },
+          error: function (jqXhr, textStatus, errorThrown) {
+            console.log(jqXhr);
+            console.log(textStatus);
+          }
+        });
+      }
 
-            function _isAsuraCompany() {
-                return $.ajax({
-                    url: rootVariables.apiUrl + '/companies/' + companyId,
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json'
-                    },
-                    data: {
-                        contract_term_id: contractTermId,
-                        partner_id: partnerId
-                    }
-                });
+      function _isAsuraCompany() {
+        return $.ajax({
+          url: rootVariables.apiUrl + '/companies/' + companyId,
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          data: {
+            contract_term_id: contractTermId,
+            partner_id: partnerId
+          }
+        });
+      }
+
+      function _updateRegistrantId(_registrantId, _asuraCompanyId) {
+        return $.ajax({
+          url: rootVariables.apiUrl + '/students/' + studentId + '/update_registrant_id',
+          dataType: 'json',
+          type: 'POST',
+          headers: {
+            Authorization: 'Bearer ' + token,
+            ContentType: 'application/json',
+            Accept: 'application/json'
+          },
+          data: {
+            registrant_id: _registrantId,
+            e2r_pro_id: _asuraCompanyId
+          },
+          processData: true
+        });
+      }
+
+      function dumpPostDataForAsura(registrantId, stuDatas) {
+        var dayNow = moment().tz('Asia/Tokyo').format('YYYY/MM/DD HH:mm');
+        var datas = stuDatas;
+        if (datas !== null) {
+          postDataToAsura = {
+            'execInfo': {
+              'asura_company_code': parseInt(asuraCompanyId),
+              'asura_student_id': registrantId,
+              'dnavi_entry_route': {
+                'major': {
+                  'id': 1,
+                  'name': '企業エントリー'
+                },
+                'inter': {
+                  'id': parseInt(asuraCompanyId),
+                  'name': companyName
+                },
+                'minor': {
+                  'id': '',
+                  'name': ''
+                },
+                'entryDatetime': dayNow
+              }
+            },
+            'fieldValues': []
+          };
+
+          var graduationYearMonth = null;
+          if (_.isNull(datas.graduation_year_month)) {
+            graduationYearMonth = datas.graduation_year + '/' + datas.graduation_month;
+          } else {
+            graduationYearMonth = moment(datas.graduation_year_month, 'YYYYMM').format('YYYY/MM');
+          }
+
+          var joinYearMonth = null;
+          if (_.isNull(datas.join_year_month)) {
+            joinYearMonth = datas.join_year + '/' + datas.join_month;
+          } else {
+            joinYearMonth = moment(datas.join_year_month, 'YYYYMM').format('YYYY/MM');
+          }
+
+          var prefCode = datas.prefecture_id.toString().length === 1
+            ? '0' + datas.prefecture_id
+            : datas.prefecture_id.toString();
+
+          var homePrefCode = datas.home_prefecture_id.toString().length === 1
+            ? '0' + datas.home_prefecture_id
+            : datas.home_prefecture_id.toString();
+
+          var mobileFlg1 = '0';
+          if (datas.mobile_flg1 === 1) {
+            mobileFlg1 = '1';
+          }
+
+          var mobileFlg2 = '0';
+          if (datas.mobile_flg2 === 1) {
+            mobileFlg2 = '1';
+          }
+
+          var publicCode = datas.city_id.toString();
+          if (publicCode.length === 4) {
+            publicCode = '0' + datas.city_id;
+          }
+
+          var homePublicCode = null;
+          if (datas.is_same_address) {
+            homePublicCode = publicCode
+          } else {
+            homePublicCode = datas.home_city_id.toString();
+            if (homePublicCode.length === 4) {
+              homePublicCode = '0' + datas.home_city_id;
             }
+          }
 
-            function _updateRegistrantId(_registrantId, _asuraCompanyId) {
-                return $.ajax({
-                    url: rootVariables.apiUrl + '/students/' + studentId + '/update_registrant_id',
-                    dataType: 'json',
-                    type: 'POST',
-                    headers: {
-                        Authorization: 'Bearer ' + token,
-                        ContentType: 'application/json',
-                        Accept: 'application/json'
-                    },
-                    data: {
-                        registrant_id: _registrantId,
-                        e2r_pro_id: _asuraCompanyId
-                    },
-                    processData: true
-                });
+          var departmentCode = null;
+          if (!_.isNull(datas.department_code)) {
+            if (datas.department_code.length === 3) {
+              departmentCode = '0' + datas.department_code;
+            } else {
+              departmentCode = datas.department_code;
             }
+          }
 
-            function dumpPostDataForAsura(registrantId, stuDatas) {
-                var dayNow = moment().tz('Asia/Tokyo').format('YYYY/MM/DD HH:mm');
-                var datas = stuDatas;
-                if (datas !== null) {
-                    postDataToAsura = {
-                        'execInfo': {
-                            'asura_company_code': parseInt(asuraCompanyId),
-                            'asura_student_id': registrantId,
-                            'dnavi_entry_route': {
-                                'major': {
-                                    'id': 1,
-                                    'name': '企業エントリー'
-                                },
-                                'inter': {
-                                    'id': parseInt(asuraCompanyId),
-                                    'name': companyName
-                                },
-                                'minor': {
-                                    'id': '',
-                                    'name': ''
-                                },
-                                'entryDatetime': dayNow
-                            }
-                        },
-                        'fieldValues': []
-                    };
+          var sectionCode = null;
+          if (!_.isNull(datas.section_code)) {
+            if (datas.section_code.length === 4) {
+              sectionCode = '0' + datas.section_code;
+            } else {
+              sectionCode = datas.section_code;
+            }
+          }
 
-                    var graduationYearMonth = null;
-                    if (_.isNull(datas.graduation_year_month)) {
-                        graduationYearMonth = datas.graduation_year + '/' + datas.graduation_month;
-                    } else {
-                        graduationYearMonth = moment(datas.graduation_year_month, 'YYYYMM').format('YYYY/MM');
-                    }
+          var dataDepartmentCode = null;
+          if (!_.isNull(datas.university_code) && !_.isNull(departmentCode)) {
+            dataDepartmentCode = datas.university_code + departmentCode
+          }
 
-                    var joinYearMonth = null;
-                    if (_.isNull(datas.join_year_month)) {
-                        joinYearMonth = datas.join_year + '/' + datas.join_month;
-                    } else {
-                        joinYearMonth = moment(datas.join_year_month, 'YYYYMM').format('YYYY/MM');
-                    }
+          var dataMajorCode = null;
+          if (!_.isNull(datas.university_code) && !_.isNull(departmentCode) && !_.isNull(sectionCode)) {
+            dataMajorCode = datas.university_code + departmentCode + sectionCode;
+          }
 
-                    var prefCode = datas.prefecture_id.toString().length === 1
-                            ? '0' + datas.prefecture_id
-                            : datas.prefecture_id.toString();
+          var postData = [
+            {
+              'name': {
+                'first': datas.given_name,
+                'last': datas.family_name
+              }
+            },
+            {
+              'furigana': {
+                'first': datas.given_name_kana,
+                'last': datas.family_name_kana
+              }
+            },
+            {
+              'mail': datas.email1
+            },
+            {
+              'mail_sub': datas.email2
+            },
+            {
+              'address': {
+                'region_code': '101',
+                'country_code': '392',
+                'pref_code': prefCode,
+                'city_code': publicCode ? publicCode.toString() : null,
+                'zip_code': datas.postcode,
+                'banchi_text': datas.address_line1,
+                'building_text': datas.address_line2
+              }
+            },
+            {
+              'address_home': {
+                'region_code': '101',
+                'country_code': '392',
+                'pref_code': homePrefCode,
+                'city_code': homePublicCode ? homePublicCode.toString() : null,
+                'zip_code': datas.home_postcode,
+                'banchi_text': datas.home_address_line1,
+                'building_text': datas.home_address_line2
+              }
+            },
+            {
+              'tel': {
+                'phone_type': mobileFlg2 ? mobileFlg2 : null,
+                'phone_no': datas.tel !== null ? datas.tel : '00000000000'
+              }
+            },
+            {
+              'mobile': {
+                'phone_type': mobileFlg1 ? mobileFlg1 : null,
+                'phone_no': datas.mobile !== null ? datas.mobile : '00000000000'
+              }
+            },
+            {
+              'phone_home': {
+                'phone_type': 'phone',
+                'country_no': '81',
+                'phone_no': datas.home_tel !== null ? datas.home_tel : '00000000000'
+              }
+            },
+            {
+              'graduate': {
+                'is_oversea': '1',
+                'country_code': '392',
+                'school_type': datas.university_type_id
+                  ? datas.university_type_id.toString()
+                  : null,
+                'school_code': datas.university_code,
+                'department_code': dataDepartmentCode,
+                'major_code': dataMajorCode,
+                'school_text': datas.university,
+                'department_text': datas.department,
+                'major_text': datas.section
+              }
+            },
+            {
+              'dnavi_self_declaration_kokukoushi': datas.university_public_type
+                ? datas.university_public_type.toString()
+                : null
+            },
+            {
+              'dnavi_self_declaration_bunri': datas.department_type_id
+                ? datas.department_type_id.toString()
+                : datas.department_type_id
+            },
+            {
+              'dnavi_self_declaration_major_field': datas.department_category
+                ? datas.department_category.toString()
+                : datas.department_category
+            },
+            {
+              'graduation_date': graduationYearMonth ? graduationYearMonth.toString() : graduationYearMonth
+            },
+            {
+              'join_year': joinYearMonth ? joinYearMonth.toString() : joinYearMonth
+            },
+            {
+              'dnavi_desired_jobs': datas.job_category_code ? datas.job_category_code.toString() : null
+            },
+            {
+              'dnavi_desired_industry': datas.industry_type_code ? datas.industry_type_code.toString() : null
+            },
+            {
+              'dnavi_desired_work_location': datas.working_place ? datas.working_place.toString() : null
+            },
+            {
+              'dnavi_desired_qualification': datas.qualification_code ? datas.qualification_code.toString() : null
+            }
+          ];
 
-                    var homePrefCode = datas.home_prefecture_id.toString().length === 1
-                            ? '0' + datas.home_prefecture_id
-                            : datas.home_prefecture_id.toString();
-
-                    var mobileFlg1 = '0';
-                    if (datas.mobile_flg1 === 1) {
-                        mobileFlg1 = '1';
-                    }
-
-                    var mobileFlg2 = '0';
-                    if (datas.mobile_flg2 === 1) {
-                        mobileFlg2 = '1';
-                    }
-
-                    var publicCode = datas.city_id.toString();
-                    if (publicCode.length === 4) {
-                        publicCode = '0' + datas.city_id;
-                    }
-
-                    var homePublicCode = null;
-                    if (datas.is_same_address) {
-                        homePublicCode = publicCode
-                    } else {
-                        homePublicCode = datas.home_city_id.toString();
-                        if (homePublicCode.length === 4) {
-                            homePublicCode = '0' + datas.home_city_id;
-                        }
-                    }
-
-                    var departmentCode = null;
-                    if (!_.isNull(datas.department_code)) {
-                        if (datas.department_code.length === 3) {
-                            departmentCode = '0' + datas.department_code;
-                        } else {
-                            departmentCode = datas.department_code;
-                        }
-                    }
-
-                    var sectionCode = null;
-                    if (!_.isNull(datas.section_code)) {
-                        if(datas.section_code.length === 4) {
-                            sectionCode = '0' + datas.section_code;
-                        } else {
-                            sectionCode = datas.section_code;
-                        }
-                    }
-
-                    var dataDepartmentCode = null;
-                    if (!_.isNull(datas.university_code) && !_.isNull(departmentCode)) {
-                        dataDepartmentCode = datas.university_code + departmentCode
-                    }
-
-                    var dataMajorCode = null;
-                    if (!_.isNull(datas.university_code) && !_.isNull(departmentCode) && !_.isNull(sectionCode)) {
-                        dataMajorCode = datas.university_code + departmentCode + sectionCode;
-                    }
-
-                    var postData = [
-                        {
-                            'name': {
-                                'first': datas.given_name,
-                                'last': datas.family_name
-                            }
-                        },
-                        {
-                            'furigana': {
-                                'first': datas.given_name_kana,
-                                'last': datas.family_name_kana
-                            }
-                        },
-                        {
-                            'mail': datas.email1
-                        },
-                        {
-                            'mail_sub': datas.email2
-                        },
-                        {
-                            'address': {
-                                'region_code': '101',
-                                'country_code': '392',
-                                'pref_code': prefCode,
-                                'city_code': publicCode ? publicCode.toString() : null,
-                                'zip_code': datas.postcode,
-                                'banchi_text': datas.address_line1,
-                                'building_text': datas.address_line2
-                            }
-                        },
-                        {
-                            'address_home': {
-                                'region_code': '101',
-                                'country_code': '392',
-                                'pref_code': homePrefCode,
-                                'city_code': homePublicCode ? homePublicCode.toString() : null,
-                                'zip_code': datas.home_postcode,
-                                'banchi_text': datas.home_address_line1,
-                                'building_text': datas.home_address_line2
-                            }
-                        },
-                        {
-                            'tel': {
-                                'phone_type': mobileFlg2 ? mobileFlg2 : null,
-                                'phone_no': datas.tel !== null ? datas.tel : '00000000000'
-                            }
-                        },
-                        {
-                            'mobile': {
-                                'phone_type': mobileFlg1 ? mobileFlg1 : null,
-                                'phone_no': datas.mobile !== null ? datas.mobile : '00000000000'
-                            }
-                        },
-                        {
-                            'phone_home': {
-                                'phone_type': 'phone',
-                                'country_no': '81',
-                                'phone_no': datas.home_tel !== null ? datas.home_tel : '00000000000'
-                            }
-                        },
-                        {
-                            'graduate': {
-                                'is_oversea': '1',
-                                'country_code': '392',
-                                'school_type': datas.university_type_id
-                                        ? datas.university_type_id.toString()
-                                        : null,
-                                'school_code': datas.university_code,
-                                'department_code': dataDepartmentCode,
-                                'major_code': dataMajorCode,
-                                'school_text': datas.university,
-                                'department_text': datas.department,
-                                'major_text': datas.section
-                            }
-                        },
-                        {
-                            'dnavi_self_declaration_kokukoushi': datas.university_public_type
-                                    ? datas.university_public_type.toString()
-                                    : null
-                        },
-                        {
-                            'dnavi_self_declaration_bunri': datas.department_type_id
-                                    ? datas.department_type_id.toString()
-                                    : datas.department_type_id
-                        },
-                        {
-                            'dnavi_self_declaration_major_field': datas.department_category
-                                    ? datas.department_category.toString()
-                                    : datas.department_category
-                        },
-                        {
-                            'graduation_date': graduationYearMonth ? graduationYearMonth.toString() : graduationYearMonth
-                        },
-                        {
-                            'join_year': joinYearMonth ? joinYearMonth.toString() : joinYearMonth
-                        },
-                        {
-                            'dnavi_desired_jobs': datas.job_category_code ? datas.job_category_code.toString() : null
-                        },
-                        {
-                            'dnavi_desired_industry': datas.industry_type_code ? datas.industry_type_code.toString() : null
-                        },
-                        {
-                            'dnavi_desired_work_location': datas.working_place ? datas.working_place.toString() : null
-                        },
-                        {
-                            'dnavi_desired_qualification': datas.qualification_code ? datas.qualification_code.toString() : null
-                        }
-                    ];
-
-                    //delete object have value null
-                    _.forEach(postData, function (fields) {
-                        _.forIn(fields, function (_fieldValue, _fieldKey) {
-                            if (!_.isNull(_fieldValue) && typeof _fieldValue === 'object') {
-                                _.forIn(_fieldValue, function (__fieldValue, __fieldKey) {
-                                    if (_.isNull(__fieldValue) || _.isEmpty(__fieldValue)) {
-                                        delete _fieldValue[__fieldKey];
-                                    }
-                                });
-                                postDataToAsura.fieldValues.push(fields);
-                            } else {
-                                if (!_.isNull(_fieldValue)) {
-                                    postDataToAsura.fieldValues.push(fields);
-                                }
-                            }
-                        });
-                    });
-
-                    _.assign(postDataToAsura.execInfo, {'requestType': 'registration'});
+          //delete object have value null
+          _.forEach(postData, function (fields) {
+            _.forIn(fields, function (_fieldValue, _fieldKey) {
+              if (!_.isNull(_fieldValue) && typeof _fieldValue === 'object') {
+                _.forIn(_fieldValue, function (__fieldValue, __fieldKey) {
+                  if (_.isNull(__fieldValue) || _.isEmpty(__fieldValue)) {
+                    delete _fieldValue[__fieldKey];
+                  }
+                });
+                postDataToAsura.fieldValues.push(fields);
+              } else {
+                if (!_.isNull(_fieldValue)) {
+                  postDataToAsura.fieldValues.push(fields);
                 }
-            }
-
-            function _registerNewAsuraStudent() {
-                return $.ajax({
-                    url: apiUrlAsura + '/outside/dnavi_entries/entry_procedure',
-                    dataType: 'json',
-                    type: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    data: JSON.stringify(postDataToAsura)
-                });
-            }
-
-            function _isAsuraStudent() {
-                return $.ajax({
-                    url: rootVariables.apiUrl + '/students/' + studentId + '/is_asura_student_new?e2r_pro_id=' + asuraCompanyId,
-                    dataType: 'json',
-                    type: 'GET',
-                    headers: {
-                        Authorization: 'Bearer ' + token,
-                        ContentType: 'application/json',
-                        Accept: 'application/json'
-                    }
-                });
-            }
-
-            function _getRecruitGuide() {
-                $.ajax({
-                    url: rootVariables.apiUrl + '/companies/' + companyId + '/recruit_guides',
-                    dataType: 'json',
-                    type: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json'
-                    },
-                    data: {
-                        contract_term_id: contractTermId
-                    },
-                    processData: true,
-                    success: function (res) {
-                        var recruitGuide = res.data[0];
-
-                        companyName = res.data[0].company.company_name;
-                        $('.companies-entry-h3').text(companyName);
-
-                        // Change the page title
-                        document.title = companyName + document.title;
-
-                        var canApply = recruitGuide.entry_button_is_visible && !recruitGuide.is_applied && !recruitGuide.is_coming_soon && recruitGuide.is_visible && !recruitGuide.out_of_date;
-
-                        $('#btn-entry-company').fadeIn();
-
-                        if (!canApply) {
-                            $('#btn-entry-company').addClass('btn-disabled');
-                        }
-                    },
-                    error: function (jqXhr, textStatus, errorThrown) {
-                        console.log(jqXhr);
-                        console.log(textStatus);
-                    }
-                });
-            }
-
-            function fetchStudent() {
-                return $.ajax({
-                    url: rootVariables.apiUrl + '/students/' + studentId + '/me',
-                    dataType: 'json',
-                    type: 'GET',
-                    headers: {
-                        Authorization: 'Bearer ' + token,
-                        ContentType: 'application/json',
-                        Accept: 'application/json'
-                    }
-                });
-            }
-
-
-            $(function () {
-                if (recruitGuideId === null) {
-                    toLocationHref("/");
-                }
-
-                _getRecruitGuide();
-
-                $('#btn-entry-company').click(function () {
-                    _isAsuraCompany().done(function (_res) {
-                        var contract = _res.data[0].contract;
-                        asuraCompanyId = contract.e2r_pro_id;
-                        // company Asura
-                        if (asuraCompanyId !== null) {
-                            $('#btn-entry-company').addClass('btn-disabled');
-                            // get student form Dnavi
-                            _isAsuraStudent().done(function (studentAsuraRes) {
-                                studentAsuraAndDnavi = studentAsuraRes.data !== null ? studentAsuraRes.data.registrant_id : null;
-                                // get infor user login
-                                fetchStudent().done(function (studentRes) {
-                                    var registrantId = null;
-                                    if (studentAsuraRes.success === true && (studentAsuraRes.data !== null)) {
-                                        registrantId = studentAsuraRes.data.registrant_id;
-                                    }
-                                    // make data post Asura
-                                    dumpPostDataForAsura(registrantId, studentRes.data);
-                                    // register New Asura Student
-                                    _registerNewAsuraStudent().done(function (_resRegistrant) {
-                                        var asuraStudentId = _resRegistrant.asura_student_id;
-                                        if (asuraStudentId !== null && studentAsuraAndDnavi === null) {
-                                            // Update registranId
-                                            _updateRegistrantId(asuraStudentId, asuraCompanyId).done(function () {
-                                                // entry recruit guide of Dnavi
-                                                _entryCompany();
-                                            });
-                                        } else if (studentAsuraAndDnavi !== null) {
-                                            _entryCompany();
-                                        }
-                                    }).fail(function (jqXHR) {
-                                        $('.alert-box').empty();
-                                        $('.alert-box').append(jqXHR.responseJSON.functionMessage);
-                                        $('.alert-box').show();
-                                    });
-
-                                    // alert-box
-                                });
-                            });
-                        } else {
-                            // company Dnavi
-                            _entryCompany();
-                        }
-                    });
-                });
+              }
             });
-        </script>
-    {{/content}}
+          });
+
+          _.assign(postDataToAsura.execInfo, {'requestType': 'registration'});
+        }
+      }
+
+      function _registerNewAsuraStudent() {
+        return $.ajax({
+          url: apiUrlAsura + '/outside/dnavi_entries/entry_procedure',
+          dataType: 'json',
+          type: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          data: JSON.stringify(postDataToAsura)
+        });
+      }
+
+      function _isAsuraStudent() {
+        return $.ajax({
+          url: rootVariables.apiUrl + '/students/' + studentId + '/is_asura_student_new?e2r_pro_id=' + asuraCompanyId,
+          dataType: 'json',
+          type: 'GET',
+          headers: {
+            Authorization: 'Bearer ' + token,
+            ContentType: 'application/json',
+            Accept: 'application/json'
+          }
+        });
+      }
+
+      function _getRecruitGuide() {
+        $.ajax({
+          url: rootVariables.apiUrl + '/companies/' + companyId + '/recruit_guides',
+          dataType: 'json',
+          type: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          data: {
+            contract_term_id: contractTermId
+          },
+          processData: true,
+          success: function (res) {
+            var recruitGuide = res.data[0];
+
+            companyName = res.data[0].company.company_name;
+            $('.companies-entry-h3').text(companyName);
+
+            // Change the page title
+            document.title = companyName + document.title;
+
+            var canApply = recruitGuide.entry_button_is_visible && !recruitGuide.is_applied && !recruitGuide.is_coming_soon && recruitGuide.is_visible && !recruitGuide.out_of_date;
+
+            $('#btn-entry-company').fadeIn();
+
+            if (!canApply) {
+              $('#btn-entry-company').addClass('btn-disabled');
+            }
+          },
+          error: function (jqXhr, textStatus, errorThrown) {
+            console.log(jqXhr);
+            console.log(textStatus);
+          }
+        });
+      }
+
+      function fetchStudent() {
+        return $.ajax({
+          url: rootVariables.apiUrl + '/students/' + studentId + '/me',
+          dataType: 'json',
+          type: 'GET',
+          headers: {
+            Authorization: 'Bearer ' + token,
+            ContentType: 'application/json',
+            Accept: 'application/json'
+          }
+        });
+      }
+
+
+      $(function () {
+        if (recruitGuideId === null) {
+          toLocationHref("/");
+        }
+
+        _getRecruitGuide();
+
+        $('#btn-entry-company').click(function () {
+          _isAsuraCompany().done(function (_res) {
+            var contract = _res.data[0].contract;
+            asuraCompanyId = contract.e2r_pro_id;
+            // company Asura
+            if (asuraCompanyId !== null) {
+              $('#btn-entry-company').addClass('btn-disabled');
+              // get student form Dnavi
+              _isAsuraStudent().done(function (studentAsuraRes) {
+                studentAsuraAndDnavi = studentAsuraRes.data !== null ? studentAsuraRes.data.registrant_id : null;
+                // get infor user login
+                fetchStudent().done(function (studentRes) {
+                  var registrantId = null;
+                  if (studentAsuraRes.success === true && (studentAsuraRes.data !== null)) {
+                    registrantId = studentAsuraRes.data.registrant_id;
+                  }
+                  // make data post Asura
+                  dumpPostDataForAsura(registrantId, studentRes.data);
+                  // register New Asura Student
+                  _registerNewAsuraStudent().done(function (_resRegistrant) {
+                    var asuraStudentId = _resRegistrant.asura_student_id;
+                    if (asuraStudentId !== null && studentAsuraAndDnavi === null) {
+                      // Update registranId
+                      _updateRegistrantId(asuraStudentId, asuraCompanyId).done(function () {
+                        // entry recruit guide of Dnavi
+                        _entryCompany();
+                      });
+                    } else if (studentAsuraAndDnavi !== null) {
+                      _entryCompany();
+                    }
+                  }).fail(function (jqXHR) {
+                    $('.alert-box').empty();
+                    $('.alert-box').append(jqXHR.responseJSON.functionMessage);
+                    $('.alert-box').show();
+                  });
+
+                  // alert-box
+                });
+              });
+            } else {
+              // company Dnavi
+              _entryCompany();
+            }
+          });
+        });
+      });
+    </script>
+  {{/content}}
 {{/extend}}

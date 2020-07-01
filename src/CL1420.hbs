@@ -1,50 +1,50 @@
 {{#extend "components/layout" title="パスワード再設定"}}
-    {{#content "header-scripts" mode="append"}}
-        <style type="text/css">
-            @media (min-width: 769px){
-                .tbl-form th {
-                    width: 200px;
-                }
-            }
-        </style>
-    {{/content}}
-    {{#content "main"}}
-        <!--  -->
-        <div class="contents-box">
-            <article class="article-box">
-                <div class="drop-shadow-box">
-                    <header class="article-box-header">
-                        <h2 class="article-box-header-h2">
-                            <span class="article-box-header-h2-jp">パスワード再設定</span>
-                            <!-- <br /><span class="article-box-header-h2-eng"></span> -->
-                        </h2>
-                    </header>
-                    <div class="article-box-body">
-                        <div class="form-preface">パスワードを再設定しました。</div>
+  {{#content "header-scripts" mode="append"}}
+    <style type="text/css">
+      @media (min-width: 769px) {
+        .tbl-form th {
+          width: 200px;
+        }
+      }
+    </style>
+  {{/content}}
+  {{#content "main"}}
+    <!--  -->
+    <div class="contents-box">
+      <article class="article-box">
+        <div class="drop-shadow-box">
+          <header class="article-box-header">
+            <h2 class="article-box-header-h2">
+              <span class="article-box-header-h2-jp">パスワード再設定</span>
+              <!-- <br /><span class="article-box-header-h2-eng"></span> -->
+            </h2>
+          </header>
+          <div class="article-box-body">
+            <div class="form-preface">パスワードを再設定しました。</div>
 
-                        <div class="form-btn-box">
-                            <a href="/login/user" class="btn-default btn-blue w100-50prc">ログイン</a>
-                        </div>
-                    </div>
-                </div>
-            </article>
-
-            <article class="article-box pddb0">
-                <header class="app-box-header">
-                    <h2 class="app-box-header-h2">公式アプリをダウンロード！</h2>
-                </header>
-                <div class="app-logo-box">
-                    <img src="{{path}}img/logo-apple-app-store.png" class="logo-app-img" alt="" />
-                    <img src="{{path}}img/logo-google-play.png" class="logo-app-img" alt="" />
-                </div>
-            </article>
+            <div class="form-btn-box">
+              <a href="{{link.loginUser}}" class="btn-default btn-blue w100-50prc">ログイン</a>
+            </div>
+          </div>
         </div>
-    {{/content}}
-    {{#content "footer-scripts" mode="append"}}
-        <script>
-            $(function(){
-                _headerUIHandler(null, null, null);
-            });
-        </script>
-    {{/content}}
+      </article>
+
+      <article class="article-box pddb0">
+        <header class="app-box-header">
+          <h2 class="app-box-header-h2">公式アプリをダウンロード！</h2>
+        </header>
+        <div class="app-logo-box">
+          <img src="{{path}}img/logo-apple-app-store.png" class="logo-app-img" alt="" />
+          <img src="{{path}}img/logo-google-play.png" class="logo-app-img" alt="" />
+        </div>
+      </article>
+    </div>
+  {{/content}}
+  {{#content "footer-scripts" mode="append"}}
+    <script>
+      $(function () {
+        _headerUIHandler(null, null, null);
+      });
+    </script>
+  {{/content}}
 {{/extend}}

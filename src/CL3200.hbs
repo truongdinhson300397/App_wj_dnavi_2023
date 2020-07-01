@@ -1,1237 +1,1237 @@
 {{#extend "components/layout" title="企業情報"}}
-    {{#content "header-scripts" mode="append"}}
-        <link rel="stylesheet" href="{{path}}css/event.css" type="text/css" media="all"/>
-        <link rel="stylesheet" href="{{path}}css/companies.css" type="text/css" media="all"/>
-        <style>
-            .companies-detail-images-ul-li-a {
-                padding-top: 100%;
-            }
+  {{#content "header-scripts" mode="append"}}
+    <link rel="stylesheet" href="{{path}}css/event.css" type="text/css" media="all"/>
+    <link rel="stylesheet" href="{{path}}css/companies.css" type="text/css" media="all"/>
+    <style>
+      .companies-detail-images-ul-li-a {
+        padding-top: 100%;
+      }
 
-            .companies-detail-images-img {
-                width: auto !important;
-                top: 0 !important;
-                bottom: 0 !important;
-                left: -100% !important;
-                right: -100% !important;
-                margin: auto !important;
-                transform: none !important;
-            }
+      .companies-detail-images-img {
+        width: auto !important;
+        top: 0 !important;
+        bottom: 0 !important;
+        left: -100% !important;
+        right: -100% !important;
+        margin: auto !important;
+        transform: none !important;
+      }
 
-            .address_line1,
-            .address_line2 {
-                display: block;
-            }
+      .address_line1,
+      .address_line2 {
+        display: block;
+      }
 
-            .btn-disabled:before {
-                background: #cccccc !important;
-            }
+      .btn-disabled:before {
+        background: #cccccc !important;
+      }
 
-            .btn-disabled:after {
-                background: #cccccc !important;
-            }
+      .btn-disabled:after {
+        background: #cccccc !important;
+      }
 
-            .text-black {
-                color: #323232;
-            }
+      .text-black {
+        color: #323232;
+      }
 
-            .tab-contents-disclosure .tbl-bordered-small {
-                border-top: none;
-            }
+      .tab-contents-disclosure .tbl-bordered-small {
+        border-top: none;
+      }
 
-            .text-top-tabs {
-                text-align: center;
-                margin-bottom: 15px;
-            }
+      .text-top-tabs {
+        text-align: center;
+        margin-bottom: 15px;
+      }
 
-            @media (max-width: 640px) {
-                .w8em {
-                    width: 100%;
-                }
-            }
-        </style>
-    {{/content}}
-    {{#content "main"}}
-        <!--  -->
-        <div class="contents-box">
+      @media (max-width: 640px) {
+        .w8em {
+          width: 100%;
+        }
+      }
+    </style>
+  {{/content}}
+  {{#content "main"}}
+    <!--  -->
+    <div class="contents-box">
 
-            <div id="test-recruitData"></div>
+      <div id="test-recruitData"></div>
 
-            <article class="article-box error" style="display: none;">
-                <div class="alert-box">
-                    企業情報が取得できませんでした。企業をさがし直してください。<br>（5秒後にリダイレクトします）
-                </div>
-            </article>
+      <article class="article-box error" style="display: none;">
+        <div class="alert-box">
+          企業情報が取得できませんでした。企業をさがし直してください。<br>（5秒後にリダイレクトします）
+        </div>
+      </article>
 
-            <article class="article-box success" style="display: none;">
+      <article class="article-box success" style="display: none;">
 
-                <!-- 企業情報 -->
-                <section class="companies-result">
-                    <figure class="companies-logo-fig" style="min-height: 68px">
-                        <div class="companies-logo-wrapper">
+        <!-- 企業情報 -->
+        <section class="companies-result">
+          <figure class="companies-logo-fig" style="min-height: 68px">
+            <div class="companies-logo-wrapper">
 
-                        </div>
-                        <div class="companies-description">
-                            <div class="companies-nm"></div>
-                            <div class="companies-type clearfix"></div>
-                        </div>
-                    </figure>
+            </div>
+            <div class="companies-description">
+              <div class="companies-nm"></div>
+              <div class="companies-type clearfix"></div>
+            </div>
+          </figure>
 
-                    <div class="companies-disclosure clearfix">
+          <div class="companies-disclosure clearfix">
 			<span class="companies-disclosure-box">
 				<span class="companies-disclosure-ttl">情報公開度</span><span class="companies-disclosure-num"> <span
-                    class="num"></span> / 100</span><span class="companies-disclosure-prc">%</span>
+        class="num"></span> / 100</span><span class="companies-disclosure-prc">%</span>
 			</span>
-                        <div class="companies-event-label-box"></div>
-                    </div>
-                    <div class="clearfix">
-                        <div class="companies-detail-vis-box">
-                            <figure class="companies-detail-main-fig">
-                            </figure>
-                        </div>
-                        <div class="companies-detail-images-box">
-                            <div class="tags-box">
-                            </div>
-                            <ul class="companies-detail-images-ul"></ul>
-                            <ul id="hiddenUl" style="display: none;">
-
-                            </ul>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- イベント出展情報 -->
-                <section id="data-dnavi" class="mgnt30-50">
-                    <h3 id="data-dnavi-title" class="companies-section-h3 hidden">イベント出展情報</h3>
-                    <!-- dump data dnavi-->
-                </section>
-
-                <!-- 企業セミナー開催予定 -->
-                <section id="data-asura" class="mgnt30-50">
-                    <h3 id="data-asura-title" class="companies-section-h3 hidden">企業セミナー開催予定</h3>
-                    <!-- dump data asura-->
-                </section>
-
-                <!-- メインコンテンツ -->
-                <section class="mgnt30-50">
-
-                    <span id="tabArea" class="anchor"></span>
-                    <h3 class="text-top-tabs"></h3>
-
-                    <!-- コンテンツ切り替えタブ -->
-                    <ul id="tabs" class="tabs-ul">
-                        <li class="tabs-ul-li"><a href="javascript:void(0)" class="tab-a companyinfo tab-a-active">企業情報</a></li>
-                        <li class="tabs-ul-li"><a href="javascript:void(0)" class="tab-a disclosure">ディス<span
-                                class="ilb">クロージャー</span></a></li>
-                        <li class="tabs-ul-li"><a href="javascript:void(0)" class="tab-a recruit">採用データ</a></li>
-                        <li class="tabs-ul-li"><a href="javascript:void(0)" class="tab-a internships line-break">インターンシップ& <br> キャリア支援</a></li>
-                    </ul>
-
-                    <!-- コンテンツ -->
-                    <div class="tab-contents">
-                        <!-- 企業情報 -->
-                        <section class="tab-contents-companyinfo">
-                            <table class="companies-detail-info-box">
-                                <!-- <tr><th class="w7em">企業名</th><td>三菱商事株式会社</td></tr>
-                                    <tr><th>フリガナ</th><td>ミツビシショウジカブシキガイシャ</td></tr> -->
-                                <tr class="business_description_wrap">
-                                    <th class="w8em">事業内容</th>
-                                    <td class="business_description">
-                                        <p class="line-break"></p>
-                                    </td>
-                                </tr>
-                                <tr class="establishment_year_wrap">
-                                    <th class="w8em establishment_year_title">設立</th>
-                                    <td><span class="establishment_year"></span>年</td>
-                                </tr>
-                                <tr class="representative_wrap">
-                                    <th class="w8em">代表者</th>
-                                    <td><span class="representative_executive"></span> <span class="representative_name"></span></td>
-                                </tr>
-                                <tr class="address1_wrap">
-                                    <th class="w8em address_title"></th>
-                                    <td>〒<span class="postcode"></span><span class="address_line1"></span><span
-                                            class="address_line2"></span></td>
-                                </tr>
-                                <tr class="address2_wrap">
-                                    <th class="w8em address_title"></th>
-                                    <td>〒<span class="postcode"></span><span class="address_line1"></span><span
-                                            class="address_line2"></span></td>
-                                </tr>
-                                <tr class="address3_wrap">
-                                    <th class="w8em address_title"></th>
-                                    <td>〒<span class="postcode"></span><span class="address_line1"></span><span
-                                            class="address_line2"></span></td>
-                                </tr>
-                                <tr class="capital_stock_wrap">
-                                    <th class="w8em capital_stock_title">資本金</th>
-                                    <td><span class="capital_stock"></span>万円</td>
-                                </tr>
-                                <tr class="sales_wrap">
-                                    <th class="w8em sales_title">売上高</th>
-                                    <td><span class="sales"></span>万円<span class="sales_year">（<span class="num"></span>年）</span></td>
-                                </tr>
-                                <tr class="is_public_offering_wrap">
-                                    <th class="w8em">株式公開区分</th>
-                                    <td class="is_public_offering"></td>
-                                </tr>
-                                <tr class="employees_num_wrap">
-                                    <th class="w8em">従業員数／職員数</th>
-                                    <td><span class="employees_num"></span>名<span class="employees_num_year">（<span class="num"></span>年）</span>
-                                    </td>
-                                </tr>
-                                <tr class="industry_type_main_wrap">
-                                    <th class="w8em">業種</th>
-                                    <td class="industry_type_main"></td>
-                                </tr>
-                            </table>
-                        </section>
-                        <!-- /企業情報 -->
-
-                        <!-- ディスクロージャー -->
-                        <section class="tab-contents-disclosure" style="display: none;">
-
-                            <ul class="category-list-ul">
-                                <li class="category-list-ul-li"><a href="#senkotaisaku">本選考対策（実績）</a></li>
-                                <li class="category-list-ul-li"><a href="#internship">インターンシップ選考対策</a></li>
-                                <li class="category-list-ul-li"><a href="#anshin">安心して働く</a></li>
-                                <li class="category-list-ul-li"><a href="#seicho">成長を支援する</a></li>
-                                <li class="category-list-ul-li"><a href="#merihari">メリハリのある働き方</a></li>
-                                <li class="category-list-ul-li"><a href="#gaikokugo">外国語の利用</a></li>
-                                <li class="category-list-ul-li"><a href="#koryu">社内交流</a></li>
-                                <li class="category-list-ul-li"><a href="#boshu">募集・採用に関する情報</a></li>
-                                <li class="category-list-ul-li"><a href="#noryokukaihatsu">職業能力の開発および向上に関する取組の実施状況</a></li>
-                                <li class="category-list-ul-li"><a href="#teichaku">職場への定着の促進に関する取組の実施状況</a></li>
-                                <!-- <li class="category-list-ul-li"><a href="#senkotaisaku">選考対策</a></li> -->
-                                <!-- <li class="category-list-ul-li"><a href="#shusshin">社員の出身大学</a></li> -->
-                                <!-- <li class="category-list-ul-li"><a href="#hyoka">評価制度</a></li> -->
-                                <!-- <li class="category-list-ul-li"><a href="#tayosei">多様性</a></li> -->
-                                <!-- <li class="category-list-ul-li"><a href="#nintei">認定マーク取得</a></li> -->
-                            </ul>
-
-                            <!-- -->
-                            <section class="js-disclosure-section mgnt30-50 hidden">
-                                <span id="senkotaisaku" class="anchor"></span>
-                                <h3 class="section-box-header-h3">
-                                    <span class="section-box-header-h3-jp section-box-header-h3-bg">本選考対策（実績）</span>
-                                </h3>
-
-                                <div class="mgnt20-30 select_step_wrap">
-                                    <h4 class="companies-section-h4">選考ステップ</h4>
-                                    <div class="companies-ellipsis toggleOverflow"><span class="select_step"></span></div>
-                                </div>
-
-                                <div class="mgnt20-30 written_examination_description_wrap">
-                                    <h4 class="companies-section-h4">筆記試験</h4>
-                                    <div class="companies-ellipsis toggleOverflow"><span class="written_examination"></span><span
-                                            class="written_examination_description"></span></div>
-                                </div>
-
-                                <div class="mgnt20-30 entry_sheet_es_questions_description_wrap">
-                                    <h4 class="companies-section-h4">エントリーシート（ES）質問項目</h4>
-                                    <div class="companies-ellipsis toggleOverflow">
-                                        <span class="entry_sheet_es_questions"></span>
-                                        <span class="entry_sheet_es_questions_description"></span>
-                                    </div>
-                                </div>
-
-                                <div class="mgnt20-30 group_work_discuss_wrap">
-                                    <h4 class="companies-section-h4">グループワーク（GW）・グループディスカッション（GD）</h4>
-                                    <div class="companies-ellipsis toggleOverflow">
-                                        <span class="group_work"></span>
-                                        <span class="group_work_discuss"></span>
-                                    </div>
-                                </div>
-
-                                <div class="mgnt20-30 group_interview_description_wrap">
-                                    <h4 class="companies-section-h4">集団面接</h4>
-                                    <div class="companies-ellipsis toggleOverflow"><span class="group_interview"></span><span
-                                            class="group_interview_description"></span></div>
-                                </div>
-
-                                <div class="mgnt20-30 personal_interview_description_wrap">
-                                    <h4 class="companies-section-h4">個人面接</h4>
-                                    <div class="companies-ellipsis toggleOverflow"><span class="personal_interview"></span><span
-                                            class="personal_interview_description"></span></div>
-                                </div>
-
-                                <div class="mgnt20-30 interview_questions_wrap">
-                                    <h4 class="companies-section-h4">面接の質問項目</h4>
-                                    <div class="companies-ellipsis toggleOverflow"><span class="interview_questions"></span></div>
-                                </div>
-
-                                <div class="mgnt20-30 application_magnification_wrap">
-                                    <h4 class="companies-section-h4">応募倍率</h4>
-                                    <div class="companies-ellipsis toggleOverflow"><span class="application_magnification"></span></div>
-                                </div>
-
-                                <div class="mgnt20-30 key_points_in_each_selection_process_wrap">
-                                    <h4 class="companies-section-h4">各選考プロセスにおいて重視するポイント</h4>
-                                    <div class="companies-ellipsis toggleOverflow"><span
-                                            class="key_points_in_each_selection_process"></span></div>
-                                </div>
-
-                                <div class="mgnt20-30 what_we_want_you_to_do_before_selection_wrap">
-                                    <h4 class="companies-section-h4">選考前に取り組んでほしいこと</h4>
-                                    <div class="companies-ellipsis toggleOverflow"><span
-                                            class="what_we_want_you_to_do_before_selection"></span></div>
-                                </div>
-
-                                <div class="mgnt20-30 advice_on_how_to_conduct_industry_company_research_wrap">
-                                    <h4 class="companies-section-h4">業界・企業研究の取り組み方についてのアドバイス</h4>
-                                    <div class="companies-ellipsis toggleOverflow"><span
-                                            class="advice_on_how_to_conduct_industry_company_research"></span></div>
-                                </div>
-                            </section>
-
-                            <!-- -->
-                            <section class="js-disclosure-section mgnt30-50 hidden">
-                                <span id="internship" class="anchor"></span>
-                                <h3 class="section-box-header-h3">
-                                    <span class="section-box-header-h3-jp section-box-header-h3-bg">インターンシップ選考対策</span>
-                                </h3>
-
-                                <div class="mgnt20-30 internship_implementation_description_wrap">
-                                    <h4 class="companies-section-h4">インターンシップ実施の有無</h4>
-                                    <div class="companies-ellipsis toggleOverflow"><span class="internship_implementation"></span><span
-                                            class="internship_implementation_description"></span></div>
-                                </div>
-
-                                <div class="mgnt20-30 selection_for_internship_participation_description_wrap">
-                                    <h4 class="companies-section-h4">インターンシップ参加への選考の有無</h4>
-                                    <div class="companies-ellipsis toggleOverflow"><span
-                                            class="selection_for_internship_participation"></span><span
-                                            class="selection_for_internship_participation_description"></span></div>
-                                </div>
-
-                                <div class="mgnt20-30 internship_key_points_in_each_selection_process_wrap">
-                                    <h4 class="companies-section-h4">各選考プロセスにおいて重視するポイント</h4>
-                                    <div class="companies-ellipsis toggleOverflow"><span
-                                            class="internship_key_points_in_each_selection_process"></span></div>
-                                </div>
-
-                                <div class="mgnt20-30 advice_for_participating_in_the_internship_wrap">
-                                    <h4 class="companies-section-h4">インターンシップ参加へのアドバイス</h4>
-                                    <div class="companies-ellipsis toggleOverflow"><span
-                                            class="advice_for_participating_in_the_internship"></span></div>
-                                </div>
-                            </section>
-
-                            <!-- -->
-                            <section class="js-disclosure-section mgnt30-50 hidden">
-                                <span id="anshin" class="anchor"></span>
-                                <h3 class="section-box-header-h3">
-                                    <span class="section-box-header-h3-jp section-box-header-h3-bg">安心して働く</span>
-                                </h3>
-
-                                <div class="mgnt20-30 wrap2">
-                                    <h4 class="companies-section-h4">平均年収</h4>
-                                    <div>
-                                        <table class="tbl-bordered-small">
-                                            <tbody>
-                                            <tr class="number_of_average_annual_income_wrap wrap1">
-                                                <th class="w7em">全体</th>
-                                                <td><span class="number_of_average_annual_income"></span>万円</td>
-                                            </tr>
-                                            <tr class="number_of_average_age_wrap">
-                                                <th>平均年齢</th>
-                                                <td><span class="number_of_average_age"></span>歳</td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-
-                                <div class="mgnt20-30 executive_school_wrap">
-                                    <h4 class="companies-section-h4">役員出身校</h4>
-                                    <div class="companies-ellipsis toggleOverflow"><span class="executive_school"></span></div>
-                                </div>
-
-                                <div class="mgnt20-30 head_office_assignment_ratio_at_the_time_of_joining_the_company_wrap">
-                                    <h4 class="companies-section-h4">入社時本社配属比率</h4>
-                                    <div class="companies-ellipsis toggleOverflow"><span
-                                            class="head_office_assignment_ratio_at_the_time_of_joining_the_company"></span></div>
-                                </div>
-
-                                <div class="mgnt20-30 job_rotation_description_wrap">
-                                    <h4 class="companies-section-h4">ジョブローテーション</h4>
-                                    <div class="companies-ellipsis toggleOverflow"><span class="job_rotation"></span><span
-                                            class="job_rotation_description"></span></div>
-                                </div>
-
-                                <div class="mgnt20-30 response_to_harassment_description_wrap">
-                                    <h4 class="companies-section-h4">ハラスメントへの対応</h4>
-                                    <div class="companies-ellipsis toggleOverflow"><span class="response_to_harassment"></span><span
-                                            class="response_to_harassment_description"></span></div>
-                                </div>
-
-                                <div class="mgnt20-30 unique_welfare_system_description_wrap">
-                                    <h4 class="companies-section-h4">独自の福利厚生制度</h4>
-                                    <div class="companies-ellipsis toggleOverflow"><span class="unique_welfare_system"></span><span
-                                            class="unique_welfare_system_description"></span></div>
-                                </div>
-
-                                <div class="mgnt20-30 health_management_initiatives_description_wrap">
-                                    <h4 class="companies-section-h4">健康経営の取組</h4>
-                                    <div class="companies-ellipsis toggleOverflow"><span
-                                            class="health_management_initiatives"></span><span
-                                            class="health_management_initiatives_description"></span></div>
-                                </div>
-
-                                <div class="mgnt20-30 measures_to_prevent_overwork_description_wrap">
-                                    <h4 class="companies-section-h4">過重労働防止対策</h4>
-                                    <div class="companies-ellipsis toggleOverflow"><span class="measures_to_prevent_overwork"></span><span
-                                            class="measures_to_prevent_overwork_description"></span></div>
-                                </div>
-
-                                <div class="mgnt20-30 measures_to_prevent_passive_smoking_description_wrap">
-                                    <h4 class="companies-section-h4">受動喫煙防止対策</h4>
-                                    <div class="companies-ellipsis toggleOverflow"><span
-                                            class="measures_to_prevent_passive_smoking"></span><span
-                                            class="measures_to_prevent_passive_smoking_description"></span></div>
-                                </div>
-
-                                <div class="mgnt20-30 support_until_childbirth_description_wrap">
-                                    <h4 class="companies-section-h4">出産までのサポート</h4>
-                                    <div class="companies-ellipsis toggleOverflow"><span class="support_until_childbirth"></span><span
-                                            class="support_until_childbirth_description"></span></div>
-                                </div>
-
-                                <div class="mgnt20-30 childcare_support_description_wrap">
-                                    <h4 class="companies-section-h4">育児のサポート</h4>
-                                    <div class="companies-ellipsis toggleOverflow"><span class="childcare_support"></span><span
-                                            class="childcare_support_description"></span></div>
-                                </div>
-                            </section>
-
-                            <!-- -->
-                            <section class="js-disclosure-section mgnt30-50 hidden">
-                                <span id="seicho" class="anchor"></span>
-                                <h3 class="section-box-header-h3">
-                                    <span class="section-box-header-h3-jp section-box-header-h3-bg">成長を支援する</span>
-                                </h3>
-
-                                <div class="mgnt20-30 human_resource_development_policy_wrap">
-                                    <h4 class="companies-section-h4">人財育成方針</h4>
-                                    <div class="companies-ellipsis toggleOverflow"><span class="human_resource_development_policy"></span>
-                                    </div>
-                                </div>
-
-                                <div class="mgnt20-30 internal_recruitment_system_description_wrap">
-                                    <h4 class="companies-section-h4">社内公募制度</h4>
-                                    <div class="companies-ellipsis toggleOverflow"><span class="internal_recruitment_system"></span><span
-                                            class="internal_recruitment_system_description"></span></div>
-                                </div>
-
-                                <div class="mgnt20-30 company_sponsored_study_abroad_system_description_wrap">
-                                    <h4 class="companies-section-h4">社費留学・企業留学制度</h4>
-                                    <div class="companies-ellipsis toggleOverflow"><span
-                                            class="company_sponsored_study_abroad_system"></span><span
-                                            class="company_sponsored_study_abroad_system_description"></span></div>
-                                </div>
-
-                                <div class="mgnt20-30 evaluation_system_description_wrap">
-                                    <h4 class="companies-section-h4">評価制度</h4>
-                                    <div class="companies-ellipsis toggleOverflow"><span class="evaluation_system"></span><span
-                                            class="evaluation_system_description"></span></div>
-                                </div>
-
-                                <div class="mgnt20-30 reward_system_description_wrap">
-                                    <h4 class="companies-section-h4">褒賞制度</h4>
-                                    <div class="companies-ellipsis toggleOverflow"><span class="reward_system"></span><span
-                                            class="reward_system_description"></span></div>
-                                </div>
-                            </section>
-
-                            <!-- -->
-                            <section class="js-disclosure-section mgnt30-50 hidden">
-                                <span id="merihari" class="anchor"></span>
-                                <h3 class="section-box-header-h3">
-                                    <span class="section-box-header-h3-jp section-box-header-h3-bg">メリハリのある働き方</span>
-                                </h3>
-
-                                <div class="mgnt20-30 unique_leave_system_description_wrap">
-                                    <h4 class="companies-section-h4">独自の休暇制度</h4>
-                                    <div class="companies-ellipsis toggleOverflow"><span class="unique_leave_system"></span><span
-                                            class="unique_leave_system_description"></span></div>
-                                </div>
-
-                                <div class="mgnt20-30 office_environment_maintenance_description_wrap">
-                                    <h4 class="companies-section-h4">オフィス環境整備</h4>
-                                    <div class="companies-ellipsis toggleOverflow"><span
-                                            class="office_environment_maintenance"></span><span
-                                            class="office_environment_maintenance_description"></span></div>
-                                </div>
-
-                                <div class="mgnt20-30 telework_system_description_wrap">
-                                    <h4 class="companies-section-h4">テレワーク制度</h4>
-                                    <div class="companies-ellipsis toggleOverflow"><span class="telework_system"></span><span
-                                            class="telework_system_description"></span></div>
-                                </div>
-                            </section>
-
-                            <!-- -->
-                            <section class="js-disclosure-section mgnt30-50 hidden">
-                                <span id="gaikokugo" class="anchor"></span>
-                                <h3 class="section-box-header-h3">
-                                    <span class="section-box-header-h3-jp section-box-header-h3-bg">外国語の利用</span>
-                                </h3>
-
-                                <div class="mgnt20-30 standards_of_language_skills_required_wrap">
-                                    <h4 class="companies-section-h4">求める語学力の基準</h4>
-                                    <div class="companies-ellipsis toggleOverflow"><span
-                                            class="standards_of_language_skills_required"></span></div>
-                                </div>
-
-                                <div class="mgnt20-30 work_abroad_description_wrap">
-                                    <h4 class="companies-section-h4">海外での仕事</h4>
-                                    <div class="companies-ellipsis toggleOverflow"><span class="work_abroad"></span><span
-                                            class="work_abroad_description"></span></div>
-                                </div>
-                            </section>
-
-                            <!-- -->
-                            <section class="js-disclosure-section mgnt30-50 hidden">
-                                <span id="koryu" class="anchor"></span>
-                                <h3 class="section-box-header-h3">
-                                    <span class="section-box-header-h3-jp section-box-header-h3-bg">社内交流</span>
-                                </h3>
-
-                                <div class="mgnt20-30 communication_system_event_description_wrap">
-                                    <h4 class="companies-section-h4">コミュニケーション（制度・イベント）</h4>
-                                    <div class="companies-ellipsis toggleOverflow"><span class="communication_system_event"></span><span
-                                            class="communication_system_event_description"></span></div>
-                                </div>
-
-                                <div class="mgnt20-30 communication_environment_equipment_description_wrap">
-                                    <h4 class="companies-section-h4">コミュニケーション（環境・設備）</h4>
-                                    <div class="companies-ellipsis toggleOverflow"><span
-                                            class="communication_environment_equipment"></span><span
-                                            class="communication_environment_equipment_description"></span></div>
-                                </div>
-                            </section>
-
-                            <!-- -->
-                            <section class="js-disclosure-section mgnt30-50 hidden">
-                                <span id="boshu" class="anchor"></span>
-                                <h3 class="section-box-header-h3">
-                                    <span class="section-box-header-h3-jp section-box-header-h3-bg">募集・採用に関する情報</span>
-                                </h3>
-
-                                <div class="mgnt20-30 wrap3">
-                                    <h4 class="companies-section-h4">直近3事業年度の新卒者等の採用者数/離職者数</h4>
-                                    <div>
-                                        <table class="tbl-bordered tbl-fixed wrap3">
-                                            <thead>
-                                            <tr>
-                                                <th></th>
-                                                <th>採用者数</th>
-                                                <th>離職者数</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr class="wrap2">
-                                                <th class="wrap1"><span class="year_of_new_graduates_hired_and_leaved_employees_1"></span>年度
-                                                </th>
-                                                <td class="wrap1"><span class="number_of_new_graduates_hired_employees_year_1"></span>名</td>
-                                                <td class="wrap1"><span class="number_of_employees_leaved_employees_year_1"></span>名</td>
-                                            </tr>
-                                            <tr class="wrap2">
-                                                <th class="wrap1"><span class="year_of_new_graduates_hired_and_leaved_employees_2"></span>年度
-                                                </th>
-                                                <td class="wrap1"><span class="number_of_new_graduates_hired_employees_year_2"></span>名</td>
-                                                <td class="wrap1"><span class="number_of_employees_leaved_employees_year_2"></span>名</td>
-                                            </tr>
-                                            <tr class="wrap2">
-                                                <th class="wrap1"><span class="year_of_new_graduates_hired_and_leaved_employees_3"></span>年度
-                                                </th>
-                                                <td class="wrap1"><span class="number_of_new_graduates_hired_employees_year_3"></span>名</td>
-                                                <td class="wrap1"><span class="number_of_employees_leaved_employees_year_3"></span>名</td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-
-                                <div class="mgnt20-30 wrap3">
-                                    <h4 class="companies-section-h4">直近3事業年度の新卒者等の採用者数（男性/女性）</h4>
-                                    <div>
-                                        <table class="tbl-bordered tbl-fixed wrap3">
-                                            <thead>
-                                            <tr>
-                                                <th></th>
-                                                <th>男性</th>
-                                                <th>女性</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr class="wrap2">
-                                                <th class="wrap1"><span class="year_of_new_graduates_hired_1"></span>年度</th>
-                                                <td class="wrap1"><span class="number_of_male_new_graduates_hired_year_1"></span>名</td>
-                                                <td class="wrap1"><span class="number_of_female_new_graduates_hired_year_1"></span>名</td>
-                                            </tr>
-                                            <tr class="wrap2">
-                                                <th class="wrap1"><span class="year_of_new_graduates_hired_2"></span>年度</th>
-                                                <td class="wrap1"><span class="number_of_male_new_graduates_hired_year_2"></span>名</td>
-                                                <td class="wrap1"><span class="number_of_female_new_graduates_hired_year_2"></span>名</td>
-                                            </tr>
-                                            <tr class="wrap2">
-                                                <th class="wrap1"><span class="year_of_new_graduates_hired_3"></span>年度</th>
-                                                <td class="wrap1"><span class="number_of_male_new_graduates_hired_year_3"></span>名</td>
-                                                <td class="wrap1"><span class="number_of_female_new_graduates_hired_year_3"></span>名</td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-
-                                <div class="mgnt20-30 recruitment_information_average_working_time_wrap">
-                                    <h4 class="companies-section-h4">平均勤続年数</h4>
-                                    <div><span class="recruitment_information_average_working_time"></span>年</div>
-                                </div>
-                            </section>
-
-                            <!-- -->
-                            <section class="js-disclosure-section mgnt30-50 hidden">
-                                <span id="noryokukaihatsu" class="anchor"></span>
-                                <h3 class="section-box-header-h3">
-                                    <span class="section-box-header-h3-jp section-box-header-h3-bg">職業能力の開発および向上に関する取組の実施状況</span>
-                                </h3>
-
-                                <div class="mgnt20-30 training_system_description_wrap">
-                                    <h4 class="companies-section-h4">研修制度</h4>
-                                    <div class="companies-ellipsis toggleOverflow"><span class="training_system"></span><span
-                                            class="training_system_description"></span></div>
-                                </div>
-
-                                <div class="mgnt20-30 self_development_support_description_wrap">
-                                    <h4 class="companies-section-h4">自己啓発支援</h4>
-                                    <div class="companies-ellipsis toggleOverflow"><span class="self_development_support"></span><span
-                                            class="self_development_support_description"></span></div>
-                                </div>
-
-                                <div class="mgnt20-30 mentor_system_description_wrap">
-                                    <h4 class="companies-section-h4">メンター制度</h4>
-                                    <div class="companies-ellipsis toggleOverflow"><span class="mentor_system"></span><span
-                                            class="mentor_system_description"></span></div>
-                                </div>
-
-                                <div class="mgnt20-30 career_consulting_system_description_wrap">
-                                    <h4 class="companies-section-h4">キャリアコンサルティング制度</h4>
-                                    <div class="companies-ellipsis toggleOverflow"><span class="career_consulting_system"></span><span
-                                            class="career_consulting_system_description"></span></div>
-                                </div>
-
-                                <div class="mgnt20-30 inhouse_certification_system_description_wrap">
-                                    <h4 class="companies-section-h4">社内検定等の制度</h4>
-                                    <div class="companies-ellipsis toggleOverflow"><span class="inhouse_certification_system"></span><span
-                                            class="inhouse_certification_system_description"></span></div>
-                                </div>
-                            </section>
-
-                            <!-- -->
-                            <section class="js-disclosure-section mgnt30-50 hidden">
-                                <span id="teichaku" class="anchor"></span>
-                                <h3 class="section-box-header-h3">
-                                    <span class="section-box-header-h3-jp section-box-header-h3-bg">職場への定着の促進に関する取組の実施状況</span>
-                                </h3>
-
-                                <div class="mgnt20-30 monthly_overtime_average_year_wrap">
-                                    <h4 class="companies-section-h4">前事業年度の月平均所定外労働時間</h4>
-                                    <div class="companies-ellipsis">
-                                        <dl class="default-dl">
-                                            <dt class="default-dl-dt wrap1"><span class="monthly_overtime_average_year"></span>年度</dt>
-                                            <dd class="default-dl-dd wrap1"><span class="monthly_overtime_average_time"></span>時間</dd>
-                                        </dl>
-                                    </div>
-                                </div>
-
-                                <div class="mgnt20-30 paid_day_off_average_wrap">
-                                    <h4 class="companies-section-h4">前事業年度の有給休暇の平均取得日数</h4>
-                                    <div class="companies-ellipsis">
-                                        <dl class="default-dl">
-                                            <dt class="default-dl-dt wrap1"><span class="paid_day_off_average_year"></span>年度</dt>
-                                            <dd class="default-dl-dd wrap1"><span class="paid_day_off_average_day"></span>日</dd>
-                                        </dl>
-                                    </div>
-                                </div>
-
-                                <div class="mgnt20-30 childcare_leave_wrap">
-                                    <h4 class="companies-section-h4">前事業年度の育児休業取得者数／出産者数(男性/女性)</h4>
-                                    <div>
-                                        <table class="tbl-bordered-small wrap2">
-                                            <caption class="wrap1">(男性) <span class="childcare_leave_average_men_year"></span>年度</caption>
-                                            <tbody>
-                                            <tr class="wrap1">
-                                                <th class="w18em">育児休業取得者数(男性)</th>
-                                                <td><span class="childcare_leave_average_men_number"></span>名</td>
-                                            </tr>
-                                            <tr class="wrap1">
-                                                <th>対象者数(配偶者が出産した男性)</th>
-                                                <td><span class="childcare_leave_average_quit_men_number"></span>名</td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-
-                                        <table class="tbl-bordered-small mgnt10-15 wrap2">
-                                            <caption class="wrap1">(女性) <span class="childcare_leave_average_women_year"></span>年度</caption>
-                                            <tbody>
-                                            <tr class="wrap1">
-                                                <th class="w18em">育児休業取得者数(女性)</th>
-                                                <td><span class="childcare_leave_average_women_number"></span>名</td>
-                                            </tr>
-                                            <tr class="wrap1">
-                                                <th>対象者数(出産者数)</th>
-                                                <td><span class="childcare_leave_average_women_number_of_births"></span>名</td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-
-                                <div class="mgnt20-30 number_of_managers_wrap">
-                                    <h4 class="companies-section-h4">役員及び管理的地位にある者に占める女性の割合</h4>
-                                    <div>
-                                        <table class="tbl-bordered-small wrap2">
-                                            <tbody>
-                                            <tr class="wrap1">
-                                                <th class="w18em">管理職にある者に占める女性の割合</th>
-                                                <td><span class="the_percentage_of_female_officers"></span>%</td>
-                                            </tr>
-                                            <tr class="wrap1">
-                                                <th>役員にある者に占める女性の割合</th>
-                                                <td><span class="the_percentage_of_female_managers"></span>%</td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </section>
-
-                            <section id="js-request-login-message" class="hidden">
-                                <p class="alert-box mgnt30-50">以下の情報をご覧になる場合には、ログインしてください。</p>
-                                <a href="/login/user" class="btn-default btn-blue w100-50prc" id="login-btn">ログイン</a>
-                            </section>
-
-                        </section>
-                        <!-- /ディスクロージャー -->
-
-                        <!-- 採用データ -->
-                        <section class="tab-contents-recruit" style="display: none;">
-
-                            <section class="">
-                                <div class="companies-preface latest_message_wrap">
-                                    <span class="latest_message line-break"></span>
-                                </div>
-                            </section>
-
-                            <section class="free_contents_wrap">
-                                <div class="mgnt20-30 clearfix free_contents1_wrap">
-                                    <div class="companies-catch"><span class="free_contents1_title"></span></div>
-                                    <figure class="companies-data-fig"><img src="" class="companies-data-img free_contents1_image_url"/>
-                                    </figure>
-                                    <p class="companies-data-body"><span class="free_contents1_content line-break"></span></p>
-                                </div>
-                                <div class="mgnt20-30 clearfix free_contents2_wrap">
-                                    <div class="companies-catch"><span class="free_contents2_title"></span></div>
-                                    <figure class="companies-data-fig"><img src="" class="companies-data-img free_contents2_image_url"/>
-                                    </figure>
-                                    <p class="companies-data-body"><span class="free_contents2_content line-break"></span></p>
-                                </div>
-                            </section>
-
-                            <section class="mgnt30-50 companies-border-top">
-                                <table class="companies-detail-info-box">
-                                    <tr class="job_description_wrap">
-                                        <th class="w15em">主な仕事内容</th>
-                                        <td><span class="job_description line-break"></span></td>
-                                    </tr>
-                                    <tr class="recruit_job_category_wrap">
-                                        <th>募集職種</th>
-                                        <td><span class="recruit_job_category line-break"></span>
-                                            <div class="mgnt10-15 recruit_job_category_select_wrap"><span
-                                                    class="recruit_job_category_select line-break"></span></div>
-                                        </td>
-                                    </tr>
-                                    <tr class="recruit_target_select_wrap">
-                                        <th>応募資格</th>
-                                        <td>
-                                            <div class="mgnt10-15 recruit_target_select_wrap">
-                                                <span class="recruit_target_select"></span>
-                                            </div>
-                                            <div class="mgnt10-15 recruit_target_other_wrap">
-                                                <span class="recruit_target_other line-break"></span>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="starting_salary_wrap">
-                                        <th>初任給</th>
-                                        <td>
-                                            <span class="starting_salary line-break"></span><br>
-                                            <span class="starting_salary_select_string"></span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>試用期間</th>
-                                        <td>
-                                            <span class="trial_period_string line-break"></span> <br>
-                                            <span class="trial_period_description line-break"></span>
-                                        </td>
-                                    </tr>
-                                    <tr id="allowance" class="allowance_wrap">
-                                        <th>諸手当</th>
-                                        <td><span class="allowance line-break"></span></td>
-                                    </tr>
-                                    <tr class="raise_bonus_wrap">
-                                        <th>昇給・賞与</th>
-                                        <td><span class="raise_bonus line-break"></span></td>
-                                    </tr>
-                                    <tr id="calculation_premium_wages" class="calculation_premium_wages_wrap">
-                                        <th>時間外・休日・深夜労働の割増賃金に係る計算方法</th>
-                                        <td><span class="calculation_premium_wages line-break"></span></td>
-                                    </tr>
-                                    <tr class="working_place_wrap">
-                                        <th>勤務地</th>
-                                        <td>
-                                            <span class="working_place line-break"></span>
-                                            <div class="mgnt10-15 working_place_select_wrap">
-                                                <span class="working_place_select"></span>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="business_hours_wrap">
-                                        <th>勤務時間</th>
-                                        <td><span class="business_hours line-break"></span></td>
-                                    </tr>
-                                    <tr id="overtime_work" class="overtime_work_wrap">
-                                        <th>残業・休日出勤</th>
-                                        <td><span class="overtime_work line-break"></span></td>
-                                    </tr>
-                                    <tr class="day_off_wrap">
-                                        <th>休日・休暇</th>
-                                        <td><span class="day_off line-break"></span></td>
-                                    </tr>
-                                    <tr id="working_condition" class="working_condition_wrap">
-                                        <th>待遇</th>
-                                        <td><span class="working_condition line-break"></span></td>
-                                    </tr>
-                                    <tr class="benefits_wrap">
-                                        <th>福利厚生</th>
-                                        <td><span class="benefits line-break"></span></td>
-                                    </tr>
-                                    <tr class="measures_to_prevent_passive_smoking_wrap">
-                                        <th>受動喫煙防止対策</th>
-                                        <td><span class="measures_to_prevent_passive_smoking line-break"></span></td>
-                                    </tr>
-                                    <tr class="training_wrap">
-                                        <th>教育制度</th>
-                                        <td><span class="training line-break"></span></td>
-                                    </tr>
-                                    <tr class="plan_department_select_wrap">
-                                        <th>採用予定学科</th>
-                                        <td>
-                                            <div class="mgnt10-15 plan_department_select_wrap">
-                                                <span class="plan_department_select"></span>
-                                            </div>
-                                            <div class="mgnt10-15 plan_department_other_wrap">
-                                                <span class="plan_department_other line-break"></span>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="recruit_record_university_wrap">
-                                        <th>過去の採用実績校</th>
-                                        <td>
-                                            <span class="recruit_record_university line-break"></span>
-                                        </td>
-                                    </tr>
-                                    <tr class="">
-                                        <th>応募書類</th>
-                                        <td>
-                                            <div class="mgnt10-15 application_form_select_wrap">
-                                                <span class="application_form_select"></span>
-                                            </div>
-                                            <div class="mgnt10-15 application_form_other_wrap">
-                                                <span class="application_form_other line-break"></span>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="recruitment_numbers_wrap">
-                                        <th>採用予定人数</th>
-                                        <td><span class="recruitment_numbers line-break"></span>
-                                            <div class="mgnt10-15 recruitment_numbers_select_wrap"><span
-                                                    class="recruitment_numbers_select_string"></span></div>
-                                        </td>
-                                    </tr>
-                                    <tr class="employment_pattern_wrap">
-                                        <th>雇用形態</th>
-                                        <td><span class="employment_pattern_string"></span></td>
-                                    </tr>
-                                    <tr class="average_age_of_employees_year_wrap">
-                                        <th>社員の平均年齢</th>
-                                        <td>
-                                            <dl class="default-dl">
-                                                <dt id="employees_year" class="default-dl-dt"><span
-                                                        class="average_age_of_employees_year"></span>年度
-                                                </dt>
-                                                <dd id="average_age" class="default-dl-dd"><span class="average_age_of_employees_age"></span>歳
-                                                </dd>
-                                            </dl>
-                                        </td>
-                                    </tr>
-                                    <tr char="last_recruit_record_wrap">
-                                        <th>昨年の採用人数</th>
-                                        <td><span class="last_recruit_record line-break"></span>
-                                            <div class="mgnt10-15 last_recruit_record_select_wrap"><span
-                                                    class="last_recruit_record_select_string"></span></div>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </section>
-
-                            <!-- -->
-                            <section class="mgnt30-50">
-                                <h3 class="section-box-header-h3">
-                                    <span class="section-box-header-h3-jp section-box-header-h3-bg">募集・採用に関する情報</span>
-                                </h3>
-
-                                <div id="years_recruit_year" class="mgnt20-30">
-                                    <h4 class="companies-section-h4">直近３事業年度の新卒者等の採用者数／離職者数</h4>
-                                    <table class="tbl-bordered tbl-fixed years_recruit_year_1_wrap">
-                                        <thead>
-                                        <tr>
-                                            <th></th>
-                                            <th>採用者数</th>
-                                            <th>離職者数</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr class="years_recruit_year_1_wrap">
-                                            <th><span class="years_recruit_year_1"></span>年度</th>
-                                            <td><span class="years_recruit_year_1_number_employees"></span>名</td>
-                                            <td><span class="years_recruit_year_1_number_employees_leaving"></span>名</td>
-                                        </tr>
-                                        <tr class="years_recruit_year_2_wrap">
-                                            <th><span class="years_recruit_year_2"></span>年度</th>
-                                            <td><span class="years_recruit_year_2_number_employees"></span>名</td>
-                                            <td><span class="years_recruit_year_2_number_employees_leaving"></span>名</td>
-                                        </tr>
-                                        <tr class="years_recruit_year_3_wrap">
-                                            <th><span class="years_recruit_year_3"></span>年度</th>
-                                            <td><span class="years_recruit_year_3_number_employees"></span>名</td>
-                                            <td><span class="years_recruit_year_3_number_employees_leaving"></span>名</td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                    <div class="years_recruit_description_wrap mgnt10-15"><span
-                                            class="years_recruit_description line-break"></span>
-                                    </div>
-                                </div>
-
-                                <div id="years_gender_recruit_year_1_male_number" class="mgnt20-30">
-                                    <h4 class="companies-section-h4">直近３事業年度の新卒者等の採用者数（男性／女性）</h4>
-                                    <table class="tbl-bordered tbl-fixed years_gender_recruit_year_1_wrap">
-                                        <thead>
-                                        <tr>
-                                            <th></th>
-                                            <th>男性</th>
-                                            <th>女性</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr class="years_gender_recruit_year_1_wrap">
-                                            <th><span class="years_gender_recruit_year_1"></span>年度</th>
-                                            <td><span class="years_gender_recruit_year_1_male_number"></span>名</td>
-                                            <td><span class="years_gender_recruit_year_1_female_number"></span>名</td>
-                                        </tr>
-                                        <tr class="years_gender_recruit_year_2_wrap">
-                                            <th><span class="years_gender_recruit_year_2"></span>年度</th>
-                                            <td><span class="years_gender_recruit_year_2_male_number"></span>名</td>
-                                            <td><span class="years_gender_recruit_year_2_female_number"></span>名</td>
-                                        </tr>
-                                        <tr class="years_gender_recruit_year_3_wrap">
-                                            <th><span class="years_gender_recruit_year_3"></span>年度</th>
-                                            <td><span class="years_gender_recruit_year_3_male_number"></span>名</td>
-                                            <td><span class="years_gender_recruit_year_3_female_number"></span>名</td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                    <div class="years_gender_recruit_description_wrap mgnt10-15"><span
-                                            class="years_gender_recruit_description line-break"></span></div>
-                                </div>
-
-                                <div class="mgnt20-30 average_service_year_wrap">
-                                    <h4 class="companies-section-h4">平均勤続年数</h4>
-                                    <div class="average_service_year_wrap"><span class="average_service_year"></span>年</div>
-                                    <div class="average_service_day_description_wrap"><span
-                                            class="average_service_day_description"></span></div>
-                                </div>
-                            </section>
-
-                            <!-- -->
-                            <section class="mgnt30-50">
-                                <h3 class="section-box-header-h3">
-                                    <span class="section-box-header-h3-jp section-box-header-h3-bg">職業能力の開発及び向上に関する取組の実施状況</span>
-                                </h3>
-                                <table class="companies-detail-info-box">
-                                    <tr class="training_program_exists_wrap">
-                                        <th class="w15em">研修制度</th>
-                                        <td><span class="training_program_exists"></span>
-                                            <div class="mgnt10-15 training_program_contents_wrap"><span
-                                                    class="training_program_contents line-break"></span></div>
-                                        </td>
-                                    </tr>
-                                    <tr class="self_development_support_exists_wrap">
-                                        <th>自己啓発支援</th>
-                                        <td><span class="self_development_support_exists"></span>
-                                            <div class="mgnt10-15 self_development_support_contents_wrap"><span
-                                                    class="self_development_support_contents line-break"></span></div>
-                                        </td>
-                                    </tr>
-                                    <tr class="mentor_system_exists_wrap">
-                                        <th>メンター制度</th>
-                                        <td><span class="mentor_system_exists"></span>
-                                            <div class="mgnt10-15 mentor_system_contents_wrap"><span
-                                                    class="mentor_system_contents line-break"></span>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="carrier_consultation_system_exists_wrap">
-                                        <th>キャリアコンサルティング制度</th>
-                                        <td><span class="carrier_consultation_system_exists"></span>
-                                            <div class="mgnt10-15 carrier_consultation_system_contents_wrap"><span
-                                                    class="carrier_consultation_system_contents line-break"></span></div>
-                                        </td>
-                                    </tr>
-                                    <tr class="internal_examinations_exists_wrap">
-                                        <th>社内検定等の制度</th>
-                                        <td><span class="internal_examinations_exists"></span>
-                                            <div class="mgnt10-15 internal_examinations_contents_wrap"><span
-                                                    class="internal_examinations_contents line-break"></span></div>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </section>
-
-                            <!-- -->
-                            <section class="mgnt30-50">
-                                <h3 class="section-box-header-h3">
-                                    <span class="section-box-header-h3-jp section-box-header-h3-bg">職場への定着の促進に関する取組の実施状況</span>
-                                </h3>
-                                <table class="companies-detail-info-box">
-                                    <tr id="monthly_overtime_average_year" class="monthly_overtime_average_year_wrap">
-                                        <th class="w15em">前事業年度の月平均所定外労働時間</th>
-                                        <td>
-                                            <dl class="default-dl">
-                                                <dt class="default-dl-dt"><span class="monthly_overtime_average_year"></span>年度</dt>
-                                                <dd class="default-dl-dd"><span class="monthly_overtime_average_number"></span>時間</dd>
-                                            </dl>
-                                        </td>
-                                    </tr>
-                                    <tr id="paid_day_off_average_year" class="paid_day_off_average_year_wrap">
-                                        <th>前事業年度の有給休暇の平均取得日数</th>
-                                        <td>
-                                            <dl class="default-dl">
-                                                <dt class="default-dl-dt"><span class="paid_day_off_average_year"></span>年度</dt>
-                                                <dd class="default-dl-dd"><span class="paid_day_off_average_number"></span>日</dd>
-                                            </dl>
-                                        </td>
-                                    </tr>
-                                    <tr id="childcare_leave_men_average_year">
-                                        <th>前事業年度の育児休業取得者数／出産者数(男性/女性)</th>
-                                        <td>
-                                            <table class="childcare_leave_men_average_year_wrap tbl-bordered-small">
-                                                <caption>(男性) <span class="childcare_leave_men_average_year"></span>年度</caption>
-                                                <tbody>
-                                                <tr>
-                                                    <th class="w18em">育児休業取得者数(男性)</th>
-                                                    <td><span class="childcare_leave_men_average_year_num_of_employees_leave"></span>名</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>対象者数(配偶者が出産した男性)</th>
-                                                    <td><span class="childcare_leave_men_average_year_num_of_have_wife_gave_birth"></span>名</td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-
-                                            <table class="childcare_leave_female_average_year_wrap tbl-bordered-small mgnt10-15">
-                                                <caption>(女性) <span class="childcare_leave_female_average_year"></span>年度</caption>
-                                                <tbody>
-                                                <tr>
-                                                    <th class="w18em">育児休業取得者数(女性)</th>
-                                                    <td><span class="childcare_leave_female_average_num_of_employees_leave"></span>名</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>対象者数(出産者数)</th>
-                                                    <td><span class="childcare_leave_men_average_num_of_eligible_persons_births"></span>名</td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                        </td>
-                                    </tr>
-                                    <tr id="the_percentage_of_female_officers"
-                                        class="the_percentage_of_female_officers_wrap">
-                                        <th>役員及び管理的地位にある者に占める女性の割合 </th>
-                                        <td>
-                                            <table class="tbl-bordered-small">
-                                                <tbody>
-                                                <tr>
-                                                    <th class="w18em">管理職にある者に占める女性の割合</th>
-                                                    <td><span class="the_percentage_of_female_officers"></span>%</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>役員にある者に占める女性の割合</th>
-                                                    <td><span class="the_percentage_of_female_managers"></span>%</td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </section>
-
-                            <!-- 自由項目 -->
-                            <section class="mgnt30-50">
-                                <table id="free-fields" class="companies-detail-info-box">
-                                    <!--generate by js-->
-                                </table>
-                            </section>
-
-                            <section class="recruitment_wrap mgnt30-50 companies-border-top">
-                                <div class="companies-contact-ttl hidden">お問合わせ窓口</div>
-                                <div class="recruiter-info"></div>
-                            </section>
-                            <div id="entryBtnOuterBoxRecruit" class="entry-box-outer">
-                                <div id="entryBtnBoxRecruit" class="entry-btn-box">
-                                    <a href="javascript:void(0);" id="recruit-entry-btn" class="btn-default btn-blue btn-entry">エントリー</a>
-                                </div>
-                            </div>
-
-                        </section>
-                        <!-- /採用データ -->
-                        <!-- インターン -->
-                        <section class="tab-contents-internships" style="display: none;">
-
-                            <section class="">
-                                <ul class="category-list-ul" id="internship-titles"></ul>
-                                <div class="companies-preface latest_message_2_wrap">
-                                    <span class="latest_message_2"></span>
-                                </div>
-                            </section>
-
-                            <section class="free_contents_wrap">
-                                <!--
-                                        <div class="free_content1_wrap mgnt20-30 clearfix">
-                                            <div class="companies-catch free_content1_title_wrap"><span class="free_content1_title"></span></div>
-                                            <figure class="companies-data-fig"><img src="{{path}}img/img-company-09.jpg" class="companies-data-img" /></figure>
-                                            <p class="companies-data-body">説明文がここに入ります。この文章はダミーです。お読みにならないでください。説明文がここに入ります。この文章はダミーです。お読みにならないでください。</p>
-                                        </div>
-                                        <div class="free_content2_wrap mgnt20-30 clearfix">
-                                            <div class="companies-catch">商社ならではのダイナミックな仕事が魅力！</div>
-                                            <figure class="companies-data-fig"><img src="{{path}}img/img-company-10.jpg" class="companies-data-img" /></figure>
-                                            <p class="companies-data-body">説明文がここに入ります。この文章はダミーです。お読みにならないでください。説明文がここに入ります。この文章はダミーです。お読みにならないでください。</p>
-                                        </div>
-                                        -->
-                            </section>
-
-                            <section class="mgnt30-50 companies-border-top">
-                                <table class="companies-detail-info-box">
-                                    <tr class="contents_wrap">
-                                        <th class="w11em">実施内容</th>
-                                        <td><span class="contents"></span></td>
-                                    </tr>
-                                    <tr class="accept_numbers_wrap">
-                                        <th>募集人数</th>
-                                        <td><span class="accept_numbers"></span></td>
-                                    </tr>
-                                    <tr class="target_wrap">
-                                        <th>募集対象</th>
-                                        <td><span class="target"></span>
-                                            <div class="mgnt10-15 target_select_wrap"><span class="target_select"></span></div>
-                                        </td>
-                                    </tr>
-                                    <tr class="place_wrap">
-                                        <th>実施場所</th>
-                                        <td><span class="place"></span>
-                                            <div class="mgnt10-15 place_select_string_wrap"><span class="place_select_string"></span></div>
-                                        </td>
-                                    </tr>
-                                    <tr class="term_wrap">
-                                        <th>実施期間</th>
-                                        <td>
-                                            <span class="term"></span>
-                                            <div class="mgnt10-15 term_select_wrap"><span class="term_select"></span></div>
-                                            <div class="mgnt10-15 internship_month_from_wrap">
+            <div class="companies-event-label-box"></div>
+          </div>
+          <div class="clearfix">
+            <div class="companies-detail-vis-box">
+              <figure class="companies-detail-main-fig">
+              </figure>
+            </div>
+            <div class="companies-detail-images-box">
+              <div class="tags-box">
+              </div>
+              <ul class="companies-detail-images-ul"></ul>
+              <ul id="hiddenUl" style="display: none;">
+
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- イベント出展情報 -->
+        <section id="data-dnavi" class="mgnt30-50">
+          <h3 id="data-dnavi-title" class="companies-section-h3 hidden">イベント出展情報</h3>
+          <!-- dump data dnavi-->
+        </section>
+
+        <!-- 企業セミナー開催予定 -->
+        <section id="data-asura" class="mgnt30-50">
+          <h3 id="data-asura-title" class="companies-section-h3 hidden">企業セミナー開催予定</h3>
+          <!-- dump data asura-->
+        </section>
+
+        <!-- メインコンテンツ -->
+        <section class="mgnt30-50">
+
+          <span id="tabArea" class="anchor"></span>
+
+          <!-- コンテンツ切り替えタブ -->
+          <ul id="tabs" class="tabs-ul">
+            <li class="tabs-ul-li"><a href="javascript:void(0)" class="tab-a companyinfo tab-a-active">企業情報</a></li>
+            <li class="tabs-ul-li"><a href="javascript:void(0)" class="tab-a disclosure">ディス<span
+              class="ilb">クロージャー</span></a></li>
+            <li class="tabs-ul-li"><a href="javascript:void(0)" class="tab-a recruit">採用データ</a></li>
+            <li class="tabs-ul-li"><a href="javascript:void(0)" class="tab-a internships line-break">インターンシップ& <br> キャリア支援</a></li>
+          </ul>
+
+          <!-- コンテンツ -->
+          <div class="tab-contents">
+            <!-- 企業情報 -->
+            <section class="tab-contents-companyinfo">
+              <h3 class="text-top-tabs"></h3>
+              <table class="companies-detail-info-box">
+                <!-- <tr><th class="w7em">企業名</th><td>三菱商事株式会社</td></tr>
+					<tr><th>フリガナ</th><td>ミツビシショウジカブシキガイシャ</td></tr> -->
+                <tr class="business_description_wrap">
+                  <th class="w8em">事業内容</th>
+                  <td class="business_description">
+                    <p class="line-break"></p>
+                  </td>
+                </tr>
+                <tr class="establishment_year_wrap">
+                  <th class="w8em establishment_year_title">設立</th>
+                  <td><span class="establishment_year"></span>年</td>
+                </tr>
+                <tr class="representative_wrap">
+                  <th class="w8em">代表者</th>
+                  <td><span class="representative_executive"></span> <span class="representative_name"></span></td>
+                </tr>
+                <tr class="address1_wrap">
+                  <th class="w8em address_title"></th>
+                  <td>〒<span class="postcode"></span><span class="address_line1"></span><span
+                    class="address_line2"></span></td>
+                </tr>
+                <tr class="address2_wrap">
+                  <th class="w8em address_title"></th>
+                  <td>〒<span class="postcode"></span><span class="address_line1"></span><span
+                    class="address_line2"></span></td>
+                </tr>
+                <tr class="address3_wrap">
+                  <th class="w8em address_title"></th>
+                  <td>〒<span class="postcode"></span><span class="address_line1"></span><span
+                    class="address_line2"></span></td>
+                </tr>
+                <tr class="capital_stock_wrap">
+                  <th class="w8em capital_stock_title">資本金</th>
+                  <td><span class="capital_stock"></span>万円</td>
+                </tr>
+                <tr class="sales_wrap">
+                  <th class="w8em sales_title">売上高</th>
+                  <td><span class="sales"></span>万円<span class="sales_year">（<span class="num"></span>年）</span></td>
+                </tr>
+                <tr class="is_public_offering_wrap">
+                  <th class="w8em">株式公開区分</th>
+                  <td class="is_public_offering"></td>
+                </tr>
+                <tr class="employees_num_wrap">
+                  <th class="w8em">従業員数／職員数</th>
+                  <td><span class="employees_num"></span>名<span class="employees_num_year">（<span class="num"></span>年）</span>
+                  </td>
+                </tr>
+                <tr class="industry_type_main_wrap">
+                  <th class="w8em">業種</th>
+                  <td class="industry_type_main"></td>
+                </tr>
+              </table>
+            </section>
+            <!-- /企業情報 -->
+
+            <!-- ディスクロージャー -->
+            <section class="tab-contents-disclosure" style="display: none;">
+
+              <ul class="category-list-ul">
+                <li class="category-list-ul-li"><a href="#senkotaisaku">本選考対策（実績）</a></li>
+                <li class="category-list-ul-li"><a href="#internship">インターンシップ選考対策</a></li>
+                <li class="category-list-ul-li"><a href="#anshin">安心して働く</a></li>
+                <li class="category-list-ul-li"><a href="#seicho">成長を支援する</a></li>
+                <li class="category-list-ul-li"><a href="#merihari">メリハリのある働き方</a></li>
+                <li class="category-list-ul-li"><a href="#gaikokugo">外国語の利用</a></li>
+                <li class="category-list-ul-li"><a href="#koryu">社内交流</a></li>
+                <li class="category-list-ul-li"><a href="#boshu">募集・採用に関する情報</a></li>
+                <li class="category-list-ul-li"><a href="#noryokukaihatsu">職業能力の開発および向上に関する取組の実施状況</a></li>
+                <li class="category-list-ul-li"><a href="#teichaku">職場への定着の促進に関する取組の実施状況</a></li>
+                <!-- <li class="category-list-ul-li"><a href="#senkotaisaku">選考対策</a></li> -->
+                <!-- <li class="category-list-ul-li"><a href="#shusshin">社員の出身大学</a></li> -->
+                <!-- <li class="category-list-ul-li"><a href="#hyoka">評価制度</a></li> -->
+                <!-- <li class="category-list-ul-li"><a href="#tayosei">多様性</a></li> -->
+                <!-- <li class="category-list-ul-li"><a href="#nintei">認定マーク取得</a></li> -->
+              </ul>
+
+              <!-- -->
+              <section class="js-disclosure-section mgnt30-50 hidden">
+                <span id="senkotaisaku" class="anchor"></span>
+                <h3 class="section-box-header-h3">
+                  <span class="section-box-header-h3-jp section-box-header-h3-bg">本選考対策（実績）</span>
+                </h3>
+
+                <div class="mgnt20-30 select_step_wrap">
+                  <h4 class="companies-section-h4">選考ステップ</h4>
+                  <div class="companies-ellipsis toggleOverflow"><span class="select_step"></span></div>
+                </div>
+
+                <div class="mgnt20-30 written_examination_description_wrap">
+                  <h4 class="companies-section-h4">筆記試験</h4>
+                  <div class="companies-ellipsis toggleOverflow"><span class="written_examination"></span><span
+                    class="written_examination_description"></span></div>
+                </div>
+
+                <div class="mgnt20-30 entry_sheet_es_questions_description_wrap">
+                  <h4 class="companies-section-h4">エントリーシート（ES）質問項目</h4>
+                  <div class="companies-ellipsis toggleOverflow">
+                    <span class="entry_sheet_es_questions"></span>
+                    <span class="entry_sheet_es_questions_description"></span>
+                  </div>
+                </div>
+
+                <div class="mgnt20-30 group_work_discuss_wrap">
+                  <h4 class="companies-section-h4">グループワーク（GW）・グループディスカッション（GD）</h4>
+                  <div class="companies-ellipsis toggleOverflow">
+                    <span class="group_work"></span>
+                    <span class="group_work_discuss"></span>
+                  </div>
+                </div>
+
+                <div class="mgnt20-30 group_interview_description_wrap">
+                  <h4 class="companies-section-h4">集団面接</h4>
+                  <div class="companies-ellipsis toggleOverflow"><span class="group_interview"></span><span
+                    class="group_interview_description"></span></div>
+                </div>
+
+                <div class="mgnt20-30 personal_interview_description_wrap">
+                  <h4 class="companies-section-h4">個人面接</h4>
+                  <div class="companies-ellipsis toggleOverflow"><span class="personal_interview"></span><span
+                    class="personal_interview_description"></span></div>
+                </div>
+
+                <div class="mgnt20-30 interview_questions_wrap">
+                  <h4 class="companies-section-h4">面接の質問項目</h4>
+                  <div class="companies-ellipsis toggleOverflow"><span class="interview_questions"></span></div>
+                </div>
+
+                <div class="mgnt20-30 application_magnification_wrap">
+                  <h4 class="companies-section-h4">応募倍率</h4>
+                  <div class="companies-ellipsis toggleOverflow"><span class="application_magnification"></span></div>
+                </div>
+
+                <div class="mgnt20-30 key_points_in_each_selection_process_wrap">
+                  <h4 class="companies-section-h4">各選考プロセスにおいて重視するポイント</h4>
+                  <div class="companies-ellipsis toggleOverflow"><span
+                    class="key_points_in_each_selection_process"></span></div>
+                </div>
+
+                <div class="mgnt20-30 what_we_want_you_to_do_before_selection_wrap">
+                  <h4 class="companies-section-h4">選考前に取り組んでほしいこと</h4>
+                  <div class="companies-ellipsis toggleOverflow"><span
+                    class="what_we_want_you_to_do_before_selection"></span></div>
+                </div>
+
+                <div class="mgnt20-30 advice_on_how_to_conduct_industry_company_research_wrap">
+                  <h4 class="companies-section-h4">業界・企業研究の取り組み方についてのアドバイス</h4>
+                  <div class="companies-ellipsis toggleOverflow"><span
+                    class="advice_on_how_to_conduct_industry_company_research"></span></div>
+                </div>
+              </section>
+
+              <!-- -->
+              <section class="js-disclosure-section mgnt30-50 hidden">
+                <span id="internship" class="anchor"></span>
+                <h3 class="section-box-header-h3">
+                  <span class="section-box-header-h3-jp section-box-header-h3-bg">インターンシップ選考対策</span>
+                </h3>
+
+                <div class="mgnt20-30 internship_implementation_description_wrap">
+                  <h4 class="companies-section-h4">インターンシップ実施の有無</h4>
+                  <div class="companies-ellipsis toggleOverflow"><span class="internship_implementation"></span><span
+                    class="internship_implementation_description"></span></div>
+                </div>
+
+                <div class="mgnt20-30 selection_for_internship_participation_description_wrap">
+                  <h4 class="companies-section-h4">インターンシップ参加への選考の有無</h4>
+                  <div class="companies-ellipsis toggleOverflow"><span
+                    class="selection_for_internship_participation"></span><span
+                    class="selection_for_internship_participation_description"></span></div>
+                </div>
+
+                <div class="mgnt20-30 internship_key_points_in_each_selection_process_wrap">
+                  <h4 class="companies-section-h4">各選考プロセスにおいて重視するポイント</h4>
+                  <div class="companies-ellipsis toggleOverflow"><span
+                    class="internship_key_points_in_each_selection_process"></span></div>
+                </div>
+
+                <div class="mgnt20-30 advice_for_participating_in_the_internship_wrap">
+                  <h4 class="companies-section-h4">インターンシップ参加へのアドバイス</h4>
+                  <div class="companies-ellipsis toggleOverflow"><span
+                    class="advice_for_participating_in_the_internship"></span></div>
+                </div>
+              </section>
+
+              <!-- -->
+              <section class="js-disclosure-section mgnt30-50 hidden">
+                <span id="anshin" class="anchor"></span>
+                <h3 class="section-box-header-h3">
+                  <span class="section-box-header-h3-jp section-box-header-h3-bg">安心して働く</span>
+                </h3>
+
+                <div class="mgnt20-30 wrap2">
+                  <h4 class="companies-section-h4">平均年収</h4>
+                  <div>
+                    <table class="tbl-bordered-small">
+                      <tbody>
+                      <tr class="number_of_average_annual_income_wrap wrap1">
+                        <th class="w7em">全体</th>
+                        <td><span class="number_of_average_annual_income"></span>万円</td>
+                      </tr>
+                      <tr class="number_of_average_age_wrap">
+                        <th>平均年齢</th>
+                        <td><span class="number_of_average_age"></span>歳</td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                <div class="mgnt20-30 executive_school_wrap">
+                  <h4 class="companies-section-h4">役員出身校</h4>
+                  <div class="companies-ellipsis toggleOverflow"><span class="executive_school"></span></div>
+                </div>
+
+                <div class="mgnt20-30 head_office_assignment_ratio_at_the_time_of_joining_the_company_wrap">
+                  <h4 class="companies-section-h4">入社時本社配属比率</h4>
+                  <div class="companies-ellipsis toggleOverflow"><span
+                    class="head_office_assignment_ratio_at_the_time_of_joining_the_company"></span></div>
+                </div>
+
+                <div class="mgnt20-30 job_rotation_description_wrap">
+                  <h4 class="companies-section-h4">ジョブローテーション</h4>
+                  <div class="companies-ellipsis toggleOverflow"><span class="job_rotation"></span><span
+                    class="job_rotation_description"></span></div>
+                </div>
+
+                <div class="mgnt20-30 response_to_harassment_description_wrap">
+                  <h4 class="companies-section-h4">ハラスメントへの対応</h4>
+                  <div class="companies-ellipsis toggleOverflow"><span class="response_to_harassment"></span><span
+                    class="response_to_harassment_description"></span></div>
+                </div>
+
+                <div class="mgnt20-30 unique_welfare_system_description_wrap">
+                  <h4 class="companies-section-h4">独自の福利厚生制度</h4>
+                  <div class="companies-ellipsis toggleOverflow"><span class="unique_welfare_system"></span><span
+                    class="unique_welfare_system_description"></span></div>
+                </div>
+
+                <div class="mgnt20-30 health_management_initiatives_description_wrap">
+                  <h4 class="companies-section-h4">健康経営の取組</h4>
+                  <div class="companies-ellipsis toggleOverflow"><span
+                    class="health_management_initiatives"></span><span
+                    class="health_management_initiatives_description"></span></div>
+                </div>
+
+                <div class="mgnt20-30 measures_to_prevent_overwork_description_wrap">
+                  <h4 class="companies-section-h4">過重労働防止対策</h4>
+                  <div class="companies-ellipsis toggleOverflow"><span class="measures_to_prevent_overwork"></span><span
+                    class="measures_to_prevent_overwork_description"></span></div>
+                </div>
+
+                <div class="mgnt20-30 measures_to_prevent_passive_smoking_description_wrap">
+                  <h4 class="companies-section-h4">受動喫煙防止対策</h4>
+                  <div class="companies-ellipsis toggleOverflow"><span
+                    class="measures_to_prevent_passive_smoking"></span><span
+                    class="measures_to_prevent_passive_smoking_description"></span></div>
+                </div>
+
+                <div class="mgnt20-30 support_until_childbirth_description_wrap">
+                  <h4 class="companies-section-h4">出産までのサポート</h4>
+                  <div class="companies-ellipsis toggleOverflow"><span class="support_until_childbirth"></span><span
+                    class="support_until_childbirth_description"></span></div>
+                </div>
+
+                <div class="mgnt20-30 childcare_support_description_wrap">
+                  <h4 class="companies-section-h4">育児のサポート</h4>
+                  <div class="companies-ellipsis toggleOverflow"><span class="childcare_support"></span><span
+                    class="childcare_support_description"></span></div>
+                </div>
+              </section>
+
+              <!-- -->
+              <section class="js-disclosure-section mgnt30-50 hidden">
+                <span id="seicho" class="anchor"></span>
+                <h3 class="section-box-header-h3">
+                  <span class="section-box-header-h3-jp section-box-header-h3-bg">成長を支援する</span>
+                </h3>
+
+                <div class="mgnt20-30 human_resource_development_policy_wrap">
+                  <h4 class="companies-section-h4">人財育成方針</h4>
+                  <div class="companies-ellipsis toggleOverflow"><span class="human_resource_development_policy"></span>
+                  </div>
+                </div>
+
+                <div class="mgnt20-30 internal_recruitment_system_description_wrap">
+                  <h4 class="companies-section-h4">社内公募制度</h4>
+                  <div class="companies-ellipsis toggleOverflow"><span class="internal_recruitment_system"></span><span
+                    class="internal_recruitment_system_description"></span></div>
+                </div>
+
+                <div class="mgnt20-30 company_sponsored_study_abroad_system_description_wrap">
+                  <h4 class="companies-section-h4">社費留学・企業留学制度</h4>
+                  <div class="companies-ellipsis toggleOverflow"><span
+                    class="company_sponsored_study_abroad_system"></span><span
+                    class="company_sponsored_study_abroad_system_description"></span></div>
+                </div>
+
+                <div class="mgnt20-30 evaluation_system_description_wrap">
+                  <h4 class="companies-section-h4">評価制度</h4>
+                  <div class="companies-ellipsis toggleOverflow"><span class="evaluation_system"></span><span
+                    class="evaluation_system_description"></span></div>
+                </div>
+
+                <div class="mgnt20-30 reward_system_description_wrap">
+                  <h4 class="companies-section-h4">褒賞制度</h4>
+                  <div class="companies-ellipsis toggleOverflow"><span class="reward_system"></span><span
+                    class="reward_system_description"></span></div>
+                </div>
+              </section>
+
+              <!-- -->
+              <section class="js-disclosure-section mgnt30-50 hidden">
+                <span id="merihari" class="anchor"></span>
+                <h3 class="section-box-header-h3">
+                  <span class="section-box-header-h3-jp section-box-header-h3-bg">メリハリのある働き方</span>
+                </h3>
+
+                <div class="mgnt20-30 unique_leave_system_description_wrap">
+                  <h4 class="companies-section-h4">独自の休暇制度</h4>
+                  <div class="companies-ellipsis toggleOverflow"><span class="unique_leave_system"></span><span
+                    class="unique_leave_system_description"></span></div>
+                </div>
+
+                <div class="mgnt20-30 office_environment_maintenance_description_wrap">
+                  <h4 class="companies-section-h4">オフィス環境整備</h4>
+                  <div class="companies-ellipsis toggleOverflow"><span
+                    class="office_environment_maintenance"></span><span
+                    class="office_environment_maintenance_description"></span></div>
+                </div>
+
+                <div class="mgnt20-30 telework_system_description_wrap">
+                  <h4 class="companies-section-h4">テレワーク制度</h4>
+                  <div class="companies-ellipsis toggleOverflow"><span class="telework_system"></span><span
+                    class="telework_system_description"></span></div>
+                </div>
+              </section>
+
+              <!-- -->
+              <section class="js-disclosure-section mgnt30-50 hidden">
+                <span id="gaikokugo" class="anchor"></span>
+                <h3 class="section-box-header-h3">
+                  <span class="section-box-header-h3-jp section-box-header-h3-bg">外国語の利用</span>
+                </h3>
+
+                <div class="mgnt20-30 standards_of_language_skills_required_wrap">
+                  <h4 class="companies-section-h4">求める語学力の基準</h4>
+                  <div class="companies-ellipsis toggleOverflow"><span
+                    class="standards_of_language_skills_required"></span></div>
+                </div>
+
+                <div class="mgnt20-30 work_abroad_description_wrap">
+                  <h4 class="companies-section-h4">海外での仕事</h4>
+                  <div class="companies-ellipsis toggleOverflow"><span class="work_abroad"></span><span
+                    class="work_abroad_description"></span></div>
+                </div>
+              </section>
+
+              <!-- -->
+              <section class="js-disclosure-section mgnt30-50 hidden">
+                <span id="koryu" class="anchor"></span>
+                <h3 class="section-box-header-h3">
+                  <span class="section-box-header-h3-jp section-box-header-h3-bg">社内交流</span>
+                </h3>
+
+                <div class="mgnt20-30 communication_system_event_description_wrap">
+                  <h4 class="companies-section-h4">コミュニケーション（制度・イベント）</h4>
+                  <div class="companies-ellipsis toggleOverflow"><span class="communication_system_event"></span><span
+                    class="communication_system_event_description"></span></div>
+                </div>
+
+                <div class="mgnt20-30 communication_environment_equipment_description_wrap">
+                  <h4 class="companies-section-h4">コミュニケーション（環境・設備）</h4>
+                  <div class="companies-ellipsis toggleOverflow"><span
+                    class="communication_environment_equipment"></span><span
+                    class="communication_environment_equipment_description"></span></div>
+                </div>
+              </section>
+
+              <!-- -->
+              <section class="js-disclosure-section mgnt30-50 hidden">
+                <span id="boshu" class="anchor"></span>
+                <h3 class="section-box-header-h3">
+                  <span class="section-box-header-h3-jp section-box-header-h3-bg">募集・採用に関する情報</span>
+                </h3>
+
+                <div class="mgnt20-30 wrap3">
+                  <h4 class="companies-section-h4">直近3事業年度の新卒者等の採用者数/離職者数</h4>
+                  <div>
+                    <table class="tbl-bordered tbl-fixed wrap3">
+                      <thead>
+                      <tr>
+                        <th></th>
+                        <th>採用者数</th>
+                        <th>離職者数</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr class="wrap2">
+                        <th class="wrap1"><span class="year_of_new_graduates_hired_and_leaved_employees_1"></span>年度
+                        </th>
+                        <td class="wrap1"><span class="number_of_new_graduates_hired_employees_year_1"></span>名</td>
+                        <td class="wrap1"><span class="number_of_employees_leaved_employees_year_1"></span>名</td>
+                      </tr>
+                      <tr class="wrap2">
+                        <th class="wrap1"><span class="year_of_new_graduates_hired_and_leaved_employees_2"></span>年度
+                        </th>
+                        <td class="wrap1"><span class="number_of_new_graduates_hired_employees_year_2"></span>名</td>
+                        <td class="wrap1"><span class="number_of_employees_leaved_employees_year_2"></span>名</td>
+                      </tr>
+                      <tr class="wrap2">
+                        <th class="wrap1"><span class="year_of_new_graduates_hired_and_leaved_employees_3"></span>年度
+                        </th>
+                        <td class="wrap1"><span class="number_of_new_graduates_hired_employees_year_3"></span>名</td>
+                        <td class="wrap1"><span class="number_of_employees_leaved_employees_year_3"></span>名</td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                <div class="mgnt20-30 wrap3">
+                  <h4 class="companies-section-h4">直近3事業年度の新卒者等の採用者数（男性/女性）</h4>
+                  <div>
+                    <table class="tbl-bordered tbl-fixed wrap3">
+                      <thead>
+                      <tr>
+                        <th></th>
+                        <th>男性</th>
+                        <th>女性</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr class="wrap2">
+                        <th class="wrap1"><span class="year_of_new_graduates_hired_1"></span>年度</th>
+                        <td class="wrap1"><span class="number_of_male_new_graduates_hired_year_1"></span>名</td>
+                        <td class="wrap1"><span class="number_of_female_new_graduates_hired_year_1"></span>名</td>
+                      </tr>
+                      <tr class="wrap2">
+                        <th class="wrap1"><span class="year_of_new_graduates_hired_2"></span>年度</th>
+                        <td class="wrap1"><span class="number_of_male_new_graduates_hired_year_2"></span>名</td>
+                        <td class="wrap1"><span class="number_of_female_new_graduates_hired_year_2"></span>名</td>
+                      </tr>
+                      <tr class="wrap2">
+                        <th class="wrap1"><span class="year_of_new_graduates_hired_3"></span>年度</th>
+                        <td class="wrap1"><span class="number_of_male_new_graduates_hired_year_3"></span>名</td>
+                        <td class="wrap1"><span class="number_of_female_new_graduates_hired_year_3"></span>名</td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                <div class="mgnt20-30 recruitment_information_average_working_time_wrap">
+                  <h4 class="companies-section-h4">平均勤続年数</h4>
+                  <div><span class="recruitment_information_average_working_time"></span>年</div>
+                </div>
+              </section>
+
+              <!-- -->
+              <section class="js-disclosure-section mgnt30-50 hidden">
+                <span id="noryokukaihatsu" class="anchor"></span>
+                <h3 class="section-box-header-h3">
+                  <span class="section-box-header-h3-jp section-box-header-h3-bg">職業能力の開発および向上に関する取組の実施状況</span>
+                </h3>
+
+                <div class="mgnt20-30 training_system_description_wrap">
+                  <h4 class="companies-section-h4">研修制度</h4>
+                  <div class="companies-ellipsis toggleOverflow"><span class="training_system"></span><span
+                    class="training_system_description"></span></div>
+                </div>
+
+                <div class="mgnt20-30 self_development_support_description_wrap">
+                  <h4 class="companies-section-h4">自己啓発支援</h4>
+                  <div class="companies-ellipsis toggleOverflow"><span class="self_development_support"></span><span
+                    class="self_development_support_description"></span></div>
+                </div>
+
+                <div class="mgnt20-30 mentor_system_description_wrap">
+                  <h4 class="companies-section-h4">メンター制度</h4>
+                  <div class="companies-ellipsis toggleOverflow"><span class="mentor_system"></span><span
+                    class="mentor_system_description"></span></div>
+                </div>
+
+                <div class="mgnt20-30 career_consulting_system_description_wrap">
+                  <h4 class="companies-section-h4">キャリアコンサルティング制度</h4>
+                  <div class="companies-ellipsis toggleOverflow"><span class="career_consulting_system"></span><span
+                    class="career_consulting_system_description"></span></div>
+                </div>
+
+                <div class="mgnt20-30 inhouse_certification_system_description_wrap">
+                  <h4 class="companies-section-h4">社内検定等の制度</h4>
+                  <div class="companies-ellipsis toggleOverflow"><span class="inhouse_certification_system"></span><span
+                    class="inhouse_certification_system_description"></span></div>
+                </div>
+              </section>
+
+              <!-- -->
+              <section class="js-disclosure-section mgnt30-50 hidden">
+                <span id="teichaku" class="anchor"></span>
+                <h3 class="section-box-header-h3">
+                  <span class="section-box-header-h3-jp section-box-header-h3-bg">職場への定着の促進に関する取組の実施状況</span>
+                </h3>
+
+                <div class="mgnt20-30 monthly_overtime_average_year_wrap">
+                  <h4 class="companies-section-h4">前事業年度の月平均所定外労働時間</h4>
+                  <div class="companies-ellipsis">
+                    <dl class="default-dl">
+                      <dt class="default-dl-dt wrap1"><span class="monthly_overtime_average_year"></span>年度</dt>
+                      <dd class="default-dl-dd wrap1"><span class="monthly_overtime_average_time"></span>時間</dd>
+                    </dl>
+                  </div>
+                </div>
+
+                <div class="mgnt20-30 paid_day_off_average_wrap">
+                  <h4 class="companies-section-h4">前事業年度の有給休暇の平均取得日数</h4>
+                  <div class="companies-ellipsis">
+                    <dl class="default-dl">
+                      <dt class="default-dl-dt wrap1"><span class="paid_day_off_average_year"></span>年度</dt>
+                      <dd class="default-dl-dd wrap1"><span class="paid_day_off_average_day"></span>日</dd>
+                    </dl>
+                  </div>
+                </div>
+
+                <div class="mgnt20-30 childcare_leave_wrap">
+                  <h4 class="companies-section-h4">前事業年度の育児休業取得者数／出産者数(男性/女性)</h4>
+                  <div>
+                    <table class="tbl-bordered-small wrap2">
+                      <caption class="wrap1">(男性) <span class="childcare_leave_average_men_year"></span>年度</caption>
+                      <tbody>
+                      <tr class="wrap1">
+                        <th class="w18em">育児休業取得者数(男性)</th>
+                        <td><span class="childcare_leave_average_men_number"></span>名</td>
+                      </tr>
+                      <tr class="wrap1">
+                        <th>対象者数(配偶者が出産した男性)</th>
+                        <td><span class="childcare_leave_average_quit_men_number"></span>名</td>
+                      </tr>
+                      </tbody>
+                    </table>
+
+                    <table class="tbl-bordered-small mgnt10-15 wrap2">
+                      <caption class="wrap1">(女性) <span class="childcare_leave_average_women_year"></span>年度</caption>
+                      <tbody>
+                      <tr class="wrap1">
+                        <th class="w18em">育児休業取得者数(女性)</th>
+                        <td><span class="childcare_leave_average_women_number"></span>名</td>
+                      </tr>
+                      <tr class="wrap1">
+                        <th>対象者数(出産者数)</th>
+                        <td><span class="childcare_leave_average_women_number_of_births"></span>名</td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                <div class="mgnt20-30 number_of_managers_wrap">
+                  <h4 class="companies-section-h4">役員及び管理的地位にある者に占める女性の割合</h4>
+                  <div>
+                    <table class="tbl-bordered-small wrap2">
+                      <tbody>
+                      <tr class="wrap1">
+                        <th class="w18em">管理職にある者に占める女性の割合</th>
+                        <td><span class="the_percentage_of_female_officers"></span>%</td>
+                      </tr>
+                      <tr class="wrap1">
+                        <th>役員にある者に占める女性の割合</th>
+                        <td><span class="the_percentage_of_female_managers"></span>%</td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </section>
+
+              <section id="js-request-login-message" class="hidden">
+                <p class="alert-box mgnt30-50">以下の情報をご覧になる場合には、ログインしてください。</p>
+                <a href="{{link.loginUser}}" class="btn-default btn-blue w100-50prc" id="login-btn">ログイン</a>
+              </section>
+
+            </section>
+            <!-- /ディスクロージャー -->
+
+            <!-- 採用データ -->
+            <section class="tab-contents-recruit" style="display: none;">
+
+              <section class="">
+                <div class="companies-preface latest_message_wrap">
+                  <span class="latest_message line-break"></span>
+                </div>
+              </section>
+
+              <section class="free_contents_wrap">
+                <div class="mgnt20-30 clearfix free_contents1_wrap">
+                  <div class="companies-catch"><span class="free_contents1_title"></span></div>
+                  <figure class="companies-data-fig"><img src="" class="companies-data-img free_contents1_image_url"/>
+                  </figure>
+                  <p class="companies-data-body"><span class="free_contents1_content line-break"></span></p>
+                </div>
+                <div class="mgnt20-30 clearfix free_contents2_wrap">
+                  <div class="companies-catch"><span class="free_contents2_title"></span></div>
+                  <figure class="companies-data-fig"><img src="" class="companies-data-img free_contents2_image_url"/>
+                  </figure>
+                  <p class="companies-data-body"><span class="free_contents2_content line-break"></span></p>
+                </div>
+              </section>
+
+              <section class="mgnt30-50 companies-border-top">
+                <table class="companies-detail-info-box">
+                  <tr class="job_description_wrap">
+                    <th class="w15em">主な仕事内容</th>
+                    <td><span class="job_description line-break"></span></td>
+                  </tr>
+                  <tr class="recruit_job_category_wrap">
+                    <th>募集職種</th>
+                    <td><span class="recruit_job_category line-break"></span>
+                      <div class="mgnt10-15 recruit_job_category_select_wrap"><span
+                        class="recruit_job_category_select line-break"></span></div>
+                    </td>
+                  </tr>
+                  <tr class="recruit_target_select_wrap">
+                    <th>応募資格</th>
+                    <td>
+                      <div class="mgnt10-15 recruit_target_select_wrap">
+                        <span class="recruit_target_select"></span>
+                      </div>
+                      <div class="mgnt10-15 recruit_target_other_wrap">
+                        <span class="recruit_target_other line-break"></span>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr class="starting_salary_wrap">
+                    <th>初任給</th>
+                    <td>
+                      <span class="starting_salary line-break"></span><br>
+                      <span class="starting_salary_select_string"></span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>試用期間</th>
+                    <td>
+                      <span class="trial_period_string line-break"></span> <br>
+                      <span class="trial_period_description line-break"></span>
+                    </td>
+                  </tr>
+                  <tr id="allowance" class="allowance_wrap">
+                    <th>諸手当</th>
+                    <td><span class="allowance line-break"></span></td>
+                  </tr>
+                  <tr class="raise_bonus_wrap">
+                    <th>昇給・賞与</th>
+                    <td><span class="raise_bonus line-break"></span></td>
+                  </tr>
+                  <tr id="calculation_premium_wages" class="calculation_premium_wages_wrap">
+                    <th>時間外・休日・深夜労働の割増賃金に係る計算方法</th>
+                    <td><span class="calculation_premium_wages line-break"></span></td>
+                  </tr>
+                  <tr class="working_place_wrap">
+                    <th>勤務地</th>
+                    <td>
+                      <span class="working_place line-break"></span>
+                      <div class="mgnt10-15 working_place_select_wrap">
+                        <span class="working_place_select"></span>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr class="business_hours_wrap">
+                    <th>勤務時間</th>
+                    <td><span class="business_hours line-break"></span></td>
+                  </tr>
+                  <tr id="overtime_work" class="overtime_work_wrap">
+                    <th>残業・休日出勤</th>
+                    <td><span class="overtime_work line-break"></span></td>
+                  </tr>
+                  <tr class="day_off_wrap">
+                    <th>休日・休暇</th>
+                    <td><span class="day_off line-break"></span></td>
+                  </tr>
+                  <tr id="working_condition" class="working_condition_wrap">
+                    <th>待遇</th>
+                    <td><span class="working_condition line-break"></span></td>
+                  </tr>
+                  <tr class="benefits_wrap">
+                    <th>福利厚生</th>
+                    <td><span class="benefits line-break"></span></td>
+                  </tr>
+                  <tr class="measures_to_prevent_passive_smoking_wrap">
+                    <th>受動喫煙防止対策</th>
+                    <td><span class="measures_to_prevent_passive_smoking line-break"></span></td>
+                  </tr>
+                  <tr class="training_wrap">
+                    <th>教育制度</th>
+                    <td><span class="training line-break"></span></td>
+                  </tr>
+                  <tr class="plan_department_select_wrap">
+                    <th>採用予定学科</th>
+                    <td>
+                      <div class="mgnt10-15 plan_department_select_wrap">
+                        <span class="plan_department_select"></span>
+                      </div>
+                      <div class="mgnt10-15 plan_department_other_wrap">
+                        <span class="plan_department_other line-break"></span>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr class="recruit_record_university_wrap">
+                    <th>過去の採用実績校</th>
+                    <td>
+                      <span class="recruit_record_university line-break"></span>
+                    </td>
+                  </tr>
+                  <tr class="">
+                    <th>応募書類</th>
+                    <td>
+                      <div class="mgnt10-15 application_form_select_wrap">
+                        <span class="application_form_select"></span>
+                      </div>
+                      <div class="mgnt10-15 application_form_other_wrap">
+                        <span class="application_form_other line-break"></span>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr class="recruitment_numbers_wrap">
+                    <th>採用予定人数</th>
+                    <td><span class="recruitment_numbers line-break"></span>
+                      <div class="mgnt10-15 recruitment_numbers_select_wrap"><span
+                        class="recruitment_numbers_select_string"></span></div>
+                    </td>
+                  </tr>
+                  <tr class="employment_pattern_wrap">
+                    <th>雇用形態</th>
+                    <td><span class="employment_pattern_string"></span></td>
+                  </tr>
+                  <tr class="average_age_of_employees_year_wrap">
+                    <th>社員の平均年齢</th>
+                    <td>
+                      <dl class="default-dl">
+                        <dt id="employees_year" class="default-dl-dt"><span
+                          class="average_age_of_employees_year"></span>年度
+                        </dt>
+                        <dd id="average_age" class="default-dl-dd"><span class="average_age_of_employees_age"></span>歳
+                        </dd>
+                      </dl>
+                    </td>
+                  </tr>
+                  <tr char="last_recruit_record_wrap">
+                    <th>昨年の採用人数</th>
+                    <td><span class="last_recruit_record line-break"></span>
+                      <div class="mgnt10-15 last_recruit_record_select_wrap"><span
+                        class="last_recruit_record_select_string"></span></div>
+                    </td>
+                  </tr>
+                </table>
+              </section>
+
+              <!-- -->
+              <section class="mgnt30-50">
+                <h3 class="section-box-header-h3">
+                  <span class="section-box-header-h3-jp section-box-header-h3-bg">募集・採用に関する情報</span>
+                </h3>
+
+                <div id="years_recruit_year" class="mgnt20-30">
+                  <h4 class="companies-section-h4">直近３事業年度の新卒者等の採用者数／離職者数</h4>
+                  <table class="tbl-bordered tbl-fixed years_recruit_year_1_wrap">
+                    <thead>
+                    <tr>
+                      <th></th>
+                      <th>採用者数</th>
+                      <th>離職者数</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="years_recruit_year_1_wrap">
+                      <th><span class="years_recruit_year_1"></span>年度</th>
+                      <td><span class="years_recruit_year_1_number_employees"></span>名</td>
+                      <td><span class="years_recruit_year_1_number_employees_leaving"></span>名</td>
+                    </tr>
+                    <tr class="years_recruit_year_2_wrap">
+                      <th><span class="years_recruit_year_2"></span>年度</th>
+                      <td><span class="years_recruit_year_2_number_employees"></span>名</td>
+                      <td><span class="years_recruit_year_2_number_employees_leaving"></span>名</td>
+                    </tr>
+                    <tr class="years_recruit_year_3_wrap">
+                      <th><span class="years_recruit_year_3"></span>年度</th>
+                      <td><span class="years_recruit_year_3_number_employees"></span>名</td>
+                      <td><span class="years_recruit_year_3_number_employees_leaving"></span>名</td>
+                    </tr>
+                    </tbody>
+                  </table>
+                  <div class="years_recruit_description_wrap mgnt10-15"><span
+                    class="years_recruit_description line-break"></span>
+                  </div>
+                </div>
+
+                <div id="years_gender_recruit_year_1_male_number" class="mgnt20-30">
+                  <h4 class="companies-section-h4">直近３事業年度の新卒者等の採用者数（男性／女性）</h4>
+                  <table class="tbl-bordered tbl-fixed years_gender_recruit_year_1_wrap">
+                    <thead>
+                    <tr>
+                      <th></th>
+                      <th>男性</th>
+                      <th>女性</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="years_gender_recruit_year_1_wrap">
+                      <th><span class="years_gender_recruit_year_1"></span>年度</th>
+                      <td><span class="years_gender_recruit_year_1_male_number"></span>名</td>
+                      <td><span class="years_gender_recruit_year_1_female_number"></span>名</td>
+                    </tr>
+                    <tr class="years_gender_recruit_year_2_wrap">
+                      <th><span class="years_gender_recruit_year_2"></span>年度</th>
+                      <td><span class="years_gender_recruit_year_2_male_number"></span>名</td>
+                      <td><span class="years_gender_recruit_year_2_female_number"></span>名</td>
+                    </tr>
+                    <tr class="years_gender_recruit_year_3_wrap">
+                      <th><span class="years_gender_recruit_year_3"></span>年度</th>
+                      <td><span class="years_gender_recruit_year_3_male_number"></span>名</td>
+                      <td><span class="years_gender_recruit_year_3_female_number"></span>名</td>
+                    </tr>
+                    </tbody>
+                  </table>
+                  <div class="years_gender_recruit_description_wrap mgnt10-15"><span
+                    class="years_gender_recruit_description line-break"></span></div>
+                </div>
+
+                <div class="mgnt20-30 average_service_year_wrap">
+                  <h4 class="companies-section-h4">平均勤続年数</h4>
+                  <div class="average_service_year_wrap"><span class="average_service_year"></span>年</div>
+                  <div class="average_service_day_description_wrap"><span
+                    class="average_service_day_description"></span></div>
+                </div>
+              </section>
+
+              <!-- -->
+              <section class="mgnt30-50">
+                <h3 class="section-box-header-h3">
+                  <span class="section-box-header-h3-jp section-box-header-h3-bg">職業能力の開発及び向上に関する取組の実施状況</span>
+                </h3>
+                <table class="companies-detail-info-box">
+                  <tr class="training_program_exists_wrap">
+                    <th class="w15em">研修制度</th>
+                    <td><span class="training_program_exists"></span>
+                      <div class="mgnt10-15 training_program_contents_wrap"><span
+                        class="training_program_contents line-break"></span></div>
+                    </td>
+                  </tr>
+                  <tr class="self_development_support_exists_wrap">
+                    <th>自己啓発支援</th>
+                    <td><span class="self_development_support_exists"></span>
+                      <div class="mgnt10-15 self_development_support_contents_wrap"><span
+                        class="self_development_support_contents line-break"></span></div>
+                    </td>
+                  </tr>
+                  <tr class="mentor_system_exists_wrap">
+                    <th>メンター制度</th>
+                    <td><span class="mentor_system_exists"></span>
+                      <div class="mgnt10-15 mentor_system_contents_wrap"><span
+                        class="mentor_system_contents line-break"></span>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr class="carrier_consultation_system_exists_wrap">
+                    <th>キャリアコンサルティング制度</th>
+                    <td><span class="carrier_consultation_system_exists"></span>
+                      <div class="mgnt10-15 carrier_consultation_system_contents_wrap"><span
+                        class="carrier_consultation_system_contents line-break"></span></div>
+                    </td>
+                  </tr>
+                  <tr class="internal_examinations_exists_wrap">
+                    <th>社内検定等の制度</th>
+                    <td><span class="internal_examinations_exists"></span>
+                      <div class="mgnt10-15 internal_examinations_contents_wrap"><span
+                        class="internal_examinations_contents line-break"></span></div>
+                    </td>
+                  </tr>
+                </table>
+              </section>
+
+              <!-- -->
+              <section class="mgnt30-50">
+                <h3 class="section-box-header-h3">
+                  <span class="section-box-header-h3-jp section-box-header-h3-bg">職場への定着の促進に関する取組の実施状況</span>
+                </h3>
+                <table class="companies-detail-info-box">
+                  <tr id="monthly_overtime_average_year" class="monthly_overtime_average_year_wrap">
+                    <th class="w15em">前事業年度の月平均所定外労働時間</th>
+                    <td>
+                      <dl class="default-dl">
+                        <dt class="default-dl-dt"><span class="monthly_overtime_average_year"></span>年度</dt>
+                        <dd class="default-dl-dd"><span class="monthly_overtime_average_number"></span>時間</dd>
+                      </dl>
+                    </td>
+                  </tr>
+                  <tr id="paid_day_off_average_year" class="paid_day_off_average_year_wrap">
+                    <th>前事業年度の有給休暇の平均取得日数</th>
+                    <td>
+                      <dl class="default-dl">
+                        <dt class="default-dl-dt"><span class="paid_day_off_average_year"></span>年度</dt>
+                        <dd class="default-dl-dd"><span class="paid_day_off_average_number"></span>日</dd>
+                      </dl>
+                    </td>
+                  </tr>
+                  <tr id="childcare_leave_men_average_year">
+                    <th>前事業年度の育児休業取得者数／出産者数(男性/女性)</th>
+                    <td>
+                      <table class="childcare_leave_men_average_year_wrap tbl-bordered-small">
+                        <caption>(男性) <span class="childcare_leave_men_average_year"></span>年度</caption>
+                        <tbody>
+                        <tr>
+                          <th class="w18em">育児休業取得者数(男性)</th>
+                          <td><span class="childcare_leave_men_average_year_num_of_employees_leave"></span>名</td>
+                        </tr>
+                        <tr>
+                          <th>対象者数(配偶者が出産した男性)</th>
+                          <td><span class="childcare_leave_men_average_year_num_of_have_wife_gave_birth"></span>名</td>
+                        </tr>
+                        </tbody>
+                      </table>
+
+                      <table class="childcare_leave_female_average_year_wrap tbl-bordered-small mgnt10-15">
+                        <caption>(女性) <span class="childcare_leave_female_average_year"></span>年度</caption>
+                        <tbody>
+                        <tr>
+                          <th class="w18em">育児休業取得者数(女性)</th>
+                          <td><span class="childcare_leave_female_average_num_of_employees_leave"></span>名</td>
+                        </tr>
+                        <tr>
+                          <th>対象者数(出産者数)</th>
+                          <td><span class="childcare_leave_men_average_num_of_eligible_persons_births"></span>名</td>
+                        </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+                  <tr id="the_percentage_of_female_officers"
+                      class="the_percentage_of_female_officers_wrap">
+                    <th>役員及び管理的地位にある者に占める女性の割合 </th>
+                    <td>
+                      <table class="tbl-bordered-small">
+                        <tbody>
+                        <tr>
+                          <th class="w18em">管理職にある者に占める女性の割合</th>
+                          <td><span class="the_percentage_of_female_officers"></span>%</td>
+                        </tr>
+                        <tr>
+                          <th>役員にある者に占める女性の割合</th>
+                          <td><span class="the_percentage_of_female_managers"></span>%</td>
+                        </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+              </section>
+
+              <!-- 自由項目 -->
+              <section class="mgnt30-50">
+                <table id="free-fields" class="companies-detail-info-box">
+                  <!--generate by js-->
+                </table>
+              </section>
+
+              <section class="recruitment_wrap mgnt30-50 companies-border-top">
+                <div class="companies-contact-ttl hidden">お問合わせ窓口</div>
+                <div class="recruiter-info"></div>
+              </section>
+              <div id="entryBtnOuterBoxRecruit" class="entry-box-outer">
+                <div id="entryBtnBoxRecruit" class="entry-btn-box">
+                  <a href="javascript:void(0);" id="recruit-entry-btn" class="btn-default btn-blue btn-entry">エントリー</a>
+                </div>
+              </div>
+
+            </section>
+            <!-- /採用データ -->
+            <!-- インターン -->
+            <section class="tab-contents-internships" style="display: none;">
+
+              <section class="">
+                <ul class="category-list-ul" id="internship-titles"></ul>
+                <div class="companies-preface latest_message_2_wrap">
+                  <span class="latest_message_2"></span>
+                </div>
+              </section>
+
+              <section class="free_contents_wrap">
+                <!--
+						<div class="free_content1_wrap mgnt20-30 clearfix">
+							<div class="companies-catch free_content1_title_wrap"><span class="free_content1_title"></span></div>
+							<figure class="companies-data-fig"><img src="{{path}}img/img-company-09.jpg" class="companies-data-img" /></figure>
+							<p class="companies-data-body">説明文がここに入ります。この文章はダミーです。お読みにならないでください。説明文がここに入ります。この文章はダミーです。お読みにならないでください。</p>
+						</div>
+						<div class="free_content2_wrap mgnt20-30 clearfix">
+							<div class="companies-catch">商社ならではのダイナミックな仕事が魅力！</div>
+							<figure class="companies-data-fig"><img src="{{path}}img/img-company-10.jpg" class="companies-data-img" /></figure>
+							<p class="companies-data-body">説明文がここに入ります。この文章はダミーです。お読みにならないでください。説明文がここに入ります。この文章はダミーです。お読みにならないでください。</p>
+						</div>
+						-->
+              </section>
+
+              <section class="mgnt30-50 companies-border-top">
+                <table class="companies-detail-info-box">
+                  <tr class="contents_wrap">
+                    <th class="w11em">実施内容</th>
+                    <td><span class="contents"></span></td>
+                  </tr>
+                  <tr class="accept_numbers_wrap">
+                    <th>募集人数</th>
+                    <td><span class="accept_numbers"></span></td>
+                  </tr>
+                  <tr class="target_wrap">
+                    <th>募集対象</th>
+                    <td><span class="target"></span>
+                      <div class="mgnt10-15 target_select_wrap"><span class="target_select"></span></div>
+                    </td>
+                  </tr>
+                  <tr class="place_wrap">
+                    <th>実施場所</th>
+                    <td><span class="place"></span>
+                      <div class="mgnt10-15 place_select_string_wrap"><span class="place_select_string"></span></div>
+                    </td>
+                  </tr>
+                  <tr class="term_wrap">
+                    <th>実施期間</th>
+                    <td>
+                      <span class="term"></span>
+                      <div class="mgnt10-15 term_select_wrap"><span class="term_select"></span></div>
+                      <div class="mgnt10-15 internship_month_from_wrap">
                       <span class="internship_month_from_wrap">
                           <span class="internship_year_from"></span>年
                           <span class="internship_month_from"></span>月
                         </span>
-                                                <span class="internship_month_to_wrap">
+                        <span class="internship_month_to_wrap">
                           〜
                           <span class="internship_year_to"></span>年
                           <span class="internship_month_to"></span>月
                         </span>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="pay_wrap">
-                                        <th>報酬</th>
-                                        <td><span class="pay"></span></td>
-                                    </tr>
-                                    <tr class="entry_term_wrap">
-                                        <th>応募締切</th>
-                                        <td><span class="entry_term"></span>
-                                            <div class="entry_term_date_wrap mgnt10-15"><span class="entry_term_date"></span></div>
-                                        </td>
-                                    </tr>
-                                    <tr class="application_method_wrap">
-                                        <th>応募方法</th>
-                                        <td><span class="application_method"></span></td>
-                                    </tr>
-                                    <tr class="after_entry_wrap">
-                                        <th>エントリー後の流れ</th>
-                                        <td><span class="after_entry"></span></td>
-                                    </tr>
-                                </table>
-                                <ul class="internship-link-ul">
-                                    <li class="internship-link-ul-li link_url1_title_wrap"><a href="#" class="link-text"
-                                                                                              target="_blank"><span
-                                            class="link_url1_title"></span></a></li>
-                                    <li class="internship-link-ul-li link_url2_title_wrap"><a href="#" class="link-text"
-                                                                                              target="_blank"><span
-                                            class="link_url2_title"></span></a></li>
-                                </ul>
-                                <table class="free_fields_wrap companies-detail-info-box">
+                      </div>
+                    </td>
+                  </tr>
+                  <tr class="pay_wrap">
+                    <th>報酬</th>
+                    <td><span class="pay"></span></td>
+                  </tr>
+                  <tr class="entry_term_wrap">
+                    <th>応募締切</th>
+                    <td><span class="entry_term"></span>
+                      <div class="entry_term_date_wrap mgnt10-15"><span class="entry_term_date"></span></div>
+                    </td>
+                  </tr>
+                  <tr class="application_method_wrap">
+                    <th>応募方法</th>
+                    <td><span class="application_method"></span></td>
+                  </tr>
+                  <tr class="after_entry_wrap">
+                    <th>エントリー後の流れ</th>
+                    <td><span class="after_entry"></span></td>
+                  </tr>
+                </table>
+                <ul class="internship-link-ul">
+                  <li class="internship-link-ul-li link_url1_title_wrap"><a href="#" class="link-text"
+                                                                            target="_blank"><span
+                    class="link_url1_title"></span></a></li>
+                  <li class="internship-link-ul-li link_url2_title_wrap"><a href="#" class="link-text"
+                                                                            target="_blank"><span
+                    class="link_url2_title"></span></a></li>
+                </ul>
+                <table class="free_fields_wrap companies-detail-info-box">
 
-                                </table>
-                            </section>
+                </table>
+              </section>
 
-                            <section class="recruitment_wrap mgnt30-50 companies-border-top">
-                                <div class="companies-contact-ttl hidden">お問合わせ窓口</div>
-                                <div class="recruiter-info"></div>
+              <section class="recruitment_wrap mgnt30-50 companies-border-top">
+                <div class="companies-contact-ttl hidden">お問合わせ窓口</div>
+                <div class="recruiter-info"></div>
 
-                            </section>
+              </section>
 
-                            <div id="entryBtnOuterBoxInternships" class="entry-box-outer">
-                                <div id="entryBtnBoxInternships" class="entry-btn-box">
-                                    <a href="javascript:void(0);" id="internships-entry-btn"
-                                       class="btn-default btn-blue btn-entry">エントリー</a>
-                                </div>
-                            </div>
-                        </section>
+              <div id="entryBtnOuterBoxInternships" class="entry-box-outer">
+                <div id="entryBtnBoxInternships" class="entry-btn-box">
+                  <a href="javascript:void(0);" id="internships-entry-btn"
+                     class="btn-default btn-blue btn-entry">エントリー</a>
+                </div>
+              </div>
+            </section>
 
-                    </div>
+          </div>
 
-                </section>
+        </section>
 
-                <!-- 関連リンク -->
-                <section class="mgnt30-50" id="links">
-                    <h3 class="companies-section-h3">関連リンク</h3>
-                    <ul class="links-ul"></ul>
-                </section>
+        <!-- 関連リンク -->
+        <section class="mgnt30-50" id="links">
+          <h3 class="companies-section-h3">関連リンク</h3>
+          <ul class="links-ul"></ul>
+        </section>
 
-            </article>
-        </div>
-    {{/content}}
-    {{#content "footer-scripts" mode="append"}}
-        <script src="{{path}}js/pages/CL3200.js"></script>
-    {{/content}}
+      </article>
+    </div>
+  {{/content}}
+  {{#content "footer-scripts" mode="append"}}
+    <script src="{{path}}js/pages/CL3200.js"></script>
+  {{/content}}
 {{/extend}}

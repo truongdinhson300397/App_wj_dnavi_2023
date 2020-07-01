@@ -250,7 +250,7 @@
                     </table>
                     <!--          </div>-->
                     <div>
-                        <a href="/mypage/reset_mail" class="link-text" style="margin-top: 30px">  メールアドレスの情報更新はこちらから行ってください</a>
+                        <a href="{{link.myPageResetMail}}" class="link-text" style="margin-top: 30px">  メールアドレスの情報更新はこちらから行ってください</a>
                     </div>
                 </section>
 
@@ -602,18 +602,21 @@
                             <td class="label-rows">
                                 <label class="label-default"><input type="checkbox" class="input-check require postdata" name="contract_term_id[]" value="1"/> <span class="text">2021年卒</span></label>
                                 <label class="label-default"><input type="checkbox" class="input-check require postdata" name="contract_term_id[]" value="2"/> <span class="text">2022年卒</span></label>
-                            </td>
-                        </tr>
-                    </table>
-                    <table class="tbl-form tbl-th-25prc" id="warnContractTerm" style="display: none">
-                        <tr>
-                            <th></th>
-                            <td class="label-rows">
-                                <p>
-                                    ※ご自身の卒業予定年に合わせて登録サイトを登録することをお勧めします。<br />
-                                    イベントや企業の掲載・エントリー情報は各卒業年に合わせて異なることがあります。<br />
-                                    2サイトとも同じID・パスワードで登録が可能です。登録サイトの変更も可能ですが、チェックを外した場合、マイページは利用できなくなります。ご了承ください。
-                                </p>
+                                <div id="warnContractTerm">
+                                    <br />
+                                    <br />
+
+                                    <p>
+                                        ※ご自身の卒業予定年に合わせて登録サイトを登録することをお勧めします。<br />
+                                        イベントや企業の掲載・エントリー情報は各卒業年に合わせて異なることがあります。<br />
+                                        2サイトとも同じID・パスワードで登録が可能です。登録サイトの変更も可能ですが、チェックを外した場合、マイページは利用できなくなります。ご了承ください。
+                                    </p>
+
+                                    <ul class="list-nomark-ul mgnb30-50 tbl-th-25prc">
+                                        <li class="list-nomark-ul-li"><a href="/2021/kiyaku" onclick="return linkTo('/2021/kiyaku')" target="_blank" class="link-text">2021年卒利用規約</a></li>
+                                        <li class="list-nomark-ul-li"><a href="/2022/kiyaku" onclick="return linkTo('/2022/kiyaku')" target="_blank" class="link-text">2022年卒利用規約</a></li>
+                                    </ul>
+                                </div>
                             </td>
                         </tr>
                     </table>

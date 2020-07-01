@@ -1,177 +1,233 @@
 {{#extend "components/layout" title="企業情報エントリー"}}
-    {{#content "header-scripts" mode="append"}}
-        <link rel="stylesheet" href="{{path}}css/event.css" type="text/css" media="all" />
-        <link rel="stylesheet" href="{{path}}css/companies.css" type="text/css" media="all" />
-    {{/content}}
-    {{#content "main"}}
-        <!--  -->
-        <div class="contents-box">
-            <article class="article-box">
-                <section class="companies-result">
-                    <figure class="companies-logo-fig"><img src="{{path}}img/logo-dhr-01.gif" class="companies-logo-img" alt="" /></figure>
-                    <div class="companies-nm">株式会社ダイヤモン・ヒューマンリソース</div>
-                    <div class="companies-type clearfix">人材サービス</div>
-                    <div class="companies-disclosure clearfix">
+  {{#content "header-scripts" mode="append"}}
+    <link rel="stylesheet" href="{{path}}css/event.css" type="text/css" media="all"/>
+    <link rel="stylesheet" href="{{path}}css/companies.css" type="text/css" media="all"/>
+  {{/content}}
+  {{#content "main"}}
+    <!--  -->
+    <div class="contents-box">
+      <article class="article-box">
+        <section class="companies-result">
+          <figure class="companies-logo-fig"><img src="{{path}}img/logo-dhr-01.gif" class="companies-logo-img" alt=""/>
+          </figure>
+          <div class="companies-nm">株式会社ダイヤモン・ヒューマンリソース</div>
+          <div class="companies-type clearfix">人材サービス</div>
+          <div class="companies-disclosure clearfix">
             <span class="companies-disclosure-box">
-              <span class="companies-disclosure-ttl">情報公開度</span><span class="companies-disclosure-num"> 93 / 100</span><span class="companies-disclosure-prc">%</span>
+              <span class="companies-disclosure-ttl">情報公開度</span><span class="companies-disclosure-num"> 93 / 100</span><span
+              class="companies-disclosure-prc">%</span>
             </span>
-                        <div class="companies-event-label-box">
-                            <span class="companies-event-label companies-event-category">LIVEセミナー出展企業</span>
-                            <span class="companies-event-label companies-event-reservation">企業セミナー予約受付中</span>
-                        </div>
-                    </div>
-                    <div class="clearfix">
-                        <div class="companies-detail-vis-box">
-                            <figure class="companies-detail-main-fig"><img src="{{path}}img/img-company-01.jpg" class="companies-detail-main-img" alt="" /></figure>
-                        </div>
-                        <div class="companies-detail-images-box">
-                            <div class="tags-box">
-                                <a href="#" class="tags active"># すべて</a>
-                                <a href="#" class="tags"># 社員</a>
-                                <a href="#" class="tags"># 社内風景</a>
-                                <a href="#" class="tags"># 社屋・外観</a>
-                                <a href="#" class="tags"># 仕事現場</a>
-                                <a href="#" class="tags"># 福利厚生</a>
-                                <a href="#" class="tags"># その他</a>
-                            </div>
-                            <ul class="companies-detail-images-ul">
-                                <li class="companies-detail-images-ul-li"><a href="/company_image" class="companies-detail-images-ul-li-a"><img src="{{path}}img//img-company-01.jpg" class="companies-detail-images-img" alt="" /></a></li>
-                                <li class="companies-detail-images-ul-li"><a href="/company_image" class="companies-detail-images-ul-li-a"><img src="{{path}}img//img-company-02.jpg" class="companies-detail-images-img" alt="" /></a></li>
-                                <li class="companies-detail-images-ul-li"><a href="/company_image" class="companies-detail-images-ul-li-a"><img src="{{path}}img//img-company-03.jpg" class="companies-detail-images-img" alt="" /></a></li>
-                                <li class="companies-detail-images-ul-li"><a href="/company_image" class="companies-detail-images-ul-li-a"><img src="{{path}}img//img-company-04.jpg" class="companies-detail-images-img" alt="" /></a></li>
-                                <li class="companies-detail-images-ul-li"><a href="/company_image" class="companies-detail-images-ul-li-a"><img src="{{path}}img//img-company-05.jpg" class="companies-detail-images-img" alt="" /></a></li>
-                                <li class="companies-detail-images-ul-li"><a href="/company_image" class="companies-detail-images-ul-li-a"><img src="{{path}}img//img-company-06.jpg" class="companies-detail-images-img" alt="" /></a></li>
-                                <li class="companies-detail-images-ul-li"><a href="/company_image" class="companies-detail-images-ul-li-a"><img src="{{path}}img//img-company-07.jpg" class="companies-detail-images-img" alt="" /></a></li>
-                                <li class="companies-detail-images-ul-li"><a href="/company_image" class="companies-detail-images-ul-li-a"><img src="{{path}}img//img-company-08.jpg" class="companies-detail-images-img" alt="" /></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </section>
-                <section class="mgnt30-50">
-                    <h3 class="companies-section-h3">イベント出展情報</h3>
-                    <ul class="event-ul">
-                        <li class="event-ul-li upper-row">
-                            <div class="event-info-box">
-                                <div class="event-loc">福岡</div>
-                                <div class="event-dateday"><span class="event-date">5/20</span><span class="event-day">MON</span></div>
-                                <div class="event-time">13:00〜15:00</div>
-                                <div class="event-ttl">株式会社ダイヤモンドLIVEセミナー</div>
-                            </div>
-                            <div class="event-btn-box">
-                                <a href="/event/detail" class="btn-small btn-blue">詳細・予約</a>
-                            </div>
-                        </li>
-                        <li class="event-ul-li upper-row-pc">
-                            <div class="event-info-box">
-                                <div class="event-loc">大阪</div>
-                                <div class="event-dateday"><span class="event-date">5/20</span><span class="event-day">MON</span></div>
-                                <div class="event-time">13:00〜15:00</div>
-                                <div class="event-ttl">合同セミナー</div>
-                            </div>
-                            <div class="event-btn-box">
-                                <a href="/event/detail" class="btn-small btn-blue">詳細・予約</a>
-                            </div>
-                        </li>
-                    </ul>
-                </section>
-                <section class="mgnt30-50">
-                    <span id="tabArea" class="anchor"></span>
-                    <ul id="tabs" class="tabs-ul">
-                        <li class="tabs-ul-li"><a href="/company/detail#tabArea" class="tab-a">企業情報</a></li>
-                        <li class="tabs-ul-li"><a href="/company/disclosure#tabArea" class="tab-a">ディス<span class="ilb">クロージャー</span></a></li>
-                        <li class="tabs-ul-li"><a href="/company/recruitmentinfo#tabArea" class="tab-a">採用データ</a></li>
-                        <li class="tabs-ul-li"><a href="/company/internship#tabArea" class="tab-a tab-a-active">インターンシップ</a></li>
-                    </ul>
+            <div class="companies-event-label-box">
+              <span class="companies-event-label companies-event-category">LIVEセミナー出展企業</span>
+              <span class="companies-event-label companies-event-reservation">企業セミナー予約受付中</span>
+            </div>
+          </div>
+          <div class="clearfix">
+            <div class="companies-detail-vis-box">
+              <figure class="companies-detail-main-fig"><img src="{{path}}img/img-company-01.jpg"
+                                                             class="companies-detail-main-img" alt=""/></figure>
+            </div>
+            <div class="companies-detail-images-box">
+              <div class="tags-box">
+                <a href="#" class="tags active"># すべて</a>
+                <a href="#" class="tags"># 社員</a>
+                <a href="#" class="tags"># 社内風景</a>
+                <a href="#" class="tags"># 社屋・外観</a>
+                <a href="#" class="tags"># 仕事現場</a>
+                <a href="#" class="tags"># 福利厚生</a>
+                <a href="#" class="tags"># その他</a>
+              </div>
+              <ul class="companies-detail-images-ul">
+                <li class="companies-detail-images-ul-li"><a href="{{link.companyImage}}"
+                                                             class="companies-detail-images-ul-li-a"><img
+                  src="{{path}}img//img-company-01.jpg" class="companies-detail-images-img" alt=""/></a></li>
+                <li class="companies-detail-images-ul-li"><a href="{{link.companyImage}}"
+                                                             class="companies-detail-images-ul-li-a"><img
+                  src="{{path}}img//img-company-02.jpg" class="companies-detail-images-img" alt=""/></a></li>
+                <li class="companies-detail-images-ul-li"><a href="{{link.companyImage}}"
+                                                             class="companies-detail-images-ul-li-a"><img
+                  src="{{path}}img//img-company-03.jpg" class="companies-detail-images-img" alt=""/></a></li>
+                <li class="companies-detail-images-ul-li"><a href="{{link.companyImage}}"
+                                                             class="companies-detail-images-ul-li-a"><img
+                  src="{{path}}img//img-company-04.jpg" class="companies-detail-images-img" alt=""/></a></li>
+                <li class="companies-detail-images-ul-li"><a href="{{link.companyImage}}"
+                                                             class="companies-detail-images-ul-li-a"><img
+                  src="{{path}}img//img-company-05.jpg" class="companies-detail-images-img" alt=""/></a></li>
+                <li class="companies-detail-images-ul-li"><a href="{{link.companyImage}}"
+                                                             class="companies-detail-images-ul-li-a"><img
+                  src="{{path}}img//img-company-06.jpg" class="companies-detail-images-img" alt=""/></a></li>
+                <li class="companies-detail-images-ul-li"><a href="{{link.companyImage}}"
+                                                             class="companies-detail-images-ul-li-a"><img
+                  src="{{path}}img//img-company-07.jpg" class="companies-detail-images-img" alt=""/></a></li>
+                <li class="companies-detail-images-ul-li"><a href="{{link.companyImage}}"
+                                                             class="companies-detail-images-ul-li-a"><img
+                  src="{{path}}img//img-company-08.jpg" class="companies-detail-images-img" alt=""/></a></li>
+              </ul>
+            </div>
+          </div>
+        </section>
+        <section class="mgnt30-50">
+          <h3 class="companies-section-h3">イベント出展情報</h3>
+          <ul class="event-ul">
+            <li class="event-ul-li upper-row">
+              <div class="event-info-box">
+                <div class="event-loc">福岡</div>
+                <div class="event-dateday"><span class="event-date">5/20</span><span class="event-day">MON</span></div>
+                <div class="event-time">13:00〜15:00</div>
+                <div class="event-ttl">株式会社ダイヤモンドLIVEセミナー</div>
+              </div>
+              <div class="event-btn-box">
+                <a href="{{link.eventDetail}}" class="btn-small btn-blue">詳細・予約</a>
+              </div>
+            </li>
+            <li class="event-ul-li upper-row-pc">
+              <div class="event-info-box">
+                <div class="event-loc">大阪</div>
+                <div class="event-dateday"><span class="event-date">5/20</span><span class="event-day">MON</span></div>
+                <div class="event-time">13:00〜15:00</div>
+                <div class="event-ttl">合同セミナー</div>
+              </div>
+              <div class="event-btn-box">
+                <a href="{{link.eventDetail}}" class="btn-small btn-blue">詳細・予約</a>
+              </div>
+            </li>
+          </ul>
+        </section>
+        <section class="mgnt30-50">
+          <span id="tabArea" class="anchor"></span>
+          <ul id="tabs" class="tabs-ul">
+            <li class="tabs-ul-li"><a href="{{link.companyDetail}}#tabArea" class="tab-a">企業情報</a></li>
+            <li class="tabs-ul-li"><a href="{{link.companyDisclosure}}#tabArea" class="tab-a">ディス<span
+              class="ilb">クロージャー</span></a></li>
+            <li class="tabs-ul-li"><a href="{{link.companyRecruitmentinfo}}#tabArea" class="tab-a">採用データ</a></li>
+            <li class="tabs-ul-li"><a href="{{link.companyInternship}}#tabArea" class="tab-a tab-a-active">インターンシップ</a></li>
+          </ul>
 
-                    <ul class="category-list-ul">
-                        <li class="category-list-ul-li"><a href="/company/internship#tabArea">営業職向け<span class="ilb">サマー</span><span class="ilb">インターンシップ</span></a></li>
-                        <li class="category-list-ul-li"><a href="/company/internship#tabArea">販売職向け<span class="ilb">サマー</span><span class="ilb">インターンシップ</span></a></li>
-                    </ul>
+          <ul class="category-list-ul">
+            <li class="category-list-ul-li"><a href="{{link.companyInternship}}#tabArea">営業職向け<span class="ilb">サマー</span><span
+              class="ilb">インターンシップ</span></a></li>
+            <li class="category-list-ul-li"><a href="{{link.companyInternship}}#tabArea">販売職向け<span class="ilb">サマー</span><span
+              class="ilb">インターンシップ</span></a></li>
+          </ul>
 
-                    <div class="companies-preface">
-                        最新メッセージがここに入ります。この文章はダミーです。お読みにならないでください。最新メッセージがここに入ります。この文章はダミーです。お読みにならないでください。
-                    </div>
-                    <div class="mgnt20-30 clearfix">
-                        <div class="companies-catch">商社ならではのダイナミックな仕事が魅力！</div>
-                        <figure class="companies-data-fig"><img src="{{path}}img/img-company-09.jpg" class="companies-data-img" /></figure>
-                        <p class="companies-data-body">説明文がここに入ります。この文章はダミーです。お読みにならないでください。説明文がここに入ります。この文章はダミーです。お読みにならないでください。</p>
-                    </div>
-                    <div class="mgnt20-30 clearfix">
-                        <div class="companies-catch">商社ならではのダイナミックな仕事が魅力！</div>
-                        <figure class="companies-data-fig"><img src="{{path}}img/img-company-10.jpg" class="companies-data-img" /></figure>
-                        <p class="companies-data-body">説明文がここに入ります。この文章はダミーです。お読みにならないでください。説明文がここに入ります。この文章はダミーです。お読みにならないでください。</p>
-                    </div>
-                </section>
-                <section class="mgnt30-50 companies-border-top">
-                    <table class="companies-detail-info-box">
-                        <tr><th class="w11em">実施内容</th><td>説明がここに入ります。この文章はダミーです。説明がここに入ります。この文章はダミーです。説明がここに入ります。この文章はダミーです。</td></tr>
-                        <tr><th>募集人数</th><td>説明がここに入ります。この文章はダミーです。説明がここに入ります。この文章はダミーです。説明がここに入ります。この文章はダミーです。</td></tr>
-                        <tr><th>募集対象</th>
-                            <td>説明がここに入ります。この文章はダミーです。説明がここに入ります。この文章はダミーです。説明がここに入ります。この文章はダミーです。
-                                <div class="mgnt10-15">学部生 / 大学院生</div>
-                            </td>
-                        </tr>
-                        <tr><th>実施場所</th>
-                            <td>説明がここに入ります。この文章はダミーです。説明がここに入ります。この文章はダミーです。説明がここに入ります。この文章はダミーです。
-                                <div class="mgnt10-15">北海道 / 青森</div>
-                            </td>
-                        </tr>
-                        <tr><th>実施期間</th><td>説明がここに入ります。この文章はダミーです。説明がここに入ります。この文章はダミーです。説明がここに入ります。この文章はダミーです。</td></tr>
-                        <tr><th>報酬</th><td>説明がここに入ります。この文章はダミーです。説明がここに入ります。この文章はダミーです。説明がここに入ります。この文章はダミーです。</td></tr>
-                        <tr><th>応募締切</th>
-                            <td>
-                                説明がここに入ります。この文章はダミーです。説明がここに入ります。この文章はダミーです。説明がここに入ります。この文章はダミーです。
-                                <div class="mgnt10-15">2019年6月末まで</div>
-                            </td>
-                        </tr>
-                        <tr><th>応募方法</th><td>説明がここに入ります。この文章はダミーです。説明がここに入ります。この文章はダミーです。説明がここに入ります。この文章はダミーです。</td></tr>
-                        <tr><th>エントリー後の流れ</th><td>説明がここに入ります。この文章はダミーです。説明がここに入ります。この文章はダミーです。説明がここに入ります。この文章はダミーです。</td></tr>
-                    </table>
-                    <ul class="internship-link-ul">
-                        <li class="internship-link-ul-li"><a href="#" class="link-text" target="_blank">(リンク1)これはダミーです。</a></li>
-                        <li class="internship-link-ul-li"><a href="#" class="link-text" target="_blank">(リンク2)これはダミーです。</a></li>
-                    </ul>
-                    <table class="companies-detail-info-box">
-                        <tr><th>(タイトル)これはダミーです。</th><td>説明がここに入ります。この文章はダミーです。説明がここに入ります。この文章はダミーです。説明がここに入ります。この文章はダミーです。</td></tr>
-                        <tr><th>(タイトル)これはダミーです。</th><td>説明がここに入ります。この文章はダミーです。説明がここに入ります。この文章はダミーです。説明がここに入ります。この文章はダミーです。</td></tr>
-                        <tr><th>(タイトル)これはダミーです。</th><td>説明がここに入ります。この文章はダミーです。説明がここに入ります。この文章はダミーです。説明がここに入ります。この文章はダミーです。</td></tr>
-                    </table>
-                </section>
-                <section class="mgnt30-50 companies-border-top">
-                    <div class="companies-contact-ttl">採用窓口</div>
-                    <div class="companies-contact-point">ダイヤモンド・ヒューマンリソース新卒採用受付<br />人事部新卒採用担当</div>
-                    <div class="companies-contact-address">
-                        〒101-1111<br />
-                        東京都千代田区丸の内1-1-1<br />
-                        電話番号：03-1111-1111<br />
-                        メールアドレス：<a href="#">jinji@mitsubishishoji.co.jp</a>
-                    </div>
-                </section>
-                <div id="entryBtnOuterBox" class="entry-box-outer">
-                    <div id="entryBtnBox" class="entry-btn-box">
-                        <a href="/entry/internship" class="btn-default btn-blue btn-entry">エントリーはこちら</a>
-                    </div>
-                </div>
-                <section class="mgnt30-50">
-                    <h3 class="companies-section-h3">関連リンク</h3>
-                    <ul class="links-ul">
-                        <li class="links-ul-li"><a href="#" class="links-ul-li-a">新卒採用サイト</a></li>
-                        <li class="links-ul-li"><a href="#" class="links-ul-li-a">コーポレートサイト</a></li>
-                        <li class="links-ul-li"><a href="#" class="links-ul-li-a">新卒採用サイト</a></li>
-                        <li class="links-ul-li"><a href="#" class="links-ul-li-a">コーポレートサイト</a></li>
-                        <li class="links-ul-li"><a href="#" class="links-ul-li-a">新卒採用サイト</a></li>
-                    </ul>
-                </section>
-            </article>
+          <div class="companies-preface">
+            最新メッセージがここに入ります。この文章はダミーです。お読みにならないでください。最新メッセージがここに入ります。この文章はダミーです。お読みにならないでください。
+          </div>
+          <div class="mgnt20-30 clearfix">
+            <div class="companies-catch">商社ならではのダイナミックな仕事が魅力！</div>
+            <figure class="companies-data-fig"><img src="{{path}}img/img-company-09.jpg" class="companies-data-img"/>
+            </figure>
+            <p class="companies-data-body">
+              説明文がここに入ります。この文章はダミーです。お読みにならないでください。説明文がここに入ります。この文章はダミーです。お読みにならないでください。</p>
+          </div>
+          <div class="mgnt20-30 clearfix">
+            <div class="companies-catch">商社ならではのダイナミックな仕事が魅力！</div>
+            <figure class="companies-data-fig"><img src="{{path}}img/img-company-10.jpg" class="companies-data-img"/>
+            </figure>
+            <p class="companies-data-body">
+              説明文がここに入ります。この文章はダミーです。お読みにならないでください。説明文がここに入ります。この文章はダミーです。お読みにならないでください。</p>
+          </div>
+        </section>
+        <section class="mgnt30-50 companies-border-top">
+          <table class="companies-detail-info-box">
+            <tr>
+              <th class="w11em">実施内容</th>
+              <td>説明がここに入ります。この文章はダミーです。説明がここに入ります。この文章はダミーです。説明がここに入ります。この文章はダミーです。</td>
+            </tr>
+            <tr>
+              <th>募集人数</th>
+              <td>説明がここに入ります。この文章はダミーです。説明がここに入ります。この文章はダミーです。説明がここに入ります。この文章はダミーです。</td>
+            </tr>
+            <tr>
+              <th>募集対象</th>
+              <td>説明がここに入ります。この文章はダミーです。説明がここに入ります。この文章はダミーです。説明がここに入ります。この文章はダミーです。
+                <div class="mgnt10-15">学部生 / 大学院生</div>
+              </td>
+            </tr>
+            <tr>
+              <th>実施場所</th>
+              <td>説明がここに入ります。この文章はダミーです。説明がここに入ります。この文章はダミーです。説明がここに入ります。この文章はダミーです。
+                <div class="mgnt10-15">北海道 / 青森</div>
+              </td>
+            </tr>
+            <tr>
+              <th>実施期間</th>
+              <td>説明がここに入ります。この文章はダミーです。説明がここに入ります。この文章はダミーです。説明がここに入ります。この文章はダミーです。</td>
+            </tr>
+            <tr>
+              <th>報酬</th>
+              <td>説明がここに入ります。この文章はダミーです。説明がここに入ります。この文章はダミーです。説明がここに入ります。この文章はダミーです。</td>
+            </tr>
+            <tr>
+              <th>応募締切</th>
+              <td>
+                説明がここに入ります。この文章はダミーです。説明がここに入ります。この文章はダミーです。説明がここに入ります。この文章はダミーです。
+                <div class="mgnt10-15">2019年6月末まで</div>
+              </td>
+            </tr>
+            <tr>
+              <th>応募方法</th>
+              <td>説明がここに入ります。この文章はダミーです。説明がここに入ります。この文章はダミーです。説明がここに入ります。この文章はダミーです。</td>
+            </tr>
+            <tr>
+              <th>エントリー後の流れ</th>
+              <td>説明がここに入ります。この文章はダミーです。説明がここに入ります。この文章はダミーです。説明がここに入ります。この文章はダミーです。</td>
+            </tr>
+          </table>
+          <ul class="internship-link-ul">
+            <li class="internship-link-ul-li"><a href="#" class="link-text" target="_blank">(リンク1)これはダミーです。</a></li>
+            <li class="internship-link-ul-li"><a href="#" class="link-text" target="_blank">(リンク2)これはダミーです。</a></li>
+          </ul>
+          <table class="companies-detail-info-box">
+            <tr>
+              <th>(タイトル)これはダミーです。</th>
+              <td>説明がここに入ります。この文章はダミーです。説明がここに入ります。この文章はダミーです。説明がここに入ります。この文章はダミーです。</td>
+            </tr>
+            <tr>
+              <th>(タイトル)これはダミーです。</th>
+              <td>説明がここに入ります。この文章はダミーです。説明がここに入ります。この文章はダミーです。説明がここに入ります。この文章はダミーです。</td>
+            </tr>
+            <tr>
+              <th>(タイトル)これはダミーです。</th>
+              <td>説明がここに入ります。この文章はダミーです。説明がここに入ります。この文章はダミーです。説明がここに入ります。この文章はダミーです。</td>
+            </tr>
+          </table>
+        </section>
+        <section class="mgnt30-50 companies-border-top">
+          <div class="companies-contact-ttl">採用窓口</div>
+          <div class="companies-contact-point">ダイヤモンド・ヒューマンリソース新卒採用受付<br/>人事部新卒採用担当</div>
+          <div class="companies-contact-address">
+            〒101-1111<br/>
+            東京都千代田区丸の内1-1-1<br/>
+            電話番号：03-1111-1111<br/>
+            メールアドレス：<a href="#">jinji@mitsubishishoji.co.jp</a>
+          </div>
+        </section>
+        <div id="entryBtnOuterBox" class="entry-box-outer">
+          <div id="entryBtnBox" class="entry-btn-box">
+            <a href="{{link.entryInternship}}" class="btn-default btn-blue btn-entry">エントリーはこちら</a>
+          </div>
         </div>
-    {{/content}}
-    {{#content "footer-scripts" mode="append"}}
-        <script>
-            _headerUIHandler(null, null, null);
-            $(function(){
-                squarePhoto('companies-detail-images-ul-li-a');
-                setFloatBtn('entryBtnBox','entryBtnOuterBox','tabs');
-            });
-        </script>
-    {{/content}}
+        <section class="mgnt30-50">
+          <h3 class="companies-section-h3">関連リンク</h3>
+          <ul class="links-ul">
+            <li class="links-ul-li"><a href="#" class="links-ul-li-a">新卒採用サイト</a></li>
+            <li class="links-ul-li"><a href="#" class="links-ul-li-a">コーポレートサイト</a></li>
+            <li class="links-ul-li"><a href="#" class="links-ul-li-a">新卒採用サイト</a></li>
+            <li class="links-ul-li"><a href="#" class="links-ul-li-a">コーポレートサイト</a></li>
+            <li class="links-ul-li"><a href="#" class="links-ul-li-a">新卒採用サイト</a></li>
+          </ul>
+        </section>
+      </article>
+    </div>
+  {{/content}}
+  {{#content "footer-scripts" mode="append"}}
+    <script>
+      _headerUIHandler(null, null, null);
+      $(function () {
+        squarePhoto('companies-detail-images-ul-li-a');
+        setFloatBtn('entryBtnBox', 'entryBtnOuterBox', 'tabs');
+      });
+    </script>
+  {{/content}}
 {{/extend}}

@@ -1,181 +1,183 @@
 {{#extend "components/layout" title="パスワード再設定"}}
-    {{#content "header-scripts" mode="append"}}
-        <style type="text/css">
-            @media (min-width: 769px) {
-                .tbl-form th {
-                    width: 220px;
-                }
-            }
-        </style>
-    {{/content}}
-    {{#content "main"}}
-        <!--  -->
-        <div class="contents-box">
-            <article class="article-box pddb0">
-                <div class="drop-shadow-box">
-                    <header class="article-box-header">
-                        <h2 class="article-box-header-h2">
-                            <span class="article-box-header-h2-jp">パスワード再設定</span>
-                            <!-- <br /><span class="article-box-header-h2-eng"></span> -->
-                        </h2>
-                    </header>
-                    <div class="article-box-body" id="reset-request" style="display: none">
-                        <div class="alert-box mgnt30-50">有効期限が過ぎました。パスワードの再発行手続きを行ってください。</div>
-                        <div class="form-btn-box">
-                            <a href="" class="btn-default btn-blue w100-50prc">パスワードの再発行</a>
-                        </div>
-                    </div>
-                    <div class="article-box-body" id="input-area">
-                        <div class="form-preface">
-                            新しいパスワードを入力し、［設定］ボタンをクリックしてください。<br/>
-                            <span class="txt-reduired">＊</span>は必須項目です。
-                        </div>
-                        <div class="alert-box mgnt30-50" style="display: none">入力内容に誤りがあります。再度ご確認ください。</div>
-                        <table class="tbl-form">
-                            <tr>
-                                <th>ユーザーID</th>
-                                <td>
-                                    <span id="login_id"></span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th class="required">パスワード</th>
-                                <td>
-                                    <input type="password" class="input-text w100prc postdata" placeholder="パスワード" name="password"
-                                           id="password"/>
-                                    <span class="form-note">半角英数字（6〜20文字）</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th class="required">パスワード（確認）</th>
-                                <td>
-                                    <input type="password" class="input-text w100prc postdata" placeholder="パスワード（確認）"
-                                           name="password_confirmation" id="password_confirmation"/>
-                                </td>
-                            </tr>
-                        </table>
-                        <div class="form-btn-box">
-                            <input type="hidden" class="postdata" name="token" id="token">
-                            <a href="javascript:void(0);" class="btn-default btn-blue w100-50prc" id="submit">設定</a>
-                        </div>
-                    </div>
-                    <div class="article-box-body" id="complete-area" style="display:none;">
-                        <div class="form-preface">パスワードを再設定しました。</div>
-                        <div class="form-btn-box">
-                            <a href="/login/user" class="btn-default btn-blue w100-50prc">ログイン</a>
-                        </div>
-                    </div>
-                </div>
-            </article>
-
+  {{#content "header-scripts" mode="append"}}
+    <style type="text/css">
+      @media (min-width: 769px) {
+        .tbl-form th {
+          width: 220px;
+        }
+      }
+    </style>
+  {{/content}}
+  {{#content "main"}}
+    <!--  -->
+    <div class="contents-box">
+      <article class="article-box pddb0">
+        <div class="drop-shadow-box">
+          <header class="article-box-header">
+            <h2 class="article-box-header-h2">
+              <span class="article-box-header-h2-jp">パスワード再設定</span>
+              <!-- <br /><span class="article-box-header-h2-eng"></span> -->
+            </h2>
+          </header>
+          <div class="article-box-body" id="reset-request" style="display: none">
+            <div class="alert-box mgnt30-50">有効期限が過ぎました。パスワードの再発行手続きを行ってください。</div>
+            <div class="form-btn-box">
+              <a href="" class="btn-default btn-blue w100-50prc">パスワードの再発行</a>
+            </div>
+          </div>
+          <div class="article-box-body" id="input-area">
+            <div class="form-preface">
+              新しいパスワードを入力し、［設定］ボタンをクリックしてください。<br/>
+              <span class="txt-reduired">＊</span>は必須項目です。
+            </div>
+            <div class="alert-box mgnt30-50" style="display: none">入力内容に誤りがあります。再度ご確認ください。</div>
+            <table class="tbl-form">
+              <tr>
+                <th>ユーザーID</th>
+                <td>
+                  <span id="login_id"></span>
+                </td>
+              </tr>
+              <tr>
+                <th class="required">パスワード</th>
+                <td>
+                  <input type="password" class="input-text w100prc postdata" placeholder="パスワード" name="password"
+                         id="password"/>
+                  <span class="form-note">半角英数字（6〜20文字）</span>
+                </td>
+              </tr>
+              <tr>
+                <th class="required">パスワード（確認）</th>
+                <td>
+                  <input type="password" class="input-text w100prc postdata" placeholder="パスワード（確認）"
+                         name="password_confirmation" id="password_confirmation"/>
+                </td>
+              </tr>
+            </table>
+            <div class="form-btn-box">
+              <input type="hidden" class="postdata" name="token" id="token">
+              <a href="javascript:void(0);" class="btn-default btn-blue w100-50prc" id="submit">設定</a>
+            </div>
+          </div>
+          <div class="article-box-body" id="complete-area" style="display:none;">
+            <div class="form-preface">パスワードを再設定しました。</div>
+            <div class="form-btn-box">
+              <a href="{{link.loginUser}}" class="btn-default btn-blue w100-50prc">ログイン</a>
+            </div>
+          </div>
         </div>
-    {{/content}}
-    {{#content "footer-scripts" mode="append"}}
-        <!-- page script -->
-        <script>
-            _headerUIHandler(null, null, null);
-            $(document).ready(function () {
-                var urlHelper = new UrlHelper();
-                var token = urlHelper.getParamByName("key");
+      </article>
 
-                parameCheck();
+    </div>
+  {{/content}}
+  {{#content "footer-scripts" mode="append"}}
+    <!-- page script -->
+    <script>
+      _headerUIHandler(null, null, null);
+      $(document).ready(function () {
+        var urlHelper = new UrlHelper();
+        var token = urlHelper.getParamByName("key");
 
-                $('#token').val(token);
-                loginIdCheck(token);
+        parameCheck();
 
-                // 送信ボタン押下処理
-                $('#submit').on('click', function (e) {
-                    $('.alert-box').hide();
-                    passwordReset(e);
-                });
+        $('#token').val(token);
+        loginIdCheck(token);
 
-                // ログインID確認
-                function loginIdCheck(token) {
-                    $.ajax({
-                        url: rootVariables.apiUrl + '/students/check_token_reset_password?key=' + token,
-                        type: 'get',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Accept': 'application/json'
-                        },
-                        success: function (data) {
-                            loginIdGetSuccess(data);
-                        },
-                        error: function (XMLHttpRequest, textStatus, errorThrown) {
-                            loginIdGetError(XMLHttpRequest);
-                        }
-                    });
-                }
+        // 送信ボタン押下処理
+        $('#submit').on('click', function (e) {
+          $('.alert-box').hide();
+          passwordReset(e);
+        });
 
-                // ログインID取得成功
-                function loginIdGetSuccess(data) {
-                    $('#login_id').html(data.data.login_id);
-                }
+        // ログインID確認
+        function loginIdCheck(token) {
+          $.ajax({
+            url: rootVariables.apiUrl + '/students/check_token_reset_password?key=' + token,
+            type: 'get',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            },
+            success: function (data) {
+              loginIdGetSuccess(data);
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+              loginIdGetError(XMLHttpRequest);
+            }
+          });
+        }
 
-                // ログインID取得失敗
-                function loginIdGetError(data) {
-                    $('#reset-request a').attr('href', resetRequestUrl);
-                    $('#input-area').hide();
-                    $('#reset-request').fadeIn();
-                }
+        // ログインID取得成功
+        function loginIdGetSuccess(data) {
+          $('#login_id').html(data.data.login_id);
+        }
 
-                // パスワードリセット
-                function passwordReset(event) {
-                    var newPass = $('#password').val();
-                    var newPassConfirm = $('#password_confirmation').val();
+        // ログインID取得失敗
+        function loginIdGetError(data) {
+          $('#reset-request a').attr('href', resetRequestUrl);
+          $('#input-area').hide();
+          $('#reset-request').fadeIn();
+        }
 
-                    if (newPass === '' || newPassConfirm === '') {
-                        event.preventDefault();
-                        $('.alert-box').text('入力内容に誤りがあります。再度ご確認ください。').show();
+        // パスワードリセット
+        function passwordReset(event) {
+          var newPass = $('#password').val();
+          var newPassConfirm = $('#password_confirmation').val();
 
-                    } else if (newPass.length < 8) {
-                        event.preventDefault();
-                        $('.alert-box').text('入力内容に誤りがあります。再度ご確認ください。').show();
 
-                    } else if (!/^[0-9a-zA-Z]+$/.test(newPass) || !/^[0-9a-zA-Z]+$/.test(newPass)) {
-                        event.preventDefault();
-                        $('.alert-box').text('パスワードは半角英数字で入力してください 。').show();
-                    }
-                    else if (newPass !== newPassConfirm) {
-                        event.preventDefault();
-                        $('.alert-box').text('パスワード（確認用）とパスワードの入力が一致しません').show();
+          if (newPass === '' || newPassConfirm === '') {
+            event.preventDefault();
+            $('.alert-box').text('入力内容に誤りがあります。再度ご確認ください。').show();
 
-                    } else {
-                        // 送信データ取得整形
-                        var formSerial = $('.postdata').serializeArray();
-                        var postData = formAdjust(formSerial);
-                        postData = JSON.stringify(postData);
+          } else if (newPass.length < 8) {
+            event.preventDefault();
+            $('.alert-box').text('入力内容に誤りがあります。再度ご確認ください。').show();
 
-                        $.ajax({
-                            url: rootVariables.apiUrl + '/students/reset_password',
-                            type: 'post',
-                            dataType: 'json',
-                            data: postData,
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'Accept': 'application/json'
-                            },
-                            success: function (data) {
-                                checkSuccess(data);
-                            },
-                            error: function (XMLHttpRequest, textStatus, errorThrown) {
-                                checkError(XMLHttpRequest);
-                            }
-                        });
-                    }
-                }
+          } else if (!/^[0-9a-zA-Z]+$/.test(newPass) || !/^[0-9a-zA-Z]+$/.test(newPass)) {
+            event.preventDefault();
+            $('.alert-box').text('パスワードは半角英数字で入力してください 。').show();
+          }
+          else if (newPass !== newPassConfirm) {
+            event.preventDefault();
+            $('.alert-box').text('パスワード（確認用）とパスワードの入力が一致しません').show();
 
-                // リセットチェック完了
-                function checkSuccess(data) {
-                    $('#input-area').hide();
-                    $('#complete-area').fadeIn();
-                }
+          } else {
+            // 送信データ取得整形
+            var formSerial = $('.postdata').serializeArray();
+            var postData = formAdjust(formSerial);
+            postData = JSON.stringify(postData);
 
-                // リセットチェックエラー失敗
-                function checkError() {
-                    $('#input-area .alert-box').fadeIn();
-                }
+            $.ajax({
+              url: rootVariables.apiUrl + '/students/reset_password',
+              type: 'post',
+              dataType: 'json',
+              data: postData,
+              headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+              },
+              success: function (data) {
+                checkSuccess(data);
+              },
+              error: function (XMLHttpRequest, textStatus, errorThrown) {
+                checkError(XMLHttpRequest);
+              }
             });
-        </script>
-    {{/content}}
+          }
+        }
+
+        // リセットチェック完了
+        function checkSuccess(data) {
+          $('#input-area').hide();
+          $('#complete-area').fadeIn();
+        }
+
+        // リセットチェックエラー失敗
+        function checkError() {
+          $('#input-area .alert-box').fadeIn();
+        }
+
+      });
+    </script>
+  {{/content}}
 {{/extend}}
