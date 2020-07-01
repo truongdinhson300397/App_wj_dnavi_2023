@@ -1,10 +1,4 @@
 $(function () {
-    var applican = {
-        device: {
-            platform: 'Android'
-        }
-    };
-
     setTimeout(firstOpen, 2000);
     // when 1st open
     function firstOpen () {
