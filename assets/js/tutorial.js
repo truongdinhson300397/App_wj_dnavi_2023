@@ -1,4 +1,10 @@
 $(function () {
+    var applican = {
+        device: {
+            platform: 'Android'
+        }
+    };
+
     setTimeout(firstOpen, 2000);
     // when 1st open
     function firstOpen () {
@@ -48,15 +54,20 @@ $(function () {
                 },
             });
             console.log(swiper);
+
+            //Hide button skip when first load and remove unused class
+            $('#btn-skip').hide();
+            $('.target-skip').removeClass('swiper-button-disabled');
+
             swiper.on('slideChange', function () {
                 if(swiper.realIndex === 2) {
                     $('#btn-next').hide();
-                    $('#btn-skip').show();
+                    $('#btn-skip').show().removeClass('swiper-button-disabled');
                     $('.target-skip').hide();
                 } else {
                     $('#btn-next').show();
                     $('#btn-skip').hide();
-                    $('.target-skip').show();
+                    $('.target-skip').show().removeClass('swiper-button-disabled');
                 }
             });
         }
