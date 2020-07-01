@@ -442,7 +442,7 @@ function _headerUIHandler(nextFn, errorNextFn, isRequireLogin, onlyForGuest) {
 
   // If user is logged in, redirect back to TOP page
   if(onlyForGuest && isUserLoggedIn()) {
-    return toLocationHref("/");
+    return toLocationHref(link.top);
   }
   _checkContractTermAndPartner();
   _checkIsToken(function () {
@@ -541,9 +541,9 @@ function _generateUIJobHuntingLocal(_partnerGroups) {
       globalInfo('partner_id', 0,{path: "/"});
       globalInfo('prefecture_ids', '', {path: "/"});
       if (typeof isApplican !== "undefined" && isApplican) {
-        toLocationHref("/");
+        toLocationHref(link.top);
       } else {
-        toLocationHref("/" + partner.partner_id);
+        toLocationHref(link.top);
       }
     }
   });
@@ -560,7 +560,7 @@ function writePartnerInfoIntoCookie(partner) {
       globalInfo('partner_name', partner.partner_name ? encodeURIComponent(partner.partner_name) : '', {path: "/"});
       globalInfo('partner_id', parseInt(partner.partner_id) || '', {path: "/"});
       globalInfo('prefecture_ids', JSON.stringify(partner.prefecture_ids) || '', {path: "/"});
-      toLocationHref("/" + partner.partner_id);
+      toLocationHref(link.top);
     }
   }
 }
