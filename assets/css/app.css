@@ -25,7 +25,8 @@
 .app-header-nav {
   display: table-cell;
   cursor: pointer;
-  font-size: 9px;
+  font-size: 0.7em;
+  white-space: nowrap;
   vertical-align: middle;
   width: 15%;
   text-align: center;
