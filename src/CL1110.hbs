@@ -138,7 +138,7 @@
               <button class="btn-default btn-blue w100-50prc" id="moveToMemberEdit">会員編集画面へ</button>
               <div class="fix-margin" style="text-align: center;">
                 <p style="margin-bottom: 0.5em;">
-                  <a id="loginUserContractTerm" href="#"><span class="user-contract-term">2021</span>卒サイトログインに移動</a>
+                  <a id="loginUserContractTerm" href="https://dev.dia-navi.cloud3rs.io/2021/login/user"><span class="user-contract-term">2021</span>卒サイトログインに移動</a>
                 </p>
                 <p>
                   <a id="loginCurrentContractTerm" href="#"><span class="current-contract-term">2022</span>卒サイトログインに戻る</a>
@@ -261,8 +261,7 @@
                             $('.current-contract-term').text(globalInfo('contract_term'));
                             $('.user-contract-term').text(lastUserContractTerm.term_name);
                             if (typeof isApplican !== "undefined" && isApplican) {
-                                $('#loginUserContractTerm').attr('href', '/' + lastUserContractTerm.term_name + '{{link.loginUser}}');
-                                $('#loginCurrentContractTerm').attr('href', '/' + globalInfo('contract_term') + '{{link.loginUser}}');
+                                $('#loginCurrentContractTerm').attr('href', '{{link.loginUser}}');
                             } else {
                                 $('#loginUserContractTerm').attr('href',  '{{link.loginUser}}');
                                 $('#loginCurrentContractTerm').attr('href', '{{link.loginUser}}');

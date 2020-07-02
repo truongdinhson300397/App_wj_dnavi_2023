@@ -436,8 +436,10 @@ function _headerUIHandler(nextFn, errorNextFn, isRequireLogin, onlyForGuest) {
   // Check and overwrite the contract year following the entered url contract_term
   var contractYear = globalInfo("contract_term");
   var urlContractYear = window.location.href.split(/\/([0-9]{4})/g).slice(-2)[0];
-  if(contractYear != urlContractYear) {
+  if (urlContractYear.match(/^[0-9]/g) !== null && contractYear !== urlContractYear) {
     globalInfo("contract_term", urlContractYear, {path: "/"});
+  } else {
+    globalInfo("contract_term", 2022, {path: "/"});
   }
 
   // If user is logged in, redirect back to TOP page
