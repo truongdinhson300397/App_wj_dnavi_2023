@@ -21,6 +21,7 @@
     "companyDisclosure": "/company/disclosure",
     "companyRecruitmentinfo": "/company/recruitmentinfo",
     "companyInternship": "/company/internship",
+    "companyEnteredCompany": "mypage/entered_company",
     "entryRecruitguide": "/entry/recruitguide",
     "entryInternship": "/entry/internship",
     "internshipList": "/internship/list",
