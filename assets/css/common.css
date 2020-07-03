@@ -163,8 +163,8 @@ address {
 .header-logo-a {
   padding: 19px 0 2px 58px;
   display: block;
-  background: url(../img/logo-dnavi-2021.svg) 0 0 no-repeat;
-  background-size: auto 36.82px; /*90px auto;*/
+  background: url(../img/logo-dnavi-2022.svg) 0 0 no-repeat;
+  background-size: contain; /*90px auto;*/
   color: #004f93;
   font-family: 'century gothic';
   font-size: 14px;
