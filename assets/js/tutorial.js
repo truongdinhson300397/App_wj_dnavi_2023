@@ -1,7 +1,8 @@
 $(function () {
     setTimeout(firstOpen, 2000);
+
     // when 1st open
-    function firstOpen () {
+    function firstOpen() {
         document.addEventListener('deviceready', function () {
             if (_.isUndefined(localStorage.getItem('isFirstOpen')) || _.isNull(localStorage.getItem('isFirstOpen'))) {
                 //
@@ -49,19 +50,47 @@ $(function () {
                     },
                 });
                 console.log(swiper);
+
+                //Hide button skip when first load and remove unused class
+                $('#btn-skip').hide();
+                $('.target-skip').removeClass('swiper-button-disabled');
+
                 swiper.on('slideChange', function () {
                     if (swiper.realIndex === 2) {
                         $('#btn-next').hide();
-                        $('#btn-skip').show();
+                        $('#btn-skip').show().removeClass('swiper-button-disabled');
                         $('.target-skip').hide();
                     } else {
                         $('#btn-next').show();
                         $('#btn-skip').hide();
-                        $('.target-skip').show();
+                        $('.target-skip').show().removeClass('swiper-button-disabled');
                     }
+                    var swiper = new Swiper('.swiper-tutorial', {
+                        navigation: {
+                            nextEl: '.swiper-button-next',
+                            prevEl: '.swiper-button-prev',
+                        },
+                        pagination: {
+                            el: '.swiper-pagination',
+                        },
+                        mousewheel: {
+                            releaseOnEdges: true,
+                        },
+                    });
+                    swiper.on('slideChange', function () {
+                        if (swiper.realIndex === 2) {
+                            $('#btn-next').hide();
+                            $('#btn-skip').show();
+                            $('.target-skip').hide();
+                        } else {
+                            $('#btn-next').show();
+                            $('#btn-skip').hide();
+                            $('.target-skip').show();
+                        }
+                    });
                 });
             }
-        })
+        });
     }
 
     $('#btn-skip, .target-skip').click(function () {
