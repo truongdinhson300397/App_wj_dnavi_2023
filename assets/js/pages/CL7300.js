@@ -4,9 +4,9 @@ var preventNonNumericalInput = inputHelper.preventNonNumericalInput;
 // var validateKana = inputHelper.validateKana;
 // var validateKanji = inputHelper.validateKanji;
 
-var contracTerm = globalInfo('contract_term');
-
-if(contractTerm === '2021') {
+var contractTerm = globalInfo('contract_term_id');
+console.log(contractTerm);
+if(contractTerm === '1') {
   $('#graduation_year').append(
     '<option value="2017">2017</option>' +
     '<option value="2018">2018</option>' +
@@ -17,7 +17,7 @@ if(contractTerm === '2021') {
     '<option value="2023">2023</option>' +
     '<option value="2024">2024</option>');
 }
-if(contractTerm === '2022') {
+if(contractTerm === '2') {
   $('#graduation_year').append(
     '<option value="2018">2018</option>' +
     '<option value="2019">2019</option>' +
@@ -29,7 +29,7 @@ if(contractTerm === '2022') {
     '<option value="2025">2025</option>');
 }
 
-if(contractTerm === '2021') {
+if(contractTerm === '1') {
   $('#join_year').append(
     '<option value="2020">2020</option>' +
     '<option value="2021">2021</option>' +
@@ -39,7 +39,7 @@ if(contractTerm === '2021') {
     '<option value="2025">2025</option>' +
     '<option value="2026">2026</option>');
 }
-if(contractTerm === '2022') {
+if(contractTerm === '2') {
   $('#join_year').append(
     '<option value="2021">2021</option>' +
     '<option value="2022">2022</option>' +

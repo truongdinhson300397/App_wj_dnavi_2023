@@ -397,8 +397,8 @@ function headeFooterApp (isLogin) {
   var footer= '<ul class="app-footer-nav-ul">' +
       ' <li class="app-footer-nav-ul-li"><a href="' + link.top + '" class="app-footer-nav-a"><img src="' + assetsPath + 'img/icon-home.png" class="app-footer-nav-img" alt="top" />TOP</a></li>' +
       ' <li class="app-footer-nav-ul-li"><a href="' + link.eventList + '" class="app-footer-nav-a"><img src="' + assetsPath + 'img/icon-event.png" class="app-footer-nav-img" alt="イベント" />イベント</a></li>' +
-      ' <li class="app-footer-nav-ul-li"><a href="' + link.companyList + '" class="app-footer-nav-a"><img src="' + assetsPath + 'img/icon-company.png" class="app-footer-nav-img" alt="企業" />インターン</a></li>' +
-      ' <li class="app-footer-nav-ul-li"><a href="' + link.internshipList + '" class="app-footer-nav-a"><img src="' + assetsPath + 'img/icon-contents.png" class="app-footer-nav-img" alt="選考対策" />選考対策</a></li>' +
+      ' <li class="app-footer-nav-ul-li"><a href="' + link.internshipList + '" class="app-footer-nav-a"><img src="' + assetsPath + 'img/icon-company.png" class="app-footer-nav-img" alt="インターン" />インターン</a></li>' +
+      ' <li class="app-footer-nav-ul-li"><a href="' + link.contents + '" class="app-footer-nav-a"><img src="' + assetsPath + 'img/icon-contents.png" class="app-footer-nav-img" alt="選考対策" />選考対策</a></li>' +
       ' <li class="app-footer-nav-ul-li"><a href="' + link.myPageTop + '" class="app-footer-nav-a"><img src="' + assetsPath + 'img/icon-mypage.png" class="app-footer-nav-img" alt="マイページ" />マイページ</a></li>' +
       '</ul>';
 
@@ -436,8 +436,10 @@ function _headerUIHandler(nextFn, errorNextFn, isRequireLogin, onlyForGuest) {
   // Check and overwrite the contract year following the entered url contract_term
   var contractYear = globalInfo("contract_term");
   var urlContractYear = window.location.href.split(/\/([0-9]{4})/g).slice(-2)[0];
-  if(contractYear != urlContractYear) {
+  if (urlContractYear.match(/^[0-9]/g) !== null && contractYear !== urlContractYear) {
     globalInfo("contract_term", urlContractYear, {path: "/"});
+  } else {
+    globalInfo("contract_term", 2022, {path: "/"});
   }
 
   // If user is logged in, redirect back to TOP page
