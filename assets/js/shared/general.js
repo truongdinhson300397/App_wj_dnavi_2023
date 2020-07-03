@@ -30,46 +30,48 @@ var version = {
 };
 
 function checkVersion () {
-  $.ajax({
-    url: rootVariables.apiUrl  + '/check_version',
-    dataType: 'json',
-    type: 'POST',
-    headers:{
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    },
-    data: JSON.stringify(version),
-    success: function (res) {
-      if(res.status === 200) {
-        var data = res.data;
-        if(applican.device.platform === 'iOS') {
-          //app store
-          if(data.ios_update === true) {
-            $("body").append('<div id="update-warning"> ' +
-                ' <div class="update-error">'+
-                '   <p class="error-mes">新しいバージョンがあります。新しいバージョンを更新するには、「はい」を押してください。!</p>'+
-                '   <a href="itms-apps://itunes.apple.com/app/id1340007962"class="btn btn-update-version">はい</a>' +
-                ' </div>' +
-                '</div>');
-          }
-        } else {
-          //ch play
-          if(data.android_update === true) {
-            $("body").append('<div id="update-warning"> ' +
-                ' <div class="update-error">'+
-                '   <p class="error-mes">新しいバージョンがあります。新しいバージョンを更新するには、「はい」を押してください。!</p>'+
-                '   <a href="https://play.google.com/store/apps/details?id=com.gumi.dnavi"class="btn btn-update-version">はい</a>' +
-                ' </div>' +
-                '</div>');
+  document.addEventListener('deviceready', function () {
+    $.ajax({
+      url: rootVariables.apiUrl  + '/check_version',
+      dataType: 'json',
+      type: 'POST',
+      headers:{
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      data: JSON.stringify(version),
+      success: function (res) {
+        if(res.status === 200) {
+          var data = res.data;
+          if(window.applican.device.platform === 'iOS') {
+            //app store
+            if(data.ios_update === true) {
+              $("body").append('<div id="update-warning"> ' +
+                  ' <div class="update-error">'+
+                  '   <p class="error-mes">新しいバージョンがあります。新しいバージョンを更新するには、「はい」を押してください。!</p>'+
+                  '   <a href="itms-apps://itunes.apple.com/app/id1340007962"class="btn btn-update-version">はい</a>' +
+                  ' </div>' +
+                  '</div>');
+            }
+          } else {
+            //ch play
+            if(data.android_update === true) {
+              $("body").append('<div id="update-warning"> ' +
+                  ' <div class="update-error">'+
+                  '   <p class="error-mes">新しいバージョンがあります。新しいバージョンを更新するには、「はい」を押してください。!</p>'+
+                  '   <a href="https://play.google.com/store/apps/details?id=com.gumi.dnavi"class="btn btn-update-version">はい</a>' +
+                  ' </div>' +
+                  '</div>');
+            }
           }
         }
+      },
+      error: function (error, jqXhr, textStatus, errorThrown) {
+        //maintenance
+        // window.location.href = 'https://dev.admin.dia-navi.cloud3rs.io/';
       }
-    },
-    error: function (error, jqXhr, textStatus, errorThrown) {
-      //maintenance
-      // window.location.href = 'https://dev.admin.dia-navi.cloud3rs.io/';
-    }
-  });
+    });
+  })
 }
 function _checkNetWork() {
   var isOnline = navigator.onLine;

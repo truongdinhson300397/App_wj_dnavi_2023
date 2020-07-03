@@ -150,7 +150,6 @@
               data: JSON.stringify(paramToServer),
               success: function () {
                 toLocationHref("{{link.contactComplete}}");
-                localStorage.clear();
               },
               error: function (jqXhr, textStatus, errorThrown) {
                 console.log(errorThrown);
