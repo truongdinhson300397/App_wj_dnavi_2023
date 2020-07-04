@@ -42,8 +42,10 @@ function checkVersion () {
     success: function (res) {
       if(res.status === 200) {
         var data = res.data;
+        var versionBlock = $('.app-left-nav-ul-1-li-version');
         if(applican.device.platform === 'iOS') {
           //app store
+          versionBlock.text(version.ios);
           if(data.ios_update === true) {
             $("body").append('<div id="update-warning"> ' +
                 ' <div class="update-error">'+
@@ -54,6 +56,7 @@ function checkVersion () {
           }
         } else {
           //ch play
+          versionBlock.text(version.android);
           if(data.android_update === true) {
             $("body").append('<div id="update-warning"> ' +
                 ' <div class="update-error">'+
@@ -389,9 +392,6 @@ function headeFooterApp (isLogin) {
       '    </li>' +
       '    </ul>' +
       '    <div class="app-left-nav-ul-1-li-version">' +
-      (window.applican.device.platform === 'iOS' ?
-      '     <span>バージョン　' + version.ios + '</span>' :
-      '     <span>バージョン　' + version.android + '</span>') +
       '    </div>' +
       ' </ul>' +
       '</nav>';
