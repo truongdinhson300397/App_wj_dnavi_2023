@@ -47,7 +47,7 @@ function checkVersion () {
           if(window.applican.device.platform === 'iOS') {
             //app store
             if(data.ios_update === true) {
-              $versionBlock.text(version.ios);
+              $versionBlock.html('<span>バージョン　' + version.ios + '</span>');
               $("body").append('<div id="update-warning"> ' +
                   ' <div class="update-error">'+
                   '   <p class="error-mes">新しいバージョンがあります。新しいバージョンを更新するには、「はい」を押してください。!</p>'+
@@ -57,7 +57,7 @@ function checkVersion () {
             }
           } else {
             //ch play
-            $versionBlock.text(version.android);
+            $versionBlock.html('<span>バージョン　' + version.android + '</span>');
             if(data.android_update === true) {
               $("body").append('<div id="update-warning"> ' +
                   ' <div class="update-error">'+
@@ -74,49 +74,6 @@ function checkVersion () {
         // window.location.href = 'https://dev.admin.dia-navi.cloud3rs.io/';
       }
     });
-  })
-  $.ajax({
-    url: rootVariables.apiUrl  + '/check_version',
-    dataType: 'json',
-    type: 'POST',
-    headers:{
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    },
-    data: JSON.stringify(version),
-    success: function (res) {
-      if(res.status === 200) {
-        var data = res.data;
-        var versionBlock = $('.app-left-nav-ul-1-li-version');
-        if(applican.device.platform === 'iOS') {
-          //app store
-          versionBlock.text(version.ios);
-          if(data.ios_update === true) {
-            $("body").append('<div id="update-warning"> ' +
-                ' <div class="update-error">'+
-                '   <p class="error-mes">新しいバージョンがあります。新しいバージョンを更新するには、「はい」を押してください。!</p>'+
-                '   <a href="itms-apps://itunes.apple.com/app/id1340007962"class="btn btn-update-version">はい</a>' +
-                ' </div>' +
-                '</div>');
-          }
-        } else {
-          //ch play
-          versionBlock.text(version.android);
-          if(data.android_update === true) {
-            $("body").append('<div id="update-warning"> ' +
-                ' <div class="update-error">'+
-                '   <p class="error-mes">新しいバージョンがあります。新しいバージョンを更新するには、「はい」を押してください。!</p>'+
-                '   <a href="https://play.google.com/store/apps/details?id=com.gumi.dnavi"class="btn btn-update-version">はい</a>' +
-                ' </div>' +
-                '</div>');
-          }
-        }
-      }
-    },
-    error: function (error, jqXhr, textStatus, errorThrown) {
-      //maintenance
-      // window.location.href = 'https://dev.admin.dia-navi.cloud3rs.io/';
-    }
   });
 }
 function _checkNetWork() {
