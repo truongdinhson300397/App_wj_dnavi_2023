@@ -389,7 +389,9 @@ function headeFooterApp (isLogin) {
       '    </li>' +
       '    </ul>' +
       '    <div class="app-left-nav-ul-1-li-version">' +
-      '     <span>バージョン　1.1.0</span>' +
+      (window.applican.device.platform === 'iOS' ?
+      '     <span>バージョン　' + version.ios + '</span>' :
+      '     <span>バージョン　' + version.android + '</span>') +
       '    </div>' +
       ' </ul>' +
       '</nav>';
