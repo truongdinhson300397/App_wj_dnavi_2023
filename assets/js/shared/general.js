@@ -41,11 +41,13 @@ function checkVersion () {
       },
       data: JSON.stringify(version),
       success: function (res) {
+        var $versionBlock = $('.app-left-nav-ul-1-li-version');
         if(res.status === 200) {
           var data = res.data;
           if(window.applican.device.platform === 'iOS') {
             //app store
             if(data.ios_update === true) {
+              $versionBlock.text(version.ios);
               $("body").append('<div id="update-warning"> ' +
                   ' <div class="update-error">'+
                   '   <p class="error-mes">新しいバージョンがあります。新しいバージョンを更新するには、「はい」を押してください。!</p>'+
@@ -55,6 +57,7 @@ function checkVersion () {
             }
           } else {
             //ch play
+            $versionBlock.text(version.android);
             if(data.android_update === true) {
               $("body").append('<div id="update-warning"> ' +
                   ' <div class="update-error">'+
@@ -72,6 +75,49 @@ function checkVersion () {
       }
     });
   })
+  $.ajax({
+    url: rootVariables.apiUrl  + '/check_version',
+    dataType: 'json',
+    type: 'POST',
+    headers:{
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+    data: JSON.stringify(version),
+    success: function (res) {
+      if(res.status === 200) {
+        var data = res.data;
+        var versionBlock = $('.app-left-nav-ul-1-li-version');
+        if(applican.device.platform === 'iOS') {
+          //app store
+          versionBlock.text(version.ios);
+          if(data.ios_update === true) {
+            $("body").append('<div id="update-warning"> ' +
+                ' <div class="update-error">'+
+                '   <p class="error-mes">新しいバージョンがあります。新しいバージョンを更新するには、「はい」を押してください。!</p>'+
+                '   <a href="itms-apps://itunes.apple.com/app/id1340007962"class="btn btn-update-version">はい</a>' +
+                ' </div>' +
+                '</div>');
+          }
+        } else {
+          //ch play
+          versionBlock.text(version.android);
+          if(data.android_update === true) {
+            $("body").append('<div id="update-warning"> ' +
+                ' <div class="update-error">'+
+                '   <p class="error-mes">新しいバージョンがあります。新しいバージョンを更新するには、「はい」を押してください。!</p>'+
+                '   <a href="https://play.google.com/store/apps/details?id=com.gumi.dnavi"class="btn btn-update-version">はい</a>' +
+                ' </div>' +
+                '</div>');
+          }
+        }
+      }
+    },
+    error: function (error, jqXhr, textStatus, errorThrown) {
+      //maintenance
+      // window.location.href = 'https://dev.admin.dia-navi.cloud3rs.io/';
+    }
+  });
 }
 function _checkNetWork() {
   var isOnline = navigator.onLine;
@@ -391,9 +437,6 @@ function headeFooterApp (isLogin) {
       '    </li>' +
       '    </ul>' +
       '    <div class="app-left-nav-ul-1-li-version">' +
-      (window.applican.device.platform === 'iOS' ?
-      '     <span>バージョン　' + version.ios + '</span>' :
-      '     <span>バージョン　' + version.android + '</span>') +
       '    </div>' +
       ' </ul>' +
       '</nav>';
@@ -690,59 +733,3 @@ function removeFirstOpen() {
   localStorage.removeItem('isFirstOpen');
   window.location.href = link.top;
 }
-
-function getPushToken() {
-  function getPushTokenSuccess(res){
-    registerDevice(res.pushToken)
-  }
-  function getPushTokenError(res) {
-
-  }
-  applican.device.getPushToken(getPushTokenSuccess, getPushTokenError);
-}
-
-function registerDevice(token) {
-  const headers = {
-    'Content-Type': 'application/json',
-    'Accept': 'application/json'
-  };
-  var authToken = localStorage.getItem('jwt');
-  if (authToken !== null && authToken !== 'null') {
-    headers['Authorization'] = 'Bearer ' + authToken;
-  }
-  const postData = {
-    name: applican.device.name,
-    platform: applican.device.platform,
-    token,
-    uuid: applican.device.uuid_rfc4122,
-    version: applican.device.version,
-    applican_version: applican.device.applican,
-    applican_type: applican.device.applican_type,
-    package_name: applican.device.package_name,
-  };
-  return $.ajax({
-    url: rootVariables.apiUrl + '/device/register',
-    dataType: 'json',
-    type: 'POST',
-    headers,
-    data: JSON.stringify(postData),
-    success: function (res) {
-      if (authToken !== null && authToken !== 'null') {
-        localStorage.setItem('is_registered', 'true');
-      }
-      localStorage.setItem('push_token', token);
-    },
-    error: function (jqXhr, textStatus, errorThrown) {
-      // What's next?
-    }
-  });
-}
-
-(function checkRegisterDevice() {
-  // delay 2s, waiting for applican was loaded
-  setTimeout(() => {
-    if (typeof applican === 'undefined') return;
-    if (localStorage.getItem('is_registered') === 'true') return;
-    getPushToken();
-  }, 2000);
-})();
