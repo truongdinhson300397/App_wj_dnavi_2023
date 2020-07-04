@@ -47,7 +47,7 @@ function checkVersion () {
           if(window.applican.device.platform === 'iOS') {
             //app store
             if(data.ios_update === true) {
-              $versionBlock.text(version.ios);
+              $versionBlock.text('<span>バージョン　' + version.ios + '</span>');
               $("body").append('<div id="update-warning"> ' +
                   ' <div class="update-error">'+
                   '   <p class="error-mes">新しいバージョンがあります。新しいバージョンを更新するには、「はい」を押してください。!</p>'+
@@ -57,7 +57,7 @@ function checkVersion () {
             }
           } else {
             //ch play
-            $versionBlock.text(version.android);
+            $versionBlock.text('<span>バージョン　' + version.android + '</span>');
             if(data.android_update === true) {
               $("body").append('<div id="update-warning"> ' +
                   ' <div class="update-error">'+
