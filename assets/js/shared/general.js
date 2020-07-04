@@ -41,11 +41,13 @@ function checkVersion () {
       },
       data: JSON.stringify(version),
       success: function (res) {
+        var $versionBlock = $('.app-left-nav-ul-1-li-version');
         if(res.status === 200) {
           var data = res.data;
           if(window.applican.device.platform === 'iOS') {
             //app store
             if(data.ios_update === true) {
+              $versionBlock.text(version.ios);
               $("body").append('<div id="update-warning"> ' +
                   ' <div class="update-error">'+
                   '   <p class="error-mes">新しいバージョンがあります。新しいバージョンを更新するには、「はい」を押してください。!</p>'+
@@ -55,6 +57,7 @@ function checkVersion () {
             }
           } else {
             //ch play
+            $versionBlock.text(version.android);
             if(data.android_update === true) {
               $("body").append('<div id="update-warning"> ' +
                   ' <div class="update-error">'+
@@ -434,9 +437,6 @@ function headeFooterApp (isLogin) {
       '    </li>' +
       '    </ul>' +
       '    <div class="app-left-nav-ul-1-li-version">' +
-      (window.applican.device.platform === 'iOS' ?
-      '     <span>バージョン　' + version.ios + '</span>' :
-      '     <span>バージョン　' + version.android + '</span>') +
       '    </div>' +
       ' </ul>' +
       '</nav>';
