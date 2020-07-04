@@ -43,6 +43,9 @@ const webpackWebConfig = {
             // getPartialId: function (filePath) {}
             onBeforeSetup: function (Handlebars) {
                 handlebarsLayouts.register(Handlebars);
+                Handlebars.registerHelper("linkOrBrowser", function(link) {
+                    return new Handlebars.SafeString(link);
+                });
             },
             onBeforeAddPartials: function (Handlebars, partialsMap) {},
             onBeforeCompile: function (Handlebars, templateContent) {},
