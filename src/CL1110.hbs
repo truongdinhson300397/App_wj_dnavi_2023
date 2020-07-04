@@ -261,11 +261,12 @@
                             $('.current-contract-term').text(globalInfo('contract_term'));
                             $('.user-contract-term').text(lastUserContractTerm.term_name);
                             if (typeof isApplican !== "undefined" && isApplican) {
-                                $('#loginCurrentContractTerm').attr('href', '{{link.loginUser}}');
+                                $('#loginUserContractTerm').attr('href',  'javascript:applican.launcher.urlScheme(\'{{domain}}'
+                                        + lastUserContractTerm.term_name + '/login/user\');');
                             } else {
                                 $('#loginUserContractTerm').attr('href',  '{{link.loginUser}}');
-                                $('#loginCurrentContractTerm').attr('href', '{{link.loginUser}}');
                             }
+                            $('#loginCurrentContractTerm').attr('href', '{{link.loginUser}}');
                             userDataTemp = data;
                             loginTermTemp = loginTerm;
                             modalWarning.show();
