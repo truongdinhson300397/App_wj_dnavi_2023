@@ -688,3 +688,59 @@ function removeFirstOpen() {
   localStorage.removeItem('isFirstOpen');
   window.location.href = link.top;
 }
+
+function getPushToken() {
+  function getPushTokenSuccess(res){
+    registerDevice(res.pushToken)
+  }
+  function getPushTokenError(res) {
+
+  }
+  applican.device.getPushToken(getPushTokenSuccess, getPushTokenError);
+}
+
+function registerDevice(token) {
+  const headers = {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json'
+  };
+  var authToken = localStorage.getItem('jwt');
+  if (authToken !== null && authToken !== 'null') {
+    headers['Authorization'] = 'Bearer ' + authToken;
+  }
+  const postData = {
+    name: applican.device.name,
+    platform: applican.device.platform,
+    token,
+    uuid: applican.device.uuid_rfc4122,
+    version: applican.device.version,
+    applican_version: applican.device.applican,
+    applican_type: applican.device.applican_type,
+    package_name: applican.device.package_name,
+  };
+  return $.ajax({
+    url: rootVariables.apiUrl + '/device/register',
+    dataType: 'json',
+    type: 'POST',
+    headers,
+    data: JSON.stringify(postData),
+    success: function (res) {
+      if (authToken !== null && authToken !== 'null') {
+        localStorage.setItem('is_registered', 'true');
+      }
+      localStorage.setItem('push_token', token);
+    },
+    error: function (jqXhr, textStatus, errorThrown) {
+      // What's next?
+    }
+  });
+}
+
+(function checkRegisterDevice() {
+  // delay 2s, waiting for applican was loaded
+  setTimeout(() => {
+    if (typeof applican === 'undefined') return;
+    if (localStorage.getItem('is_registered') === 'true') return;
+    getPushToken();
+  }, 2000);
+})();
