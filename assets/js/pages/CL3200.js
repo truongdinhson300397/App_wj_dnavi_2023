@@ -525,7 +525,7 @@ $(document).ready(function () {
       toLocationHref(recruitEntryUrl + '?recruit_guide_id=' + recruitGuideId + '&company_id=' + companyId);//+recruitEntryId;
     });
     $('#internships-entry-btn').on('click', function () {
-      toLocationHref(internshipsEntryUrl);//+internshipsEntryId;
+      toLocationHref(internshipsEntryUrl + '?internship_id=' + internOutput[key]);//+internshipsEntryId;
     });
 
   }

@@ -16,6 +16,9 @@
 <!-- <meta name="robots" content="noindex,nofollow"/> -->
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <title>{{#if title}}{{title}}{{else}}ダイヤモンド就活ナビ：学生のための就職活動・採用・IS情報サイト{{/if}}</title>
+{{#if isApplican}}
+    <script async="false" src="./applican.js"></script>
+{{/if}}
 {{#block "header-scripts"}}
     <link rel="stylesheet" href="{{path}}css/common.css" type="text/css" media="all"/>
     <link rel="stylesheet" href="{{path}}css/shared/general.css" type="text/css" media="all"/>

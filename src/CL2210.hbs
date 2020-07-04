@@ -121,7 +121,6 @@
             });
             if (matchedEventDate.length > 0) {
               toLocationHref('{{link.myPageAppliedEvent}}');
-              localStorage.clear();
             } else {
               $('.alert-box').append(previousError);
               $('.alert-box').show();
@@ -289,7 +288,6 @@
             },
             data: postData,
             success: function (_res) {
-              localStorage.clear();
               toLocationHref('{{link.myPageAppliedEvent}}');
             },
             error: function (jqXhr, textStatus, errorThrown) {
@@ -317,7 +315,6 @@
             },
             processData: true,
             success: function (_res) {
-              localStorage.clear();
               toLocationHref('{{link.myPageAppliedEvent}}');
             },
             error: function (jqXhr, textStatus, errorThrown) {

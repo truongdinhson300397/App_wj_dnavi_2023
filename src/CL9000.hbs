@@ -24,7 +24,7 @@
                         <div class="form-preface">ログアウトしました。</div>
 
                         <div class="form-btn-box">
-                            <a href="/" class="btn-default btn-blue w100-50prc">トップへ戻る</a>
+                            <a href="{{link.top}}" class="btn-default btn-blue w100-50prc">トップへ戻る</a>
                         </div>
                     </div>
                 </div>
@@ -70,6 +70,7 @@
                             removeGlobalInfo('partner_name');
                             removeGlobalInfo('registrant_id');
                             removeGlobalInfo('returnUrl', {path: '/'});
+                            removeGlobalInfo("is_registered");
                         }
 
                         dumpGuestHeader();

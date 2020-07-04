@@ -1,7 +1,4 @@
 {{#block "footer-scripts"}}
-    {{#if isApplican}}
-    <script async=false defer=false src="applican.js"></script>
-    {{/if}}
     <script>
         var assetsPath = '{{path}}';
     </script>
@@ -34,7 +31,7 @@
     <script src="{{path}}js/gumi_helpers.js"></script>
     <script src="{{path}}js/shared/general.js"></script>
     {{#unless isApplican}}
-    <script src="{{path}}js/shared/footer_component.js"></script>
+    <script  src="{{path}}js/shared/footer_component.js"></script>
     {{/unless}}
     <script src="{{path}}js/sites/apiSend.js"></script>
 {{/block}}

@@ -129,7 +129,6 @@
                     processData: false,
                     success: function (data) {
                         toLocationHref('{{link.quitdnaviTemporaryUserComplete}}');
-                        localStorage.clear();
                     },
                     error: function (error) {
                         var errMessage = error.responseJSON.error.message;
