@@ -1,6 +1,7 @@
 {
   "domain": "https://dev.dia-navi.cloud3rs.io/",
   "path": "/public/",
+  "isApplican": false,
   "link": {
     "top": "/top",
     "regist": "/regist",
