@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script src="{{path}}js/vendor/jquery-2.2.4.min.js"></script>
+<script>
+    function getParameterByName(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, '\\$&');
+        var regex = new RegExp('[#&]' + name + '(=([^&#]*)|&|#|$)'),
+                results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    }
+    var url = getParameterByName('url');
+    if (url.length > 0) {
+        $.ajax({
+            url: '{{apiDomain}}api/v1/webview/display?url=' + url,
+            method: 'GET'
+        }).done(function (resp) {
+            console.log(resp);
+            // re-writes the entire document
+            var newDoc = document.open("text/html", "replace");
+            resp.data = resp.data.replace(/{applican_root}/gm, location.href.substr(0, location.href.indexOf('webview.html')));
+            newDoc.write(resp.data);
+            newDoc.close();
+        }).fail(function (err) {
+            window.location.href = 'index.html';
+        });
+    }
+</script>
+</body>
+</html>

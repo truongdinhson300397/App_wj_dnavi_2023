@@ -18,7 +18,13 @@ var headerLogoBoxHeight = $('.header-logo-box').outerHeight();
 var headerBoxInnerHeight = $('.header-box-inner').outerHeight();
 var navHeight = $('#nav').outerHeight();
 var ul1MaxHeight = windowHeight-headerLogoBoxHeight;
-var mainPaddingTop = Number($('#main').css('padding-top').replace('px',''));
+
+var $main = $('#main');
+var mainPaddingTopEnd = 0;
+if ($main.length > 0) {
+  mainPaddingTopEnd = $('#main').css('padding-top').replace('px','');
+}
+var mainPaddingTop = Number(mainPaddingTopEnd);
 
 
 var link = {};
@@ -195,7 +201,12 @@ function getGlobalVariable(){
   headerBoxInnerHeight = $('.header-box-inner').outerHeight();
   navHeight = $('#nav').outerHeight();
   ul1MaxHeight = windowHeight-headerLogoBoxHeight;
-  mainPaddingTop = Number($('#main').css('padding-top').replace('px',''));
+  $main = $('#main');
+  mainPaddingTopEnd = 0;
+  if ($main.length > 0) {
+    mainPaddingTopEnd = $('#main').css('padding-top').replace('px','');
+  }
+  mainPaddingTop = Number(mainPaddingTopEnd);
 }
 
 //画面ロード時
