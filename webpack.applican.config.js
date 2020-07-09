@@ -4,6 +4,7 @@ const buildZipPath = ['dist', 'applican'];
 const zipName = 'web.zip';
 //
 const path = require("path");
+const url = require("url");
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HandlebarsPlugin = require("handlebars-webpack-plugin");
 const FileManagerPlugin = require('filemanager-webpack-plugin');
@@ -53,6 +54,13 @@ const webpackConfig = {
                     }
                     return new Handlebars.SafeString(link);
                 });
+                Handlebars.registerHelper("linkOrWebview", function(link) {
+                    const data = require("./env/applican.json");
+                    if (data.isApplican) {
+                        return new Handlebars.SafeString('webview.html#url' + '=' + new URL(link, data.domain));
+                    }
+                    return new Handlebars.SafeString(link);
+                });
             },
             onBeforeAddPartials: function (Handlebars, partialsMap) {},
             onBeforeCompile: function (Handlebars, templateContent) {},
@@ -63,7 +71,7 @@ const webpackConfig = {
         new FileManagerPlugin({
             onEnd: {
                 copy: [
-                    { source: './assets/{css,img,js}/**/*', destination: path.join(...buildPath) },
+                    { source: './assets/{css,img,js,webview}/**/*', destination: path.join(...buildPath) },
                     { source: './applican-assets/**/*', destination: path.join(...buildPath) },
                 ],
                 move: [

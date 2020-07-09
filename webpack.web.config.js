@@ -46,6 +46,9 @@ const webpackWebConfig = {
                 Handlebars.registerHelper("linkOrBrowser", function(link) {
                     return new Handlebars.SafeString(link);
                 });
+                Handlebars.registerHelper("linkOrWebview", function(link) {
+                    return new Handlebars.SafeString(link);
+                });
             },
             onBeforeAddPartials: function (Handlebars, partialsMap) {},
             onBeforeCompile: function (Handlebars, templateContent) {},

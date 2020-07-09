@@ -26,7 +26,7 @@ var term = [
 var version = {
   "android":"1.1.1",
   "ios":"1.1.1",
-  "version_contract_term": 1
+  "version_contract_term": 2
 };
 
 function checkVersion () {
@@ -51,7 +51,7 @@ function checkVersion () {
               $("body").append('<div id="update-warning"> ' +
                   ' <div class="update-error">'+
                   '   <p class="error-mes">新しいバージョンがあります。新しいバージョンを更新するには、「はい」を押してください。!</p>'+
-                  '   <a href="itms-apps://itunes.apple.com/app/id1340007962"class="btn btn-update-version">はい</a>' +
+                  '   <a href="itms-apps://itunes.apple.com/app/id1340007962" class="btn btn-update-version">はい</a>' +
                   ' </div>' +
                   '</div>');
             }
@@ -62,7 +62,7 @@ function checkVersion () {
               $("body").append('<div id="update-warning"> ' +
                   ' <div class="update-error">'+
                   '   <p class="error-mes">新しいバージョンがあります。新しいバージョンを更新するには、「はい」を押してください。!</p>'+
-                  '   <a href="https://play.google.com/store/apps/details?id=com.gumi.dnavi"class="btn btn-update-version">はい</a>' +
+                  '   <a href="https://play.google.com/store/apps/details?id=com.gumi.dnavi" class="btn btn-update-version">はい</a>' +
                   ' </div>' +
                   '</div>');
             }
@@ -705,7 +705,7 @@ function registerDevice(token) {
     'Content-Type': 'application/json',
     'Accept': 'application/json'
   };
-  var authToken = localStorage.getItem('jwt');
+  var authToken = globalInfo('jwt_' + contractTermId);
   if (authToken !== null && authToken !== 'null') {
     headers['Authorization'] = 'Bearer ' + authToken;
   }
