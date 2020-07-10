@@ -46,8 +46,8 @@ function checkVersion () {
           var data = res.data;
           if(window.applican.device.platform === 'iOS') {
             //app store
+            $versionBlock.html('<span>バージョン　' + version.ios + '</span>');
             if(data.ios_update === true) {
-              $versionBlock.html('<span>バージョン　' + version.ios + '</span>');
               $("body").append('<div id="update-warning"> ' +
                   ' <div class="update-error">'+
                   '   <p class="error-mes">新しいバージョンがあります。新しいバージョンを更新するには、「はい」を押してください。!</p>'+
