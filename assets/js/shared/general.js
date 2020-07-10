@@ -718,6 +718,7 @@ function registerDevice(token) {
     applican_version: applican.device.applican,
     applican_type: applican.device.applican_type,
     package_name: applican.device.package_name,
+    contract_term_id: contractTermId,
   };
   return $.ajax({
     url: rootVariables.apiUrl + '/device/register',
