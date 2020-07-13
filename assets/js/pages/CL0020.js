@@ -235,7 +235,7 @@ function fetchReservedEvents(query) {
   query = query || null;
   // get default query
   if (_.isEmpty(query)) {
-    query = {status: 1};
+    query = {contract_term_id: global.contract_term_id, status: 1};
   }
   // format query to string
   query = urlHelper.objectToQueryString(query);
