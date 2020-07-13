@@ -438,17 +438,25 @@
       total_time_spend: util.getStorage('state').userTimeSpent,
       questions: userAnswers
     };
-    var isConfirm = confirm('終了してもよろしいですか？');
 
-    if (isConfirm === true) {
-      clearInterval(interval);
-      util.setStorage("isSubmit", true);
-      checkAnswer(answerCount);
-      uploadUserData(body);
-    } else {
-      userCurrentTime = moment();
-      state.userStoppedTime = moment(userCurrentTime).diff(userEndTime, 'seconds');
-      util.setStorage('state', state);
-    }
+    Swal.fire({
+      title: '終了してもよろしいですか？',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'OK',
+      cancelButtonText: 'キャンセル'
+    }).then((result) => {
+      if (result.value) {
+        clearInterval(interval);
+        util.setStorage("isSubmit", true);
+        checkAnswer(answerCount);
+        uploadUserData(body);
+      } else {
+        userCurrentTime = moment();
+        state.userStoppedTime = moment(userCurrentTime).diff(userEndTime, 'seconds');
+        util.setStorage('state', state);
+      }
+    });
   })
 })();

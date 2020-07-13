@@ -346,13 +346,22 @@ $('#finishQuiz').on('click', function (e) {
     total_time_spend: JSON.parse(localStorage.getItem('time')),
     questions: userAnswers
   };
-  var r = confirm('終了してもよろしいですか？');
-  if (r === true) {
-    var isSubmit = true;
-    localStorage.setItem('is_submit', isSubmit);
-    uploadUserData(body);
-    clearInterval(timeOut);
-  }
+
+  Swal.fire({
+    title: '終了してもよろしいですか？',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'OK',
+    cancelButtonText: 'キャンセル'
+  }).then((result) => {
+    if (result.value) {
+      var isSubmit = true;
+      localStorage.setItem('is_submit', isSubmit);
+      uploadUserData(body);
+      clearInterval(timeOut);
+    }
+  });
 });
 
 function uploadUserData (body) {
