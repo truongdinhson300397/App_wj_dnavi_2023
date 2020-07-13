@@ -4,7 +4,7 @@
   "path": "/public/",
   "isApplican": false,
   "link": {
-    "top": "/top",
+    "top": "/",
     "regist": "/regist",
     "loginUser": "/login/user",
     "loginTemporary": "/login/temporary_user",
