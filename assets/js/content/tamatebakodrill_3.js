@@ -210,6 +210,9 @@ function renderQuestion(_questionInfo) {
         }
       }
       var answer = answers['answer_' + (idx + 1)];
+      if (typeof isApplican !== "undefined" && isApplican) {
+        answer = fixPathForContentPage(answer);
+      }
       $answersUi.append(
         '<li class="contents-answer-ul-li" id="checked-' + (idx + 1) + '">' +
         '  <label class="label-default label-tamatebako-answer">' +

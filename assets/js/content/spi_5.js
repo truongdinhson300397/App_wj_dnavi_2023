@@ -73,6 +73,9 @@ function renderQuestion(_questions, _corrects) {
     if (_question.detail !== null && _question.detail !== '') {
       $qDetail = '<div class="contents-question-box">' + _question.detail + '</div>';
     }
+    if (typeof isApplican !== "undefined" && isApplican) {
+      _question.content = fixPathForContentPage(_question.content);
+    }
     // Render question
     $contentWrapper.append(
         '<div class="contents-question-outer">' +
@@ -95,6 +98,9 @@ function renderQuestion(_questions, _corrects) {
     _.times(8, function (_aIdx) {
       var currentAnswer = __answers['answer_' + (_aIdx + 1)];
       if (currentAnswer !== null && currentAnswer !== '') {
+        if (typeof isApplican !== "undefined" && isApplican) {
+          currentAnswer = fixPathForContentPage(currentAnswer);
+        }
         var userSelection = _.find(userAnswers, function (_uAns) {
           return parseInt(_uAns.question_id) === parseInt(_question.question_id);
         });

@@ -73,6 +73,9 @@
         _.times(10, function (_index) {
           if (answers['answer_' + (_index + 1)]) {
             answers['answer_' + (_index + 1)] = util.htmlAnswerImagesHandler('', answers['answer_' + (_index + 1)]);
+            if (typeof isApplican !== "undefined" && isApplican) {
+              answers['answer_' + (_index + 1)] = fixPathForContentPage(answers['answer_' + (_index + 1)]);
+            }
             $containerBox.append(
                 '<li class="contents-answer-ul-li">\n' +
                 '<label class="label-default label-tamatebako-answer" style="cursor: default">\n' +
@@ -139,6 +142,9 @@
         _.times(10, function (_index) {
           if (answers['answer_' + (_index + 1)]) {
             answers['answer_' + (_index + 1)] = util.htmlAnswerImagesHandler('', answers['answer_' + (_index + 1)]);
+            if (typeof isApplican !== "undefined" && isApplican) {
+              answers['answer_' + (_index + 1)] = fixPathForContentPage(answers['answer_' + (_index + 1)]);
+            }
             $containerBox.append(
                 '<li class="contents-answer-ul-li">\n' +
                 '<label class="label-default label-tamatebako-answer" style="cursor: default">\n' +

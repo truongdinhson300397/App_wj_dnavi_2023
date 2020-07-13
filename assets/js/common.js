@@ -971,3 +971,6 @@ function replaceContractTerm2022 () {
   document.body.innerHTML = document.body.innerHTML.replace(/2021/g, contractTerm);
   document.title = document.title.replace(/2021/g, contractTerm);
 }
+function fixPathForContentPage(path) {
+  return path.replace(/..\/..\/..\//, domain);
+}

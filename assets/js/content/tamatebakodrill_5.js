@@ -86,6 +86,9 @@ function renderQuestionsAndAnswers (_questions, _resultQuestions, _userAnswers, 
           }
         }
         var answer = itemAnswers['answer_' + (idx + 1)];
+        if (typeof isApplican !== "undefined" && isApplican) {
+          answer = fixPathForContentPage(answer);
+        }
 
         if ((idx + 1) === _resultQuestions[indexQuestion].correct_answer_id) {
           if (_userAnswers[indexQuestion].answers_id === -1) {
@@ -144,6 +147,9 @@ function renderQuestionsAndAnswers (_questions, _resultQuestions, _userAnswers, 
     var noAnswer  = '<div class="contents-answer-mi">未回答</div>';
     var detailQuestion = '';
     if (question.detail) {
+      if (typeof isApplican !== "undefined" && isApplican) {
+        question.detail = fixPathForContentPage(question.detail);
+      }
       detailQuestion = '<div class="question-intro contents-question-txt txt-blue mgnb15-20" id="question-detail-pr">' + question.detail + '</div>';
     }
 
