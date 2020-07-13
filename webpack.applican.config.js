@@ -61,6 +61,13 @@ const webpackConfig = {
                     }
                     return new Handlebars.SafeString(link);
                 });
+                Handlebars.registerHelper("displayWebOnly", function(content) {
+                    const data = require("./env/applican.json");
+                    if (!data.isApplican) {
+                        return new Handlebars.SafeString(content);
+                    }
+                    return '';
+                });
             },
             onBeforeAddPartials: function (Handlebars, partialsMap) {},
             onBeforeCompile: function (Handlebars, templateContent) {},

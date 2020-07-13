@@ -49,6 +49,13 @@ const webpackWebConfig = {
                 Handlebars.registerHelper("linkOrWebview", function(link) {
                     return new Handlebars.SafeString(link);
                 });
+                Handlebars.registerHelper("displayWebOnly", function(content) {
+                    const data = require("./env/web.json");
+                    if (!data.isApplican) {
+                        return new Handlebars.SafeString(content);
+                    }
+                    return '';
+                });
             },
             onBeforeAddPartials: function (Handlebars, partialsMap) {},
             onBeforeCompile: function (Handlebars, templateContent) {},
