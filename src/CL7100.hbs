@@ -6,6 +6,7 @@
                 display: block;
                 margin: auto;
                 max-width: 300px;
+                text-align: center;
             }
         </style>
     {{/content}}
@@ -23,7 +24,7 @@
                 <section class="drop-shadow-box">
                     <div class="contents-preface">イベント会場にてご提示ください。</div>
                     <figure>
-                        <img id="qr-code" class="img-qr"/>
+                        <div id="qr-code" class="img-qr"></div>
                     </figure>
                 </section>
                 <div class="mgnt30-50">
@@ -34,6 +35,9 @@
         </div>
     {{/content}}
     {{#content "footer-scripts" mode="append"}}
+        <script src="{{path}}js/qrcode.js"></script>
+        <script src="{{path}}js/qrcode_SJIS.js"></script>
+        <script src="{{path}}js/qrcode_UTF8.js"></script>
         <script>
             _headerUIHandler(null, null, true);
             $(function () {
@@ -74,11 +78,14 @@
                 }
 
                 function __generateUserQRCode(data) {
-                    var width = 300;
-                    var height = 300;
-                    var size = width + 'x' + height;
-                    var userInfo = '{"id":"' + id + '","email":"' + data['data']['login_id'] + '","code":"QRCodeDiamond","name":"' + data['data']['family_name'] + data['data']['given_name'] + '"}';
-                    $('#qr-code').attr('src', 'https://chart.googleapis.com/chart?cht=qr&chs=' + size + '&chl=' + userInfo);
+                    var rawName = data['data']['family_name'] + data['data']['given_name'];
+                    var userInfo = '{"id":' + parseInt(id) + ',"email":"' + data['data']['login_id'] + '","code":"QRCodeDiamond","name":"' + rawName + '"}';
+                    var typeNumber = 0;
+                    var errorCorrectionLevel = 'L';
+                    var qr = qrcode(typeNumber, errorCorrectionLevel);
+                    qr.addData(userInfo);
+                    qr.make();
+                    $('#qr-code').append(qr.createImgTag(7));
                 }
             });
         </script>
