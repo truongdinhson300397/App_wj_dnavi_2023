@@ -387,7 +387,7 @@ function headeFooterApp (isLogin) {
       '     <a href="' + link.faqList + '" class="app-left-nav-ul-1-li-a">FAQ</a>' +
       '    </li>' +
       '    <li class="app-left-nav-ul-1-li">' +
-      '     <a href="' + link.kiyaku + '" class="app-left-nav-ul-1-li-a">利用規約</a>' +
+      '     <a href="' + (globalInfo('contract_term_id') == 1 ? link.kiyaku : link.kiyaku2022) + '" class="app-left-nav-ul-1-li-a">利用規約</a>' +
       '    </li>' +
       '    <li class="app-left-nav-ul-1-li">' +
       '     <a href="' + link.privacy + '" class="app-left-nav-ul-1-li-a">プライバシーポリシー</a>' +
