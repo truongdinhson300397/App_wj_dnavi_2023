@@ -92,6 +92,9 @@ function renderQuestion (_question, _callback) {
   var $questionContent = $('<div class="contents-question-txt">');
 
   $questionTitle.text('問題' + dQuizNumber);
+  if (typeof isApplican !== "undefined" && isApplican) {
+    _question.content = fixPathForContentPage(_question.content);
+  }
   $questionContent.append(_question.content);
   if (_question.detail) {
     $questionContent.append(
@@ -107,6 +110,9 @@ function renderQuestion (_question, _callback) {
   _.times(8, function (_idx) {
     if (answers['answer_' + (_idx + 1)] != null && answers['answer_' + (_idx + 1)] !== '') {
       var _answer = answers['answer_' + (_idx + 1)];
+      if (typeof isApplican !== "undefined" && isApplican) {
+        _answer = fixPathForContentPage(_answer);
+      }
       $answersUi.append(
         '<li class="contents-answer-ul-li" >' +
         '  <label class="label-default">' +
