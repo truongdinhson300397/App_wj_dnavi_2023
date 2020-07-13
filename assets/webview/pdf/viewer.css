@@ -1271,6 +1271,13 @@ html[dir='rtl'] .toolbarButton#sidebarToggle::before {
     transform: scaleX(-1);
 }
 
+.toolbarButton#applicanGoBack::before {
+    content: url(images/findbarButton-previous.png);
+}
+html[dir='rtl'] .toolbarButton#applicanGoBack::before {
+    transform: scaleX(-1);
+}
+
 .toolbarButton#secondaryToolbarToggle::before {
     content: url(images/toolbarButton-secondaryToolbarToggle.png);
 }
@@ -2103,6 +2110,12 @@ html[dir='rtl'] #documentPropertiesOverlay .row > * {
         content: url(images/toolbarButton-sidebarToggle@2x.png);
     }
     html[dir='rtl'] .toolbarButton#sidebarToggle::before {
+        transform: scale(-0.5, 0.5);
+    }
+    .toolbarButton#applicanGoBack::before {
+        content: url(images/findbarButton-previous@2x.png);
+    }
+    html[dir='rtl'] .toolbarButton#applicanGoBack::before {
         transform: scale(-0.5, 0.5);
     }
 
