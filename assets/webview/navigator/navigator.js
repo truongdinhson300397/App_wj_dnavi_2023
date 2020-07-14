@@ -62,7 +62,14 @@ document.addEventListener('deviceready', function () {
   var forwardButton = document.getElementById('applicanGoForward');
   if (typeof applican !== 'undefined' && forwardButton) {
     forwardButton.addEventListener('click', function () {
-      window.location.href = '/';
+      applican.webView.goForward();
     });
   }
+
+  var closeButton = document.getElementById('applicanClose');
+    if (typeof applican !== 'undefined' && closeButton) {
+      closeButton.addEventListener('click', function () {
+        window.location.href = 'index.html';
+      });
+    }
 });
