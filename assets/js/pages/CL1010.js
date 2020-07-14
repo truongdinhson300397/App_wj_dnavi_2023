@@ -1487,6 +1487,9 @@ $(document).ready(function () {
       if(isTemporaryMode && $("#email2").val().length === 0) {
         postData.email2 = "";
       }
+      if (typeof isApplican !== "undefined" && isApplican) {
+          postData.is_applican = true;
+      }
 
       postData = JSON.stringify(postData);
 
