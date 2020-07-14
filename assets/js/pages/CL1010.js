@@ -1488,6 +1488,8 @@ $(document).ready(function () {
         postData.email2 = "";
       }
 
+      postData.is_applican = true;
+
       postData = JSON.stringify(postData);
 
       $.ajax({
