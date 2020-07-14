@@ -12,7 +12,8 @@ var htmlString = '<div style="' +
                            'right: 10px;' +
                            'bottom: 10px;' +
                            'width: 32px;' +
-                           'cursor: pointer' +
+                           'cursor: pointer;' +
+                           'z-index: 999;' +
                        '">' +
 '<img id="applicanGoBack" src="./webview/navigator/images/back-button.svg" />' +
 '</div>';
