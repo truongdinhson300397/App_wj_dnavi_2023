@@ -25,10 +25,11 @@
             url: '{{apiDomain}}api/v1/webview/display?url=' + url,
             method: 'GET'
         }).done(function (resp) {
-            console.log(resp);
             // re-writes the entire document
             var newDoc = document.open("text/html", "replace");
             resp.data = resp.data.replace(/{applican_root}/gm, location.href.substr(0, location.href.indexOf('webview.html')));
+            resp.data = resp.data.replace(/<\/body>/, '<script src="{{path}}applican.js"><\/script>' +
+                    '<script src="{{path}}webview/navigator/navigator.js"><\/script>');
             newDoc.write(resp.data);
             newDoc.close();
         }).fail(function (err) {
