@@ -9,7 +9,7 @@ function createElementFromHTML(htmlString) {
 
 var htmlString = '<div style="' +
                            'position: fixed;' +
-                           'right: 10px;' +
+                           'left: 10px;' +
                            'bottom: 10px;' +
                            'width: 32px;' +
                            'cursor: pointer;' +
@@ -21,6 +21,36 @@ var htmlString = '<div style="' +
 var actionDiv = createElementFromHTML(htmlString);
 document.body.append(actionDiv);
 
+var forwardBtn = '<div style="' +
+  'position: fixed;' +
+  'right: 10px;' +
+  'bottom: 10px;' +
+  'width: 32px;' +
+  'cursor: pointer;' +
+  'z-index: 999;' +
+  'transform: rotate(180deg);' +
+  '">' +
+  '<img id="applicanGoForward" src="./webview/navigator/images/back-button.svg" />' +
+  '</div>';
+
+var actionDivFw = createElementFromHTML(forwardBtn);
+document.body.append(actionDivFw);
+
+var closeBtn = '<div style="' +
+  'position: fixed;' +
+  'left: 50%;' +
+  'bottom: 10px;' +
+  'width: 32px;' +
+  'cursor: pointer;' +
+  'z-index: 999;' +
+  'transform: translateX(-50%);' +
+  '">' +
+  '<img id="applicanClose" src="./webview/navigator/images/back-close.svg" />' +
+  '</div>';
+
+var actionDivClose = createElementFromHTML(closeBtn);
+document.body.append(actionDivClose);
+
 document.addEventListener('deviceready', function () {
    var backButton = document.getElementById('applicanGoBack');
    if (typeof applican !== 'undefined' && backButton) {
@@ -28,4 +58,11 @@ document.addEventListener('deviceready', function () {
            applican.webView.goBack();
        });
    }
+
+  var forwardButton = document.getElementById('applicanGoForward');
+  if (typeof applican !== 'undefined' && forwardButton) {
+    forwardButton.addEventListener('click', function () {
+      window.location.href = '/';
+    });
+  }
 });
