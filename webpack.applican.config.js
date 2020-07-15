@@ -57,7 +57,7 @@ const webpackConfig = {
                 Handlebars.registerHelper("linkOrWebview", function(link) {
                     const data = require("./env/applican.json");
                     if (data.isApplican) {
-                        return new Handlebars.SafeString('webview.html#url' + '=' + new URL(link, data.domain));
+                        return new Handlebars.SafeString(data.domain + 'webview/webview.html?link_url' + '=' + new URL(link, data.domain));
                     }
                     return new Handlebars.SafeString(link);
                 });

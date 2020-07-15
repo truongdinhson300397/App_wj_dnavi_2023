@@ -151,6 +151,15 @@
     {{/content}}
     {{#content "footer-scripts" mode="append"}}
         <script>
+            function getParameterByName(name, url) {
+                if (!url) url = window.location.href;
+                name = name.replace(/[\[\]]/g, '\\$&');
+                var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+                        results = regex.exec(url);
+                if (!results) return null;
+                if (!results[2]) return '';
+                return decodeURIComponent(results[2].replace(/\+/g, ' '));
+            }
             _headerUIHandler(null, null, false, true);
             $(document).ready(function () {
                 var userDataTemp, loginTermTemp;
@@ -273,7 +282,7 @@
                             return;
                         }
                         saveUserData(data, loginTerm);
-                        var returnUrl = globalInfo('returnUrl');
+                        var returnUrl = globalInfo('returnUrl') || getParameterByName('returnUrl');
 
                         if (!returnUrl) {
                             // 仮
