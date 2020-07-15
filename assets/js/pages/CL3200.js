@@ -853,7 +853,11 @@ $(document).ready(function () {
             var linkElm = '';
             for (var i = 1; i <= 6; i++) {
               if (linkData['link' + i + '_title']) {
-                linkElm = linkElm + '<li class="links-ul-li"><a href="' + linkData['link' + i + '_url'] +
+                var linkUrl = linkData['link' + i + '_url'];
+                if (typeof isApplican !== "undefined" && isApplican) {
+                  return window.location.href = domain + 'webview/webview.html?link_url=' + encodeURIComponent(linkUrl);
+                }
+                linkElm = linkElm + '<li class="links-ul-li"><a href="' + linkUrl +
                   '" class="links-ul-li-a">' + linkData['link' + i + '_title'] + '</a></li>';
               }
             }

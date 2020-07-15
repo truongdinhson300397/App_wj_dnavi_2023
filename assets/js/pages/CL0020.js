@@ -759,10 +759,15 @@ function _contentUrl(content) {
   content = content || {};
   // if the content requried login and user does not login
   if (parseInt(content.is_login) === 1 && !global.isLogin) {
+    if (typeof isApplican !== "undefined" && isApplican) {
+      return window.location.href = domain + 'webview/webview.html?link_url=' + encodeURIComponent(link.loginUser + '?returnUrl=' + encodeURIComponent(content.link_url));
+    }
     globalInfo('returnUrl', content.link_url, {path: "/"});
     return toLocationHref(link.loginUser);
   }
-
+  if (typeof isApplican !== "undefined" && isApplican) {
+    return window.location.href = domain + 'webview/webview.html?link_url=' + encodeURIComponent(content.link_url);
+  }
   return window.location = content.link_url;
 }
 
