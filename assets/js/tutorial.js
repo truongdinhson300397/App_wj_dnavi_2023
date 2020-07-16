@@ -24,16 +24,13 @@ document.addEventListener('deviceready', function () {
         } else {
             $('#first-open-app .swiper-wrapper').html('' +
                 '<div class="swiper-slide">\n' +
-                '      <img class="img-tutorial iphone-678" src="./img/' + prefix + 'iphone678_tutorial_1.png" alt="">' +
-                '      <img class="img-tutorial iphone-x" src="./img/' + prefix + 'iphoneX_tutorial_1.png" alt="">' +
+                '      <img class="img-tutorial iphone" src="./img/' + prefix + 'tutorial_1.png" alt="">' +
                 '    </div>' +
                 '<div class="swiper-slide">\n' +
-                '      <img class="img-tutorial iphone-678" src="./img/' + prefix + 'iphone678_tutorial_2.png" alt="">' +
-                '      <img class="img-tutorial iphone-x" src="./img/' + prefix + 'iphoneX_tutorial_2.png" alt="">' +
+                '      <img class="img-tutorial iphone" src="./img/' + prefix + 'tutorial_2.png" alt="">' +
                 '    </div>' +
                 '<div class="swiper-slide">\n' +
-                '      <img class="img-tutorial iphone-678" src="./img/' + prefix + 'iphone678_tutorial_3.png" alt="">' +
-                '      <img class="img-tutorial iphone-x" src="./img/' + prefix + 'iphoneX_tutorial_3.png" alt="">' +
+                '      <img class="img-tutorial iphone" src="./img/' + prefix + 'tutorial_2-1.png" alt="">' +
                 '    </div>');
         }
         var swiper = new Swiper('.swiper-tutorial', {
@@ -48,7 +45,6 @@ document.addEventListener('deviceready', function () {
                 releaseOnEdges: true,
             },
         });
-        console.log(swiper);
 
         //Hide button skip when first load and remove unused class
         $('#btn-skip').hide();
