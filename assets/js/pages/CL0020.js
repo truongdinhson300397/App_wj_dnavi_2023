@@ -93,6 +93,12 @@ function guest() {
   fetchData();
 }
 
+function convertLinkToWebviewLink(content) {
+  return content.replace(/<a(.*)href=(["'])([^\s]{2,})(['"])/gm, function (match, p1, p2, p3, p4) {
+    return '<a' + p1 + 'href=' + p2 + domain + 'webview/webview.html?link_url=' + encodeURIComponent(p3) + p4;
+  });
+}
+
 function fetchData() {
 
   onSearchCompanyImage();
@@ -129,7 +135,10 @@ function dumpContentInformation(infos) {
   // there is always one info in each contract term
   var info = infos[0];
   if (info && !(_.isEmpty(info.contents))) {
-    $('[data-api="content_information"]').text(info.contents);
+    if (typeof isApplican !== "undefined" && isApplican) {
+      info.contents = convertLinkToWebviewLink(info.contents);
+    }
+    $('[data-api="content_information"]').html(info.contents);
   } else {
     $('#information').remove();
   }
@@ -735,7 +744,7 @@ function dumpBanner(banners) {
       linkUrl = domain + 'webview/webview.html?link_url=' + encodeURIComponent(linkUrl);
     }
     var _bannerLi = ' <li class="banner-area-ul-li first">' +
-      '            <a href="' + banner.link_url + '" class="banner-area-ul-li-a"><img src="' + linkUrl + '" alt="' + banner.image_name + '"/></a>' +
+      '            <a href="' + linkUrl + '" class="banner-area-ul-li-a"><img src="' + banner.image_url + '" alt="' + banner.image_name + '"/></a>' +
       '          </li>';
     $bannerUl.append(_bannerLi);
   });
@@ -856,6 +865,9 @@ function dumpSpareBox(spareBoxes) {
   var $spareBoxDiv = $('#spare-boxes');
   spareBoxes.forEach(function (box) {
     var _contents = box.contents || '';
+    if (typeof isApplican !== "undefined" && isApplican) {
+      _contents = convertLinkToWebviewLink(_contents);
+    }
     var _imageName = box.image_name || '';
     var _image = box.image_url ? '<img src="' + box.image_url + '" class="dummy-img" alt="' + _imageName + '"> ' : '';
     var _boxDiv = '<div class="contents-box">' +
