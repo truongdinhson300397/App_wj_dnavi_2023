@@ -263,7 +263,11 @@ function dumpMainVisual(mainVisuals) {
     return !_.isEmpty(mainVis.image_url);
   });
   formatedMainVisuals.forEach(function (mainVis) {
-    var _mainVisLi = '<li class="swiper-slide"><a target="_blank" href="' + mainVis.link_url + '"><img src="' + mainVis.image_url + '" class="img-mainvis" alt=""/></a></li>';
+    var linkUrl = mainVis.link_url;
+    if (typeof isApplican !== "undefined" && isApplican) {
+      linkUrl = domain + 'webview/webview.html?link_url=' + encodeURIComponent(linkUrl);
+    }
+    var _mainVisLi = '<li class="swiper-slide"><a target="_blank" href="' + linkUrl + '"><img src="' + mainVis.image_url + '" class="img-mainvis" alt=""/></a></li>';
     $mainVisUl.append(_mainVisLi);
   });
   var mainVisSwiper = new Swiper('#mainVis', {
@@ -726,8 +730,12 @@ function dumpBanner(banners) {
     return !_.isEmpty(banner.image_url);
   });
   formatedbanners.forEach(function (banner) {
+    var linkUrl = banner.link_url;
+    if (typeof isApplican !== "undefined" && isApplican) {
+      linkUrl = domain + 'webview/webview.html?link_url=' + encodeURIComponent(linkUrl);
+    }
     var _bannerLi = ' <li class="banner-area-ul-li first">' +
-      '            <a href="' + banner.link_url + '" class="banner-area-ul-li-a"><img src="' + banner.image_url + '" alt="' + banner.image_name + '"/></a>' +
+      '            <a href="' + banner.link_url + '" class="banner-area-ul-li-a"><img src="' + linkUrl + '" alt="' + banner.image_name + '"/></a>' +
       '          </li>';
     $bannerUl.append(_bannerLi);
   });
@@ -1086,8 +1094,12 @@ function dumpNotice(notices) {
     if (_.isNull(notice.link_url)) {
       _noticeLi = '<li class="drop-shadow-box mgnt30-50 info-2-box-body line-break">' + notice.contents + '</li>';
     } else {
+      var linkUrl = notice.link_url;
+      if (typeof isApplican !== "undefined" && isApplican) {
+        linkUrl = domain + 'webview/webview.html?link_url=' + encodeURIComponent(linkUrl);
+      }
       _noticeLi = '<li class="drop-shadow-box mgnt30-50 info-2-box-body line-break">' +
-        '<a href="' + notice.link_url + '">' + notice.title + '</a>' +
+        '<a href="' + linkUrl + '">' + notice.title + '</a>' +
         '</li>';
     }
     $noticeUl.append(_noticeLi);
