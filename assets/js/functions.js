@@ -1,5 +1,6 @@
 // 各ページURL
 var apiUrl = 'https://dev.admin.dia-navi.cloud3rs.io/api/v1',
+// var apiUrl = 'https://stg.admin.dia-navi.cloud3rs.io/api/v1',
   registUrl = link.regist,
   mypageUrl = link.myPageTop, // '/mypage/top',
   loginUrl = link.loginUser, // '/login/user',

@@ -72,6 +72,7 @@ function checkVersion () {
       error: function (error, jqXhr, textStatus, errorThrown) {
         //maintenance
         // window.location.href = 'https://dev.admin.dia-navi.cloud3rs.io/';
+        // window.location.href = 'https://stg.admin.dia-navi.cloud3rs.io/';
       }
     });
   });
