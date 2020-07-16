@@ -855,7 +855,7 @@ $(document).ready(function () {
               if (linkData['link' + i + '_title']) {
                 var linkUrl = linkData['link' + i + '_url'];
                 if (typeof isApplican !== "undefined" && isApplican) {
-                  return window.location.href = domain + 'webview/webview.html?link_url=' + encodeURIComponent(linkUrl);
+                  linkUrl = domain + 'webview/webview.html?link_url=' + encodeURIComponent(linkUrl);
                 }
                 linkElm = linkElm + '<li class="links-ul-li"><a href="' + linkUrl +
                   '" class="links-ul-li-a">' + linkData['link' + i + '_title'] + '</a></li>';
