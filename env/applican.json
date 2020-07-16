@@ -1,8 +1,10 @@
 {
   "domain": "https://dev.dia-navi.cloud3rs.io/",
   "_domain": "https://stg.dia-navi.cloud3rs.io/",
+  "__domain": "https://shukatsu.jp/",
   "apiDomain": "https://dev.admin.dia-navi.cloud3rs.io/",
   "_apiDomain": "https://stg.admin.dia-navi.cloud3rs.io/",
+  "__apiDomain": "https://admin.shukatsu.jp/",
   "path": "",
   "isApplican": true,
   "link": {
