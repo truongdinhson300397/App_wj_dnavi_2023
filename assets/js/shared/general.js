@@ -1,7 +1,9 @@
 var rootVariables = {
   apiUrl: 'https://dev.admin.dia-navi.cloud3rs.io/api/v1'
+  // apiUrl: 'https://stg.admin.dia-navi.cloud3rs.io/api/v1'
 };
 var apiUrlAsura = 'https://develop.e2rpro.jp/api';
+// var apiUrlAsura = 'https://stgdia.e2rpro.jp/api';
 
 var term = [
   {
