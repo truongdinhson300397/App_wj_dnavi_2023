@@ -248,6 +248,9 @@
       state.currentMathQuestion = Math.floor(currentMathQuestion);
     }
     $problemTitle.html(data[currentQuestion].title);
+    if (typeof isApplican !== "undefined" && isApplican) {
+      data[currentQuestion].content = fixPathForContentPage(data[currentQuestion].content);
+    }
     data[currentQuestion].content = util.htmlImageHandler(data[currentQuestion].content);   // Separate image and question content
     $problemContent.html(data[currentQuestion].content);
 

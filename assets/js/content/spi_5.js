@@ -70,11 +70,12 @@ function renderQuestion(_questions, _corrects) {
     $contentWrapper.append('<span id="q' + (_idx + 1) + '" class="anchor"></span>');
 
     var $qDetail = '';
+    if (typeof isApplican !== "undefined" && isApplican) {
+      _question.detail = fixPathForContentPage(_question.detail);
+      _question.content = fixPathForContentPage(_question.content);
+    }
     if (_question.detail !== null && _question.detail !== '') {
       $qDetail = '<div class="contents-question-box">' + _question.detail + '</div>';
-    }
-    if (typeof isApplican !== "undefined" && isApplican) {
-      _question.content = fixPathForContentPage(_question.content);
     }
     // Render question
     $contentWrapper.append(

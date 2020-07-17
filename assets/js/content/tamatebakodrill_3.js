@@ -161,7 +161,9 @@ function renderQuestion(_questionInfo) {
     $questionTitle.text('問題' + dQuestionNumber);
     $checkTypeQuestion.text('選択肢');
   }
-
+  if (typeof isApplican !== "undefined" && isApplican) {
+    _questionInfo.content = fixPathForContentPage(_questionInfo.content);
+  }
   $questionContent.append(
     _questionInfo.title
     + '  <div class="contents-question-box">' + _questionInfo.content + '</div>'
