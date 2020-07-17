@@ -97,6 +97,9 @@ function renderQuestion (_question, _callback) {
   }
   $questionContent.append(_question.content);
   if (_question.detail) {
+    if (typeof isApplican !== "undefined" && isApplican) {
+      _question.detail = fixPathForContentPage(_question.detail);
+    }
     $questionContent.append(
       '<div class="contents-question-box">' + _question.detail + '</div>'
     );

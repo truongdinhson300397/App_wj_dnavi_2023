@@ -35,11 +35,17 @@
       } else {
         ele.detail = util.htmlAnswerImagesHandler(ele.detail);
       }
+      if (typeof isApplican !== "undefined" && isApplican) {
+        ele.detail = fixPathForContentPage(ele.detail);
+      }
 
       var problemTextNumber = Math.floor((i + 4) / 4);
 
       if (i === 0) {
         // HTML string transform
+        if (typeof isApplican !== "undefined" && isApplican) {
+          ele.content = fixPathForContentPage(ele.content);
+        }
         ele.content = util.htmlImageHandler(ele.content);
         // Render questions title
         problemText = '<h4 class="problem-number contents-question-h4">' + '問題' + 1 + '</h4>\n';
