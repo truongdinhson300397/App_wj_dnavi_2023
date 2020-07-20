@@ -37,6 +37,7 @@
       }
       if (typeof isApplican !== "undefined" && isApplican) {
         ele.detail = fixPathForContentPage(ele.detail);
+        ele.description = fixPathForContentPage(ele.description);
       }
 
       var problemTextNumber = Math.floor((i + 4) / 4);

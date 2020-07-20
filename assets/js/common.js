@@ -973,6 +973,38 @@ function replaceContractTerm2022 () {
   document.body.innerHTML = document.body.innerHTML.replace(/2021/g, contractTerm);
   document.title = document.title.replace(/2021/g, contractTerm);
 }
+// This function be used for join url
+function concatAndResolveUrl(url, concat) {
+  var url1 = url.split('/');
+  var url2 = concat.split('/');
+  var url3 = [ ];
+  for (var i = 0, l = url1.length; i < l; i ++) {
+    if (url1[i] == '..') {
+      url3.pop();
+    } else if (url1[i] == '.') {
+      continue;
+    } else {
+      url3.push(url1[i]);
+    }
+  }
+  for (var i = 0, l = url2.length; i < l; i ++) {
+    if (url2[i] == '..') {
+      url3.pop();
+    } else if (url2[i] == '.') {
+      continue;
+    } else {
+      url3.push(url2[i]);
+    }
+  }
+  return url3.join('/');
+}
 function fixPathForContentPage(path) {
-  return path.replace(/..\/..\/..\//, domain);
+  if (typeof path !== 'string') return path;
+  // TODO: fix relative and absolute path
+  // Except: http/https/data/base64 source
+  var result = path.replace(/(['"])(?!http|https|\/\/|data:)([^\s]{2,})(['"])/gm, function (match, p1, p2, p3) {
+    // don't input '/' character in the last of URL
+    return p1 + concatAndResolveUrl(domain + '2022/contents/dummy_page', p2) + p3;
+  });
+  return result;
 }
