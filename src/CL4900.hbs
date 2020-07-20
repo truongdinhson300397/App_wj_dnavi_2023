@@ -130,7 +130,11 @@
                     });
                     if (!_.isUndefined(registrants)) {
                       _getAsuraStudentMypage(domainAsura.mypageService.mypageTopUrl, registrants.registrant_id).done(function (_res) {
-                        $('#url_asura-' + _idx).append('<a href="' + _res.data + '" class="btn-small btn-green mgnt10-15">企業マイページ</a>');
+                          if (typeof isApplican !== "undefined" && isApplican) {
+                              $('#url_asura-' + _idx).append('<a href="' + linkOrBrowser(_res.data) + '" class="btn-small btn-green mgnt10-15">企業マイページ</a>');
+                          } else {
+                              $('#url_asura-' + _idx).append('<a href="' + _res.data + '" class="btn-small btn-green mgnt10-15">企業マイページ</a>');
+                          }
                       });
                     }
                   },
