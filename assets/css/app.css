@@ -37,6 +37,13 @@
   display: table-cell;
   text-align: center;
 }
+.app-header-logo.app-partner .header-label-box {
+  display: inline-block;
+}
+.app-header-logo.app-partner .app-header-logo-img {
+  width: 50px !important;
+  height: 20px !important;
+}
 
 .app-header-logo-a {
   padding: 0;

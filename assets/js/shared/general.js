@@ -313,13 +313,20 @@ function displayContractTerm() {
 }
 
 function headeFooterApp (isLogin) {
+  var _partnerName = string2literal(decodeURIComponent(globalInfo('partner_name')));
+  var _partnerNameString = '';
+  if (!_.isEmpty(_partnerName)) {
+    _partnerNameString = '<span class="header-label-box" style="display: inline-block;text-align: center;"><span data-global="header_prefecture_name" class="label-prefecture">' +
+        _partnerName + '</span></span>';
+  }
   var hearder = '<div class="app-header-box-inner">' +
       ' <span class="app-header-nav">' +
       '  <a href="javascript:void(0);" id="navIconOpen" class="app-header-nav-icon app-nav-icon-menu nav-icon-menu-open"></a>' +
       ' </span>' +
-      ' <span class="app-header-logo">' +
+      ' <span class="app-header-logo' + (!_.isEmpty(_partnerName) ? ' app-partner' : '') + '">' +
       ' <a href="' + link.top + '" class="app-header-logo-a app-header-logo-img header-logo-a">' +
       ' </a>' +
+      _partnerNameString +
       ' </span>' +
       ' <span class="app-header-nav">' +
       '   <a href="' + link.myPageMycode + '" class="app-header-nav-icon app-nav-icon-qr"></a>マイコード' +
