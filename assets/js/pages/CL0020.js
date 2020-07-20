@@ -415,7 +415,7 @@ function dumpPickUp(pickups) {
 
   formatedPickups.forEach(function (pickup, index) {
     var _$li = $('<li class="pickup-ul-li">' +
-      '            <a href="/company/detail?company_id=' + pickup.company.company_id + '" class="pickup-ul-li-a"><img src="' + pickup.company.company_main_visual_image_url + '" alt=""/><br/>' + pickup.company.company_name + '</a>' +
+      '            <a href="' + link.companyDetail + '?company_id=' + pickup.company.company_id + '" class="pickup-ul-li-a"><img src="' + pickup.company.company_main_visual_image_url + '" alt=""/><br/>' + pickup.company.company_name + '</a>' +
       '          </li>');
     if (index + 1 <= 2) {
       _$li.addClass('first-row');
