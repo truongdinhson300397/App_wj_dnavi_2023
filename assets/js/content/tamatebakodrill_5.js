@@ -173,6 +173,8 @@ function renderQuestionsAndAnswers (_questions, _resultQuestions, _userAnswers, 
     // Check question user noAnswer
     if (typeof isApplican !== "undefined" && isApplican) {
       question.content = fixPathForContentPage(question.content);
+      question.detail = fixPathForContentPage(question.detail);
+      question.description = fixPathForContentPage(question.description);
     }
     if (_userAnswers[indexQuestion].answers_id !== -1) {
       output.push(

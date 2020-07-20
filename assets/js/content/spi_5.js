@@ -73,6 +73,7 @@ function renderQuestion(_questions, _corrects) {
     if (typeof isApplican !== "undefined" && isApplican) {
       _question.detail = fixPathForContentPage(_question.detail);
       _question.content = fixPathForContentPage(_question.content);
+      $qDetail = fixPathForContentPage($qDetail);
     }
     if (_question.detail !== null && _question.detail !== '') {
       $qDetail = '<div class="contents-question-box">' + _question.detail + '</div>';
@@ -149,6 +150,10 @@ function renderQuestion(_questions, _corrects) {
       return parseInt(_question.question_id) === parseInt(_aC.question_id);
     });
     var textAnswerCorrect = __answers['answer_' + (isCorrect.correct_answer_id)];
+    if (typeof isApplican !== "undefined" && isApplican) {
+      textAnswerCorrect = fixPathForContentPage(textAnswerCorrect);
+      _question.description = fixPathForContentPage(_question.description);
+    }
     var $questionExplain = $(
         '<div class="contents-explanation-outer"><h4 class="contents-explanation-h4">答え<span class="contents-explanation-h4-answer">' + textAnswerCorrect + '</span></h4>');
     $questionExplain.append(_question.description);
