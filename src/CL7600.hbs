@@ -100,6 +100,7 @@
         </div>
     {{/content}}
     {{#content "footer-scripts" mode="append"}}
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
         <!-- page script -->
         <script>
             _headerUIHandler(null, null, true);
@@ -161,36 +162,43 @@
 
                 // 退会
                 function withdrawal() {
+                    Swal.fire({
+                        title: '退会しても宜しいでしょうか？',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'OK',
+                        cancelButtonText: 'キャンセル'
+                    }).then((result) => {
+                        if (result.value) {
+                            // 送信データ取得整形
+                            var formSerial = $('.postdata').serializeArray();
+                            var postData = formAdjust(formSerial);
+                            postData = JSON.stringify(postData);
+                            var contractTermId = globalInfo("contract_term_id");
+                            var jwt = globalInfo('jwt_' + contractTermId);
+                            var id = globalInfo('id_' + contractTermId);
+//              			console.log(postData);
 
-                    var _isAgree = confirm('退会しても宜しいでしょうか？');
-                    if(!_isAgree) return;
-
-                    // 送信データ取得整形
-                    var formSerial = $('.postdata').serializeArray();
-                    var postData = formAdjust(formSerial);
-                    postData = JSON.stringify(postData);
-                    var contractTermId = globalInfo("contract_term_id");
-                    var jwt = globalInfo('jwt_' + contractTermId);
-                    var id = globalInfo('id_' + contractTermId);
-//			console.log(postData);
-
-                    $.ajax({
-                        url: rootVariables.apiUrl + '/students/' + id + '/leave',
-                        type: 'post',
-                        dataType: 'json',
-                        data: postData,
-                        headers: {
-                            'Authorization': 'Bearer ' + jwt,
-                            'Content-Type': 'application/json'
-                        },
-                        success: function (data) {
-                            withdrawalSuccess(data);
-                        },
-                        error: function (XMLHttpRequest, textStatus, errorThrown) {
-                            withdrawalSuccessError(XMLHttpRequest);
-//					console.log(errorThrown);
-//					console.log(textStatus);
-//					console.log(XMLHttpRequest);
+                            $.ajax({
+                                url: rootVariables.apiUrl + '/students/' + id + '/leave',
+                                type: 'post',
+                                dataType: 'json',
+                                data: postData,
+                                headers: {
+                                    'Authorization': 'Bearer ' + jwt,
+                                    'Content-Type': 'application/json'
+                                },
+                                success: function (data) {
+                                    withdrawalSuccess(data);
+                                },
+                                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                    withdrawalSuccessError(XMLHttpRequest);
+//					                console.log(errorThrown);
+//					                console.log(textStatus);
+//					                console.log(XMLHttpRequest);
+                                }
+                            });
                         }
                     });
 
