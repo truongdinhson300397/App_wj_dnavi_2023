@@ -33,7 +33,7 @@
 }
 
 .app-header-logo {
-  padding: 5px;
+  padding: 0 5px;
   display: table-cell;
   text-align: center;
 }
@@ -41,8 +41,8 @@
   display: inline-block;
 }
 .app-header-logo.app-partner .app-header-logo-img {
-  width: 65px !important;
-  height: 24px !important;
+  width: 80px !important;
+  height: 32px !important;
 }
 
 .app-header-logo-a {
