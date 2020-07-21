@@ -1002,12 +1002,12 @@ function fixPathForContentPage(path) {
   if (typeof path !== 'string') return path;
   // TODO: fix relative and absolute path
   // Except: http/https/data/base64 source
-  var result = path.replace(/(['"])(?!http|https|\/\/|data:)([^\s]{2,})(['"])/gm, function (match, p1, p2, p3) {
+  var result = path.replace(/src=(['"])(?!http|https|\/\/|data:)([^\s]{2,})(['"])/gm, function (match, p1, p2, p3) {
     if (p2[0] === '/') {
-      return p1 + domain + p2 + p3;
+      return 'src=' + p1 + domain + p2 + p3;
     }
     // don't input '/' character in the last of dummy URL
-    return p1 + concatAndResolveUrl(domain + '2022/contents/dummy_page', p2) + p3;
+    return 'src=' + p1 + concatAndResolveUrl(domain + '2022/contents/dummy_page', p2) + p3;
   });
   return result;
 }
