@@ -249,6 +249,8 @@
     }
     $problemTitle.html(data[currentQuestion].title);
     if (typeof isApplican !== "undefined" && isApplican) {
+      data[currentQuestion].detail = fixPathForContentPage(data[currentQuestion].detail);
+      data[currentQuestion].description = fixPathForContentPage(data[currentQuestion].description);
       data[currentQuestion].content = fixPathForContentPage(data[currentQuestion].content);
     }
     data[currentQuestion].content = util.htmlImageHandler(data[currentQuestion].content);   // Separate image and question content
