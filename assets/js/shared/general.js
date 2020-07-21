@@ -315,10 +315,11 @@ function displayContractTerm() {
 function headeFooterApp (isLogin) {
   var _partnerName = string2literal(decodeURIComponent(globalInfo('partner_name')));
   var _partnerNameString = '';
-  if (!_.isEmpty(_partnerName)) {
-    _partnerNameString = '<span class="header-label-box" style="display: inline-block;text-align: center;"><span data-global="header_prefecture_name" class="label-prefecture">' +
-        _partnerName + '</span></span>';
-  }
+  // Temporary commented for changing style
+  // if (!_.isEmpty(_partnerName)) {
+  //   _partnerNameString = '<span class="header-label-box" style="display: inline-block;text-align: center;"><span data-global="header_prefecture_name" class="label-prefecture">' +
+  //       _partnerName + '</span></span>';
+  // }
   var hearder = '<div class="app-header-box-inner">' +
       ' <span class="app-header-nav">' +
       '  <a href="javascript:void(0);" id="navIconOpen" class="app-header-nav-icon app-nav-icon-menu nav-icon-menu-open"></a>' +
