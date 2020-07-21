@@ -1,10 +1,19 @@
 {
+  "contractTermId": 2,
+  "contractTerm": "2022",
+
   "domain": "https://dev.dia-navi.cloud3rs.io/",
-  "_domain": "https://stg.dia-navi.cloud3rs.io/",
-  "__domain": "https://shukatsu.jp/",
+  "devDomain": "https://dev.dia-navi.cloud3rs.io/",
+  "stgDomain": "https://stg.dia-navi.cloud3rs.io/",
+  "prodDomain": "https://shukatsu.jp/",
+
   "apiDomain": "https://dev.admin.dia-navi.cloud3rs.io/",
-  "_apiDomain": "https://stg.admin.dia-navi.cloud3rs.io/",
-  "__apiDomain": "https://admin.shukatsu.jp/",
+  "devApiDomain": "https://dev.admin.dia-navi.cloud3rs.io/",
+  "stgApiDomain": "https://stg.admin.dia-navi.cloud3rs.io/",
+  "prodApiDomain": "https://admin.shukatsu.jp/",
+
+  "inAppDomain": "https://www.shukatsu.jp",
+
   "path": "/public/",
   "isApplican": false,
   "link": {

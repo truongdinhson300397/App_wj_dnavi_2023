@@ -8,6 +8,7 @@ const url = require("url");
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HandlebarsPlugin = require("handlebars-webpack-plugin");
 const FileManagerPlugin = require('filemanager-webpack-plugin');
+const utils = require('./webpack.handlebar.utils');
 
 // import the helpers
 const handlebarsLayouts = require('handlebars-layouts');
@@ -47,9 +48,15 @@ const webpackConfig = {
             // getPartialId: function (filePath) {}
             onBeforeSetup: function (Handlebars) {
                 handlebarsLayouts.register(Handlebars);
+                Handlebars.registerHelper('concat', function(a, b, c) {
+                    return a + b + c;
+                });
                 Handlebars.registerHelper("linkOrBrowser", function(link) {
                     const data = require("./env/applican.json");
                     if (data.isApplican) {
+                        if (utils.checkInApp(link)) {
+                            return new Handlebars.SafeString(utils.convertLinkToApplicanLink(link));
+                        }
                         return new Handlebars.SafeString('javascript:applican.launcher.urlScheme(\'' + link +'\');');
                     }
                     return new Handlebars.SafeString(link);

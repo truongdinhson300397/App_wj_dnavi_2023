@@ -43,6 +43,9 @@ const webpackWebConfig = {
             // getPartialId: function (filePath) {}
             onBeforeSetup: function (Handlebars) {
                 handlebarsLayouts.register(Handlebars);
+                Handlebars.registerHelper('concat', function(a, b, c) {
+                    return a + b + c;
+                });
                 Handlebars.registerHelper("linkOrBrowser", function(link) {
                     return new Handlebars.SafeString(link);
                 });
