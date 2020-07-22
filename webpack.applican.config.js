@@ -49,7 +49,10 @@ const webpackConfig = {
             onBeforeSetup: function (Handlebars) {
                 handlebarsLayouts.register(Handlebars);
                 Handlebars.registerHelper('concat', function(a, b, c) {
-                    return a + b + c;
+                    function stringOrEmpty(str) {
+                        return typeof str === 'string' ? str : '';
+                    }
+                    return stringOrEmpty(a) + stringOrEmpty(b) + stringOrEmpty(c);
                 });
                 Handlebars.registerHelper("linkOrBrowser", function(link) {
                     const data = require("./env/applican.json");
@@ -64,7 +67,7 @@ const webpackConfig = {
                 Handlebars.registerHelper("linkOrWebview", function(link) {
                     const data = require("./env/applican.json");
                     if (data.isApplican) {
-                        return new Handlebars.SafeString(data.domain + 'webview/webview.html?link_url' + '=' + new URL(link, data.domain));
+                        return new Handlebars.SafeString('javascript:applican.launcher.webview(\'' + link + '\');');
                     }
                     return new Handlebars.SafeString(link);
                 });
