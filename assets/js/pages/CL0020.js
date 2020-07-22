@@ -95,7 +95,7 @@ function guest() {
 
 function convertLinkToWebviewLink(content) {
   return content.replace(/<a(.*)href=(["'])([^\s]{2,})(['"])/gm, function (match, p1, p2, p3, p4) {
-    return '<a' + p1 + 'href=' + p2 + domain + 'webview/webview.html?link_url=' + encodeURIComponent(p3) + p4;
+    return '<a' + p1 + 'href=' + p2 + linkOrWebview(p3) + p4;
   });
 }
 
@@ -274,7 +274,7 @@ function dumpMainVisual(mainVisuals) {
   formatedMainVisuals.forEach(function (mainVis) {
     var linkUrl = mainVis.link_url;
     if (typeof isApplican !== "undefined" && isApplican) {
-      linkUrl = domain + 'webview/webview.html?link_url=' + encodeURIComponent(linkUrl);
+      linkUrl = linkOrWebview(linkUrl);
     }
     var _mainVisLi = '<li class="swiper-slide"><a target="_blank" href="' + linkUrl + '"><img src="' + mainVis.image_url + '" class="img-mainvis" alt=""/></a></li>';
     $mainVisUl.append(_mainVisLi);
@@ -741,7 +741,7 @@ function dumpBanner(banners) {
   formatedbanners.forEach(function (banner) {
     var linkUrl = banner.link_url;
     if (typeof isApplican !== "undefined" && isApplican) {
-      linkUrl = domain + 'webview/webview.html?link_url=' + encodeURIComponent(linkUrl);
+      linkUrl = linkOrWebview(linkUrl, false);
     }
     var _bannerLi = ' <li class="banner-area-ul-li first">' +
       '            <a href="' + linkUrl + '" class="banner-area-ul-li-a"><img src="' + banner.image_url + '" alt="' + banner.image_name + '"/></a>' +
@@ -777,13 +777,13 @@ function _contentUrl(content) {
   // if the content requried login and user does not login
   if (parseInt(content.is_login) === 1 && !global.isLogin) {
     if (typeof isApplican !== "undefined" && isApplican) {
-      return window.location.href = domain + 'webview/webview.html?link_url=' + encodeURIComponent(link.loginUser + '?returnUrl=' + encodeURIComponent(content.link_url));
+      return window.location.href = linkOrWebview(link.loginUser + '?returnUrl=' + encodeURIComponent(content.link_url));
     }
     globalInfo('returnUrl', content.link_url, {path: "/"});
     return toLocationHref(link.loginUser);
   }
   if (typeof isApplican !== "undefined" && isApplican) {
-    return window.location.href = domain + 'webview/webview.html?link_url=' + encodeURIComponent(content.link_url);
+    return window.location.href = linkOrWebview(content.link_url);
   }
   return window.location = content.link_url;
 }
@@ -1108,7 +1108,7 @@ function dumpNotice(notices) {
     } else {
       var linkUrl = notice.link_url;
       if (typeof isApplican !== "undefined" && isApplican) {
-        linkUrl = domain + 'webview/webview.html?link_url=' + encodeURIComponent(linkUrl);
+        linkUrl = linkOrWebview(linkUrl);
       }
       _noticeLi = '<li class="drop-shadow-box mgnt30-50 info-2-box-body line-break">' +
         '<a href="' + linkUrl + '">' + notice.title + '</a>' +

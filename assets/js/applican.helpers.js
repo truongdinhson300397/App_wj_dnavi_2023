@@ -12,10 +12,10 @@ if (typeof linkOrWebview === "undefined") {
     function linkOrWebview(link, appendRootDomain) {
         if (typeof isApplican !== "undefined" && isApplican) {
             var url = link;
-            if (typeof appendRootDomain === "undefined" || appendRootDomain) {
+            if (typeof appendRootDomain !== "undefined" && appendRootDomain) {
                 url = concatAndResolveUrl(domain, link);
             }
-            return domain + 'webview/webview.html?link_url' + '=' + url;
+            return 'javascript:applican.launcher.webview(\'' + url + '\');';
         }
         return link;
     }
