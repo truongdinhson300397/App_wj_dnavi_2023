@@ -149,6 +149,13 @@
               },
               data: JSON.stringify(paramToServer),
               success: function () {
+                var contactFormKeyListStr = localStorage['contactFormKeyList'];
+                if (!_.isEmpty(contactFormKeyListStr)) {
+                    var contactFormKeyList = JSON.parse(localStorage['contactFormKeyList']);
+                    _.forEach(contactFormKeyList, function (item) {
+                       localStorage.removeItem(item);
+                    });
+                }
                 toLocationHref("{{link.contactComplete}}");
               },
               error: function (jqXhr, textStatus, errorThrown) {
