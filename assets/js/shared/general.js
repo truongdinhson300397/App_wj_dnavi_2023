@@ -311,7 +311,21 @@ function displayContractTerm() {
     }
   }
 }
-
+function changeAppHeaderNav(isUserLoggedIn) {
+  var liList = $('.app-left-nav-btn-ul li');
+  if (liList.length < 2) return;
+  if (isUserLoggedIn) {
+    var btnLogin = '<a href="' + link.logout + '" class="app-left-nav-btn-login-a">ログアウト</a>';
+    var btnJoin = '<a href="' + link.myPageTop + '" class="app-left-nav-btn-join-a">マイページ</a>';
+    $(liList[0]).html(btnLogin);
+    $(liList[1]).html(btnJoin);
+  } else {
+    var btnLogin = '<a href="' + link.loginUser + '" class="app-left-nav-btn-login-a">ログイン</a>';
+    var btnJoin = '<a href="' + link.regist + '" class="app-left-nav-btn-join-a">会員登録</a>';
+    $(liList[0]).html(btnLogin);
+    $(liList[1]).html(btnJoin);
+  }
+}
 function headeFooterApp (isLogin) {
   var _partnerName = string2literal(decodeURIComponent(globalInfo('partner_name')));
   var _partnerNameString = '';
