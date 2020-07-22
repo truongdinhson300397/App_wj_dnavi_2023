@@ -1,10 +1,10 @@
 var rootVariables = {
-  apiUrl: 'https://dev.admin.dia-navi.cloud3rs.io/api/v1'
-  // apiUrl: 'https://stg.admin.dia-navi.cloud3rs.io/api/v1'
+  // apiUrl: 'https://dev.admin.dia-navi.cloud3rs.io/api/v1'
+  apiUrl: 'https://stg.admin.dia-navi.cloud3rs.io/api/v1'
   // apiUrl: 'https://admin.shukatsu.jp/api/v1'
 };
-var apiUrlAsura = 'https://develop.e2rpro.jp/api';
-// var apiUrlAsura = 'https://stgdia.e2rpro.jp/api';
+// var apiUrlAsura = 'https://develop.e2rpro.jp/api';
+var apiUrlAsura = 'https://stgdia.e2rpro.jp/api';
 // var apiUrlAsura = 'https://april.e2rpro.jp/api';
 
 var term = [
@@ -28,8 +28,8 @@ var term = [
 
 // set version
 var version = {
-  "android":"1.1.6",
-  "ios":"1.1.6",
+  "android":"1.1.7",
+  "ios":"1.1.7",
   "version_contract_term": 2
 };
 
