@@ -613,6 +613,7 @@ function isEmailCorrect(_email) {
 }
 
 function getPartnerFromUrl (_partners) {
+  if (typeof isApplican !== "undefined" && isApplican) return;
   // need to remove query parameters before check
   var newHref = window.location.href.split("?")[0].split("#")[0];
   var currentPartner = newHref.split(/([0-9]{4})/g).slice(-1)[0].split('/')[1];
