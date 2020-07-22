@@ -113,7 +113,12 @@
       _headerUIHandler(null, null, null);
       $(function () {
         // hide event Asura when change root
-        var currentPartner = window.location.href.split(/([0-9]{4})/g).slice(-1)[0].split('/')[1];
+        var currentPartner = null;
+        if (typeof isApplican !== "undefined" && isApplican) {
+            currentPartner = globalInfo('partner_id');
+        } else {
+            currentPartner = window.location.href.split(/([0-9]{4})/g).slice(-1)[0].split('/')[1];
+        }
         if (_.isEmpty(currentPartner)) {
           $('#corporateSeminar-wrapper').hide();
         }
