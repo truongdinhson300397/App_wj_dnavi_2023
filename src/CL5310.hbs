@@ -283,6 +283,7 @@
       }
 
       function storeToCloud(_formData) {
+        var keyList = [];
         _.forEach(_formData, function (_field) {
           if (_field.name === 'type') {
             localStorage[_field.name] = JSON.stringify({
@@ -292,7 +293,9 @@
           } else {
             localStorage[_field.name] = _field.value;
           }
+          keyList.push(_field.name);
         });
+        localStorage['contactFormKeyList'] = JSON.stringify(keyList);
       }
 
       function loadForm() {

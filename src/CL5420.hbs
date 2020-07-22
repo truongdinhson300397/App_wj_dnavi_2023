@@ -128,6 +128,13 @@
                     data: JSON.stringify(paramToServer),
                     processData: false,
                     success: function (data) {
+                        var contactFormKeyListStr = localStorage['leaveAccountTempFormKeyList'];
+                        if (!_.isEmpty(contactFormKeyListStr)) {
+                            var contactFormKeyList = JSON.parse(localStorage['leaveAccountTempFormKeyList']);
+                            _.forEach(contactFormKeyList, function (item) {
+                                localStorage.removeItem(item);
+                            });
+                        }
                         toLocationHref('{{link.quitdnaviTemporaryUserComplete}}');
                     },
                     error: function (error) {

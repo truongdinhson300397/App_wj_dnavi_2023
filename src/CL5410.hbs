@@ -186,13 +186,16 @@
             }
 
             function storeToCloud (_formData) {
+                var keyList = [];
                 _.forEach(_formData, function (_field) {
                     if (_field.name === 'temporary_id') {
                         localStorage[_field.name] = parseInt(_field.value);
                     } else {
                         localStorage[_field.name] = _field.value;
                     }
+                    keyList.push(_field.name);
                 });
+                localStorage['leaveAccountTempFormKeyList'] = JSON.stringify(keyList);
             }
         </script>
     {{/content}}
