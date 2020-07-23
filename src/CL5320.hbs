@@ -137,7 +137,9 @@
 
             // Send contract_term_id
             paramToServer.contract_term_id = contractTermId;
-
+            if (typeof isApplican !== "undefined" && isApplican) {
+                paramToServer.is_applican = true;
+            }
             $.ajax({
               url: rootVariables.apiUrl + '/students/contact',
               dataType: 'json',
