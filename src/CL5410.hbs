@@ -164,10 +164,10 @@
             $(function () {
                 // clear form
                 if (typeof getUrlParameter('is_back') === 'undefined') {
-                    var contactFormKeyListStr = localStorage['contactFormKeyList'];
-                    if (!_.isEmpty(contactFormKeyListStr)) {
-                        var contactFormKeyList = JSON.parse(localStorage['contactFormKeyList']);
-                        _.forEach(contactFormKeyList, function (item) {
+                    var leaveAccountTempFormKeyListStr = localStorage['leaveAccountTempFormKeyList'];
+                    if (!_.isEmpty(leaveAccountTempFormKeyListStr)) {
+                        var leaveAccountTempFormKeyList = JSON.parse(localStorage['leaveAccountTempFormKeyList']);
+                        _.forEach(leaveAccountTempFormKeyList, function (item) {
                             localStorage.removeItem(item);
                         });
                     }
