@@ -118,6 +118,9 @@
                 }
                 // leave reason is empty
                 paramToServer['leave_reason'] = '';
+                if (typeof isApplican !== "undefined" && isApplican) {
+                    paramToServer['is_applican'] = true;
+                }
 
                 $.ajax({
                     url: rootVariables.apiUrl  + '/students/temporary_leave',
