@@ -614,6 +614,21 @@ var getUrlParameter = function getUrlParameter(sParam) {
     }
   }
 };
+function getUrlParameterFromString(sPageURL, sParam) {
+  // remove query character
+  sPageURL = sPageURL.split('?').length > 1 ? sPageURL.split('?')[1] :  '';
+  var sURLVariables = sPageURL.split('&'),
+      sParameterName,
+      i;
+
+  for (i = 0; i < sURLVariables.length; i++) {
+    sParameterName = sURLVariables[i].split('=');
+
+    if (sParameterName[0] === sParam) {
+      return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+    }
+  }
+}
 
 function checkAllByClass(checkboxClass, kore) {
   $('input.' + checkboxClass).each(function () {

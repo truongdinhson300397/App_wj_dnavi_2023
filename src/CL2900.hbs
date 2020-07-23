@@ -267,6 +267,11 @@
               } else {
                 if (!(_eventData.is_open) && !_.isNull(_eventData.close_event_url)) {
                   eventButtonHml = '<a href="' + _eventData.close_event_url + '" class="btn-small btn-blue">詳細</a>';
+                  if (typeof isApplican !== "undefined" && isApplican) {
+                      var eventId = getUrlParameterFromString(_eventData.close_event_url, 'event_id');
+                      var eventFrom = getUrlParameterFromString(_eventData.close_event_url, 'event_from');
+                      eventButtonHml = '<a href="' + link.eventDetail + '?event_id=' + eventId + (!_.isEmpty(eventFrom) ? ('&event_from=' + eventFrom) : '') + '" class="btn-small btn-blue">詳細</a>';
+                  }
                 } else {
                   eventButtonHml = '<a href="{{link.eventDetail}}?event_id=' + _eventData.event_id +
                     '" class="btn-small btn-blue">詳細</a>';
