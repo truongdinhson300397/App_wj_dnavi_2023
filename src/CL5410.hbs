@@ -162,6 +162,16 @@
             }
 
             $(function () {
+                // clear form
+                if (typeof getUrlParameter('is_back') === 'undefined') {
+                    var leaveAccountTempFormKeyListStr = localStorage['leaveAccountTempFormKeyList'];
+                    if (!_.isEmpty(leaveAccountTempFormKeyListStr)) {
+                        var leaveAccountTempFormKeyList = JSON.parse(localStorage['leaveAccountTempFormKeyList']);
+                        _.forEach(leaveAccountTempFormKeyList, function (item) {
+                            localStorage.removeItem(item);
+                        });
+                    }
+                }
                 loadForm();
                 if (typeof isApplican !== "undefined" && isApplican) {
                     $('#__temporaryLeaveForm').attr('action', '{{link.quitdnaviTemporaryUserConfirm}}');
