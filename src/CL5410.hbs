@@ -163,12 +163,14 @@
 
             $(function () {
                 // clear form
-                var contactFormKeyListStr = localStorage['contactFormKeyList'];
-                if (!_.isEmpty(contactFormKeyListStr)) {
-                    var contactFormKeyList = JSON.parse(localStorage['contactFormKeyList']);
-                    _.forEach(contactFormKeyList, function (item) {
-                        localStorage.removeItem(item);
-                    });
+                if (typeof getUrlParameter('is_back') === 'undefined') {
+                    var contactFormKeyListStr = localStorage['contactFormKeyList'];
+                    if (!_.isEmpty(contactFormKeyListStr)) {
+                        var contactFormKeyList = JSON.parse(localStorage['contactFormKeyList']);
+                        _.forEach(contactFormKeyList, function (item) {
+                            localStorage.removeItem(item);
+                        });
+                    }
                 }
                 loadForm();
                 if (typeof isApplican !== "undefined" && isApplican) {
