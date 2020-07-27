@@ -96,6 +96,9 @@
               var postData = formAdjust(formSerial);
 
               _.assign(postData, {contract_term_id: contractTermId});
+              if (typeof isApplican !== "undefined" && isApplican) {
+                _.assign(postData, {is_applican: true});
+              }
 
               postData = JSON.stringify(postData);
 
