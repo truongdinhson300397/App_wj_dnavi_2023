@@ -197,9 +197,11 @@
               }
 
               var getUrl = rootVariables.apiUrl + '/students/temporary_info?family_name=' + familyName + '&given_name=' + givenName + '&temporary_id=' + temporaryId + departmentParam + sectionParam + telParam;
-
+              if (typeof isApplican !== "undefined" && isApplican) {
+                  getUrl = getUrl + '&is_applican=true';
+              }
               $.ajax({
-                url: rootVariables.apiUrl + '/students/temporary_info?family_name=' + familyName + '&given_name=' + givenName + '&temporary_id=' + temporaryId + departmentParam + sectionParam + telParam,
+                url: getUrl,
                 type: 'get',
                 headers: {
                   'Content-Type': 'application/json'
