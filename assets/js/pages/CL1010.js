@@ -1089,6 +1089,9 @@ $(document).ready(function () {
         if (temporaryId) {
           dataToServer.temporary_id = temporaryId;
         }
+          if (typeof isApplican !== "undefined" && isApplican) {
+              dataToServer.is_applican = true;
+          }
 
         $.ajax({
           url: global.apiUrl + '/students/search',
