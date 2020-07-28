@@ -808,7 +808,7 @@ function saveUserDataForQR(data) {
 }
 function getUserDataForQR() {
   var userDataStr = localStorage.getItem('qrUserData');
-  if (typeof userDataStr !== "undefined") {
+  if (userDataStr !== null) {
     return JSON.parse(userDataStr);
   }
   return false;
