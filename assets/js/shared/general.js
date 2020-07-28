@@ -33,6 +33,15 @@ var version = {
   "version_contract_term": 2
 };
 
+function isUserLoggedIn() {
+  var contractTermId = globalInfo("contract_term_id");
+  var id = globalInfo("id_" + contractTermId);
+  var jwt = globalInfo("jwt_" + contractTermId);
+  var hasJWT = jwt !== "null" && jwt !== undefined;
+  var hasID = id !== "null" && id !== undefined;
+  return hasJWT && hasID;
+}
+
 function checkVersion () {
   document.addEventListener('deviceready', function () {
     $.ajax({
@@ -84,11 +93,14 @@ function checkVersion () {
 }
 function _checkNetWork() {
   var isOnline = navigator.onLine;
+  var qrUserData = getUserDataForQR();
+  var isLoggedIn = isUserLoggedIn();
   if(!isOnline) {
     $("body").append('<div id="update-warning"> ' +
         ' <div class="update-error">'+
         '   <p class="error-mes-version">インターネット接続がありません。ダイヤモンド就活ナビにアクセスするにはWi-Fiネットワークかモバイルデータ通信を利用する必要があります。</p>'+
         '   <button id="retry-connect" class="btn btn-update-version">リトライ</button>' +
+        (isLoggedIn || qrUserData !== false ? '   <button id="go-qr-page" class="btn btn-update-version">QR Code</button>' : '') +
         ' </div>' +
         '</div>');
   }
@@ -100,6 +112,9 @@ function _retryConnect () {
     if(checkOnline) {
       $('#update-warning').hide();
     }
+  });
+  $('#go-qr-page').on('click', function () {
+    window.location.href = link.myPageMycode;
   });
 }
 
@@ -450,15 +465,6 @@ function dumpGuestHeader() {
   $headerNav.append(_temp);
 }
 
-function isUserLoggedIn() {
-  var contractTermId = globalInfo("contract_term_id");
-  var id = globalInfo("id_" + contractTermId);
-  var jwt = globalInfo("jwt_" + contractTermId);
-  var hasJWT = jwt !== "null" && jwt !== undefined;
-  var hasID = id !== "null" && id !== undefined;
-  return hasJWT && hasID;
-}
-
 function _headerUIHandler(nextFn, errorNextFn, isRequireLogin, onlyForGuest) {
   isRequireLogin = isRequireLogin || false;
   onlyForGuest = onlyForGuest || false;
@@ -787,4 +793,24 @@ if (typeof isApplican !== "undefined" && isApplican) {
     if (localStorage.getItem('is_registered') === 'true') return;
     getPushToken();
   });
+}
+
+function saveUserDataForQR(data) {
+  var userData = {};
+
+  userData.family_name = data.family_name;
+  userData.given_name = data.given_name;
+  userData.login_id = data.login_id;
+
+  localStorage.setItem('qrUserData', JSON.stringify(userData));
+}
+function getUserDataForQR() {
+  var userDataStr = localStorage.getItem('qrUserData');
+  if (typeof userDataStr !== "undefined") {
+    return JSON.parse(userDataStr);
+  }
+  return false;
+}
+function removeUserDataForQR() {
+  localStorage.removeItem('qrUserData');
 }

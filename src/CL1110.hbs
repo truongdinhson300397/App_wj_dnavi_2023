@@ -260,6 +260,7 @@
                     toLocationHref('{{link.myPageMemberinfoEdit}}');
                 });
                 function loginSuccess(data, loginTerm) {
+                    saveUserDataForQR(data);
                     if (data.user_contract_term.length > 0) {
                         var matchUserContractTerm = _.find(data.user_contract_term, function (contractTerm) {
                             return contractTerm.contract_term_id == globalInfo('contract_term_id');
