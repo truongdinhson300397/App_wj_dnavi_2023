@@ -43,13 +43,19 @@
         <script src="{{path}}js/qrcode_SJIS.js"></script>
         <script src="{{path}}js/qrcode_UTF8.js"></script>
         <script>
-            _headerUIHandler(null, null, true);
+            if (typeof isApplican === "undefined" || !isApplican || isOnline()) {
+                _headerUIHandler(null, null, true);
+            }
             $(function () {
                 var contractTermId = globalInfo("contract_term_id");
                 var apiUrl = rootVariables.apiUrl;
                 var jwt = globalInfo('jwt_' + contractTermId);
                 var id = globalInfo('id_' + contractTermId);
-                __getCurentUser();
+                if (typeof isApplican !== "undefined" && isApplican && !isOnline()) {
+                        __getCurentUserOffline();
+                } else {
+                    __getCurentUser();
+                }
 
                 function __getCurentUser() {
                     $.ajax({
@@ -69,6 +75,20 @@
                             console.log(XMLHttpRequest);
                         }
                     });
+                }
+
+                function __getCurentUserOffline() {
+                    var userData = getUserDataForQR();
+                    if (userData !== false) {
+                        var data = {};
+                        data.data = userData;
+                        __generateUserQRCode(data);
+                        $('.drop-shadow-box').append(__generateUserInfo(data));
+                    } else {
+                        console.log(errorThrown);
+                        console.log(textStatus);
+                        console.log(XMLHttpRequest);
+                    }
                 }
 
                 function __generateUserInfo(data) {
