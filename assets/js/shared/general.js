@@ -42,6 +42,10 @@ function isUserLoggedIn() {
   return hasJWT && hasID;
 }
 
+function isOnline() {
+  return navigator ? !!navigator.onLine : false;
+}
+
 function checkVersion () {
   document.addEventListener('deviceready', function () {
     $.ajax({
@@ -92,10 +96,9 @@ function checkVersion () {
   });
 }
 function _checkNetWork() {
-  var isOnline = navigator.onLine;
   var qrUserData = getUserDataForQR();
   var isLoggedIn = isUserLoggedIn();
-  if(!isOnline) {
+  if(!isOnline()) {
     $("body").append('<div id="update-warning"> ' +
         ' <div class="update-error">'+
         '   <p class="error-mes-version">インターネット接続がありません。ダイヤモンド就活ナビにアクセスするにはWi-Fiネットワークかモバイルデータ通信を利用する必要があります。</p>'+
@@ -108,10 +111,7 @@ function _checkNetWork() {
 
 function _retryConnect () {
   $('#retry-connect').on('click', function () {
-    var checkOnline = navigator.onLine;
-    if(checkOnline) {
-      $('#update-warning').hide();
-    }
+    window.location.reload();
   });
   $('#go-qr-page').on('click', function () {
     window.location.href = link.myPageMycode;
@@ -183,8 +183,10 @@ function _checkIsToken(sucFn, errorFn) {
     },
     error: function (jqXhr, textStatus, errorThrown) {
       var contractTermId = globalInfo("contract_term_id");
-      globalInfo('jwt_' + contractTermId, null, {path: "/"});
-      globalInfo('id_' + contractTermId, null, {path: "/"});
+      if (isOnline()) {
+        globalInfo('jwt_' + contractTermId, null, {path: "/"});
+        globalInfo('id_' + contractTermId, null, {path: "/"});
+      }
 
       if (typeof (errorFn) === 'function') {
         errorFn();
@@ -494,7 +496,7 @@ function _headerUIHandler(nextFn, errorNextFn, isRequireLogin, onlyForGuest) {
     }
     typeof (nextFn) === 'function' ? nextFn() : null;
   }, function () {
-    if (isRequireLogin) {
+    if (isRequireLogin && isOnline()) {
       // get path name and query string
       var _screenParse = $(location).attr('pathname') + $(location).attr('search');
       globalInfo('returnUrl', _screenParse, {path: "/"});

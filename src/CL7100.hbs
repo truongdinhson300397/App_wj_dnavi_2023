@@ -43,8 +43,7 @@
         <script src="{{path}}js/qrcode_SJIS.js"></script>
         <script src="{{path}}js/qrcode_UTF8.js"></script>
         <script>
-            var isOnline = navigator ? navigator.onLine : undefined;
-            if (typeof isApplican === "undefined" || !isApplican || isOnline) {
+            if (typeof isApplican === "undefined" || !isApplican || isOnline()) {
                 _headerUIHandler(null, null, true);
             }
             $(function () {
@@ -52,7 +51,7 @@
                 var apiUrl = rootVariables.apiUrl;
                 var jwt = globalInfo('jwt_' + contractTermId);
                 var id = globalInfo('id_' + contractTermId);
-                if (typeof isApplican !== "undefined" && isApplican && !isOnline) {
+                if (typeof isApplican !== "undefined" && isApplican && !isOnline()) {
                         __getCurentUserOffline();
                 } else {
                     __getCurentUser();
@@ -84,7 +83,7 @@
                         var data = {};
                         data.data = userData;
                         __generateUserQRCode(data);
-                        $('.drop-shadow-box').append(__generateUserInfo(userData));
+                        $('.drop-shadow-box').append(__generateUserInfo(data));
                     } else {
                         console.log(errorThrown);
                         console.log(textStatus);
