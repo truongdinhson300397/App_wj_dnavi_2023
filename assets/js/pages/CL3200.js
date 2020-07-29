@@ -855,7 +855,7 @@ $(document).ready(function () {
               if (linkData['link' + i + '_title']) {
                 var linkUrl = linkData['link' + i + '_url'];
                 if (typeof isApplican !== "undefined" && isApplican) {
-                  linkUrl = linkOrBrowser(linkUrl);
+                  linkUrl = linkOrWebview(linkUrl);
                 }
                 linkElm = linkElm + '<li class="links-ul-li"><a href="' + linkUrl +
                   '" class="links-ul-li-a">' + linkData['link' + i + '_title'] + '</a></li>';
