@@ -1423,7 +1423,36 @@
   text-align: center;
   width: 90%;
   border-radius: 10px;
-  height: 180px;
+  height: auto;
+}
+.update-error .update-error__header {
+  text-align: right;
+}
+.update-error .update-error__header .icon-qr {
+  padding: 35px 0 0;
+  margin: 10px;
+  background: url(../img/icon-qr.png) center top no-repeat;
+  background-size: 35px;
+  /*background-size: contain;*/
+  display: inline-block;
+  line-height: 1;
+  text-decoration: none;
+  text-align: center;
+  min-width: 30px;
+  position: relative;
+}
+.offline__2021_logo, .offline__2022_logo {
+  margin: 30px auto 0 auto;
+  display: block;
+  vertical-align: middle;
+  width: 100px;
+  height: 37.5px;
+}
+.offline__2021_logo {
+  background: url(../img/logo-dnavi-01-01.svg) 0 0 no-repeat;
+}
+.offline__2022_logo {
+  background: url(../img/logo-dnavi-01-02.svg) 0 0 no-repeat;
 }
 .error-mes {
   font-size: 15px;

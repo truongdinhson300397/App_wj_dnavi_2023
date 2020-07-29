@@ -37,8 +37,8 @@ function isUserLoggedIn() {
   var contractTermId = globalInfo("contract_term_id");
   var id = globalInfo("id_" + contractTermId);
   var jwt = globalInfo("jwt_" + contractTermId);
-  var hasJWT = jwt !== "null" && jwt !== undefined;
-  var hasID = id !== "null" && id !== undefined;
+  var hasJWT = jwt !== null && jwt !== "null" && jwt !== undefined;
+  var hasID = id !== null && id !== "null" && id !== undefined;
   return hasJWT && hasID;
 }
 
@@ -101,9 +101,13 @@ function _checkNetWork() {
   if(!isOnline()) {
     $("body").append('<div id="update-warning"> ' +
         ' <div class="update-error">'+
-        '   <p class="error-mes-version">インターネット接続がありません。ダイヤモンド就活ナビにアクセスするにはWi-Fiネットワークかモバイルデータ通信を利用する必要があります。</p>'+
+        '    <div class="update-error__header" ' + (isLoggedIn || qrUserData !== false ? '' : 'style="display: none"') + '>' +
+        '      <a href="' + link.myPageMycode + '" class="icon-qr">マイコードを表示</a>' +
+        '    </div>' +
+        '    <div class="offline__' + contractTerm + '_logo"></div>' +
+        '   <p class="error-mes-version">インターネット接続がありません。<br /><br />' +
+        '       ダイヤモンド就活ナビにアクセスするにはWi-Fiネットワークかモバイルデータ通信を利用する必要があります。</p>'+
         '   <button id="retry-connect" class="btn btn-update-version">リトライ</button>' +
-        (isLoggedIn || qrUserData !== false ? '   <button id="go-qr-page" class="btn btn-update-version">QR Code</button>' : '') +
         ' </div>' +
         '</div>');
   }
@@ -112,9 +116,6 @@ function _checkNetWork() {
 function _retryConnect () {
   $('#retry-connect').on('click', function () {
     window.location.reload();
-  });
-  $('#go-qr-page').on('click', function () {
-    window.location.href = link.myPageMycode;
   });
 }
 
