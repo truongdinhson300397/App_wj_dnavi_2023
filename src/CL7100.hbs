@@ -81,7 +81,8 @@
                     var userData = getUserDataForQR();
                     var logo = $('<a href="' + link.top + '"><span class="offline__' + contractTerm + '_logo"></span></a>')
                             .find('span')
-                            .css('margin-bottom', '10px');
+                            .css('margin-bottom', '10px')
+                            .parent();
                     $('#header').append(logo);
                     if (userData !== false) {
                         var data = {};
