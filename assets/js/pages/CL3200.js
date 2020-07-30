@@ -252,6 +252,9 @@ function dumpIntershipInfo(internOutput) {
           for (i in liknUrls) {
             if (i == 'link_url1_title' || i == 'link_url2_title') {
               var url = i.replace('title', 'url');
+              if (typeof isApplican !== "undefined" && isApplican) {
+                liknUrls[url] = linkOrWebview(liknUrls[url]);
+              }
               $('.tab-contents-internships .' + i).parent('a').attr('href', liknUrls[url]);
               $('.tab-contents-internships .' + i).html(liknUrls[i]);
             }
@@ -1080,18 +1083,33 @@ $(document).ready(function () {
           typeof (recruitOutputData[key]) == 'object') {
           if (recruitOutputData[key] != null) {
             if (key === 'link_url1_title') {
+              if (typeof isApplican !== "undefined" && isApplican) {
+                recruitOutputData['link_url1_url'] = linkOrWebview(recruitOutputData['link_url1_url']);
+              }
               $('.tab-contents-recruit .' + key).attr('href', recruitOutputData['link_url1_url']);
             }
             if (key === 'link_url2_title') {
+              if (typeof isApplican !== "undefined" && isApplican) {
+                recruitOutputData['link_url2_url'] = linkOrWebview(recruitOutputData['link_url2_url']);
+              }
               $('.tab-contents-recruit .' + key).attr('href', recruitOutputData['link_url2_url']);
             }
             if (key === 'link_url3_title') {
+              if (typeof isApplican !== "undefined" && isApplican) {
+                recruitOutputData['link_url3_url'] = linkOrWebview(recruitOutputData['link_url3_url']);
+              }
               $('.tab-contents-recruit .' + key).attr('href', recruitOutputData['link_url3_url']);
             }
             if (key === 'link_url4_title') {
+              if (typeof isApplican !== "undefined" && isApplican) {
+                recruitOutputData['link_url4_url'] = linkOrWebview(recruitOutputData['link_url4_url']);
+              }
               $('.tab-contents-recruit .' + key).attr('href', recruitOutputData['link_url4_url']);
             }
             if (key === 'link_url5_title') {
+              if (typeof isApplican !== "undefined" && isApplican) {
+                recruitOutputData['link_url5_url'] = linkOrWebview(recruitOutputData['link_url5_url']);
+              }
               $('.tab-contents-recruit .' + key).attr('href', recruitOutputData['link_url5_url']);
             }
 
