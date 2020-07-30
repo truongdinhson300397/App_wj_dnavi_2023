@@ -29,3 +29,12 @@ if (typeof linkOrBrowser === "undefined") {
         return link;
     }
 }
+
+if (typeof displayWebOnly === "undefined") {
+    function displayWebOnly(content) {
+        if (typeof isApplican !== "undefined" && isApplican) {
+            return '';
+        }
+        return content;
+    }
+}

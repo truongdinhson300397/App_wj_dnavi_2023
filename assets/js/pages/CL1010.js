@@ -1089,9 +1089,9 @@ $(document).ready(function () {
         if (temporaryId) {
           dataToServer.temporary_id = temporaryId;
         }
-          if (typeof isApplican !== "undefined" && isApplican) {
-              dataToServer.is_applican = true;
-          }
+        if (typeof isApplican !== "undefined" && isApplican) {
+          dataToServer.is_applican = true;
+        }
 
         $.ajax({
           url: global.apiUrl + '/students/search',
@@ -1541,7 +1541,7 @@ $(document).ready(function () {
           var contractTermId = globalInfo("contract_term_id");
           globalInfo('id_' + contractTermId, data.data.id, {expires: 1, path: "/"});
           globalInfo('jwt_' + contractTermId, data.data.jwt, {expires: 1, path: "/"});
-
+          saveUserDataForQR(data.data);
           // 見出し画面切り替え
           flowChange('会員登録 完了', 'flow4');
           $('#regist1').hide();

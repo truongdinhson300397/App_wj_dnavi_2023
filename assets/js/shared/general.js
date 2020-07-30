@@ -29,6 +29,19 @@ var version = {
   "version_contract_term": 2
 };
 
+function isUserLoggedIn() {
+  var contractTermId = globalInfo("contract_term_id");
+  var id = globalInfo("id_" + contractTermId);
+  var jwt = globalInfo("jwt_" + contractTermId);
+  var hasJWT = jwt !== null && jwt !== "null" && jwt !== undefined;
+  var hasID = id !== null && id !== "null" && id !== undefined;
+  return hasJWT && hasID;
+}
+
+function isOnline() {
+  return navigator ? !!navigator.onLine : false;
+}
+
 function checkVersion () {
   document.addEventListener('deviceready', function () {
     $.ajax({
@@ -79,11 +92,17 @@ function checkVersion () {
   });
 }
 function _checkNetWork() {
-  var isOnline = navigator.onLine;
-  if(!isOnline) {
+  var qrUserData = getUserDataForQR();
+  var isLoggedIn = isUserLoggedIn();
+  if(!isOnline()) {
     $("body").append('<div id="update-warning"> ' +
         ' <div class="update-error">'+
-        '   <p class="error-mes-version">インターネット接続がありません。ダイヤモンド就活ナビにアクセスするにはWi-Fiネットワークかモバイルデータ通信を利用する必要があります。</p>'+
+        '    <div class="update-error__header" ' + (isLoggedIn || qrUserData !== false ? '' : 'style="display: none"') + '>' +
+        '      <a href="' + link.myPageMycode + '" class="icon-qr">マイコードを表示</a>' +
+        '    </div>' +
+        '    <div class="offline__' + contractTerm + '_logo"></div>' +
+        '   <p class="error-mes-version">インターネット接続がありません。<br /><br />' +
+        '       ダイヤモンド就活ナビにアクセスするにはWi-Fiネットワークかモバイルデータ通信を利用する必要があります。</p>'+
         '   <button id="retry-connect" class="btn btn-update-version">リトライ</button>' +
         ' </div>' +
         '</div>');
@@ -92,10 +111,7 @@ function _checkNetWork() {
 
 function _retryConnect () {
   $('#retry-connect').on('click', function () {
-    var checkOnline = navigator.onLine;
-    if(checkOnline) {
-      $('#update-warning').hide();
-    }
+    window.location.reload();
   });
 }
 
@@ -164,8 +180,10 @@ function _checkIsToken(sucFn, errorFn) {
     },
     error: function (jqXhr, textStatus, errorThrown) {
       var contractTermId = globalInfo("contract_term_id");
-      globalInfo('jwt_' + contractTermId, null, {path: "/"});
-      globalInfo('id_' + contractTermId, null, {path: "/"});
+      if (isOnline()) {
+        globalInfo('jwt_' + contractTermId, null, {path: "/"});
+        globalInfo('id_' + contractTermId, null, {path: "/"});
+      }
 
       if (typeof (errorFn) === 'function') {
         errorFn();
@@ -446,15 +464,6 @@ function dumpGuestHeader() {
   $headerNav.append(_temp);
 }
 
-function isUserLoggedIn() {
-  var contractTermId = globalInfo("contract_term_id");
-  var id = globalInfo("id_" + contractTermId);
-  var jwt = globalInfo("jwt_" + contractTermId);
-  var hasJWT = jwt !== "null" && jwt !== undefined;
-  var hasID = id !== "null" && id !== undefined;
-  return hasJWT && hasID;
-}
-
 function _headerUIHandler(nextFn, errorNextFn, isRequireLogin, onlyForGuest) {
   isRequireLogin = isRequireLogin || false;
   onlyForGuest = onlyForGuest || false;
@@ -484,7 +493,7 @@ function _headerUIHandler(nextFn, errorNextFn, isRequireLogin, onlyForGuest) {
     }
     typeof (nextFn) === 'function' ? nextFn() : null;
   }, function () {
-    if (isRequireLogin) {
+    if (isRequireLogin && isOnline()) {
       // get path name and query string
       var _screenParse = $(location).attr('pathname') + $(location).attr('search');
       globalInfo('returnUrl', _screenParse, {path: "/"});
@@ -783,4 +792,24 @@ if (typeof isApplican !== "undefined" && isApplican) {
     if (localStorage.getItem('is_registered') === 'true') return;
     getPushToken();
   });
+}
+
+function saveUserDataForQR(data) {
+  var userData = {};
+
+  userData.family_name = data.family_name;
+  userData.given_name = data.given_name;
+  userData.login_id = data.login_id;
+
+  localStorage.setItem('qrUserData', JSON.stringify(userData));
+}
+function getUserDataForQR() {
+  var userDataStr = localStorage.getItem('qrUserData');
+  if (userDataStr !== null) {
+    return JSON.parse(userDataStr);
+  }
+  return false;
+}
+function removeUserDataForQR() {
+  localStorage.removeItem('qrUserData');
 }

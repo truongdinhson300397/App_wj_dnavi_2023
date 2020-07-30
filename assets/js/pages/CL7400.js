@@ -129,7 +129,9 @@ function updateEmail() {
             email2_confirmation: null
         };
         datas = _.merge(defaultPostData, datas);
-
+        if (typeof isApplican !== "undefined" && isApplican) {
+            _.assign(datas, {is_applican: true});
+        }
         var postData = JSON.stringify(datas);
 
         _fetchUpdateEmail(postData);

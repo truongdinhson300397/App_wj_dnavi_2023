@@ -276,7 +276,7 @@ function dumpMainVisual(mainVisuals) {
     if (typeof isApplican !== "undefined" && isApplican) {
       linkUrl = linkOrWebview(linkUrl);
     }
-    var _mainVisLi = '<li class="swiper-slide"><a target="_blank" href="' + linkUrl + '"><img src="' + mainVis.image_url + '" class="img-mainvis" alt=""/></a></li>';
+    var _mainVisLi = '<li class="swiper-slide"><a ' + displayWebOnly('target="_blank"') + ' href="' + linkUrl + '"><img src="' + mainVis.image_url + '" class="img-mainvis" alt=""/></a></li>';
     $mainVisUl.append(_mainVisLi);
   });
   var mainVisSwiper = new Swiper('#mainVis', {
