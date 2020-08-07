@@ -1527,6 +1527,9 @@ $(document).ready(function () {
       //
       postData = JSON.parse(postData);
       var loginData = {login_id: postData.login_id, password: postData.password, save_login: false};
+      if (typeof isApplican !== "undefined" && isApplican) {
+        Object.assign(loginData, {'is_applican': true});
+      }
 
       // 登録時トークン取得1日設定でcookie保存
       $.ajax({

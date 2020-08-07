@@ -468,6 +468,13 @@ function dumpGuestHeader() {
   $headerNav.append(_temp);
 }
 
+function hidePreloader() {
+  var $preloader = $('.full-page');
+  if ($preloader.length > 0) {
+    $preloader.hide();
+  }
+}
+
 function _headerUIHandler(nextFn, errorNextFn, isRequireLogin, onlyForGuest) {
   isRequireLogin = isRequireLogin || false;
   onlyForGuest = onlyForGuest || false;
@@ -495,6 +502,7 @@ function _headerUIHandler(nextFn, errorNextFn, isRequireLogin, onlyForGuest) {
       slideAppMenu();
       slideAppSubmenu();
     }
+    hidePreloader();
     typeof (nextFn) === 'function' ? nextFn() : null;
   }, function () {
     if (isRequireLogin && isOnline()) {
@@ -509,6 +517,7 @@ function _headerUIHandler(nextFn, errorNextFn, isRequireLogin, onlyForGuest) {
       slideAppSubmenu();
     }
     dumpGuestHeader();
+    hidePreloader();
     typeof (errorNextFn) === 'function' ? errorNextFn() : null;
   });
   // Draw UI hunting job local on menu
