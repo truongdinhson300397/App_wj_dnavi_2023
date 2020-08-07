@@ -97,3 +97,18 @@ function initBeaconSuccess() {
 document.addEventListener('deviceready', function () {
     applican.beacon.init(initBeaconSuccess, initError);
 });
+
+function Beacon(beaconInstance) {
+    if (typeof beaconInstance !== "undefined") {
+        this.applican = beaconInstance;
+    } else if(typeof applican !== "undefined") {
+        this.applican = applican;
+    } else {
+        throw new Error('Missing applican instance!');
+    }
+    this.init = function () {
+        return new Promise(function (resolve, reject) {
+            beaconInstance.beacon.init(resolve, reject);
+        });
+    }
+}
