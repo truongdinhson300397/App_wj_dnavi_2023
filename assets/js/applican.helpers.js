@@ -98,17 +98,103 @@ document.addEventListener('deviceready', function () {
     applican.beacon.init(initBeaconSuccess, initError);
 });
 
-function Beacon(beaconInstance) {
+function BeaconWrapper(beaconInstance) {
+    var beacon;
     if (typeof beaconInstance !== "undefined") {
-        this.applican = beaconInstance;
-    } else if(typeof applican !== "undefined") {
-        this.applican = applican;
+        beacon = beaconInstance;
     } else {
-        throw new Error('Missing applican instance!');
+        throw new Error('Missing beacon instance!');
     }
     this.init = function () {
         return new Promise(function (resolve, reject) {
-            beaconInstance.beacon.init(resolve, reject);
+            beacon.init(resolve, reject);
         });
+    };
+    this.startMonitoring = function () {
+        return new Promise(function (resolve, reject) {
+            beacon.startMonitoring(resolve, reject);
+        });
+    };
+    this.stopMonitoring = function () {
+        return new Promise(function (resolve, reject) {
+            beacon.stopMonitoring(resolve, reject);
+        });
+    };
+    this.isMonitoring = function () {
+        return new Promise(function (resolve, reject) {
+            beacon.isMonitoring(resolve, reject);
+        });
+    };
+    this.watchBeacon = function (beaconInfo) {
+        return new Promise(function (resolve, reject) {
+            beacon.watchBeacon(beaconInfo, resolve, function () {}, reject);
+        });
+    };
+    this.clearBeacon = function (watchId) {
+        return new Promise(function (resolve, reject) {
+            beacon.clearBeacon(watchId, resolve, reject);
+        });
+    };
+    this.getBeaconHistory = function (beaconInfo) {
+        return new Promise(function (resolve, reject) {
+            beacon.getBeaconHistory(beaconInfo, resolve, reject);
+        });
+    }
+}
+function SimpleStorageWrapper(simpleStorageInstance) {
+    var simpleStorage;
+    if (typeof simpleStorageInstance !== "undefined") {
+        simpleStorage = simpleStorageInstance;
+    } else {
+        throw new Error('Missing simpleStorage instance!');
+    }
+    this.set = function (key, value) {
+        return new Promise(function (resolve, reject) {
+            try {
+                simpleStorage.set(key, value, resolve);
+            } catch (err) {
+                reject(err);
+            }
+        });
+    }
+    this.get = function (key) {
+        return new Promise(function (resolve, reject) {
+            try {
+                simpleStorage.get(key, resolve);
+            } catch (err) {
+                reject(err);
+            }
+        });
+    }
+    this.remove = function (key) {
+        return new Promise(function (resolve, reject) {
+            try {
+                simpleStorage.remove(key, resolve);
+            } catch (err) {
+                reject(err);
+            }
+        });
+    }
+    this.clear = function () {
+        return new Promise(function (resolve, reject) {
+            try {
+                simpleStorage.clear(resolve);
+            } catch (err) {
+                reject(err);
+            }
+        });
+    }
+}
+function ApplicanWrapper(applicanInstance) {
+    if (typeof applicanInstance !== "undefined") {
+        this.applican = applicanInstance;
+        this.beacon = new BeaconWrapper(this.applican.beacon);
+        this.simpleStorage = new SimpleStorageWrapper(this.applican.simpleStorage);
+    } else if(typeof applican !== "undefined") {
+        this.applican = applican;
+        this.beacon = new BeaconWrapper(applican.beacon);
+        this.simpleStorage = new SimpleStorageWrapper(applican.simpleStorage);
+    } else {
+        throw new Error('Missing applican instance!');
     }
 }
