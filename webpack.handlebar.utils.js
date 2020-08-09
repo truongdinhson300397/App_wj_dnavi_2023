@@ -1,7 +1,6 @@
 'use strict';
 const webData = require('./env/web.json');
 const applicanData = require('./env/applican.json');
-// const path = require("path");
 const handlebarsLayouts = require('handlebars-layouts');
 
 function escapeRegExp(string) {

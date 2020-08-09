@@ -6,8 +6,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HandlebarsPlugin = require("handlebars-webpack-plugin");
 const FileManagerPlugin = require('filemanager-webpack-plugin');
 // import the helpers
-const { commonWebOptions } = require("webpack.handlebar.utils")
-// const handlebarsLayouts = require('handlebars-layouts');
+const { commonWebOptions } = require("./webpack.handlebar.utils")
 
 const webpackWebConfig = {
   entry: path.join(process.cwd(), "nothing.js"),
@@ -17,11 +16,12 @@ const webpackWebConfig = {
       cleanOnceBeforeBuildPatterns: buildPath
     }),
     new HandlebarsPlugin({
-      entry: path.join(process.cwd(), "src", "*.hbs"),
-      output: path.join(process.cwd(), ...buildPath,"[name].html"),
+      entry: path.join(process.cwd(), "src", "pages", "**", "*.hbs"),
+      output: path.join(process.cwd(), ...buildPath, "[name].html"),
       ...commonWebOptions,
       partials: [
-        path.join(process.cwd(), "src", "components", "pages", "*.hbs")
+          path.join(process.cwd(), "src", "components", "*.hbs"),
+          path.join(process.cwd(), "src", "pages", "**", "web", "*.hbs")
       ]
     }),
     new FileManagerPlugin({
