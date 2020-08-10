@@ -1,0 +1,51 @@
+.reduce-space {
+  padding-top: 59px;
+}
+
+.login-content {
+  padding-top: 25px;
+  background-color: #f6f6f6;
+}
+
+.login-content .btn-login-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.login-content .btn-login-bar a {
+  font-size: 16px;
+  flex-basis: 49%;
+}
+
+.content-padding {
+  padding-left: 14px;
+  padding-right: 6px;
+  color: #666666;
+}
+
+.pickup-box {
+  background: white;
+}
+
+.pickup-box .article-box-header-h2-jp {
+  color: inherit;
+}
+
+.pickup-box .article-box-header-h2-eng {
+  color: #004F93;
+}
+
+.findCompany {
+  background: linear-gradient(160deg, #38A5DE, #408FBF, #6BAFE2, #4599DD, #1D83DB);
+  padding-top: 20px;
+}
+
+.findCompany .article-box-header-h2-jp {
+  color: white;
+}
+
+.findCompany .article-box-header-h2-eng {
+  color: white;
+}
