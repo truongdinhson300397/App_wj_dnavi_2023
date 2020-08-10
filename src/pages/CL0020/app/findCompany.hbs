@@ -6,18 +6,27 @@
         <span class="article-box-header-h2-eng">SEARCH</span>
       </h2>
     </header>
-    <div class="search-input-box clearfix">
-      <div><img src="{{path}}img/2022/icon-glass.png" alt=""></div>
-      <input type="text" class="input-text js-keyword-input" placeholder="企業名"/>
-      <button href="javascript:void(0);" class="btn-green btn-search-company js-btn-search-keyword">検索</button>
+      <div class="search-input-box clearfix">
+        <img src="{{path}}img/2022/icon-glass.png" alt="">
+        <input type="text" class="input-text js-keyword-input" placeholder="企業名"/>
+        <button class="btn-search-company js-btn-search-keyword">検索</button>
     </div>
-    <div class="js-btn-group">
-      <a href="javascript:void(0);" class="btn-default btn-blue w100-50prc js-btn-search-full">上記の条件で検索</a>
-      <a href="{{link.companySearch}}" class="btn-default btn-green w100-50prc mgnt20-30 js-btn-search-detail-1">より詳しく探す</a>
+    <p class="search-options">その他の検索方法</p>
+<!--    <div class="js-btn-group">-->
+<!--      <a href="javascript:void(0);" class="btn-default btn-blue w100-50prc js-btn-search-full">上記の条件で検索</a>-->
+<!--      <a href="{{link.companySearch}}" class="btn-default btn-green w100-50prc mgnt20-30 js-btn-search-detail-1">より詳しく探す</a>-->
 
-      <!--show when selected partner-->
-      <a href="{{link.companyList}}" class="btn-default btn-blue hidden w100-50prc mgnt20-30 js-btn-search-prefectures">本社所在地一発検索</a>
-      <a href="{{link.companySearch}}" class="btn-default btn-green hidden w100-50prc mgnt20-30 js-btn-search-detail-2">勤務地一発検索</a>
+<!--      &lt;!&ndash;show when selected partner&ndash;&gt;-->
+<!--      <a href="{{link.companyList}}" class="btn-default btn-blue hidden w100-50prc mgnt20-30 js-btn-search-prefectures">本社所在地一発検索</a>-->
+<!--      <a href="{{link.companySearch}}" class="btn-default btn-green hidden w100-50prc mgnt20-30 js-btn-search-detail-2">勤務地一発検索</a>-->
+<!--    </div>-->
+    <div class="search-buttons">
+      <a href="{{link.companySearch}}" class="btn-default js-btn-search-detail-1">詳細検索</a>
+      <a href="{{link.disclosure}}" class="btn-default">情報公開度検索</a>
+      <a href="{{link.companyImage}}" class="btn-default">イメージ検索</a>
+    </div>
+    <div class="for-partner">
+      <a href="{{link.companySearch}}" class="btn-default hidden js-btn-search-detail-2">勤務地一発検索</a>
     </div>
   </div>
 </article>

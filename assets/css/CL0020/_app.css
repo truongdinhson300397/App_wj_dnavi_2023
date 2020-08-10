@@ -38,8 +38,8 @@
 }
 
 .findCompany {
-  background: linear-gradient(160deg, #38A5DE, #408FBF, #6BAFE2, #4599DD, #1D83DB);
-  padding-top: 20px;
+  background-color: #266ba8;
+  padding-top: 30px;
 }
 
 .findCompany .article-box-header-h2-jp {
@@ -54,40 +54,73 @@
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.findCompany .search-input-box div {
-  border-radius: 1.5rem 0 0 1.5rem;
   background-color: #fff;
-  height: 39px;
-  width: 40px;
-  display: flex;
-  align-items: center;
-  padding-left: 12px;
+  border-radius: 1.5rem;
 }
 
 .findCompany .search-input-box img {
-  width: 23px;
+  width: 48px;
+  padding: 0 10px 0 15px;
 }
 
 .findCompany .search-input-box .input-text {
   border: none;
   border-radius: 0;
   outline: none;
-  flex-grow: 2;
-  padding: 0 0 0 3px;
+  height: 42px;
+  padding: 0 10px 0 0;
+  display: unset;
+  font-size: unset;
+  flex-grow: 1;
 }
 
 .findCompany .btn-search-company {
   font-size: 15px;
   border: none;
-  height: 2.6em;
+  height: 42px;
   outline: none;
   padding: 0 15px;
-  background-color: transparent;
+  background-color: #1ab5a6;
+  min-width: 60px;
+  color: white;
+  border-radius: 0 1.5rem 1.5rem 0;
 }
 
-.findCompany .btn-search-company.btn-green:before,
-.findCompany .btn-search-company.btn-green:after {
-  border-radius: 0 1.5rem 1.5rem 0;
+.findCompany .search-options {
+  margin-bottom: 15px;
+  color: white;
+}
+
+.findCompany .search-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.findCompany .search-buttons .btn-default {
+  font-size: 14px;
+  padding: 5px 15px;
+  height: inherit;
+  background-color: #ced3d84f;
+  color: white;
+  text-align: center;
+}
+
+.findCompany .search-buttons .btn-default:nth-of-type(2) {
+  margin: 0 3px;
+}
+
+.findCompany .for-partner {
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+}
+
+.findCompany .for-partner .btn-default {
+  font-size: 14px;
+  padding: 5px 15px;
+  height: inherit;
+  background-color: #ced3d84f;
+  color: white;
+  text-align: center;
 }
