@@ -14,6 +14,11 @@
   margin-bottom: 20px;
 }
 
+.login-content .btn-blue::before,
+.login-content .btn-blue::after {
+  background: #266ba8;
+}
+
 .login-content .btn-login-bar a {
   font-size: 15px;
   flex-basis: 49%;
