@@ -104,7 +104,7 @@
 .findCompany .search-buttons {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
 }
 
 .findCompany .search-buttons .btn-default {
@@ -114,6 +114,11 @@
   background-color: #ced3d84f;
   color: white;
   text-align: center;
+  flex-grow: 1;
+}
+
+.findCompany .search-buttons .btn-default:nth-of-type(2) {
+  margin: 0 5px;
 }
 
 .findCompany .for-partner {

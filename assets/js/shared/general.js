@@ -106,8 +106,11 @@ function _checkNetWork() {
         '    </div>' +
         '    <div class="offline__' + contractTerm + '_logo"></div>' +
         '   <p class="error-mes-version">インターネット接続がありません。<br /><br />' +
-        '       ダイヤモンド就活ナビにアクセスするにはWi-Fiネットワークかモバイルデータ通信を利用する必要があります。</p>'+
+        '       ダイヤモンド就活ナビにアクセスするにはWi-Fiネットワークかモバイルデータ通信を利用する必要あります。</p>'+
         '   <button id="retry-connect" class="btn btn-update-version">リトライ</button>' +
+        '   <hr/>' +
+        '   <p>※オフライン時でも、TOPよりご予約済みのイベント情報の一部のみご確認いただけます。</p>' +
+        '   <a href="' + link.top + '" class="btn-white btn-default">TOPに戻る</a>' +
         ' </div>' +
         '</div>');
   }
