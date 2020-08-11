@@ -40,13 +40,30 @@ function EventProcessor() {
         await this.saveObjectData(storeKey, {...beaconInfo, last_call: new Date().getTime(), status: beaconInfoStatus.PROCESSING});
         return true;
     }
-    this.register = async function (beaconInfo) {
-        console.log(beaconInfo);
+    this.displayLocalNotification = function (fireDateUnixTime, message, url) {
+        var options = {
+            alertBody: message,
+            uri: url,
+            fireDate: fireDateUnixTime,
+            repeatInterval: "minute",
+            alertAction: "開く",				//iOSのみ
+            applicationIconBadgeNumber: 1,			//iOSのみ
+        };
+        return applicanWrapper.localNotification.schedule(options);
+    }
+    this.preRegister = async function (beaconInfo) {
         if (!await this.filterBeaconInfo(beaconInfo)) return;
-        console.log('register ', beaconInfo.uuid, beaconInfo.major);
+        // display local notification when offline
+        if (!isOnline()) {
+            this.displayLocalNotification(new Date().getTime() / 1000 + 5, 'ログイン後にイベント受付が可能です');
+        }
+        // console.log('register ', beaconInfo.uuid, beaconInfo.major);
+        // await this.register(beaconInfo);
+    };
+    this.register = async function (beaconInfo) {
         const storeKey = this.generateStoreKey(beaconInfo);
         const oldBeaconInfo = await this.getObjectData(storeKey);
-        // await this.saveObjectData(storeKey, {oldBeaconInfo, status: beaconInfoStatus.DONE});
+        await this.saveObjectData(storeKey, {oldBeaconInfo, status: beaconInfoStatus.DONE});
     }
     this.process = function () {
         // check available to call
@@ -63,7 +80,7 @@ function EventProcessor() {
                 };
                 return applicanWrapper.beacon.watchBeacon(beaconInfo, async (beaconInfo) => {
                     // console.log('Received: ', beaconInfo);
-                    await this.register(beaconInfo);
+                    await this.preRegister(beaconInfo);
                 }, () => {
                     console.log('success to watch');
                 });

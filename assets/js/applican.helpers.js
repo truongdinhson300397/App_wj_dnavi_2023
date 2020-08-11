@@ -97,7 +97,58 @@ function initBeaconSuccess() {
 // document.addEventListener('deviceready', function () {
 //     applican.beacon.init(initBeaconSuccess, initError);
 // });
-
+function LocalNotificationWrapper(localNotificationInstance) {
+    var localNotification;
+    if (typeof localNotificationInstance !== "undefined") {
+        localNotification = localNotificationInstance;
+    } else {
+        throw new Error('Missing beacon instance!');
+    }
+    this.schedule = function (options) {
+        return new Promise((resolve, reject) => {
+            localNotification.schedule(resolve, reject, options);
+        });
+    }
+    this.cancel = function (options) {
+        return new Promise((resolve, reject) => {
+            try {
+                localNotification.cancel(options);
+                resolve();
+            } catch (err) {
+                resolve(reject);
+            }
+        });
+    };
+    this.allCancel = function () {
+      return new Promise((resolve, reject) => {
+          try {
+              localNotification.allCancel();
+              resolve();
+          } catch (err) {
+              reject(err);
+          }
+      });
+    };
+    this.getBadgeNum = function () {
+        return new Promise((resolve, reject) => {
+            try {
+                localNotification.getBadgeNum(resolve);
+            } catch (err) {
+                reject(err);
+            }
+        });
+    }
+    this.setBadgeNum = function (badgeNum) {
+        return new Promise((resolve, reject) => {
+            try {
+                localNotification.setBadgeNum(badgeNum);
+                resolve();
+            } catch (err) {
+                reject(err);
+            }
+        });
+    };
+}
 function BeaconWrapper(beaconInstance) {
     var beacon;
     if (typeof beaconInstance !== "undefined") {
@@ -190,10 +241,12 @@ function ApplicanWrapper(applicanInstance) {
         this.applican = applicanInstance;
         this.beacon = new BeaconWrapper(this.applican.beacon);
         this.simpleStorage = new SimpleStorageWrapper(this.applican.simpleStorage);
+        this.localNotification = new LocalNotificationWrapper(this.applican.localNotification)
     } else if(typeof applican !== "undefined") {
         this.applican = applican;
         this.beacon = new BeaconWrapper(applican.beacon);
         this.simpleStorage = new SimpleStorageWrapper(applican.simpleStorage);
+        this.localNotification = new LocalNotificationWrapper(applican.localNotification);
     } else {
         throw new Error('Missing applican instance!');
     }
