@@ -1421,12 +1421,19 @@
 .update-error {
   background-color: #FFFFFF;
   text-align: center;
-  width: 90%;
-  border-radius: 10px;
-  height: auto;
+  height: 100vh;
 }
 .update-error .update-error__header {
   text-align: right;
+}
+.update-error .btn-back {
+  color: darkgrey;
+  font-size: 28px;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  float: left;
+  padding: 20px 23px;
 }
 .update-error .update-error__header .icon-qr {
   padding: 35px 0 0;
@@ -1440,6 +1447,14 @@
   text-align: center;
   min-width: 30px;
   position: relative;
+}
+.update-error hr {
+  width: 83%;
+  margin: auto;
+}
+.update-error .btn-back-top {
+  width: 50%;
+  margin: 10px auto auto;
 }
 .offline__2021_logo, .offline__2022_logo {
   margin: 30px auto 0 auto;
@@ -1464,11 +1479,15 @@
   padding-bottom: 6px;
 }
 .btn-update-version {
-  background: linear-gradient(170deg, #38A5DE, #004F93);
-  padding: 15px 40px 15px 40px;
-  border-radius: 25px;
+  background: #266ba8;
+  padding: 9px 25px;
+  width: 50%;
+  border: none;
+  outline: none;
+  border-radius: 20px;
   margin-bottom: 30px;
   color: #FFFFFF;
   font-weight: bold;
+  margin-top: 10px;
 }
 
