@@ -20,8 +20,7 @@ const webpackWebConfig = {
       output: path.join(process.cwd(), ...buildPath, "[name].html"),
       ...commonWebOptions,
       partials: [
-          path.join(process.cwd(), "src", "components", "*.hbs"),
-          path.join(process.cwd(), "src", "pages", "**", "web", "*.hbs")
+        path.join(process.cwd(), "src", "components", "**", "*.hbs")
       ]
     }),
     new FileManagerPlugin({

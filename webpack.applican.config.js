@@ -18,11 +18,10 @@ const webpackConfig = {
       cleanOnceBeforeBuildPatterns: buildZipPath
     }),
     new HandlebarsPlugin({
-      entry: path.join(process.cwd(), "src", "pages", "**", "*.hbs"),
+      entry: path.join(process.cwd(), "src", "pages", "*.hbs"),
       output: path.join(process.cwd(), ...buildPath, "[name].html"),
       partials: [
-        path.join(process.cwd(), "src", "components", "*.hbs"),
-        path.join(process.cwd(), "src", "pages", "**", "app", "*.hbs")
+        path.join(process.cwd(), "src", "components", "**", "*.hbs")
       ],
       ...commonAppOptions,
     }),
