@@ -25,6 +25,10 @@
   color: #666666;
 }
 
+.mainvis-box {
+  margin-bottom: 0 !important;
+}
+
 .pickup-box {
   background: white;
   margin-bottom: 0 !important;
@@ -37,6 +41,10 @@
 
 .pickup-box .article-box-header-h2-eng {
   color: #004F93;
+}
+
+.pickup-box .pickup-ul-li-a {
+  color: black;
 }
 
 .findCompany {
@@ -100,8 +108,8 @@
 }
 
 .findCompany .search-buttons .btn-default {
-  font-size: 14px;
-  padding: 5px 15px;
+  font-size: 11px;
+  padding: 5px 12px;
   height: inherit;
   background-color: #ced3d84f;
   color: white;
@@ -119,8 +127,8 @@
 }
 
 .findCompany .for-partner .btn-default {
-  font-size: 14px;
-  padding: 5px 15px;
+  font-size: 11px;
+  padding: 5px 12px;
   height: inherit;
   background-color: #ced3d84f;
   color: white;
@@ -196,6 +204,10 @@
 .reserved-events .event-btn-box p {
   font-size: 20px;
   color: #d1d1d1;
+}
+
+.information-app {
+  padding-top: 30px;
 }
 
 .information-app h2 {
