@@ -27,6 +27,8 @@
 
 .pickup-box {
   background: white;
+  margin-bottom: 0 !important;
+  border-bottom: 1px solid #8080803d;
 }
 
 .pickup-box .article-box-header-h2-jp {
@@ -123,4 +125,101 @@
   background-color: #ced3d84f;
   color: white;
   text-align: center;
+}
+
+.smart-checkin {
+  padding: 30px 0;
+  background-color: #266ba8;
+}
+
+.smart-checkin .announce {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+.smart-checkin img {
+  width: 40px;
+  margin-right: 20px;
+}
+
+.smart-checkin h1 {
+  font-size: 18px;
+}
+
+.smart-checkin .redirect-btn {
+  display: block;
+  padding: 8px 10px;
+  margin: 20px auto auto;
+  border-radius: 20px;
+  background-color: white;
+  color: #266ba8;
+  text-align: center;
+  width: 120px;
+}
+
+.reserved-events {
+  padding-top: 30px;
+  background-color: #f6f6f6;
+}
+
+.reserved-events .article-box-header-h2-jp {
+  color: #004F93;
+}
+
+.reserved-events .event-ul {
+  margin: 20px 0;
+}
+
+.reserved-events .event-ul .event-ul-li {
+  margin-top: 0;
+  margin-bottom: 5px;
+  background-color: white;
+  border: 1px solid #8080803d;
+  padding: 20px;
+  box-shadow: 4px 1px 3px #88888830;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.reserved-events .more-event {
+  display: block;
+  text-align: center;
+  width: 30%;
+  margin: auto;
+  color: gray;
+  font-size: 15px;
+}
+
+.reserved-events .event-btn-box p {
+  font-size: 20px;
+  color: #d1d1d1;
+}
+
+.information-app h2 {
+  text-align: center;
+  font-size: 16px;
+  color: #266ba8;
+  padding-bottom: 20px;
+}
+
+.information-app .info-1-ul li {
+  color: #666666;
+}
+
+.app-banner {
+  border-bottom: 1px solid #8080803d;
+  padding-top: 30px;
+}
+
+.app-banner header {
+  margin-bottom: 20px;
+}
+
+.app-spare-box .contents-box {
+  padding-top: 30px;
+  border-bottom: 1px solid #8080803d;
+  box-shadow: 4px 1px 3px #88888830;
 }

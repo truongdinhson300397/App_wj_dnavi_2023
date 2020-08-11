@@ -1,13 +1,3 @@
-$(function () {
-  $('.app-contents').addClass('reduce-space')
-
-  if(isUserLoggedIn()) {
-    $('.login-content').remove()
-  } else {
-    $('.smart-checkin').remove()
-  }
-})
-
 function dumpReservedEvents(events) {
   var $eventUl = $('#reserved-events .event-ul');
   $eventUl.empty();
@@ -26,8 +16,7 @@ function dumpReservedEvents(events) {
       var _eventDate = moment(eventDate.event_date, 'YYYY-MM-DD');
       var _eventTimeFrom = moment(eventDate.event_time_from, 'HH:mm:ss');
       var _eventTimeTo = moment(eventDate.event_time_to, 'HH:mm:ss');
-      var $eventLi = $('<a href="' + link.eventDetail + '?event_id=' + event.event_id + '">' +
-        '             <li class="event-ul-li">' +
+      var $eventLi = $('<li class="event-ul-li">' +
         '              <div class="event-info-box">' +
         '                <div class="event-loc">' + event.prefecture + '</div>' +
         '                <div class="event-dateday"><span class="event-date">' + _eventDate.format('MM/DD') + '</span><span class="event-day">' + _eventDate.format('ddd').toUpperCase() + '</span></div>' +
@@ -35,13 +24,13 @@ function dumpReservedEvents(events) {
         '                <div class="event-ttl">' + event.title + '</div>' +
         '              </div>' +
         '              <div class="event-btn-box">' +
-        '                <p>></p>' +
+        '                <a href="' + link.eventDetail + '?event_id=' + event.event_id + '" class="btn-small btn-blue">詳細</a>' +
         '              </div>' +
-        '            </li>' +
-      '             </a>');
+        '            </li>');
       $eventUl.append($eventLi);
     });
   });
+
   $eventUl.find('.event-ul-li').each(function (index, li) {
     var $eventLi = $(li);
     if (index === 0) {
@@ -67,6 +56,7 @@ function dumpSpareBox(spareBoxes) {
     var _image = box.image_url ? '<img src="' + box.image_url + '" class="dummy-img" alt="' + _imageName + '"> ' : '';
     var _boxDiv = '<div class="contents-box">' +
       '        <article class="article-box">' +
+      '          <div class="drop-shadow-box">' +
       '            <header class="article-box-header">' +
       '              <h2 class="article-box-header-h2">' +
       '                <span class="article-box-header-h2-jp">' + box.title + '</span>' +
@@ -76,6 +66,7 @@ function dumpSpareBox(spareBoxes) {
       _image +
       '             <p class="line-break"> ' + _contents + '</p>' +
       '            </div>' +
+      '          </div>' +
       '        </article>' +
       '      </div>';
     $spareBoxDiv.append(_boxDiv);
