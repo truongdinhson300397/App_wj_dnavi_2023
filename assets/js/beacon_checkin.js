@@ -3,6 +3,11 @@ function EventProcessor() {
         PROCESSING: 0,
         DONE: 1,
     };
+    const NotificationType = {
+        NOT_LOGGED_IN: 1,
+        ALREADY_PARTICIPATED: 2,
+        HOLD_DATA: 3,
+    };
     const minimumAccuracy = 1;
     const applicanWrapper = new ApplicanWrapper();
     this.getObjectData = function (key) {
@@ -40,7 +45,7 @@ function EventProcessor() {
         await this.saveObjectData(storeKey, {...beaconInfo, last_call: new Date().getTime(), status: beaconInfoStatus.PROCESSING});
         return true;
     }
-    this.displayLocalNotification = function (fireDateUnixTime, message, url) {
+    this.displayLocalNotification = function (fireDateUnixTime, message, alertId, url) {
         var options = {
             alertBody: message,
             uri: url,
@@ -49,14 +54,26 @@ function EventProcessor() {
             alertAction: "開く",				//iOSのみ
             applicationIconBadgeNumber: 1,			//iOSのみ
         };
+        if (typeof alertId !== "undefined") {
+            options.alertId = alertId;
+        }
         return applicanWrapper.localNotification.schedule(options);
     }
+    this.saveBeaconInfoForRegister = function (beaconInfo) {
+
+    };
     this.preRegister = async function (beaconInfo) {
         if (!await this.filterBeaconInfo(beaconInfo)) return;
-        // display local notification when offline
-        if (!isOnline()) {
-            this.displayLocalNotification(new Date().getTime() / 1000 + 5, 'ログイン後にイベント受付が可能です');
+        // display when user didn't login
+        if (!isUserLoggedIn()) {
+            this.displayLocalNotification(new Date().getTime() / 1000 + 5, 'ログイン後にイベント受付が可能です', NotificationType.NOT_LOGGED_IN);
+            return;
         }
+        // display local notification when offline
+        // if (!isOnline()) {
+        //     this.displayLocalNotification(new Date().getTime() / 1000 + 5, 'ログイン後にイベント受付が可能です');
+        //     return;
+        // }
         // console.log('register ', beaconInfo.uuid, beaconInfo.major);
         // await this.register(beaconInfo);
     };
