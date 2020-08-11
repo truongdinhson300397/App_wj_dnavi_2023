@@ -98,12 +98,13 @@ function checkVersion () {
 function _checkNetWork() {
   var qrUserData = getUserDataForQR();
   var isLoggedIn = isUserLoggedIn();
+  var cssClass = isLoggedIn ? "update-error" : "update-error center-block"
   // if(!isOnline()) {
     var loginContent = '<hr/>' +
         '   <p class="error-mes-version">※オフライン時でも、TOPよりご予約済みのイベント情報の一部のみご確認いただけます。</p>' +
         '   <a href="' + link.top + '" class="btn-white btn-default btn-back-top">TOPに戻る</a>'
     $("body").append('<div id="update-warning"> ' +
-        ' <div class="update-error">'+
+        ' <div class="' + cssClass + '">'+
         '    <div class="update-error__header" ' + (isLoggedIn || qrUserData !== false ? '' : 'style="display: none"') + '>' +
         '      <button onclick="window.history.back()" class="btn-back"><</button>' +
         '      <a href="' + link.myPageMycode + '" class="icon-qr">マイコードを表示</a>' +
