@@ -8,15 +8,9 @@
         </div>
     {{/content}}
     {{#content "footer-scripts" mode="append"}}
+        <script src="{{path}}js/beacon_checkin.js"></script>
         <script>
             _headerUIHandler(null, null, true);
-            document.addEventListener('deviceready', function () {
-                var applicanWrapper = new ApplicanWrapper(applican);
-
-            });
-            $(function(){
-
-            });
         </script>
     {{/content}}
 {{/extend}}

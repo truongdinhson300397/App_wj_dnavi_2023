@@ -60,7 +60,7 @@ function watchError(error) {
 function watchBeacon() {
     console.log('watch beacon');
     // 監視するビーコンの情報
-    var beaconInfo = { uuid: '2F8018F2-5725-4B06-B197-7BE925ACE9A3'};
+    var beaconInfo = { uuid: '00000000-0000-0000-0000-000000000000'};
     // ビーコンの監視の開始
     watchId = applican.beacon.watchBeacon(beaconInfo, watchBeaconResult, watchBeaconSuccess, watchError);
     return watchId;
@@ -94,9 +94,9 @@ function initBeaconSuccess() {
     console.log('initBeacon Success');
     applican.beacon.startMonitoring(startMonitoringSuccess, monitoringError);
 }
-document.addEventListener('deviceready', function () {
-    applican.beacon.init(initBeaconSuccess, initError);
-});
+// document.addEventListener('deviceready', function () {
+//     applican.beacon.init(initBeaconSuccess, initError);
+// });
 
 function BeaconWrapper(beaconInstance) {
     var beacon;
@@ -125,9 +125,9 @@ function BeaconWrapper(beaconInstance) {
             beacon.isMonitoring(resolve, reject);
         });
     };
-    this.watchBeacon = function (beaconInfo) {
+    this.watchBeacon = function (beaconInfo, resultCallback, successCallback) {
         return new Promise(function (resolve, reject) {
-            beacon.watchBeacon(beaconInfo, resolve, function () {}, reject);
+            resolve(beacon.watchBeacon(beaconInfo, resultCallback, successCallback, reject));
         });
     };
     this.clearBeacon = function (watchId) {
