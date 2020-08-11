@@ -65,7 +65,7 @@
   align-items: center;
   justify-content: center;
   background-color: #fff;
-  border-radius: 1.5rem;
+  border-radius: 20px;
 }
 
 .findCompany .search-input-box img {
@@ -104,20 +104,16 @@
 .findCompany .search-buttons {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
 }
 
 .findCompany .search-buttons .btn-default {
   font-size: 11px;
-  padding: 5px 12px;
+  padding: 5px 14px;
   height: inherit;
   background-color: #ced3d84f;
   color: white;
   text-align: center;
-}
-
-.findCompany .search-buttons .btn-default:nth-of-type(2) {
-  margin: 0 3px;
 }
 
 .findCompany .for-partner {
@@ -128,7 +124,7 @@
 
 .findCompany .for-partner .btn-default {
   font-size: 11px;
-  padding: 5px 12px;
+  padding: 5px 14px;
   height: inherit;
   background-color: #ced3d84f;
   color: white;
