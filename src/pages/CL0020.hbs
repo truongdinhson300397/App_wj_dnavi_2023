@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="{{path}}css/login.css" type="text/css" media="all"/>
     <link rel="stylesheet" href="{{path}}css/shared/general.css" type="text/css" media="all"/>
     <link rel="stylesheet" href="{{path}}css/CL0020/style.css" type="text/css" media="all"/>
-    {{#if isApplican}} <link rel="stylesheet" href="{{path}}css/CL0020/_app.css"> {{/if}}
+    {{#if isApplican}} <link rel="stylesheet" href="{{path}}css/CL0020/_app.css"/> {{/if}}
     <style>
       .spare-box-horizontal {
         display: flex;
@@ -176,7 +176,7 @@
   {{/content}}
 
   {{#content "footer-scripts" mode="append"}}
-    <script src="{{path}}js/pages/CL0020"></script>
+    <script src="{{path}}js/pages/CL0020/index.js"></script>
     {{#if isApplican}}
     <script src="{{path}}js/pages/CL0020/_app.js"></script>
     {{else}}
