@@ -99,7 +99,7 @@ function _checkNetWork() {
   var qrUserData = getUserDataForQR();
   var isLoggedIn = isUserLoggedIn();
   var cssClass = isLoggedIn ? "update-error" : "update-error center-block"
-  // if(!isOnline()) {
+  if(!isOnline()) {
     var loginContent = '<hr/>' +
         '   <p class="error-mes-version">※オフライン時でも、TOPよりご予約済みのイベント情報の一部のみご確認いただけます。</p>' +
         '   <a href="' + link.top + '" class="btn-white btn-default btn-back-top">TOPに戻る</a>'
@@ -116,7 +116,7 @@ function _checkNetWork() {
             (isLoggedIn ? loginContent : '') +
         ' </div>' +
         '</div>');
-  // }
+  }
 }
 
 function _retryConnect () {
