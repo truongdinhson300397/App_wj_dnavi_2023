@@ -8,9 +8,12 @@
         </div>
     {{/content}}
     {{#content "footer-scripts" mode="append"}}
-        <script src="{{path}}js/beacon_checkin.js"></script>
         <script>
             _headerUIHandler(null, null, false);
+            document.addEventListener('deviceready', function () {
+                const eventProcessor = new EventProcessor();
+                eventProcessor.process();
+            });
         </script>
     {{/content}}
 {{/extend}}
