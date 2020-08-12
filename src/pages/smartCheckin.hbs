@@ -1,0 +1,73 @@
+{{#extend "components/layout" title="スマートチェックイン"}}
+  {{#content "header-scripts" mode="append"}}
+    <!--css here-->
+    <link rel="stylesheet" href="{{path}}css/beacon.css">
+  {{/content}}
+
+  {{#content "main"}}
+    <div class="smart-checkin">
+      <div class="header">
+        <div class="contents-box">
+          <div class="announce">
+            <img src="{{path}}img/2022/checkin.png" alt="checkin">
+            <div>
+              <p>簡単！スムーズにイベント入場</p>
+              <h1>スマートチェックイン</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="select-method">
+        ※イベント会場の指示に従い、<br/>
+        チェックイン方法を選択してください。
+      </div>
+
+      <div class="step step1">
+        <div class="contents-box">
+          <h1>
+            <span class="highlight">01.</span>
+            マイコード(QRコード)
+          </h1>
+          <p>ダイヤモンド就活ナビ会員1名ずつに発行されている</p>
+          <p>マイコード(QRコード)を受付にてご提示ください。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="step step2">
+      <div class="contents-box">
+        <h1>
+          <span class="highlight">02.</span>
+          Beaconでチェックイン
+        </h1>
+        <p>Beaconを使用したチェックインを求められた場合は、</p>
+        <p>下記設定を事前に行なってください。</p>
+
+        <h2 class="sub-highlight">事前準備</h2>
+        <div class="drop-shadow-box mgnt30-50 info-2-box-body">
+          <ul class="prepare-list">
+            <li>アプリでログイン</li>
+            <span>ダイヤモンド就活ナビ2022アプリにログイン。</span>
+            <span>※インターネットに接続できる環境が必要です。</span>
+          </ul>
+          <ul class="prepare-list">
+            <li>端末のBluetoothを｢オン｣に設定</li>
+            <span>端末の設定で、Bluetoothをオンに設定してください。</span>
+          </ul>
+        </div>
+
+        <h2 class="sub-highlight">当日の入場の流れ</h2>
+        <div class="drop-shadow-box mgnt30-50 info-2-box-body">
+          <div></div>
+        </div>
+
+      </div>
+    </div>
+  {{/content}}
+
+  {{#content "footer-scripts" mode="append"}}
+    <!--js here-->
+    <script src="{{path}}js/pages/beacon/index.js"></script>
+  {{/content}}
+{{/extend}}
