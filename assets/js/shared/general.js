@@ -392,7 +392,7 @@ function headeFooterApp (isLogin) {
       '  </span>' +
       '</div>';
 
-  var menuLogin = '';
+  // var menuLogin = '';
   // if (isLogin) {
   //   var btnLogin = '<a href="' + link.logout + '" class="app-left-nav-btn-login-a">ログアウト</a>';
   //   var btnJoin = '<a href="' + link.myPageTop + '" class="app-left-nav-btn-join-a">マイページ</a>';
@@ -407,7 +407,7 @@ function headeFooterApp (isLogin) {
       '     </a>' +
       '    </div>' +
       '    <div class="app-left-nav-icon">' +
-      '     <a href="javascript:void(0);" id="navIconClose" class="app-left-nav-icon-a app-nav-icon-menu nav-icon-menu-close"></a>' +
+      '     <a href="javascript:void(0);" id="navIconClose" class="nav-icon-menu-close"></a>' +
       '    </div>' +
       '   </div>' +
       // '   <ul class="app-left-nav-btn-ul">' +
@@ -420,34 +420,52 @@ function headeFooterApp (isLogin) {
       // '   </ul>' +
       '   <ul class="app-left-nav-ul-1">' +
       '    <li class="app-av-ul-1-li">' +
-      '     <a href="#" class="app-left-nav-ul-1-li-a-main-menu">MENU</a>' +
+      '     <a href="#" class="app-left-nav-ul-1-li-a-main-menu">UIターン・地元就活</a>' +
       '    </li>' +
-      menuLogin +
-      '    <li class="app-left-nav-ul-1-li">' +
-      '     <a href="' + link.eventList + '" class="app-left-nav-ul-1-li-a">イベント</a>' +
+      // menuLogin +
+      // '    <li class="app-left-nav-ul-1-li">' +
+      // '     <a href="' + link.eventList + '" class="app-left-nav-ul-1-li-a">イベント</a>' +
+      // '    </li>' +
+      // '    <li class="app-left-nav-ul-1-li">' +
+      // '     <a href="' + link.disclosure + '" class="app-left-nav-ul-1-li-a">情報公開度でさがす</a>' +
+      // '    </li>' +
+      // '     <li class="app-left-nav-ul-1-li">' +
+      // '      <a href="' + link.companyList + '" class="app-left-nav-ul-1-li-a">企業をさがす</a>' +
+      // '     </li>' +
+      // '     <li class="app-left-nav-ul-1-li">' +
+      // '      <a href="' + link.internshipList + '" class="app-left-nav-ul-1-li-a">インターンシップ＆キャリア支援プログラム</a>' +
+      // '     </li>' +
+      '    <li class="app-left-nav-ul-1-li app-left-nav-1-has-submenu">' +
+      '     <a href="#" class="app-left-nav-ul-1-li-a">UIターン・地元就活 <span class="app-left-nav-1-has-submenu-arrow"></span></a>' +
+      '     <div class="app-left-nav-ul-2-outer">' +
+      '      <ul class="app-left-nav-ul-2" id="ui-job-hunting">' +
+      '      </ul>' +
+      '     </div>' +
       '    </li>' +
-      '    <li class="app-left-nav-ul-1-li">' +
-      '     <a href="' + link.disclosure + '" class="app-left-nav-ul-1-li-a">情報公開度でさがす</a>' +
-      '    </li>' +
-      '     <li class="app-left-nav-ul-1-li">' +
-      '      <a href="' + link.companyList + '" class="app-left-nav-ul-1-li-a">企業をさがす</a>' +
-      '     </li>' +
-      '     <li class="app-left-nav-ul-1-li">' +
-      '      <a href="' + link.internshipList + '" class="app-left-nav-ul-1-li-a">インターンシップ＆キャリア支援プログラム</a>' +
-      '     </li>' +
-      '     <li class="app-left-nav-ul-1-li app-left-nav-1-has-submenu">' +
-      '      <a href="#" class="app-left-nav-ul-1-li-a">UIターン・地元就活 <span class="app-left-nav-1-has-submenu-arrow"></span></a>' +
-      '    <div class="app-left-nav-ul-2-outer">' +
-      '     <ul class="app-left-nav-ul-2" id="ui-job-hunting">' +
-      '     </ul>' +
-      '    </div>' +
-      '   </li>' +
-      '  <li class="app-left-nav-ul-1-li">' +
-      '   <a href="' + link.contents + '" class="app-left-nav-ul-1-li-a">選考対策</a>' +
-      '  </li>' +
+
+      // '  <li class="app-left-nav-ul-1-li">' +
+      // '   <a href="' + link.contents + '" class="app-left-nav-ul-1-li-a">選考対策</a>' +
+      // '  </li>' +
       '   </ul>' +
       '  </div>' +
       '  </li>' +
+      '   <ul class="app-left-nav-ul-1">' +
+      '    <li class="app-av-ul-1-li">' +
+      '     <a href="#" class="app-left-nav-ul-1-li-a-main-menu">その他</a>' +
+      '    </li>' +
+      '    <li class="app-left-nav-ul-1-li">' +
+      '     <a href="javascript:removeFirstOpen()" class="app-left-nav-ul-1-li-a">チュートリアル</a>' +
+      '    </li>' +
+      '    <li class="app-left-nav-ul-1-li">' +
+      '     <a href="' + link.faqList + '" class="app-left-nav-ul-1-li-a">FAQ</a>' +
+      '    </li>' +
+      '    <li class="app-left-nav-ul-1-li">' +
+      '     <a href="' + (globalInfo('contract_term_id') == 1 ? link.kiyaku : link.kiyaku2022) + '" class="app-left-nav-ul-1-li-a">利用規約</a>' +
+      '    </li>' +
+      '    <li class="app-left-nav-ul-1-li">' +
+      '     <a href="' + link.privacy + '" class="app-left-nav-ul-1-li-a">プライバシーポリシー</a>' +
+      '    </li>' +
+      '    </ul>' +
       '   <ul class="app-left-nav-ul-1">' +
       '    <li class="app-av-ul-1-li">' +
       '     <a href="#" class="app-left-nav-ul-1-li-a-main-menu">その他</a>' +
@@ -477,7 +495,7 @@ function headeFooterApp (isLogin) {
       ' <li class="app-footer-nav-ul-li"><a href="' + link.contents + '" class="app-footer-nav-a"><img src="' + assetsPath + 'img/icon-contents.png" class="app-footer-nav-img" alt="選考対策" />選考対策</a></li>' +
       ' <li class="app-footer-nav-ul-li"><a href="' + link.myPageTop + '" class="app-footer-nav-a"><img src="' + assetsPath + 'img/icon-mypage.png" class="app-footer-nav-img" alt="マイページ" />マイページ</a></li>' +
       '</ul>';
-  if (isLogin) $('#header').append(header).append(partnerHeader);
+  $('#header').append(header).append(partnerHeader);
   $('#leftNavOuter').append(leftNavOuter);
   $('#footer').append(footer);
   displayContractTerm();
