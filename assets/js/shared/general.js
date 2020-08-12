@@ -95,17 +95,19 @@ function checkVersion () {
     });
   });
 }
+
 function _checkNetWork() {
   var qrUserData = getUserDataForQR();
   var isLoggedIn = isUserLoggedIn();
-  if(!isOnline()) {
+  var notDisplayedPage = ['myPageAppliedEvent', 'eventDetail', 'companyDetail']
+  var ableToDisplay = _.every(notDisplayedPage, page => !_.includes(location.href, link[page]))
+  if(!isOnline() && ableToDisplay) {
     var loginContent = '<hr/>' +
         '   <p class="error-mes-version">※オフライン時でも、TOPよりご予約済みのイベント情報の一部のみご確認いただけます。</p>' +
         '   <a href="' + link.top + '" class="btn-white btn-default btn-back-top">TOPに戻る</a>'
     $("body").append('<div id="update-warning"> ' +
         ' <div class="update-error">'+
         '    <div class="update-error__header" ' + (isLoggedIn || qrUserData !== false ? '' : 'style="display: none"') + '>' +
-        '      <button onclick="window.history.back()" class="btn-back"><</button>' +
         '      <a href="' + link.myPageMycode + '" class="icon-qr">マイコードを表示</a>' +
         '    </div>' +
       '      <div class="center-block">' +
@@ -351,23 +353,40 @@ function changeAppHeaderNav(isUserLoggedIn) {
     $(liList[1]).html(btnJoin);
   }
 }
+
 function headeFooterApp (isLogin) {
   var _partnerName = string2literal(decodeURIComponent(globalInfo('partner_name')));
-  var _partnerNameString = '';
+  var partnerHeader = '';
   // Temporary commented for changing style
   if (!_.isEmpty(_partnerName)) {
-    _partnerNameString = '<span class="header-label-box" style="display: inline-block;text-align: center;width: 200px;"><span data-global="header_prefecture_name" class="label-prefecture" style="font-size: 7px;">' +
-        _partnerName + '</span></span>';
+    partnerHeader = '<div class="partner-header">' +
+      _partnerName +
+    '</div>'
   }
-  var hearder = '<div class="app-header-box-inner">' +
-      ' <span class="app-header-nav">' +
+  // Decide the nav item
+  var listPage = ['top', 'companyList', 'disclosure', 'companyImage', 'eventList', 'internshipList', 'contents', 'myPageTop']
+  var displayList = _.some(listPage, page => _.includes(location.href, link[page]))
+  var navIcon
+  if (displayList) {
+    navIcon = '<span class="app-header-nav">' +
       '  <a href="javascript:void(0);" id="navIconOpen" class="app-header-nav-icon app-nav-icon-menu nav-icon-menu-open"></a>' +
-      ' </span>' +
-      ' <span class="app-header-logo' + (!_.isEmpty(_partnerName) ? ' app-partner' : '') + '">' +
-      ' <a href="' + link.top + '" class="app-header-logo-a app-header-logo-img header-logo-a">' +
-      ' </a>' +
-      _partnerNameString +
-      ' </span>' +
+    ' </span>'
+  } else {
+    navIcon = '<img src="img/2022/navi-item.png" class="btn-back" onclick="window.history.back()"/>'
+  }
+  // Decide the header logo
+  var headerLogo
+  if(_.includes(location.href, link.top)) {
+    headerLogo = '<span class="app-header-logo' + (!_.isEmpty(_partnerName) ? ' app-partner' : '') + '">' +
+      '<a href="#" class="app-header-logo-a app-header-logo-img header-logo-a"></a>' +
+    '</span>'
+  } else {
+    var titleText = $('title').text()
+    headerLogo = '<span class="header-text">' + titleText + '</span>'
+  }
+  var header = '<div class="app-header-box-inner">' +
+      navIcon +
+      headerLogo +
       ' <span class="app-header-nav">' +
       '   <a href="' + link.myPageMycode + '" class="app-header-nav-icon app-nav-icon-qr"></a>マイコード' +
       '  </span>' +
@@ -459,10 +478,19 @@ function headeFooterApp (isLogin) {
       ' <li class="app-footer-nav-ul-li"><a href="' + link.myPageTop + '" class="app-footer-nav-a"><img src="' + assetsPath + 'img/icon-mypage.png" class="app-footer-nav-img" alt="マイページ" />マイページ</a></li>' +
       '</ul>';
 
-  $('#header').append(hearder);
+  $('#header').append(header).append(partnerHeader);
   $('#leftNavOuter').append(leftNavOuter);
   $('#footer').append(footer);
   displayContractTerm();
+
+  // Hide partner header on scroll
+  $(window).on('scroll', function(e){
+    if ($(this).scrollTop() > 0){
+      $('.partner-header').hide()
+    } else {
+      $('.partner-header').show()
+    }
+  })
 }
 // end header, footer app
 

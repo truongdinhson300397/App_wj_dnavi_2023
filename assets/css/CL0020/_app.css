@@ -193,6 +193,10 @@
   color: #004F93;
 }
 
+.reserved-events .event-ul a {
+  width: 100vh;
+}
+
 .reserved-events .event-ul {
   margin: 20px 0;
 }
