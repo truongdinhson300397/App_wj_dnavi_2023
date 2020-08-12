@@ -108,7 +108,7 @@ function _checkNetWork() {
     $("body").append('<div id="update-warning"> ' +
         ' <div class="update-error">'+
         '    <div class="update-error__header" ' + (isLoggedIn || qrUserData !== false ? '' : 'style="display: none"') + '>' +
-        '      <a href="' + link.myPageMycode + '" class="icon-qr">マイコードを表示</a>' +
+        '      <a href="' + link.myPageMycode + '" class="icon-qr">マイコード</a>' +
         '    </div>' +
       '      <div class="center-block">' +
         '     <div class="offline__' + contractTerm + '_logo"></div>' +
@@ -393,13 +393,13 @@ function headeFooterApp (isLogin) {
       '</div>';
 
   var menuLogin = '';
-  if (isLogin) {
-    var btnLogin = '<a href="' + link.logout + '" class="app-left-nav-btn-login-a">ログアウト</a>';
-    var btnJoin = '<a href="' + link.myPageTop + '" class="app-left-nav-btn-join-a">マイページ</a>';
-  } else {
-    var btnLogin = '<a href="' + link.loginUser + '" class="app-left-nav-btn-login-a">ログイン</a>';
-    var btnJoin = '<a href="' + link.regist + '" class="app-left-nav-btn-join-a">会員登録</a>';
-  }
+  // if (isLogin) {
+  //   var btnLogin = '<a href="' + link.logout + '" class="app-left-nav-btn-login-a">ログアウト</a>';
+  //   var btnJoin = '<a href="' + link.myPageTop + '" class="app-left-nav-btn-join-a">マイページ</a>';
+  // } else {
+  //   var btnLogin = '<a href="' + link.loginUser + '" class="app-left-nav-btn-login-a">ログイン</a>';
+  //   var btnJoin = '<a href="' + link.regist + '" class="app-left-nav-btn-join-a">会員登録</a>';
+  // }
   var leftNavOuter= '<nav id="leftNav" class="app-left-nav">' +
       ' <div class="app-left-nav-logo-box">' +
       '   <div class="app-left-nav-logo">' +
@@ -410,14 +410,14 @@ function headeFooterApp (isLogin) {
       '     <a href="javascript:void(0);" id="navIconClose" class="app-left-nav-icon-a app-nav-icon-menu nav-icon-menu-close"></a>' +
       '    </div>' +
       '   </div>' +
-      '   <ul class="app-left-nav-btn-ul">' +
-      '    <li class="app-left-nav-btn-ul-li">' +
-      btnLogin +
-      '    </li>' +
-      '    <li class="app-left-nav-btn-ul-li">' +
-      btnJoin +
-      '    </li>' +
-      '   </ul>' +
+      // '   <ul class="app-left-nav-btn-ul">' +
+      // '    <li class="app-left-nav-btn-ul-li">' +
+      // btnLogin +
+      // '    </li>' +
+      // '    <li class="app-left-nav-btn-ul-li">' +
+      // btnJoin +
+      // '    </li>' +
+      // '   </ul>' +
       '   <ul class="app-left-nav-ul-1">' +
       '    <li class="app-av-ul-1-li">' +
       '     <a href="#" class="app-left-nav-ul-1-li-a-main-menu">MENU</a>' +
@@ -477,8 +477,7 @@ function headeFooterApp (isLogin) {
       ' <li class="app-footer-nav-ul-li"><a href="' + link.contents + '" class="app-footer-nav-a"><img src="' + assetsPath + 'img/icon-contents.png" class="app-footer-nav-img" alt="選考対策" />選考対策</a></li>' +
       ' <li class="app-footer-nav-ul-li"><a href="' + link.myPageTop + '" class="app-footer-nav-a"><img src="' + assetsPath + 'img/icon-mypage.png" class="app-footer-nav-img" alt="マイページ" />マイページ</a></li>' +
       '</ul>';
-
-  $('#header').append(header).append(partnerHeader);
+  if (isLogin) $('#header').append(header).append(partnerHeader);
   $('#leftNavOuter').append(leftNavOuter);
   $('#footer').append(footer);
   displayContractTerm();
