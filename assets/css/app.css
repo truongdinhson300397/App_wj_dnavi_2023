@@ -54,6 +54,10 @@
   text-align: center;
 }
 
+.app-header-nav.list-icon {
+  height: 19px;
+}
+
 .app-header-logo {
   padding: 0 5px;
   display: table-cell;
@@ -1486,6 +1490,11 @@
 .update-error .btn-back-top {
   width: 50%;
   margin: 10px auto 0;
+  font-size: 14px;
+  padding: 9px 25px;
+  line-height: inherit;
+  height: auto;
+  font-weight: normal;
 }
 .offline__2021_logo, .offline__2022_logo {
   margin: 30px auto 0 auto;
@@ -1517,8 +1526,8 @@
   border-radius: 20px;
   margin-bottom: 30px;
   color: #FFFFFF;
-  font-weight: bold;
   margin-top: 10px;
+  font-size: 14px;
 }
 
 /* OVERRIDE COMMON CSS */

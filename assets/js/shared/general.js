@@ -368,7 +368,7 @@ function headeFooterApp (isLogin) {
   var displayList = _.some(listPage, page => _.includes(location.href, link[page]))
   var navIcon
   if (displayList) {
-    navIcon = '<span class="app-header-nav">' +
+    navIcon = '<span class="app-header-nav list-icon">' +
       '  <a href="javascript:void(0);" id="navIconOpen" class="app-header-nav-icon app-nav-icon-menu nav-icon-menu-open"></a>' +
     ' </span>'
   } else {
