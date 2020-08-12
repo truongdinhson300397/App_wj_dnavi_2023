@@ -461,7 +461,9 @@ function headeFooterApp (isLogin) {
       ' <li class="app-footer-nav-ul-li"><a href="' + link.contents + '" class="app-footer-nav-a"><img src="' + assetsPath + 'img/icon-contents.png" class="app-footer-nav-img" alt="選考対策" />選考対策</a></li>' +
       ' <li class="app-footer-nav-ul-li"><a href="' + link.myPageTop + '" class="app-footer-nav-a"><img src="' + assetsPath + 'img/icon-mypage.png" class="app-footer-nav-img" alt="マイページ" />マイページ</a></li>' +
       '</ul>';
-  $('#header').append(header).append(partnerHeader);
+
+  var isLoginPage = _.includes(location.href, link.loginUser)
+  !isLoginPage && $('#header').append(header).append(partnerHeader);
   $('#leftNavOuter').append(leftNavOuter);
   $('#footer').append(footer);
   displayContractTerm();
