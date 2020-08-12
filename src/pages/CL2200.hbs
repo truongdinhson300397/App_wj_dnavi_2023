@@ -11,6 +11,14 @@
       .book-li {
         margin-top: 50px;
       }
+      .btn-open-map {
+        background-color: #266ba8;
+        padding: 5px 7px;
+        border: 0;
+        outline: 0;
+        color: white;
+        margin-bottom: 20px;
+      }
     </style>
   {{/content}}
   {{#content "main"}}
@@ -71,6 +79,7 @@
           <!--<iframe-->
           <!--src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3279.9942491906136!2d137.73382285102508!3d34.70532499038186!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x601ade77313e50a1%3A0x983dee4a8b04e07d!2z44CSNDMwLTA5Mjgg6Z2Z5bKh55yM5rWc5p2-5biC5Lit5Yy65p2_5bGL55S677yR77yR77yR4oiS77yR!5e0!3m2!1sja!2sjp!4v1562316992460!5m2!1sja!2sjp"-->
           <!--frameborder="0" class="map-iframe" allowfullscreen></iframe>-->
+          {{#if isApplican}} <button class="btn-open-map">地図アプリで表示 ＞</button> {{/if}}
 
         </div>
 
