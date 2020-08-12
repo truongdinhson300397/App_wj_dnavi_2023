@@ -450,7 +450,7 @@ function setRadioBtn(){
 //チェックボックスデザイン
 function setCheckbox(){
 //  if($('input[type="checkbox"]')){
-    $('input[type="checkbox"]').each(function(){
+    $('input[type="checkbox"]:not(.no-style)').each(function(){
       $(this).after('<span class="checkbox-span"></span>');
 //      if($(this).prop('checked')){
 //        $(this).closest('.checkbox-span').addClass('checkbox-span-checked');
