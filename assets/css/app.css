@@ -192,15 +192,18 @@
 .app-left-nav-logo-box {
   border-spacing: 10px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   padding: 15px 15px 5px;
   width: 100%;
   table-layout: fixed;
   background: #fff;
+  position: relative;
+  margin-bottom: 20px;
 }
 
 .app-left-nav-logo {
   display: table-cell;
+  margin-top: 10px;
 }
 
 .app-left-nav-icon {
@@ -217,13 +220,12 @@
   height: 45px;
 }
 
-.app-left-nav-icon-a {
-  display: inline-block;
-  line-height: 1;
-  text-decoration: none;
-  text-align: center;
-  min-width: 30px;
-  position: relative;
+.app-left-nav-icon {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  width: 15px;
+  height: 15px;
 }
 
 .app-left-nav-icon-a:hover {
@@ -279,7 +281,7 @@
 
 .app-left-nav {
   margin-left: -80%;
-  background: #266ba8;
+  background: white;
   max-height: 100%;
   overflow: auto;
   width: 80%;
@@ -293,10 +295,6 @@
 .app-left-nav a:hover,
 .app-left-nav a:active {
   text-decoration: none;
-}
-
-.app-left-nav-ul-1 {
-  border-top: 1px solid #80ACD3;
 }
 
 .app-left-nav-ul-1-li {
@@ -323,9 +321,10 @@
   transition-timing-function: ease-in-out;
 }
 .app-left-nav-ul-1-li-a {
-  color: #80ACD3;
   background: #FFFFFF;
   position: relative;
+  font-weight: normal;
+  padding-left: 40px;
 }
 
 .app-left-nav-ul-1-li:not(:last-child) a:after {
@@ -353,10 +352,10 @@
 }
 
 .app-left-nav-ul-1-li-a-main-menu {
-  border-bottom: 1px solid #80ACD3;
-  color: #fff;
-  background: #266BA8;
+  background-color: white;
+  color: #266BA8;
   pointer-events: none;
+  font-size: 15px;
 }
 
 .app-left-nav-ul-1-li-a:hover,
@@ -1517,4 +1516,44 @@
   font-weight: bold;
   margin-top: 10px;
 }
+
+/* OVERRIDE COMMON CSS */
+.nav-icon-menu-close::before {
+  border-top: 2px solid #777;
+  top: 7px;
+  left: 0;
+}
+
+.nav-icon-menu-close::after {
+  border-top: 2px solid #777;
+  top: 7px;
+  left: 0;
+}
+
+.nav-ul-2-li-a {
+  padding: 15px 15px 15px 55px;
+  display: block;
+  font-size: 100%;
+  line-height: 1;
+  text-align: left;
+  text-decoration: none;
+  background: #fff;
+  position: relative;
+  border: none;
+  color: #333;
+}
+
+.nav-ul-3-li-a {
+  padding: 10px 15px 10px 70px;
+  display: block;
+  font-size: 100%;
+  line-height: 2;
+  text-align: left;
+  text-decoration: none;
+  background: #ffffff;
+  position: relative;
+  color: #333;
+  border: none;
+}
+
 
