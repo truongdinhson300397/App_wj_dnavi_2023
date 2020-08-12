@@ -1423,37 +1423,41 @@
   text-align: center;
   height: 100vh;
 }
-.update-error.center-block {
+.update-error .center-block {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  height: 100vh;
 }
-.update-error.center-block .offline__2022_logo {
+.update-error .center-block .offline__2022_logo {
   margin-top: 0;
 }
-.update-error.center-block .btn-update-version {
+.update-error .center-block .btn-update-version {
   margin-bottom: 0;
 }
 .update-error .update-error__header {
   text-align: right;
+  display: flex;
+  justify-content: space-between;
+  position: fixed;
+  width: 100%;
 }
 .update-error .btn-back {
-  color: darkgrey;
-  font-size: 28px;
-  background-color: transparent;
+  color: #989898;
+  font-size: 25px;
   border: none;
   outline: none;
-  float: left;
-  padding: 20px 23px;
+  padding: 0 26px;
+  background-color: #dadada;
+  line-height: 0;
+  height: 63px;
 }
 .update-error .update-error__header .icon-qr {
   padding: 35px 0 0;
   margin: 10px;
   background: url(../img/icon-qr.png) center top no-repeat;
   background-size: 35px;
-  /*background-size: contain;*/
-  display: inline-block;
   line-height: 1;
   text-decoration: none;
   text-align: center;
@@ -1462,11 +1466,11 @@
 }
 .update-error hr {
   width: 83%;
-  margin: auto;
+  margin-top: 30px;
 }
 .update-error .btn-back-top {
   width: 50%;
-  margin: 10px auto auto;
+  margin: 10px auto 0;
 }
 .offline__2021_logo, .offline__2022_logo {
   margin: 30px auto 0 auto;
@@ -1487,8 +1491,7 @@
 }
 .error-mes-version {
   font-size: 15px;
-  padding: 30px;
-  padding-bottom: 6px;
+  padding: 30px 30px 6px;
 }
 .btn-update-version {
   background: #266ba8;
