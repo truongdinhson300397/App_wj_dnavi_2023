@@ -1,12 +1,15 @@
-const contractTermId = globalInfo("contract_term_id");
-const apiUrl = rootVariables.apiUrl;
 const jwt = globalInfo('jwt_' + contractTermId);
 const id = globalInfo('id_' + contractTermId);
 
+function getCurrentTimestamp() {
+    return new Date().getTime();
+}
+
 function EventProcessor() {
     const beaconInfoStatus = {
-        PROCESSING: 0,
-        DONE: 1,
+        JUST_INIT: 1,
+        PROCESSING: 2,
+        DONE: 3,
     };
     const NotificationType = {
         NOT_LOGGED_IN: 1,
@@ -16,14 +19,24 @@ function EventProcessor() {
     const minimumAccuracy = 1;
     const throttleRequestTime = 60; // seconds
     const applicanWrapper = new ApplicanWrapper();
+    this.getData = function (key) {
+        return applicanWrapper.simpleStorage.get(key);
+    }
     this.getObjectData = function (key) {
-        return applicanWrapper.simpleStorage.get(key).then((resp) => {
+        return this.getData(key).then((resp) => {
             return new Promise((resolve, reject) => {
                 resolve(!_.isEmpty(resp) ? JSON.parse(resp + '') : {});
             });
         });
     }
-    this.saveObjectData = function (key, value) {
+    this.getArraytData = function (key) {
+        return this.getData(key).then((resp) => {
+            return new Promise((resolve, reject) => {
+                resolve(!_.isEmpty(resp) ? JSON.parse(resp + '') : []);
+            });
+        });
+    }
+    this.saveData = function (key, value) {
         return applicanWrapper.simpleStorage.set(key, value);
     }
     this.generateStoreKey = function (beaconInfo) {
@@ -35,7 +48,7 @@ function EventProcessor() {
         //     uuid: '',
         //     major: 0,
         //     last_call: datetime,
-        //     status: beaconInfoStatus // 0: did nothing, 1: processed but not finish, 2: done
+        //     status: beaconInfoStatus
         // }
         // if receive incorrect accuracy, do nothing
         if (beaconInfo.accuracy === -1 || beaconInfo > minimumAccuracy) return false;
@@ -44,11 +57,13 @@ function EventProcessor() {
         if (oldBeaconInfo !== null) {
             const newLastCall = new Date(oldBeaconInfo.last_call + throttleRequestTime * 1000).getTime();
             // if status is done or just call, nothing to do
-            if (oldBeaconInfo.status === beaconInfoStatus.DONE || newLastCall > new Date().getTime()) return false;
-            await this.saveObjectData(storeKey, {...beaconInfo, last_call: new Date().getTime(), status: beaconInfo.status || beaconInfoStatus.PROCESSING});
+            if (oldBeaconInfo.status === beaconInfoStatus.DONE
+                || (oldBeaconInfo.status === beaconInfoStatus.PROCESSING && oldBeaconInfo.started_at + 30 * 1000 < getCurrentTimestamp())
+                || newLastCall > getCurrentTimestamp()) return false;
+            await this.saveData(storeKey, {...beaconInfo, last_call: getCurrentTimestamp(), status: beaconInfo.status || beaconInfoStatus.JUST_INIT});
             return true;
         }
-        await this.saveObjectData(storeKey, {...beaconInfo, last_call: new Date().getTime(), status: beaconInfoStatus.PROCESSING});
+        await this.saveData(storeKey, {...beaconInfo, last_call: getCurrentTimestamp(), status: beaconInfoStatus.JUST_INIT});
         return true;
     }
     this.displayLocalNotification = function (fireDateUnixTime, repeat, message, alertId, url) {
@@ -75,20 +90,20 @@ function EventProcessor() {
         if (offlineInfoMap.findIndex(saveKey) === -1) return;
         offlineInfo.push(beaconInfo);
         offlineInfoMap.push(saveKey);
-        await this.saveObjectData('offlineInfoMap', offlineInfoMap);
-        await this.saveObjectData('offlineInfo', {...offlineInfo, save_date: new Date().getTime()});
+        await this.saveData('offlineInfoMap', offlineInfoMap);
+        await this.saveData('offlineInfo', {...offlineInfo, save_date: getCurrentTimestamp()});
     };
     this.preRegister = async function (beaconInfo) {
         if (!await this.filterBeaconInfo(beaconInfo)) return;
         // display when user didn't login
         if (!isUserLoggedIn()) {
-            this.displayLocalNotification(new Date().getTime() / 1000 + 5, false, 'ログイン後にイベント受付が可能です', NotificationType.NOT_LOGGED_IN);
+            this.displayLocalNotification(getCurrentTimestamp() / 1000 + 5, false, 'ログイン後にイベント受付が可能です', NotificationType.NOT_LOGGED_IN);
             await this.saveBeaconInfoForRegister(beaconInfo);
             return;
         }
         // display local notification when offline
         if (!isOnline()) {
-            this.displayLocalNotification(new Date().getTime() / 1000 + 5, false,'参加を受け付けましたが、完了しませんでした。電波状況の良い場所で再度アプリを起動することで再度参加処理が行われます。');
+            this.displayLocalNotification(getCurrentTimestamp() / 1000 + 5, false,'参加を受け付けましたが、完了しませんでした。電波状況の良い場所で再度アプリを起動することで再度参加処理が行われます。', NotificationType.HOLD_DATA);
             await this.saveBeaconInfoForRegister({...beaconInfo, user_id: id});
             return;
         }
@@ -98,7 +113,8 @@ function EventProcessor() {
     this.register = async function (beaconInfo) {
         const storeKey = this.generateStoreKey(beaconInfo);
         const oldBeaconInfo = await this.getObjectData(storeKey);
-        await this.saveObjectData(storeKey, {oldBeaconInfo, status: beaconInfoStatus.DONE});
+        await this.saveData(storeKey, {oldBeaconInfo, status: beaconInfoStatus.PROCESSING, started_at: getCurrentTimestamp()});
+        await this.saveData(storeKey, {oldBeaconInfo, status: beaconInfoStatus.DONE});
     }
     this.process = function () {
         // check available to call
