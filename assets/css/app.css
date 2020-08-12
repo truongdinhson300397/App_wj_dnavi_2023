@@ -335,13 +335,17 @@
   transform: translateX(-50%);
   width: 90%;
   height: 1px;
-  background-color: #80ACD3;
 }
 
 .app-left-nav-ul-1-li-version {
   height: 20%;
   position: relative;
   color: #FFFFFF;
+  background-color: #266ba8;
+  text-align: center;
+  justify-content: center;
+  padding-top: 20px;
+  margin-top: 30px;
 }
 
 .app-left-nav-ul-1-li-version span {
