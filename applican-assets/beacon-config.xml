@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<beacon-config>
-    <beacons>
-        <beacon uuid="2F8018F2-5725-4B06-B197-7BE925ACE9A3"></beacon>
-        <beacon uuid="00000000-0000-0000-0000-000000000000"></beacon>
-    </beacons>
-</beacon-config>
