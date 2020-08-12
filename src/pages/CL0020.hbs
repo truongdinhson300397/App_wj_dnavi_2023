@@ -112,7 +112,7 @@
       </article>
     </div>
 
-    {{#if isApplican}} <img src="{{path}}img/2022/list-image.png" alt="list image" style="width: 100%"> {{/if}}
+    {{#if isApplican}} <a href="{{link.eventList}}"><img src="{{path}}img/2022/list-image.png" alt="list image" style="width: 100%"></a> {{/if}}
 
     <!-- block disclosure -->
     {{#unless isApplican}} {{> web/disclosure }} {{/unless}}
