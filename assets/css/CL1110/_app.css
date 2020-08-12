@@ -6,6 +6,10 @@
   margin: 0 auto 20px;
 }
 
+.app-login {
+  padding-bottom: 20px;
+}
+
 .app-login .article-box-header {
   padding-bottom: 10px;
 }
@@ -101,6 +105,27 @@
   border-bottom: 1px solid #cacaca;
 }
 
+.app-login .list-nomark-ul-li a {
+  font-size: 14px;
+}
+
 .app-login .list-nomark-ul-li a:not(:last-of-type) {
   margin-bottom: 10px;
+}
+
+.app-login-addition {
+  margin-bottom: 30px;
+}
+
+.app-login-addition .btnRegist {
+  margin-bottom: 15px;
+  font-size: 14px;
+  padding: 4px 0;
+  height: auto;
+}
+
+.app-login-addition .list-nomark-ul-li {
+  display: flex;
+  justify-content: center;
+  font-size: 14px;
 }
