@@ -107,7 +107,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 20px 0;
+  margin: 20px 0 27px;
 }
 
 .app-login .remember span {
@@ -124,6 +124,7 @@
   outline: none;
   border-radius: 20px;
   height: 39px;
+  font-size: 15px;
 }
 
 .app-login .list-nomark-ul-li {
@@ -149,7 +150,7 @@
 
 .app-login-addition .btnRegist {
   margin-bottom: 15px;
-  font-size: 14px;
+  font-size: 15px;
   padding: 4px 0;
   height: 39px;
 }
@@ -157,5 +158,9 @@
 .app-login-addition .list-nomark-ul-li {
   display: flex;
   justify-content: center;
+  font-size: 14px;
+}
+
+.app-login-addition .list-nomark-ul-li a {
   font-size: 14px;
 }
