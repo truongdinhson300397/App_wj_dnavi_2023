@@ -1,0 +1,19 @@
+{{#extend "components/layout" title="マイページメニュー"}}
+    {{#content "header-scripts" mode="append"}}
+        <link rel="stylesheet" href="{{path}}css/swiper.css" type="text/css" media="all" />
+    {{/content}}
+    {{#content "main"}}
+        <div class="contents-box">
+            Beacon
+        </div>
+    {{/content}}
+    {{#content "footer-scripts" mode="append"}}
+        <script>
+            _headerUIHandler(null, null, false);
+            document.addEventListener('deviceready', function () {
+                const eventProcessor = new EventProcessor();
+                eventProcessor.process();
+            });
+        </script>
+    {{/content}}
+{{/extend}}
