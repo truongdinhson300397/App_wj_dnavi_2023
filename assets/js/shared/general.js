@@ -392,14 +392,10 @@ function headeFooterApp (isLogin) {
       '  </span>' +
       '</div>';
 
-  // var menuLogin = '';
-  // if (isLogin) {
-  //   var btnLogin = '<a href="' + link.logout + '" class="app-left-nav-btn-login-a">ログアウト</a>';
-  //   var btnJoin = '<a href="' + link.myPageTop + '" class="app-left-nav-btn-join-a">マイページ</a>';
-  // } else {
-  //   var btnLogin = '<a href="' + link.loginUser + '" class="app-left-nav-btn-login-a">ログイン</a>';
-  //   var btnJoin = '<a href="' + link.regist + '" class="app-left-nav-btn-join-a">会員登録</a>';
-  // }
+  var logout = isLogin ? ' <li class="app-left-nav-ul-1-li">' +
+    '     <a href="' + link.logout + '" class="app-left-nav-ul-1-li-a">ログアウト</a>' +
+    '    </li>' : ''
+
   var leftNavOuter= '<nav id="leftNav" class="app-left-nav">' +
       ' <div class="app-left-nav-logo-box">' +
       '   <div class="app-left-nav-logo">' +
@@ -410,31 +406,10 @@ function headeFooterApp (isLogin) {
       '     <a href="javascript:void(0);" id="navIconClose" class="nav-icon-menu-close"></a>' +
       '    </div>' +
       '   </div>' +
-      // '   <ul class="app-left-nav-btn-ul">' +
-      // '    <li class="app-left-nav-btn-ul-li">' +
-      // btnLogin +
-      // '    </li>' +
-      // '    <li class="app-left-nav-btn-ul-li">' +
-      // btnJoin +
-      // '    </li>' +
-      // '   </ul>' +
       '   <ul class="app-left-nav-ul-1">' +
       '    <li class="app-av-ul-1-li">' +
       '     <a href="#" class="app-left-nav-ul-1-li-a-main-menu">UIターン・地元就活</a>' +
       '    </li>' +
-      // menuLogin +
-      // '    <li class="app-left-nav-ul-1-li">' +
-      // '     <a href="' + link.eventList + '" class="app-left-nav-ul-1-li-a">イベント</a>' +
-      // '    </li>' +
-      // '    <li class="app-left-nav-ul-1-li">' +
-      // '     <a href="' + link.disclosure + '" class="app-left-nav-ul-1-li-a">情報公開度でさがす</a>' +
-      // '    </li>' +
-      // '     <li class="app-left-nav-ul-1-li">' +
-      // '      <a href="' + link.companyList + '" class="app-left-nav-ul-1-li-a">企業をさがす</a>' +
-      // '     </li>' +
-      // '     <li class="app-left-nav-ul-1-li">' +
-      // '      <a href="' + link.internshipList + '" class="app-left-nav-ul-1-li-a">インターンシップ＆キャリア支援プログラム</a>' +
-      // '     </li>' +
       '    <li class="app-left-nav-ul-1-li app-left-nav-1-has-submenu">' +
       '     <a href="#" class="app-left-nav-ul-1-li-a">UIターン・地元就活 <span class="app-left-nav-1-has-submenu-arrow"></span></a>' +
       '     <div class="app-left-nav-ul-2-outer">' +
@@ -442,28 +417,19 @@ function headeFooterApp (isLogin) {
       '      </ul>' +
       '     </div>' +
       '    </li>' +
-
-      // '  <li class="app-left-nav-ul-1-li">' +
-      // '   <a href="' + link.contents + '" class="app-left-nav-ul-1-li-a">選考対策</a>' +
-      // '  </li>' +
       '   </ul>' +
-      '  </div>' +
-      '  </li>' +
       '   <ul class="app-left-nav-ul-1">' +
       '    <li class="app-av-ul-1-li">' +
-      '     <a href="#" class="app-left-nav-ul-1-li-a-main-menu">その他</a>' +
+      '     <a href="#" class="app-left-nav-ul-1-li-a-main-menu">企業</a>' +
       '    </li>' +
       '    <li class="app-left-nav-ul-1-li">' +
-      '     <a href="javascript:removeFirstOpen()" class="app-left-nav-ul-1-li-a">チュートリアル</a>' +
+      '     <a href="' + link.companyList + '" class="app-left-nav-ul-1-li-a">企業を探す</a>' +
       '    </li>' +
       '    <li class="app-left-nav-ul-1-li">' +
-      '     <a href="' + link.faqList + '" class="app-left-nav-ul-1-li-a">FAQ</a>' +
+      '     <a href="' + link.disclosure + '" class="app-left-nav-ul-1-li-a">情報公開度ランキング</a>' +
       '    </li>' +
       '    <li class="app-left-nav-ul-1-li">' +
-      '     <a href="' + (globalInfo('contract_term_id') == 1 ? link.kiyaku : link.kiyaku2022) + '" class="app-left-nav-ul-1-li-a">利用規約</a>' +
-      '    </li>' +
-      '    <li class="app-left-nav-ul-1-li">' +
-      '     <a href="' + link.privacy + '" class="app-left-nav-ul-1-li-a">プライバシーポリシー</a>' +
+      '     <a href="' + link.companyImage + '" class="app-left-nav-ul-1-li-a">イメージ検索</a>' +
       '    </li>' +
       '    </ul>' +
       '   <ul class="app-left-nav-ul-1">' +
@@ -482,9 +448,9 @@ function headeFooterApp (isLogin) {
       '    <li class="app-left-nav-ul-1-li">' +
       '     <a href="' + link.privacy + '" class="app-left-nav-ul-1-li-a">プライバシーポリシー</a>' +
       '    </li>' +
+           logout +
       '    </ul>' +
-      '    <div class="app-left-nav-ul-1-li-version">' +
-      '    </div>' +
+      '    <div class="app-left-nav-ul-1-li-version">バージョン1.1.4</div>' +
       ' </ul>' +
       '</nav>';
 
