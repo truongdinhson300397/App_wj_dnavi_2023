@@ -1,6 +1,5 @@
 var rootVariables = {
-  // apiUrl: 'https://dev.admin.dia-navi.cloud3rs.io/api/v1'
-  apiUrl: 'https://0c259297d34b.ngrok.io/api/v1'
+  apiUrl: 'https://dev.admin.dia-navi.cloud3rs.io/api/v1'
   // apiUrl: 'https://stg.admin.dia-navi.cloud3rs.io/api/v1'
   // apiUrl: 'https://admin.shukatsu.jp/api/v1'
 };

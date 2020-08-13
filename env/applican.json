@@ -7,7 +7,7 @@
   "stgDomain": "https://stg.dia-navi.cloud3rs.io/",
   "prodDomain": "https://shukatsu.jp/",
 
-  "apiDomain": "https://0c259297d34b.ngrok.io/",
+  "apiDomain": "https://dev.admin.dia-navi.cloud3rs.io/",
   "devApiDomain": "https://dev.admin.dia-navi.cloud3rs.io/",
   "stgApiDomain": "https://stg.admin.dia-navi.cloud3rs.io/",
   "prodApiDomain": "https://admin.shukatsu.jp/",
