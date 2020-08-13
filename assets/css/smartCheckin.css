@@ -73,6 +73,7 @@
   border-bottom: 1px solid #dedede;
   margin-bottom: 8px;
   box-shadow: 2px 2px 2px #ababab6e;
+  padding-bottom: 30px;
 }
 
 .step1 .contents-box {
@@ -197,4 +198,15 @@
 
 .step2 .box3 img {
   width: 90px;
+}
+
+.img-qr {
+  display: block;
+  margin: auto;
+  max-width: 200px;
+  text-align: center;
+}
+.img-qr img {
+  max-width: 100%;
+  height: auto !important;
 }

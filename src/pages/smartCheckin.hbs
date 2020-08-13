@@ -29,6 +29,9 @@
           <p>ダイヤモンド就活ナビ会員1名ずつに発行されている</p>
           <p>マイコード(QRコード)を受付にてご提示ください。</p>
         </div>
+        <figure>
+          <div id="qr-code" class="img-qr"></div>
+        </figure>
       </div>
 
       <div class="step step2">
@@ -101,6 +104,9 @@
 
   {{#content "footer-scripts" mode="append"}}
     <!--js here-->
+    <script src="{{path}}js/qrcode.js"></script>
+    <script src="{{path}}js/qrcode_SJIS.js"></script>
+    <script src="{{path}}js/qrcode_UTF8.js"></script>
     <script src="{{path}}js/pages/beacon/index.js"></script>
   {{/content}}
 {{/extend}}

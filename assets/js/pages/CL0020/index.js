@@ -658,6 +658,42 @@ function dumpBanner(banners) {
   });
 }
 
+//current events
+function dumpCurrentEvents(events) {
+  if (_.isEmpty(events)) {
+    return $('.current-events').remove();
+  }
+  var $eventUl = $('.current-events .js-event-ul');
+  $eventUl.empty();
+
+  var _formatedEvents = _formatEvents(_.cloneDeep(events));
+
+  var eventLimit = 4;
+  var counter = 1;
+
+  _formatedEvents.forEach(function (event) {
+    event.event_dates.forEach(function (eventDate) {
+      if (counter > eventLimit) return;
+      counter++;
+      var _eventDate = moment(eventDate.event_date, 'YYYY-MM-DD');
+      var _eventTimeFrom = moment(eventDate.event_time_from, 'HH:mm:ss');
+      var _eventTimeTo = moment(eventDate.event_time_to, 'HH:mm:ss');
+      var $eventLi = $('<li class="event-ul-li">' +
+        '              <div class="event-info-box">' +
+        '                <div class="event-loc">' + event.prefecture + '</div>' +
+        '                <div class="event-dateday"><span class="event-date">' + _eventDate.format('MM/DD') + '</span><span class="event-day">' + _eventDate.format('ddd').toUpperCase() + '</span></div>' +
+        '                <div class="event-time">' + _eventTimeFrom.format('HH:mm') + ' 〜 ' + _eventTimeTo.format('HH:mm') + '</div>' +
+        '                <div class="event-ttl">' + event.title + '</div>' +
+        '              </div>' +
+        '              <div class="event-btn-box">' +
+        '                <a href="' + link.eventDetail + '?event_id=' + event.event_id + '" class="btn-small btn-blue">詳細・予約</a>' +
+        '              </div>' +
+        '            </li>');
+      $eventUl.append($eventLi);
+    });
+  });
+}
+
 function fetchBanner(query) {
   query = query || null;
   // get default query

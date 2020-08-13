@@ -2,6 +2,10 @@
   padding-top: 59px;
 }
 
+.reduce-space-with-partner {
+  padding-top: 74px;
+}
+
 .login-content {
   padding-top: 25px;
   background-color: #f6f6f6;
@@ -195,7 +199,7 @@
 }
 
 .reserved-events .event-ul a {
-  width: 100vh;
+  width: 100vw;
 }
 
 .reserved-events .event-ul {
