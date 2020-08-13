@@ -108,5 +108,11 @@
     <script src="{{path}}js/qrcode_SJIS.js"></script>
     <script src="{{path}}js/qrcode_UTF8.js"></script>
     <script src="{{path}}js/pages/beacon/index.js"></script>
+    <script>
+        document.addEventListener('deviceready', function () {
+            const eventProcessor = new EventProcessor();
+            eventProcessor.process();
+        });
+    </script>
   {{/content}}
 {{/extend}}

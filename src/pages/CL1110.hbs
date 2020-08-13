@@ -115,7 +115,7 @@
             </div><!-- /modal-body -->
           </div>
         </div><!-- /modal-outer -->
-
+        {{> components/preloader }}
     {{/content}}
     {{#content "footer-scripts" mode="append"}}
       {{#if isApplican}} <script src="{{path}}js/pages/CL1110/_app.js"></script> {{/if}}
@@ -139,10 +139,13 @@
 
                 // ログイン処理
                 function memberLogin() {
-
+                    showPreloader();
                     // 送信データ取得整形
                     var formSerial = $('.postdata').serializeArray();
                     var postData = formAdjust(formSerial);
+                    if (typeof isApplican !== "undefined" && isApplican) {
+                        Object.assign(postData, {'is_applican': true});
+                    }
 
                     // ログイン状態の保存のチェック判定&データ追加
                     if ($('input[name="save_login"]:checked').val() == 'on') {
@@ -163,7 +166,11 @@
                         processData: false,
                         success: function (data) {
                             // console.log(data);
-                            loginSuccess(data.data, loginTerm);
+                            if (typeof isApplican !== "undefined" && isApplican) {
+                                applicanLoginSuccess(data.data, loginTerm);
+                            } else {
+                                loginSuccess(data.data, loginTerm);
+                            }
                         },
                         error: function (XMLHttpRequest, textStatus, errorThrown) {
                             $('.alert-box').hide();
@@ -228,6 +235,15 @@
                     globalInfo('warn_contract_term', 1, {expires: 1, path: "/"});
                     toLocationHref('{{link.myPageMemberinfoEdit}}');
                 });
+                function applicanLoginSuccess(data, loginTerm) {
+                    var partnerId = globalInfo('partner_id');
+                    const offlineData = new OfflineData(data.id, data.jwt, partnerId);
+                    offlineData.prepareData()
+                            .then()
+                            .finally(() => {
+                               loginSuccess(data, loginTerm);
+                            });
+                }
                 function loginSuccess(data, loginTerm) {
                     saveUserDataForQR(data);
                     if (data.user_contract_term.length > 0) {
@@ -249,6 +265,7 @@
                             userDataTemp = data;
                             loginTermTemp = loginTerm;
                             modalWarning.show();
+                            hidePreloader();
                             return;
                         }
                         saveUserData(data, loginTerm);
@@ -261,6 +278,7 @@
                             removeGlobalInfo('returnUrl', { path: '/' });
                             var isOpenNewTab = globalInfo('isOpenNewTab');
                             if (isOpenNewTab) {
+                                hidePreloader();
                                 removeGlobalInfo('isOpenNewTab');
                                 window.open(returnUrl); //  new tab
                             } else {
