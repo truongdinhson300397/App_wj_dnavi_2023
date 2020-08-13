@@ -42,6 +42,7 @@
   display: block;
   text-align: center;
   font-size: 14px;
+  font-weight: bold;
 }
 
 .app-header-nav {
@@ -210,6 +211,10 @@
   margin-top: 10px;
 }
 
+.app-left-nav-gray a {
+  color: #666666 !important;
+}
+
 .app-left-nav-icon {
   display: flex;
   width: 30px;
@@ -224,12 +229,18 @@
   height: 45px;
 }
 
-.app-left-nav-icon {
+.app-left-nav-logo-box .app-left-nav-icon {
   position: absolute;
-  right: 10px;
-  top: 10px;
-  width: 15px;
-  height: 15px;
+  right: 7px;
+  top: 6px;
+  width: initial;
+  font-size: 20px;
+  line-height: 1;
+  color: gray;
+}
+
+.app-left-nav-logo-box .app-left-nav-icon .close-btn {
+  padding: 5px 10px;
 }
 
 .app-left-nav-icon-a:hover {
@@ -1484,8 +1495,7 @@
   position: relative;
 }
 .update-error hr {
-  width: 83%;
-  margin-top: 30px;
+  margin-top: 10px;
 }
 .update-error .btn-back-top {
   width: 50%;
@@ -1516,6 +1526,7 @@
 .error-mes-version {
   font-size: 15px;
   padding: 30px 30px 6px;
+  width: 100vw;
 }
 .btn-update-version {
   background: #266ba8;
