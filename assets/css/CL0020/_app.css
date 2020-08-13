@@ -214,6 +214,22 @@
   justify-content: space-between;
 }
 
+.reserved-events .event-ul .event-ul-li .locAndDate {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.event-ul-li .locAndDate .event-loc {
+  width: auto;
+  margin-right: 5px;
+}
+
+.event-ul-li .locAndDate .event-dateday {
+  width: auto !important;
+  line-height: 1;
+}
+
 .reserved-events .more-event {
   display: block;
   text-align: center;
