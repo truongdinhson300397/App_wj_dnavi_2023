@@ -102,8 +102,9 @@ function _checkNetWork() {
   var isLoggedIn = isUserLoggedIn();
   var notDisplayedPage = ['myPageAppliedEvent', 'eventDetail', 'companyDetail']
   var ableToDisplay = _.every(notDisplayedPage, page => !_.includes(location.href, link[page]))
-  if(!isOnline() && ableToDisplay) {
-    var loginContent = '<hr/>' +
+  var onBeforeLoginTop = !isLoggedIn && _.includes(location.href, link.top) // user are in top page, not login and no internet
+  if(!isOnline() && ableToDisplay && onBeforeLoginTop) {
+    var loginContent = '<div class="error-mes-version"><hr/></div>' +
         '   <p class="error-mes-version">※オフライン時でも、TOPよりご予約済みのイベント情報の一部のみご確認いただけます。</p>' +
         '   <a href="' + link.top + '" class="btn-white btn-default btn-back-top">TOPに戻る</a>'
     $("body").append('<div id="update-warning"> ' +
@@ -393,7 +394,7 @@ function headeFooterApp (isLogin) {
       '  </span>' +
       '</div>';
 
-  var logout = isLogin ? ' <li class="app-left-nav-ul-1-li">' +
+  var logout = isLogin ? ' <li class="app-left-nav-ul-1-li app-left-nav-gray">' +
     '     <a href="' + link.logout + '" class="app-left-nav-ul-1-li-a">ログアウト</a>' +
     '    </li>' : ''
 
@@ -404,7 +405,7 @@ function headeFooterApp (isLogin) {
       '     </a>' +
       '    </div>' +
       '    <div class="app-left-nav-icon">' +
-      '     <a href="javascript:void(0);" id="navIconClose" class="nav-icon-menu-close"></a>' +
+      '     <div class="close-btn" id="navIconClose">&times;</div>' +
       '    </div>' +
       '   </div>' +
       '   <ul class="app-left-nav-ul-1">' +
@@ -412,7 +413,7 @@ function headeFooterApp (isLogin) {
       '     <a href="#" class="app-left-nav-ul-1-li-a-main-menu">UIターン・地元就活</a>' +
       '    </li>' +
       '    <li class="app-left-nav-ul-1-li app-left-nav-1-has-submenu">' +
-      '     <a href="#" class="app-left-nav-ul-1-li-a">UIターン・地元就活 <span class="app-left-nav-1-has-submenu-arrow"></span></a>' +
+      '     <a href="#" class="app-left-nav-ul-1-li-a">都道府県を選択<span class="app-left-nav-1-has-submenu-arrow"></span></a>' +
       '     <div class="app-left-nav-ul-2-outer">' +
       '      <ul class="app-left-nav-ul-2" id="ui-job-hunting">' +
       '      </ul>' +
@@ -424,7 +425,7 @@ function headeFooterApp (isLogin) {
       '     <a href="#" class="app-left-nav-ul-1-li-a-main-menu">企業</a>' +
       '    </li>' +
       '    <li class="app-left-nav-ul-1-li">' +
-      '     <a href="' + link.companyList + '" class="app-left-nav-ul-1-li-a">企業を探す</a>' +
+      '     <a href="' + link.companyList + '" class="app-left-nav-ul-1-li-a">企業一覧</a>' +
       '    </li>' +
       '    <li class="app-left-nav-ul-1-li">' +
       '     <a href="' + link.disclosure + '" class="app-left-nav-ul-1-li-a">情報公開度ランキング</a>' +
@@ -437,16 +438,16 @@ function headeFooterApp (isLogin) {
       '    <li class="app-av-ul-1-li">' +
       '     <a href="#" class="app-left-nav-ul-1-li-a-main-menu">その他</a>' +
       '    </li>' +
-      '    <li class="app-left-nav-ul-1-li">' +
+      '    <li class="app-left-nav-ul-1-li app-left-nav-gray">' +
       '     <a href="javascript:removeFirstOpen()" class="app-left-nav-ul-1-li-a">チュートリアル</a>' +
       '    </li>' +
-      '    <li class="app-left-nav-ul-1-li">' +
+      '    <li class="app-left-nav-ul-1-li app-left-nav-gray">' +
       '     <a href="' + link.faqList + '" class="app-left-nav-ul-1-li-a">FAQ</a>' +
       '    </li>' +
-      '    <li class="app-left-nav-ul-1-li">' +
+      '    <li class="app-left-nav-ul-1-li app-left-nav-gray">' +
       '     <a href="' + (globalInfo('contract_term_id') == 1 ? link.kiyaku : link.kiyaku2022) + '" class="app-left-nav-ul-1-li-a">利用規約</a>' +
       '    </li>' +
-      '    <li class="app-left-nav-ul-1-li">' +
+      '    <li class="app-left-nav-ul-1-li app-left-nav-gray">' +
       '     <a href="' + link.privacy + '" class="app-left-nav-ul-1-li-a">プライバシーポリシー</a>' +
       '    </li>' +
            logout +

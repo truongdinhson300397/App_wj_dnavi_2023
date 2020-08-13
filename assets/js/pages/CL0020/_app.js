@@ -1,5 +1,6 @@
 $(function () {
-  $('.app-contents').addClass('reduce-space')
+  let partner = string2literal(decodeURIComponent(globalInfo('partner_name')))
+  $('.app-contents').addClass(partner ? 'reduce-space-with-partner' : 'reduce-space')
 
   if(isUserLoggedIn()) {
     $('.login-content').remove()
@@ -29,8 +30,10 @@ function dumpReservedEvents(events) {
       var $eventLi = $('<a href="' + link.eventDetail + '?event_id=' + event.event_id + '">' +
         '             <li class="event-ul-li">' +
         '              <div class="event-info-box">' +
-        '                <div class="event-loc">' + event.prefecture + '</div>' +
-        '                <div class="event-dateday"><span class="event-date">' + _eventDate.format('MM/DD') + '</span><span class="event-day">' + _eventDate.format('ddd').toUpperCase() + '</span></div>' +
+        '                <div class="locAndDate">' +
+        '                  <div class="event-loc">' + event.prefecture + '</div>' +
+        '                  <div class="event-dateday"><span class="event-date">' + _eventDate.format('MM/DD') + '</span><span class="event-day">' + _eventDate.format('ddd').toUpperCase() + '</span></div>' +
+        '                </div>' +
         '                <div class="event-time">' + _eventTimeFrom.format('HH:mm') + ' 〜 ' + _eventTimeTo.format('HH:mm') + '</div>' +
         '                <div class="event-ttl">' + event.title + '</div>' +
         '              </div>' +

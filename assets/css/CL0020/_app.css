@@ -2,6 +2,10 @@
   padding-top: 59px;
 }
 
+.reduce-space-with-partner {
+  padding-top: 74px;
+}
+
 .login-content {
   padding-top: 25px;
   background-color: #f6f6f6;
@@ -195,7 +199,7 @@
 }
 
 .reserved-events .event-ul a {
-  width: 100vh;
+  width: 100vw;
 }
 
 .reserved-events .event-ul {
@@ -212,6 +216,22 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.reserved-events .event-ul .event-ul-li .locAndDate {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.event-ul-li .locAndDate .event-loc {
+  width: auto;
+  margin-right: 5px;
+}
+
+.event-ul-li .locAndDate .event-dateday {
+  width: auto !important;
+  line-height: 1;
 }
 
 .reserved-events .more-event {
