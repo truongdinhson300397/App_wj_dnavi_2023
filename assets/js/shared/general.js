@@ -1,6 +1,6 @@
 var rootVariables = {
   // apiUrl: 'https://dev.admin.dia-navi.cloud3rs.io/api/v1'
-  apiUrl: 'https://91ddc491090b.ngrok.io/api/v1'
+  apiUrl: 'https://0c259297d34b.ngrok.io/api/v1'
   // apiUrl: 'https://stg.admin.dia-navi.cloud3rs.io/api/v1'
   // apiUrl: 'https://admin.shukatsu.jp/api/v1'
 };
@@ -489,6 +489,20 @@ function dumpGuestHeader() {
   $headerNav.append(_temp);
 }
 
+function hidePreloader() {
+  var $preloader = $('.full-page');
+  if ($preloader.length > 0) {
+    $preloader.hide();
+  }
+}
+
+function showPreloader() {
+  var $preloader = $('.full-page');
+  if ($preloader.length > 0) {
+    $preloader.show();
+  }
+}
+
 function _headerUIHandler(nextFn, errorNextFn, isRequireLogin, onlyForGuest) {
   isRequireLogin = isRequireLogin || false;
   onlyForGuest = onlyForGuest || false;
@@ -515,6 +529,7 @@ function _headerUIHandler(nextFn, errorNextFn, isRequireLogin, onlyForGuest) {
       headeFooterApp(isLogin = true);
       slideAppMenu();
       slideAppSubmenu();
+      hidePreloader();
     }
     typeof (nextFn) === 'function' ? nextFn() : null;
   }, function () {
@@ -528,6 +543,7 @@ function _headerUIHandler(nextFn, errorNextFn, isRequireLogin, onlyForGuest) {
       headeFooterApp(isLogin = false);
       slideAppMenu();
       slideAppSubmenu();
+      hidePreloader();
     }
     dumpGuestHeader();
     typeof (errorNextFn) === 'function' ? errorNextFn() : null;

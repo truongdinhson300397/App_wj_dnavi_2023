@@ -30,9 +30,9 @@ var mainPaddingTop = Number(mainPaddingTopEnd);
 var link = {};
 if (typeof isApplican !== "undefined" && isApplican) {
   link = {
-    "top": "index.html",
+    "top": "CL0020.html",
     "regist": "CL1010.html",
-    "loginUser": "CL1110.html",
+    "loginUser": "index.html",
     "loginTemporary": "CL1210.html",
     "reminder": "CL1310.html",
     "reminderComplete": "CL1320.html",

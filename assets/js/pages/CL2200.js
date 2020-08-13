@@ -1,5 +1,10 @@
 var urlHelper = new UrlHelper();
-var ggmapEvent = new GoogleMapForEvent();
+var ggmapEvent;
+if (isOnline()) {
+  ggmapEvent = new GoogleMapForEvent();
+} else {
+  $('#googlemap').hide();
+}
 var event_id = urlHelper.getParamByName('event_id');
 var eventFrom = urlHelper.getParamByName('event_from');
 
@@ -32,18 +37,25 @@ var global = {
   }
 };
 var http = new Http(global.baseApiUrl);
-
+var offlineData;
+var partnerId = globalInfo('partner_id');
 function _emptyEvent() {
   var $empty = $('<p>There is no event matched</p>');
   $('.article-box').html('');
   $('.article-box').append($empty);
 }
+if (typeof isApplican !== "undefined" && isApplican) {
+  document.addEventListener('deviceready', function () {
+    offlineData = new OfflineData(id, jwt, partnerId);
+    _headerUIHandler(logined, guest, false);
+  });
+} else {
+  $(function () {
+    _headerUIHandler(logined, guest, false);
 
-$(function () {
-  _headerUIHandler(logined, guest, false);
-
-  // listen
-});
+    // listen
+  });
+}
 
 function logined() {
   // check if asura event then check
@@ -150,8 +162,20 @@ function fetchEvent(query) {
     function fetchErr() {
       _emptyEvent();
     }
-
-    http.fetchOne(url, query, global.jwt, fetchSuccess, fetchErr, false);
+    if (!isOnline()
+        && typeof isApplican !== "undefined"
+        && isApplican) {
+      var eventIdDecoded = +event_id;
+      if (!_.isNumber(eventIdDecoded) || _.isNaN(eventIdDecoded)) {
+        eventIdDecoded = atob(event_id);
+      }
+      offlineData.getEvent(eventIdDecoded, function (data) {
+        var res = {data: data};
+        fetchSuccess(res);
+      });
+    } else {
+      http.fetchOne(url, query, global.jwt, fetchSuccess, fetchErr, false);
+    }
   }
 
   function fetchSuccess(res) {
@@ -336,22 +360,23 @@ function dumpEventData(event) {
     trimStr(event.place_address1) + trimStr(event.place_address2) : trimStr(event.addressFromAsura);
 
   $('[data-api="event_address"]').text(address);
-
-  // dump google map
-  if (forAsura) {
-    ggmapEvent.moveGoogleMapEvent(event.addressFromAsura);
-  } else if (!_.isEmpty(event.latitude) && !_.isEmpty(event.longitude)) {
-    var gghelper = new GoogleMapHelper('#googlemap');
-    gghelper.refresh(true);
-    gghelper.removeMarkers();
-    gghelper.addMarker({
-      lat: event.latitude,
-      lng: event.longitude,
-    });
-    // we need make setCenter call after google map init
-    setTimeout(function () {
-      gghelper.setCenter(event.latitude, event.longitude);
-    });
+  if (isOnline()) {
+    // dump google map
+    if (forAsura) {
+      ggmapEvent.moveGoogleMapEvent(event.addressFromAsura);
+    } else if (!_.isEmpty(event.latitude) && !_.isEmpty(event.longitude)) {
+      var gghelper = new GoogleMapHelper('#googlemap');
+      gghelper.refresh(true);
+      gghelper.removeMarkers();
+      gghelper.addMarker({
+        lat: event.latitude,
+        lng: event.longitude,
+      });
+      // we need make setCenter call after google map init
+      setTimeout(function () {
+        gghelper.setCenter(event.latitude, event.longitude);
+      });
+    }
   }
   // dump children events
   if (!_.isEmpty(event.related_events) || (event.related_events && event.related_events.length > 0)) {
@@ -592,15 +617,14 @@ function _dumpBookedEventButton(event, eventDate) {
       '予約をキャンセル' +
       '</a>';
   }
-
   var _template = '<li class="swiper-slide">' +
     '              <div class="reserve-btn-box-white">' +
     '              <div class="talc">' + _target + '</div>' +
     '              <div class="talc"><strong>' + _eventDate.format('YYYY年MM月DD日 (ddd)').toUpperCase() + ' ' +
     _timeFrom.format('HH:mm') + '〜' + _timeTo.format('HH:mm') + '</strong></div>' +
     '              <div class="singon-btn-box">' +
-    btnDetail +
-    btnCancel +
+      (isOnline() ? (btnDetail +
+    btnCancel) : ( isJoined ? '<a href="javascript:void(0);" class="btn-default singon-btn-flex btn-white js-cancel-booking btn-disabled">参加済み</a>' : '' )) +
     '              </div>' +
     '            </div>' +
     '           </li>';

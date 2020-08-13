@@ -251,3 +251,173 @@ function ApplicanWrapper(applicanInstance) {
         throw new Error('Missing applican instance!');
     }
 }
+function OfflineData(userId, jwt, partnerId) {
+    const applicanWrapper = new ApplicanWrapper();
+    this.getListForAsura = async () => {
+        const formDataOfCompany = {
+            contract_term_id: contractTermId,
+            partner_id: !(_.isEmpty(partnerId)) ? partnerId : 0,
+            per_page: 9999,
+            is_asura: true,
+        };
+        return await $.ajax({
+            url: rootVariables.apiUrl + '/companies/list_for_asura',
+            dataType: 'json',
+            type: 'GET',
+            contentType: 'application/json',
+            accept: 'application/json',
+            data: formDataOfCompany,
+        }).then((data) => {
+            return applicanWrapper.simpleStorage.set('list_for_asura', data).then(() => {
+                return data;
+            });
+        })
+    };
+    this.getBookedEvents = () => {
+        return $.ajax({
+            url: apiUrl + '/students/' + userId + '/booked_events?contract_term_id=' + contractTermId + '&status=1&per_page=999999',
+            type: 'GET',
+            headers: {
+                'Authorization': 'Bearer ' + jwt,
+                'Content-Type': 'application/json'
+            },
+        }).then((data) => {
+            return applicanWrapper.simpleStorage.set('booked_events', data).then(() => {
+                return data;
+            });
+        });
+    };
+    this.getEvent = (eventId, callback) => {
+        return this.getOfflineData('booked_events', function (resp) {
+            const event = _.find(resp.data, function (e) {
+                return +e.event_id === +eventId;
+            });
+            if (typeof callback === 'function') {
+                callback(event);
+            }
+        });
+    }
+    this.getIsAsuraStudent = async () => {
+        return await $.ajax({
+            url: rootVariables.apiUrl + '/students/' + id + '/is_asura_student',
+            dataType: 'json',
+            type: 'GET',
+            headers: {
+                Authorization: 'Bearer ' + jwt,
+                ContentType: 'application/json',
+                Accept: 'application/json'
+            }
+        }).then((data) => {
+            return applicanWrapper.simpleStorage.set('is_asura_student', data).then(() => {
+                return data;
+            });
+        });
+    };
+    this.getIsAsuraStudentNew = async () => {
+        return await $.ajax({
+            url: rootVariables.apiUrl + '/students/' + id + '/is_asura_student_new',
+            dataType: 'json',
+            type: 'GET',
+            headers: {
+                Authorization: 'Bearer ' + jwt,
+                ContentType: 'application/json',
+                Accept: 'application/json'
+            }
+        }).then((data) => {
+            return applicanWrapper.simpleStorage.set('is_asura_student_new', data).then(() => {
+                return data;
+            });
+        });
+    };
+    this.getReserves = async (_registrantIds) => {
+        return await $.ajax({
+            url: apiUrlAsura + '/outside_events/get_reserves',
+            dataType: 'json',
+            type: 'POST',
+            contentType: 'application/json',
+            accept: 'application/json',
+            data: JSON.stringify({
+                entries:
+                    _.map(_registrantIds, function (__e2r) {
+                        return {
+                            asura_company_id: parseInt(__e2r.e2r_pro_id),
+                            asura_student_id: parseInt(__e2r.registrant_id)
+                        };
+                    })
+            }),
+            processData: false
+        }).then((data) => {
+            return applicanWrapper.simpleStorage.set('get_reserves', data).then(() => {
+                return data;
+            });
+        });
+    };
+    this.getCompanies = (bookedEventsData) => {
+        if (!_.isEmpty(bookedEventsData.data)) {
+            const eventIds = bookedEventsData.data.map((event) => {
+                return event.event_id;
+            })
+            return $.ajax({
+                url: rootVariables.apiUrl + '/students/booked_event_companies',
+                dataType: 'json',
+                type: 'GET',
+                contentType: 'application/json',
+                accept: 'application/json',
+                data: {
+                    event_ids: eventIds,
+                    contract_term_id: contractTermId
+                },
+                headers: {
+                    Authorization: 'Bearer ' + jwt,
+                    ContentType: 'application/json',
+                    Accept: 'application/json'
+                }
+            }).then((data) => {
+                console.log(data);
+                return applicanWrapper.simpleStorage.set('companies', data).then(() => {
+                    return bookedEventsData;
+                });
+            });
+        }
+
+        return bookedEventsData;
+    }
+    this.getCompanyFromOfflineData = (companyId, callback) => {
+        return this.getOfflineData('companies', function (resp) {
+            const company = _.find(resp.data, function (e) {
+                return +e.company_id === +companyId;
+            });
+            if (typeof callback === 'function') {
+                callback(company);
+            }
+        });
+    }
+    this.prepareData = () => {
+        return this.getListForAsura()
+            .then(this.getBookedEvents)
+            .then(this.getCompanies)
+            .then(this.getIsAsuraStudent)
+            .then(this.getIsAsuraStudentNew)
+            .then((resp) => {
+                const asuraStudent = resp.data;
+                if (asuraStudent.length > 0) {
+                    const registrants = _.filter(asuraStudent, function (stu) {
+                        return stu.user_id === parseInt(userId);
+                    });
+                    return this.getReserves(registrants);
+                }
+                return null;
+            });
+    };
+    this.getOfflineData = (key, callback) => {
+        applicanWrapper.simpleStorage.get(key).then((data) => {
+            let newData = data;
+            if (!_.isEmpty(data)) {
+                newData = JSON.parse(data+'');
+            }
+            if (typeof callback === 'function') {
+                callback(newData);
+            }
+        });
+    };
+}
