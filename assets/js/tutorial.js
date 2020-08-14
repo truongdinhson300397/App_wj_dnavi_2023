@@ -13,38 +13,23 @@ document.addEventListener('deviceready', function () {
         const devicePath = platform === 'Android' ? 'android' : 'ios'
         const commonPath = './img/' + prefix + 'tutorial/' + devicePath + '/'
         const cssClass = platform === 'Android' ? "img-tutorial" : "img-tutorial iphone"
-        // if (platform === 'Android') {
-            $('#first-open-app .swiper-wrapper').html('' +
-                '<div class="swiper-slide">\n' +
-                '    <img class=' + cssClass + ' src="'+ commonPath + 'tutorial1_smart_checkin.png" alt="">' +
-                '</div>' +
-                '<div class="swiper-slide">\n' +
-                '    <img class=' + cssClass + ' src="'+ commonPath + 'tutorial2_offline.png" alt="">' +
-                '</div>' +
-                '<div class="swiper-slide">\n' +
-                '    <img class=' + cssClass + ' src="'+ commonPath + 'tutorial3_push.png" alt="">' +
-                '</div>' +
-                '<div class="swiper-slide">\n' +
-                '    <img class=' + cssClass + ' src="'+ commonPath + 'tutorial4_event.png" alt="">' +
-                '</div>' +
-                '<div class="swiper-slide">\n' +
-                '    <img class=' + cssClass + ' src="'+ commonPath + 'tutorial5_contents.png" alt="">' +
-                '</div>'
-            );
-        // }
-        // else {
-        //     $('#first-open-app .swiper-wrapper').html('' +
-        //         '<div class="swiper-slide">\n' +
-        //         '      <img class="img-tutorial iphone" src="./img/' + prefix + 'tutorial_1.png" alt="">' +
-        //         '    </div>' +
-        //         '<div class="swiper-slide">\n' +
-        //         '      <img class="img-tutorial iphone" src="./img/' + prefix + 'tutorial_2.png" alt="">' +
-        //         '    </div>' +
-        //         '<div class="swiper-slide">\n' +
-        //         '      <img class="img-tutorial iphone" src="./img/' + prefix + 'tutorial_2-1.png" alt="">' +
-        //         '    </div>'
-        //     );
-        // }
+        $('#first-open-app .swiper-wrapper').html('' +
+            '<div class="swiper-slide">\n' +
+            '    <img class=' + cssClass + ' src="'+ commonPath + 'tutorial1_smart_checkin.png" alt="">' +
+            '</div>' +
+            '<div class="swiper-slide">\n' +
+            '    <img class=' + cssClass + ' src="'+ commonPath + 'tutorial2_offline.png" alt="">' +
+            '</div>' +
+            '<div class="swiper-slide">\n' +
+            '    <img class=' + cssClass + ' src="'+ commonPath + 'tutorial3_push.png" alt="">' +
+            '</div>' +
+            '<div class="swiper-slide">\n' +
+            '    <img class=' + cssClass + ' src="'+ commonPath + 'tutorial4_event.png" alt="">' +
+            '</div>' +
+            '<div class="swiper-slide">\n' +
+            '    <img class=' + cssClass + ' src="'+ commonPath + 'tutorial5_contents.png" alt="">' +
+            '</div>'
+        );
         var swiper = new Swiper('.swiper-tutorial', {
             navigation: {
                 nextEl: '.swiper-button-next',
