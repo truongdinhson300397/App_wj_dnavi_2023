@@ -421,3 +421,8 @@ function OfflineData(userId, jwt, partnerId) {
         });
     };
 }
+
+function reduceHeaderSpacing() {
+    let partner = string2literal(decodeURIComponent(globalInfo('partner_name')))
+    $('.app-contents').addClass(partner ? 'reduce-space-with-partner' : 'reduce-space')
+}

@@ -166,11 +166,11 @@
                         processData: false,
                         success: function (data) {
                             // console.log(data);
-                            if (typeof isApplican !== "undefined" && isApplican) {
-                                applicanLoginSuccess(data.data, loginTerm);
-                            } else {
+                            // if (typeof isApplican !== "undefined" && isApplican) {
+                                // applicanLoginSuccess(data.data, loginTerm);
+                            // } else {
                                 loginSuccess(data.data, loginTerm);
-                            }
+                            // }
                         },
                         error: function (XMLHttpRequest, textStatus, errorThrown) {
                             $('.alert-box').hide();
