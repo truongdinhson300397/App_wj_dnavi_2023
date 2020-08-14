@@ -1,3 +1,3 @@
-$(function () {
-  $('.app-contents').addClass('reduce-space')
-})
+// $(function () {
+//   reduceHeaderSpacing()
+// })
