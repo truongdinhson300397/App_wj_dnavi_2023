@@ -63,7 +63,7 @@ document.addEventListener('deviceready', function () {
         $('.target-skip').removeClass('swiper-button-disabled');
 
         swiper.on('slideChange', function () {
-            if (swiper.realIndex === 2) {
+            if (swiper.realIndex === 4) {
                 $('#btn-next').hide();
                 $('#btn-skip').show().removeClass('swiper-button-disabled');
                 $('.target-skip').hide();
