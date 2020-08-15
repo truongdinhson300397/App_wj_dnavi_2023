@@ -99,7 +99,7 @@ function checkVersion () {
 function _checkNetWork() {
   var qrUserData = getUserDataForQR();
   var isLoggedIn = isUserLoggedIn();
-  var notDisplayedPage = ['myPageAppliedEvent', 'eventDetail', 'companyDetail', 'top']
+  var notDisplayedPage = ['myPageAppliedEvent', 'eventDetail', 'companyDetail', 'top', 'beacon']
   var ableToDisplay = _.every(notDisplayedPage, page => !_.includes(location.href, link[page]))
   var onBeforeLoginTop = !isLoggedIn && _.includes(location.href, link.top) // user are in top page, not login and no internet
   if(!isOnline() && (ableToDisplay || onBeforeLoginTop)) {
@@ -111,7 +111,7 @@ function _checkNetWork() {
         '    <div class="update-error__header" ' + (isLoggedIn || qrUserData !== false ? '' : 'style="display: none"') + '>' +
         '      <a href="' + link.myPageMycode + '" class="icon-qr">マイコード</a>' +
         '    </div>' +
-      '      <div class="center-block">' +
+        '     <div class="center-block">' +
         '     <div class="offline__' + contractTerm + '_logo"></div>' +
         '     <p class="error-mes-version">インターネット接続がありません。<br /><br />' +
         '       ダイヤモンド就活ナビにアクセスするにはWi-Fiネットワークかモバイルデータ通信を利用する必要あります。</p>'+
