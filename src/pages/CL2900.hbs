@@ -3,23 +3,18 @@
     <link rel="stylesheet" href="{{path}}css/event.css" type="text/css" media="all"/>
   {{/content}}
   {{#content "main"}}
-    <!--  -->
     <div class="contents-box">
-      <!--  -->
       <article class="article-box">
-        <header class="article-box-header">
-          <h2 class="article-box-header-h2">
-            <span class="article-box-header-h2-jp">予約済みイベント</span><br/>
-            <span class="article-box-header-h2-eng">RESERVED EVENTS</span>
-          </h2>
-        </header>
+        {{#unless isApplican}}
+        {{> components/pageTitle jpTitle='予約済みイベント' enTitle='RESERVED EVENTS' }}
+        {{/unless}}
         <!-- <table class="tabs-tbl">
           <tr>
             <td><a href="#" class="tab-a tab-a-active">予約済み</a></td>
             <td><a href="#" class="tab-a">参加済み</a></td>
           </tr>
         </table> -->
-        <ul class="event-ul">
+        <ul class="event-ul app-mt-30">
         </ul>
         <div id="liveSeminar-show-more" class="event-more-box">
           <a href="javascript:void(0);" class="event-more">more</a>

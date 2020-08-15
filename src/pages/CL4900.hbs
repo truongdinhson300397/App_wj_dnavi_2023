@@ -4,15 +4,11 @@
   {{/content}}
   {{#content "main"}}
     <div class="contents-box">
-      <!--  -->
       <article class="article-box">
-        <header class="article-box-header">
-          <h2 class="article-box-header-h2">
-            <span class="article-box-header-h2-jp">エントリー済インターンシップ</span>
-          </h2>
-        </header>
-
-        <ul id='internshipList' class="intern-ul">
+        {{#unless isApplican}}
+        {{> components/pageTitle jpTitle='エントリー済インターンシップ' }}
+        {{/unless}}
+        <ul id='internshipList' class="intern-ul app-mt-30">
         </ul>
         <div class="intern-more-box">
           <a href="javascript:void(0);" class="intern-more" id="__intern-show-more">more</a>

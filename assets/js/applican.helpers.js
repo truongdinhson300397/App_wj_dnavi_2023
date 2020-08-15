@@ -535,9 +535,9 @@ function OfflineData(userId, jwt, partnerId) {
     };
 }
 
-function reduceHeaderSpacing() {
-    let partner = string2literal(decodeURIComponent(globalInfo('partner_name')))
-    $('.app-contents').addClass(partner ? 'reduce-space-with-partner' : 'reduce-space')
+function adjustHeaderSpacing() {
+    const $header = $('#header')
+    $header.length > 0 && $header.height() > 0 && $('.app-contents').css('paddingTop', $header.height())
 }
 
 function checkNativeFooterStatus() {

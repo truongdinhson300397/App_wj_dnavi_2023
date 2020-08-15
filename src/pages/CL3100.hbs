@@ -4,16 +4,13 @@
     <link rel="stylesheet" href="{{path}}css/companies.css" type="text/css" media="all"/>
   {{/content}}
   {{#content "main"}}
-    <!--	-->
     <div class="contents-box">
       <article class="article-box">
         <header class="article-box-header">
-          <h2 class="article-box-header-h2 space-for-partner">
-            <span class="article-box-header-h2-jp">企業をさがす</span><br/>
-            <span class="article-box-header-h2-eng">SEARCH</span>
-          </h2>
-        </header>
-        <section class="companies-search">
+        {{#unless isApplican}}
+        {{> components/pageTitle jpTitle='企業をさがす' enTitle='SEARCH' }}
+        {{/unless}}
+        <section class="companies-search app-mt-30">
           <div class="search-input-box clearfix">
             <form action="javascript:">
               <input type="text" class="input-text search-btn-s-counterpart" id="input-keyword"

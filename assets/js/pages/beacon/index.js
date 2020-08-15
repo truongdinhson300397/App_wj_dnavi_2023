@@ -3,8 +3,6 @@ var jwt = globalInfo('jwt_' + contractTermId);
 
 $(function() {
   _headerUIHandler(null, null, true);
-  reduceHeaderSpacing()
-
 
   if (typeof isApplican !== "undefined" && isApplican && !isOnline()) {
     __getCurentUserOffline();
