@@ -4,16 +4,12 @@
         <link rel="stylesheet" href="{{path}}css/swiper.css" type="text/css" media="all"/>
     {{/content}}
     {{#content "main"}}
-        <!--  -->
         <div id="disclosure" class="contents-box">
           <article class="article-box">
-            <header class="article-box-header">
-              <h2 class="article-box-header-h2">
-                <span class="article-box-header-h2-jp">情報公開度ランキング</span><br/>
-                <span class="article-box-header-h2-eng">DISCLOSE RANKING</span>
-              </h2>
-            </header>
-            <div class="contents-preface">
+            {{#unless isApplican}}
+            {{> components/pageTitle jpTitle='情報公開度ランキング' enTitle='DISCLOSE RANKING' }}
+            {{/unless}}
+            <div class="contents-preface app-mt-30">
               学生が「知りたい」「聞きづらい」情報を、企業が公開中！<br/>
               本選考対策／インターンシップ選考対策／安心して働く／成長支援/評価制度／メリハリのある働き方／外国語の利用／社内交流／離職者数／育休取得者数　ほか
             </div>

@@ -477,6 +477,9 @@ function headeFooterApp (isLogin) {
       $('.partner-header').show()
     }
   })
+
+  // Adjust the spacing for applican header
+  adjustHeaderSpacing()
 }
 // end header, footer app
 

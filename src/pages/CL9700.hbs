@@ -4,18 +4,12 @@
         <link rel="stylesheet" href="{{path}}css/form.css" type="text/css" media="all" />
     {{/content}}
     {{#content "main"}}
-        <!--  -->
         <div class="contents-box">
             <article class="article-box">
-                <header class="article-box-header">
-                    <h2 class="article-box-header-h2">
-                        <span class="article-box-header-h2-jp">プライバシーポリシー</span><br />
-                        <span class="article-box-header-h2-eng">PRIVACY POLICY</span>
-                    </h2>
-                </header>
-
-                <div class="drop-shadow-box">
-
+                {{#unless isApplican}}
+                {{> components/pageTitle jpTitle='プライバシーポリシー' enTitle='PRIVACY POLICY' }}
+                {{/unless}}
+                <div class="drop-shadow-box app-mt-30">
                     <section>
                         <dl class="terms-dl">
                             <dt class="terms-dl-dt">個人情報保護方針 （PRIVACY POLICY）</dt>

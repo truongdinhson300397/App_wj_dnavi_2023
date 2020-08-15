@@ -23,13 +23,10 @@
         <!--  -->
         <div class="contents-box">
             <article class="article-box">
-                <header class="article-box-header">
-                    <h2 class="article-box-header-h2">
-                        <span class="article-box-header-h2-jp">メールアドレスの変更・配信停止</span>
-                        <!-- <br /><span class="article-box-header-h2-eng"></span> -->
-                    </h2>
-                </header>
-                <div class="article-box-body">
+                {{#unless isApplican}}
+                {{> components/pageTitle jpTitle='メールアドレスの変更・配信停止' }}
+                {{/unless}}
+                <div class="article-box-body app-mt-30">
                     <div class="form-preface">
                         新しいメールアドレスを入力し、［設定］ボタンをクリックしてください。<br/>
                         <span class="txt-reduired">＊</span>は必須項目です。<br/><br/>

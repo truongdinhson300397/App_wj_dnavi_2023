@@ -13,14 +13,17 @@
         <!--  -->
         <div class="contents-box">
             <article class="article-box">
-                <section class="drop-shadow-box">
+                <section class="drop-shadow-box app-mt-30">
                     <header class="article-box-header">
                         <h2 class="article-box-header-h2">
                             <span class="article-box-header-h2-jp">パスワード変更</span>
                             <!-- <br /><span class="article-box-header-h2-eng"></span> -->
                         </h2>
                     </header>
-                    <div class="article-box-body">
+                    {{#unless isApplican}}
+                    {{> components/pageTitle jpTitle='パスワード変更' }}
+                    {{/unless}}
+                    <div class="article-box-body app-mt-30">
                         <div class="form-preface">
                             「設定」ボタンをクリックして下さい。<br/>
                             パスワードに使える文字は、英数字のみです。<br/>
