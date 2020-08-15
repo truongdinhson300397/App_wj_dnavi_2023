@@ -539,3 +539,12 @@ function reduceHeaderSpacing() {
     let partner = string2literal(decodeURIComponent(globalInfo('partner_name')))
     $('.app-contents').addClass(partner ? 'reduce-space-with-partner' : 'reduce-space')
 }
+
+function checkNativeFooterStatus() {
+    const tabList = [
+        '',
+    ];
+    const url = window.location.pathname;
+    const filename = url.substring(url.lastIndexOf('/')+1);
+
+}
