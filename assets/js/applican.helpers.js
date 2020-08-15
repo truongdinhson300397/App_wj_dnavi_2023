@@ -251,39 +251,82 @@ function ApplicanWrapper(applicanInstance) {
         throw new Error('Missing applican instance!');
     }
 }
+function LocalStorageWrapper() {
+    this.set = (key, value) => {
+        return new Promise((resolve, reject) => {
+            try {
+                localStorage.setItem(key, JSON.stringify(value));
+                resolve(value);
+            } catch (err) {
+                reject(err);
+            }
+        });
+    };
+    this.get = (key) => {
+        return new Promise((resolve, reject) => {
+            try {
+                const result = JSON.parse(localStorage.getItem(key));
+                resolve(result);
+            } catch (err) {
+                reject(err);
+            }
+        });
+    };
+}
 function OfflineData(userId, jwt, partnerId) {
-    const applicanWrapper = new ApplicanWrapper();
-    this.getListForAsura = async () => {
+    const fakeApplicanInstance = {
+        beacon: {},
+        simpleStorage: new LocalStorageWrapper(),
+        localNotification: {},
+    };
+    const applicanWrapper = new ApplicanWrapper(fakeApplicanInstance);
+    this.getListForAsura = () => {
         const formDataOfCompany = {
             contract_term_id: contractTermId,
             partner_id: !(_.isEmpty(partnerId)) ? partnerId : 0,
             per_page: 9999,
             is_asura: true,
         };
-        return await $.ajax({
-            url: rootVariables.apiUrl + '/companies/list_for_asura',
-            dataType: 'json',
-            type: 'GET',
-            contentType: 'application/json',
-            accept: 'application/json',
-            data: formDataOfCompany,
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                url: rootVariables.apiUrl + '/companies/list_for_asura',
+                dataType: 'json',
+                type: 'GET',
+                contentType: 'application/json',
+                accept: 'application/json',
+                data: formDataOfCompany,
+                success: (data, textStatus, jqXHR) => {
+                    resolve(data);
+                },
+                error: (jqXHR, textStatus, errorThrown) => {
+                    reject(errorThrown);
+                }
+            });
         }).then((data) => {
             return applicanWrapper.simpleStorage.set('list_for_asura', data).then(() => {
                 return data;
             });
-        })
+        });
     };
     this.getBookedEvents = () => {
-        return $.ajax({
-            url: apiUrl + '/students/' + userId + '/booked_events?contract_term_id=' + contractTermId + '&status=1&per_page=999999',
-            type: 'GET',
-            headers: {
-                'Authorization': 'Bearer ' + jwt,
-                'Content-Type': 'application/json'
-            },
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                url: apiUrl + '/students/' + userId + '/booked_events?contract_term_id=' + contractTermId + '&status=1&per_page=999999',
+                type: 'GET',
+                headers: {
+                    'Authorization': 'Bearer ' + jwt,
+                    'Content-Type': 'application/json'
+                },
+                success: (data, textStatus, jqXHR) => {
+                    resolve(data);
+                },
+                error: (jqXHR, textStatus, errorThrown) => {
+                    reject(errorThrown);
+                }
+            });
         }).then((data) => {
-            return applicanWrapper.simpleStorage.set('booked_events', data).then(() => {
-                return data;
+            return new Promise((resolve, reject) => {
+                applicanWrapper.simpleStorage.set('booked_events', data).then(() => resolve(data)).catch(reject);
             });
         });
     };
@@ -296,56 +339,86 @@ function OfflineData(userId, jwt, partnerId) {
                 callback(event);
             }
         });
-    }
-    this.getIsAsuraStudent = async () => {
-        return await $.ajax({
-            url: rootVariables.apiUrl + '/students/' + id + '/is_asura_student',
-            dataType: 'json',
-            type: 'GET',
-            headers: {
-                Authorization: 'Bearer ' + jwt,
-                ContentType: 'application/json',
-                Accept: 'application/json'
-            }
-        }).then((data) => {
-            return applicanWrapper.simpleStorage.set('is_asura_student', data).then(() => {
+    };
+    this.getIsAsuraStudent = () => {
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                url: rootVariables.apiUrl + '/students/' + userId + '/is_asura_student',
+                dataType: 'json',
+                type: 'GET',
+                headers: {
+                    Authorization: 'Bearer ' + jwt,
+                    ContentType: 'application/json',
+                    Accept: 'application/json'
+                },
+                success: (data, textStatus, jqXHR) => {
+                    resolve(data);
+                },
+                error: (jqXHR, textStatus, errorThrown) => {
+                    reject(errorThrown);
+                }
+            });
+        }).then(async (data) => {
+            return await applicanWrapper.simpleStorage.set('is_asura_student', data).then(() => {
                 return data;
             });
         });
     };
-    this.getIsAsuraStudentNew = async () => {
-        return await $.ajax({
-            url: rootVariables.apiUrl + '/students/' + id + '/is_asura_student_new',
-            dataType: 'json',
-            type: 'GET',
-            headers: {
-                Authorization: 'Bearer ' + jwt,
-                ContentType: 'application/json',
-                Accept: 'application/json'
-            }
-        }).then((data) => {
-            return applicanWrapper.simpleStorage.set('is_asura_student_new', data).then(() => {
+    this.getIsAsuraStudentNew = (asuraCompanyId) => {
+        if (typeof asuraCompanyId === 'undefined') {
+            return null;
+        }
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                url: rootVariables.apiUrl + '/students/' + userId + '/is_asura_student_new',
+                dataType: 'json',
+                type: 'GET',
+                headers: {
+                    Authorization: 'Bearer ' + jwt,
+                    ContentType: 'application/json',
+                    Accept: 'application/json'
+                },
+                data: {
+                    e2r_pro_id: asuraCompanyId
+                },
+                success: (data, textStatus, jqXHR) => {
+                    resolve(data);
+                },
+                error: (jqXHR, textStatus, errorThrown) => {
+                    reject(errorThrown);
+                }
+            });
+        }).then(async (data) => {
+            return await applicanWrapper.simpleStorage.set('is_asura_student_new', data).then(() => {
                 return data;
             });
         });
     };
-    this.getReserves = async (_registrantIds) => {
-        return await $.ajax({
-            url: apiUrlAsura + '/outside_events/get_reserves',
-            dataType: 'json',
-            type: 'POST',
-            contentType: 'application/json',
-            accept: 'application/json',
-            data: JSON.stringify({
-                entries:
-                    _.map(_registrantIds, function (__e2r) {
-                        return {
-                            asura_company_id: parseInt(__e2r.e2r_pro_id),
-                            asura_student_id: parseInt(__e2r.registrant_id)
-                        };
-                    })
-            }),
-            processData: false
+    this.getReserves = (_registrantIds) => {
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                url: apiUrlAsura + '/outside_events/get_reserves',
+                dataType: 'json',
+                type: 'POST',
+                contentType: 'application/json',
+                accept: 'application/json',
+                data: JSON.stringify({
+                    entries:
+                        _.map(_registrantIds, function (__e2r) {
+                            return {
+                                asura_company_id: parseInt(__e2r.e2r_pro_id),
+                                asura_student_id: parseInt(__e2r.registrant_id)
+                            };
+                        })
+                }),
+                processData: false,
+                success: (data, textStatus, jqXHR) => {
+                    resolve(data);
+                },
+                error: (jqXHR, textStatus, errorThrown) => {
+                    reject(errorThrown);
+                }
+            });
         }).then((data) => {
             return applicanWrapper.simpleStorage.set('get_reserves', data).then(() => {
                 return data;
@@ -356,31 +429,37 @@ function OfflineData(userId, jwt, partnerId) {
         if (!_.isEmpty(bookedEventsData.data)) {
             const eventIds = bookedEventsData.data.map((event) => {
                 return event.event_id;
-            })
-            return $.ajax({
-                url: rootVariables.apiUrl + '/students/booked_event_companies',
-                dataType: 'json',
-                type: 'GET',
-                contentType: 'application/json',
-                accept: 'application/json',
-                data: {
-                    event_ids: eventIds,
-                    contract_term_id: contractTermId
-                },
-                headers: {
-                    Authorization: 'Bearer ' + jwt,
-                    ContentType: 'application/json',
-                    Accept: 'application/json'
-                }
-            }).then((data) => {
-                console.log(data);
-                return applicanWrapper.simpleStorage.set('companies', data).then(() => {
+            });
+            return new Promise((resolve, reject) => {
+                $.ajax({
+                    url: rootVariables.apiUrl + '/students/booked_event_companies',
+                    dataType: 'json',
+                    type: 'GET',
+                    contentType: 'application/json',
+                    accept: 'application/json',
+                    data: {
+                        event_ids: eventIds,
+                        contract_term_id: contractTermId
+                    },
+                    headers: {
+                        Authorization: 'Bearer ' + jwt,
+                        ContentType: 'application/json',
+                        Accept: 'application/json'
+                    },
+                    success: (data, textStatus, jqXHR) => {
+                        resolve(data);
+                    },
+                    error: (jqXHR, textStatus, errorThrown) => {
+                        reject(errorThrown);
+                    }
+                });
+            }).then(async (data) => {
+                return await applicanWrapper.simpleStorage.set('companies', data).then(() => {
                     return bookedEventsData;
                 });
             });
         }
-
-        return bookedEventsData;
+        return Promise.resolve(bookedEventsData);
     }
     this.getCompanyFromOfflineData = (companyId, callback) => {
         return this.getOfflineData('companies', function (resp) {
@@ -397,7 +476,6 @@ function OfflineData(userId, jwt, partnerId) {
             .then(this.getBookedEvents)
             .then(this.getCompanies)
             .then(this.getIsAsuraStudent)
-            .then(this.getIsAsuraStudentNew)
             .then((resp) => {
                 const asuraStudent = resp.data;
                 if (asuraStudent.length > 0) {
@@ -406,7 +484,10 @@ function OfflineData(userId, jwt, partnerId) {
                     });
                     return this.getReserves(registrants);
                 }
-                return null;
+                return Promise.resolve(null);
+            })
+            .catch((err) => {
+                return Promise.reject(err);
             });
     };
     this.getOfflineData = (key, callback) => {

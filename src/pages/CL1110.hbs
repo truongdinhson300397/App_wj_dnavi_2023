@@ -175,6 +175,7 @@
                         error: function (XMLHttpRequest, textStatus, errorThrown) {
                             $('.alert-box').hide();
                             $('.alert-box.error').fadeIn();
+                            hidePreloader();
                             console.log(errorThrown);
                             console.log(textStatus);
                             console.log(XMLHttpRequest);
@@ -240,6 +241,9 @@
                     const offlineData = new OfflineData(data.id, data.jwt, partnerId);
                     offlineData.prepareData()
                             .then()
+                            .catch(() => {
+                                hidePreloader();
+                            })
                             .finally(() => {
                                loginSuccess(data, loginTerm);
                             });
