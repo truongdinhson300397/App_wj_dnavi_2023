@@ -867,6 +867,5 @@ document.addEventListener('deviceready', function () {
       && (typeof isFirstOpen === 'undefined'
       || isFirstOpen === null)) {
     applican.launcher.webview('tutorial.html', {withoutToolbar: true});
-    toLocationHref(link.top + '?launch_tab=3');
   }
 });
