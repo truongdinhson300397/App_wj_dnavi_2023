@@ -33,9 +33,6 @@ function __getCurentUser() {
 
 function __getCurentUserOffline() {
   var userData = getUserDataForQR();
-  var logo = $('<span class="offline__' + contractTerm + '_logo"></span>')
-    .css('margin-bottom', '10px')
-  $('#header').append(logo);
   if (userData !== false) {
     var data = {};
     data.data = userData;

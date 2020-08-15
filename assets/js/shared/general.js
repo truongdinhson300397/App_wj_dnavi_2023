@@ -99,7 +99,7 @@ function checkVersion () {
 function _checkNetWork() {
   var qrUserData = getUserDataForQR();
   var isLoggedIn = isUserLoggedIn();
-  var notDisplayedPage = ['myPageAppliedEvent', 'eventDetail', 'companyDetail']
+  var notDisplayedPage = ['myPageAppliedEvent', 'eventDetail', 'companyDetail', 'top']
   var ableToDisplay = _.every(notDisplayedPage, page => !_.includes(location.href, link[page]))
   var onBeforeLoginTop = !isLoggedIn && _.includes(location.href, link.top) // user are in top page, not login and no internet
   if(!isOnline() && ableToDisplay && onBeforeLoginTop) {
@@ -364,17 +364,20 @@ function headeFooterApp (isLogin) {
       _partnerName +
     '</div>'
   }
-  // Decide the nav item
-  var listPage = ['top', 'companyList', 'disclosure', 'companyImage', 'eventList', 'internshipList', 'contents', 'myPageTop']
+  
+  // Decide the navigation icon
+  var listPage = [
+    'top', 'companyList', 'disclosure', 'companyImage',
+    'eventList', 'internshipList', 'contents', 'myPageTop',
+    'faqList', 'kiyaku2022', 'privacy'
+  ]
   var displayList = _.some(listPage, page => _.includes(location.href, link[page]))
-  var navIcon
-  if (displayList) {
-    navIcon = '<span class="app-header-nav list-icon">' +
-      '  <a href="javascript:void(0);" id="navIconOpen" class="app-header-nav-icon app-nav-icon-menu nav-icon-menu-open"></a>' +
-    ' </span>'
-  } else {
-    navIcon = '<img src="img/2022/navi-item.png" class="btn-back" onclick="window.history.back()"/>'
-  }
+  var navIcon = displayList
+  ? '<span class="app-header-nav list-icon">' +
+    ' <a href="javascript:void(0);" id="navIconOpen" class="app-header-nav-icon app-nav-icon-menu nav-icon-menu-open"></a>' +
+  ' </span>'
+  : '<img src="img/2022/navi-item.png" class="btn-back" onclick="window.history.back()"/>'
+
   // Decide the header logo
   var headerLogo
   if(_.includes(location.href, link.top)) {
@@ -385,13 +388,17 @@ function headeFooterApp (isLogin) {
     var titleText = $('title').text()
     headerLogo = '<span class="header-text">' + titleText + '</span>'
   }
+
+  // Decide show/hide my code icon
+  var myCodeIcon = _.includes(location.href, link.myPageMycode)
+    ? '<span class="app-header-nav" style="width: 45px"></span>'
+    : '<span class="app-header-nav">' +
+    '   <a href="' + link.myPageMycode + '" class="app-header-nav-icon app-nav-icon-qr"></a>マイコード' +
+    '  </span>'
+
   var header = '<div class="app-header-box-inner">' +
-      navIcon +
-      headerLogo +
-      ' <span class="app-header-nav">' +
-      '   <a href="' + link.myPageMycode + '" class="app-header-nav-icon app-nav-icon-qr"></a>マイコード' +
-      '  </span>' +
-      '</div>';
+      navIcon + headerLogo + myCodeIcon +
+  '</div>'
 
   var logout = isLogin ? ' <li class="app-left-nav-ul-1-li app-left-nav-gray">' +
     '     <a href="' + link.logout + '" class="app-left-nav-ul-1-li-a">ログアウト</a>' +

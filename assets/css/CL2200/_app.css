@@ -1,0 +1,20 @@
+.reserve-btn-box-white {
+    padding: 30px !important;
+}
+
+.btn-open-map {
+    background-color: #266ba8;
+    padding: 0 15px;
+    border: 0;
+    outline: 0;
+    color: white;
+    margin-bottom: 20px;
+    border-radius: 20px;
+    font-size: 1.5rem;
+    line-height: 2em;
+}
+
+.reserve-btn-box-white .talc {
+    font-size: 11px;
+    white-space: nowrap;
+}
