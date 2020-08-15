@@ -471,7 +471,13 @@ function headeFooterApp (isLogin) {
       '</ul>';
 
   var isLoginPage = _.includes(location.href, link.loginUser)
-  !isLoginPage && $('#header').append(header).append(partnerHeader);
+  if (_.includes(location.href, link.myPageResetQuitdnaviUserConfirm)) {
+    $('#header').append('<div class="app-header-box-inner">' +
+      navIcon + '<span class="header-text">退会手続き</span>' + myCodeIcon +
+  '</div>')
+  } else {
+    !isLoginPage && $('#header').append(header).append(partnerHeader);
+  }
   $('#leftNavOuter').append(leftNavOuter);
   $('#footer').append(footer);
   displayContractTerm();
