@@ -1,5 +1,17 @@
 @charset 'UTF-8';
 
+.reduce-space {
+  padding-top: 62px !important;
+}
+
+.reduce-space-with-partner {
+  padding-top: 84px !important;
+}
+
+.reduce-space-with-partner .space-for-partner {
+  margin-top: 22px;
+}
+
 /*********************************************************************************************
  header
 *********************************************************************************************/
@@ -11,8 +23,9 @@
   transition-property: all;
   transition-duration: .2s;
   transition-timing-function: ease-in-out;
-  transition-delay: 0;
+  transition-delay: 0s;
   z-index: 50;
+  height: 62px;
 }
 
 .app-header-box .partner-header {
@@ -29,6 +42,7 @@
   padding: 10px;
   align-items: center;
   width: 100%;
+  height: 100%;
   table-layout: fixed;
 }
 

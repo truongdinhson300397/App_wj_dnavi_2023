@@ -1,7 +1,4 @@
 $(function () {
-  let partner = string2literal(decodeURIComponent(globalInfo('partner_name')))
-  $('.app-contents').addClass(partner ? 'reduce-space-with-partner' : 'reduce-space')
-
   if(isUserLoggedIn()) {
     $('.login-content').remove()
   } else {

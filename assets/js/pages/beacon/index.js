@@ -3,7 +3,7 @@ var jwt = globalInfo('jwt_' + contractTermId);
 
 $(function() {
   _headerUIHandler(null, null, true);
-  $('.app-contents').addClass('reduce-space')
+  reduceHeaderSpacing()
 
 
   if (typeof isApplican !== "undefined" && isApplican && !isOnline()) {
