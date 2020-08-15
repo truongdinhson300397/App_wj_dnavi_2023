@@ -6,14 +6,10 @@
     {{#content "main"}}
         <div class="contents-box">
             <article class="article-box">
-                <header class="article-box-header">
-                    <h2 class="article-box-header-h2">
-                        <span class="article-box-header-h2-jp">ダイヤモンド就活ナビ 利用規約</span><br />
-                        <span class="article-box-header-h2-eng">TERMS and AGREEMENTS</span>
-                    </h2>
-                </header>
-
-                <div class="drop-shadow-box">
+                {{#unless isApplican}}
+                {{> components/pageTitle jpTitle='ダイヤモンド就活ナビ 利用規約' enTitle='TERMS and AGREEMENTS' }}
+                {{/unless}}
+                <div class="drop-shadow-box app-mt-30">
                     <div class="terms-box-scroll">
                         <section>
                             <div class="terms-box">

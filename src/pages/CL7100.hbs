@@ -16,16 +16,11 @@
     {{/content}}
     {{#content "main"}}
         <div class="contents-box">
-            <!--  -->
             <article class="article-box">
-                <header class="article-box-header">
-                    <h2 class="article-box-header-h2">
-                        <span class="article-box-header-h2-jp">マイコード</span><br/>
-                        <span class="article-box-header-h2-eng">MY CODE</span>
-                    </h2>
-                </header>
-                <!--  -->
-                <section class="drop-shadow-box">
+                {{#unless isApplican}}
+                {{> components/pageTitle jpTitle='マイコード' enTitle='MY CODE' }}
+                {{/unless}}
+                <section class="drop-shadow-box app-mt-30">
                     <div class="contents-preface">イベント会場にてご提示ください。</div>
                     <figure>
                         <div id="qr-code" class="img-qr"></div>
@@ -52,7 +47,7 @@
                 var jwt = globalInfo('jwt_' + contractTermId);
                 var id = globalInfo('id_' + contractTermId);
                 if (typeof isApplican !== "undefined" && isApplican && !isOnline()) {
-                        __getCurentUserOffline();
+                    __getCurentUserOffline();
                 } else {
                     __getCurentUser();
                 }

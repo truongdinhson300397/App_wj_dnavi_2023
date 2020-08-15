@@ -4,16 +4,11 @@
         <link rel="stylesheet" href="{{path}}css/others.css" type="text/css" media="all"/>
     {{/content}}
     {{#content "main"}}
-        <!--  -->
         <div class="contents-box">
-
             <article class="article-box" id="input_area">
-                <header class="article-box-header">
-                    <h2 class="article-box-header-h2">
-                        <span class="article-box-header-h2-jp">退会手続き</span>
-                        <!-- <br /><span class="article-box-header-h2-eng"></span> -->
-                    </h2>
-                </header>
+                {{#unless isApplican}}
+                {{> components/pageTitle jpTitle='退会手続き' }}
+                {{/unless}}
 
                 <!-- <div class="preface-outer-box">
                   <div class="preface-box">
@@ -26,7 +21,7 @@
                     </ul>
                   </div>
                 </div> -->
-                <section class="drop-shadow-box">
+                <section class="drop-shadow-box app-mt-30">
                     <div class="preface-outer-box">
                         <div class="preface-box preface-box-flexible">
                             退会する前に、以下ご確認ください。
