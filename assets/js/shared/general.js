@@ -102,7 +102,7 @@ function _checkNetWork() {
   var notDisplayedPage = ['myPageAppliedEvent', 'eventDetail', 'companyDetail', 'top']
   var ableToDisplay = _.every(notDisplayedPage, page => !_.includes(location.href, link[page]))
   var onBeforeLoginTop = !isLoggedIn && _.includes(location.href, link.top) // user are in top page, not login and no internet
-  if(!isOnline() && ableToDisplay && onBeforeLoginTop) {
+  if(!isOnline() && (ableToDisplay || onBeforeLoginTop)) {
     var loginContent = '<div class="error-mes-version"><hr/></div>' +
         '   <p class="error-mes-version">※オフライン時でも、TOPよりご予約済みのイベント情報の一部のみご確認いただけます。</p>' +
         '   <a href="' + link.top + '" class="btn-white btn-default btn-back-top">TOPに戻る</a>'
