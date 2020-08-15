@@ -669,6 +669,10 @@ function onLoad() {
       // ロゴ挿入
       var logo = (c.company_logo_url !== null && c.company_logo_url.length > 0) ? c.company_logo_url : noimageUrl;
       var mainVisual = (c.company_main_visual_image_url !== null && c.company_main_visual_image_url.length > 0) ? c.company_main_visual_image_url : noimageUrl;
+      if (!isOnline()) {
+        $('.companies-logo-fig .companies-logo-wrapper').remove();
+        $('.companies-detail-main-fig').remove();
+      }
       if (c.is_visible == 1) {
         $('.companies-logo-fig .companies-logo-wrapper').html('<img src="' + logo + '" class="companies-logo-img" onerror="$(this).parents(\'.companies-logo-wrapper\').remove()" alt="' + c.company_logo_name + '">');
       } else {

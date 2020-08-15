@@ -255,7 +255,11 @@ function LocalStorageWrapper() {
     this.set = (key, value) => {
         return new Promise((resolve, reject) => {
             try {
-                localStorage.setItem(key, JSON.stringify(value));
+                if (typeof value !=='undefined') {
+                    localStorage.setItem(key, JSON.stringify(value));
+                } else {
+                    localStorage.setItem(key, JSON.stringify({}));
+                }
                 resolve(value);
             } catch (err) {
                 reject(err);
@@ -272,14 +276,25 @@ function LocalStorageWrapper() {
             }
         });
     };
+    this.remove = (key) => {
+        return new Promise((resolve, reject) => {
+            try {
+                localStorage.removeItem(key);
+                resolve();
+            } catch (err) {
+                reject(err);
+            }
+        });
+    };
 }
 function OfflineData(userId, jwt, partnerId) {
-    const fakeApplicanInstance = {
-        beacon: {},
+    const applicanWrapper = {
         simpleStorage: new LocalStorageWrapper(),
-        localNotification: {},
     };
-    const applicanWrapper = new ApplicanWrapper(fakeApplicanInstance);
+    this.saveListForAsura = (data) => {
+        return applicanWrapper.simpleStorage
+            .set('list_for_asura', data);
+    }
     this.getListForAsura = () => {
         const formDataOfCompany = {
             contract_term_id: contractTermId,
@@ -296,17 +311,18 @@ function OfflineData(userId, jwt, partnerId) {
                 accept: 'application/json',
                 data: formDataOfCompany,
                 success: (data, textStatus, jqXHR) => {
-                    resolve(data);
+                    this.saveListForAsura(data).then(() => {
+                        resolve(data);
+                    }).catch(reject);
                 },
                 error: (jqXHR, textStatus, errorThrown) => {
                     reject(errorThrown);
                 }
             });
-        }).then((data) => {
-            return applicanWrapper.simpleStorage.set('list_for_asura', data).then(() => {
-                return data;
-            });
         });
+    };
+    this.saveBookedEvents = (data) => {
+        return applicanWrapper.simpleStorage.set('booked_events', data);
     };
     this.getBookedEvents = () => {
         return new Promise((resolve, reject) => {
@@ -318,15 +334,14 @@ function OfflineData(userId, jwt, partnerId) {
                     'Content-Type': 'application/json'
                 },
                 success: (data, textStatus, jqXHR) => {
-                    resolve(data);
+                    this.saveBookedEvents(data)
+                        .then(() => resolve(data))
+                        .catch(reject);
+                    // resolve(data);
                 },
                 error: (jqXHR, textStatus, errorThrown) => {
                     reject(errorThrown);
                 }
-            });
-        }).then((data) => {
-            return new Promise((resolve, reject) => {
-                applicanWrapper.simpleStorage.set('booked_events', data).then(() => resolve(data)).catch(reject);
             });
         });
     };
@@ -340,6 +355,9 @@ function OfflineData(userId, jwt, partnerId) {
             }
         });
     };
+    this.saveIsAsuraStudent = (data) => {
+        return applicanWrapper.simpleStorage.set('is_asura_student', data);
+    };
     this.getIsAsuraStudent = () => {
         return new Promise((resolve, reject) => {
             $.ajax({
@@ -352,17 +370,20 @@ function OfflineData(userId, jwt, partnerId) {
                     Accept: 'application/json'
                 },
                 success: (data, textStatus, jqXHR) => {
-                    resolve(data);
+                    this.saveIsAsuraStudent()
+                        .then(() => {
+                            resolve(data);
+                        })
+                        .catch(reject);
                 },
                 error: (jqXHR, textStatus, errorThrown) => {
                     reject(errorThrown);
                 }
             });
-        }).then(async (data) => {
-            return await applicanWrapper.simpleStorage.set('is_asura_student', data).then(() => {
-                return data;
-            });
         });
+    };
+    this.saveIsAsuraStudentNew = (data) => {
+        return applicanWrapper.simpleStorage.set('is_asura_student_new', data);
     };
     this.getIsAsuraStudentNew = (asuraCompanyId) => {
         if (typeof asuraCompanyId === 'undefined') {
@@ -382,17 +403,20 @@ function OfflineData(userId, jwt, partnerId) {
                     e2r_pro_id: asuraCompanyId
                 },
                 success: (data, textStatus, jqXHR) => {
-                    resolve(data);
+                    this.saveIsAsuraStudentNew(data)
+                        .then(() => {
+                            resolve(data);
+                        })
+                        .catch(reject);
                 },
                 error: (jqXHR, textStatus, errorThrown) => {
                     reject(errorThrown);
                 }
             });
-        }).then(async (data) => {
-            return await applicanWrapper.simpleStorage.set('is_asura_student_new', data).then(() => {
-                return data;
-            });
         });
+    };
+    this.saveReserves = (data) => {
+        return applicanWrapper.simpleStorage.set('get_reserves', data);
     };
     this.getReserves = (_registrantIds) => {
         return new Promise((resolve, reject) => {
@@ -413,17 +437,19 @@ function OfflineData(userId, jwt, partnerId) {
                 }),
                 processData: false,
                 success: (data, textStatus, jqXHR) => {
-                    resolve(data);
+                    this.saveReserves(data)
+                        .then(() => {
+                            resolve(data);
+                        }).catch(reject);
                 },
                 error: (jqXHR, textStatus, errorThrown) => {
                     reject(errorThrown);
                 }
             });
-        }).then((data) => {
-            return applicanWrapper.simpleStorage.set('get_reserves', data).then(() => {
-                return data;
-            });
         });
+    };
+    this.saveCompanies = (data) => {
+      return applicanWrapper.simpleStorage.set('companies', data);
     };
     this.getCompanies = (bookedEventsData) => {
         if (!_.isEmpty(bookedEventsData.data)) {
@@ -447,15 +473,14 @@ function OfflineData(userId, jwt, partnerId) {
                         Accept: 'application/json'
                     },
                     success: (data, textStatus, jqXHR) => {
-                        resolve(data);
+                        this.saveCompanies(data)
+                            .then(() => {
+                                resolve(bookedEventsData);
+                            }).catch(reject);
                     },
                     error: (jqXHR, textStatus, errorThrown) => {
                         reject(errorThrown);
                     }
-                });
-            }).then(async (data) => {
-                return await applicanWrapper.simpleStorage.set('companies', data).then(() => {
-                    return bookedEventsData;
                 });
             });
         }
@@ -490,14 +515,21 @@ function OfflineData(userId, jwt, partnerId) {
                 return Promise.reject(err);
             });
     };
+    this.cleanData = () => {
+      applicanWrapper
+          .simpleStorage.remove('list_for_asura')
+          .then(applicanWrapper.simpleStorage.remove('booked_events'))
+          .then(applicanWrapper.simpleStorage.remove('companies'))
+          .then(applicanWrapper.simpleStorage.remove('is_asura_student'))
+          .then(applicanWrapper.simpleStorage.remove('get_reserves'))
+          .catch((err) => {
+              console.log('failed to remove: ', err);
+          });
+    };
     this.getOfflineData = (key, callback) => {
         applicanWrapper.simpleStorage.get(key).then((data) => {
-            let newData = data;
-            if (!_.isEmpty(data)) {
-                newData = JSON.parse(data+'');
-            }
             if (typeof callback === 'function') {
-                callback(newData);
+                callback(data);
             }
         });
     };

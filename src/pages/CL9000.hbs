@@ -44,6 +44,8 @@
     {{#content "footer-scripts" mode="append"}}
         <script>
             var contractTermId = globalInfo("contract_term_id");
+            var partnerId = globalInfo('partner_id');
+            var id = globalInfo('id_' + contractTermId);
             var jwt = globalInfo('jwt_' + contractTermId);
             _headerUIHandler(null, null, null, false);
 
@@ -60,6 +62,7 @@
                     success: function (res) {
                         var status = res.success;
                         if (status === true) {
+                            const offlineData = new OfflineData(id, jwt, partnerId);
                             var contractTermId = globalInfo("contract_term_id");
                             // removeGlobalInfo('jwt');
                             // removeGlobalInfo('id');
@@ -72,6 +75,7 @@
                             removeGlobalInfo('returnUrl', {path: '/'});
                             removeGlobalInfo("is_registered");
                             removeUserDataForQR();
+                            offlineData.cleanData();
                         }
 
                         dumpGuestHeader();
