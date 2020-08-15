@@ -38,9 +38,7 @@
         <script src="{{path}}js/qrcode_SJIS.js"></script>
         <script src="{{path}}js/qrcode_UTF8.js"></script>
         <script>
-            if (typeof isApplican === "undefined" || !isApplican || isOnline()) {
-                _headerUIHandler(null, null, true);
-            }
+            _headerUIHandler(null, null, true);
             $(function () {
                 var contractTermId = globalInfo("contract_term_id");
                 var apiUrl = rootVariables.apiUrl;
