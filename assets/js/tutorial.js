@@ -64,5 +64,5 @@ $('#btn-skip, .target-skip').click(function () {
     localStorage.setItem('isFirstOpen', '1');
     localStorage.setItem('contract_term_id', 2);
     setContractTerm(2022, 2);
-    toLocationHref(link.top + '?launch_tab=3');
+    toLocationHref(link.loginUser + '?launch_tab=3');
 });

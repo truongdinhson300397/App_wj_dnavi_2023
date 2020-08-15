@@ -616,7 +616,7 @@ function _dumpBookedEventButton(event, eventDate) {
     '" class="btn-default singon-btn-flex btn-green btn-first">自己紹介カードを表示</a>' : '';
 
   // if user is joined this event then hide cancel button
-  var btnCancel = !isJoined ? '<a style="color: white;border: #ccc;" href="javascript:void(0);" class="btn-default singon-btn-flex btn-white js-cancel-booking ' +
+  var btnCancel = !isJoined ? '<a href="javascript:void(0);" class="btn-default singon-btn-flex btn-white js-cancel-booking ' +
     disabledCancel + '" ' +
     'onClick="cancelBooking(' + event.event_id + ',' + eventDate.event_date_id + ', ' + canCancel + ')">' +
     '予約をキャンセル' +
@@ -640,7 +640,7 @@ function _dumpBookedEventButton(event, eventDate) {
     _timeFrom.format('HH:mm') + '〜' + _timeTo.format('HH:mm') + '</strong></div>' +
     '              <div class="singon-btn-box">' +
       (isOnline() ? (btnDetail +
-    btnCancel) : ( isJoined ? '<a href="javascript:void(0);" class="btn-default singon-btn-flex btn-white js-cancel-booking btn-disabled">参加済み</a>' : '' )) +
+    btnCancel) : ( isJoined ? '<a href="javascript:void(0);" style="color: white;border: #ccc;" class="btn-default singon-btn-flex btn-white js-cancel-booking btn-disabled">参加済み</a>' : '' )) +
     '              </div>' +
     '            </div>' +
     '           </li>';
