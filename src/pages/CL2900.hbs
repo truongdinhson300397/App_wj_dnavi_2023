@@ -98,6 +98,9 @@
                       accept: 'application/json',
                       data: formDataOfCompany,
                       success: function (_res) {
+                          if (typeof isApplican !== "undefined" && isApplican) {
+                              offlineData.saveListForAsura(_res);
+                          }
                           var companies = _res.data;
                           if (companies.length > 0) {
                               filterE2rCompany(companies);
@@ -151,6 +154,9 @@
                       'Content-Type': 'application/json'
                   },
                   success: function (_res) {
+                      if (typeof isApplican !== "undefined" && isApplican) {
+                          offlineData.saveBookedEvents(_res);
+                      }
                       if (_res.data && _res.data.length > 0) {
                           dnaviEvents = __refactorEvent(_res.data);
                       }
@@ -199,6 +205,9 @@
 
           function _getAsuraBookedEvents() {
               var getEventsDetailFromAsuraSuccessCallBack = function (_res) {
+                  if (isOnline() && typeof isApplican !== "undefined" && isApplican) {
+                      offlineData.saveReserves(_res);
+                  }
                   if (_res && _res.response) {
                       asuraEvents = _.filter(_res.response, function (_asuraEvent) {
                           return _.indexOf(arrE2rProId, _asuraEvent.companyId) > -1;

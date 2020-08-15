@@ -139,6 +139,9 @@ function fetchEvent(query) {
     }
 
     _getEventsDetailFromAsura().done(function (_res) {
+      if (typeof isApplican !== "undefined" && isApplican) {
+        offlineData.saveReserves(_res);
+      }
       if (Object.keys(_res.response).length === 0 && _res.response.constructor === Object) {
         _emptyEvent();
       } else {

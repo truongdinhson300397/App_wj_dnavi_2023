@@ -1,6 +1,7 @@
 var partner = null;
 var requestName = window.location.href.replace(window.location.protocol + '//' + window.location.host, '');
 var currentPartner = requestName.split(/([0-9]{4})/g).slice(-1)[0].split('/')[1];
+var offlineData;
 
 if(!_.isUndefined(currentPartner) && !_.isNaN(+currentPartner)) {
   partner = currentPartner;
@@ -33,21 +34,38 @@ var contractTermId = _.isEmpty(globalInfo('contract_term_id')) ? __contractTerm 
 var webDomain = rootVariables.apiUrl;
 var arrE2rProId = [];
 var prefectureIds = globalInfo('prefecture_ids') ? JSON.parse(globalInfo('prefecture_ids')) : [];
+if (typeof isApplican !== "undefined" && isApplican) {
+  document.addEventListener('deviceready', function () {
+    offlineData = new OfflineData(id, jwt, partnerId);
 
-$(function () {
-  initPage();
+    initPage();
 
-  //ASURA
-  if (parseInt(global.partner_id) !== 0 && !_.isUndefined(global.partner_id) && global.partner_id !== '') {
-    _getPrefecture();
-  } else {
-    $('#corporateSeminar-wrapper').hide();
-  }
+    //ASURA
+    if (parseInt(global.partner_id) !== 0 && !_.isUndefined(global.partner_id) && global.partner_id !== '') {
+      _getPrefecture();
+    } else {
+      $('#corporateSeminar-wrapper').hide();
+    }
 
-  // dump header layout
-  _headerUIHandler(logined, guest);
+    // dump header layout
+    _headerUIHandler(logined, guest);
 
-});
+  });
+} else {
+  $(function () {
+    initPage();
+
+    //ASURA
+    if (parseInt(global.partner_id) !== 0 && !_.isUndefined(global.partner_id) && global.partner_id !== '') {
+      _getPrefecture();
+    } else {
+      $('#corporateSeminar-wrapper').hide();
+    }
+
+    // dump header layout
+    _headerUIHandler(logined, guest);
+  });
+}
 
 function initPage() {
   // hide default block
@@ -126,6 +144,11 @@ function fetchData() {
   }
   // fetch when logined
   if (global.isLogin) {
+    fetchReservedEvents();
+  }
+  if (!isOnline()
+    && typeof isApplican !== 'undefined'
+    && isApplican) {
     fetchReservedEvents();
   }
 }
@@ -207,14 +230,26 @@ function fetchReservedEvents(query) {
   var url = '/students/' + global.userId + '/booked_events';
 
   function fetchSuccess(res) {
+    if (isOnline() && typeof isApplican !== "undefined" && isApplican) {
+      offlineData.saveBookedEvents(res);
+    }
     dumpReservedEvents(res.data);
   }
 
   function clearBlock() {
     $('#information').remove();
   }
-
-  http.fetchAll(url, query, global.jwt, fetchSuccess, clearBlock);
+  if (!isOnline()
+      && typeof isApplican !== "undefined"
+      && isApplican) {
+    $('.banner-image-2022, #find-company, #goEventList').hide();
+    if (isUserLoggedIn()) {
+      $('#reserved-events').show();
+    }
+    offlineData.getOfflineData('booked_events', fetchSuccess);
+  } else {
+    http.fetchAll(url, query, global.jwt, fetchSuccess, clearBlock);
+  }
 }
 
 // main visual
