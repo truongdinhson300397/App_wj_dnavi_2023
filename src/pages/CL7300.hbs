@@ -204,14 +204,12 @@
 
             <!-- 入力確認 -->
             <article id="regist-header" class="article-box input-area">
-                <header class="article-box-header">
-                    <h2 class="article-box-header-h2">
-                        <span class="article-box-header-h2-jp">会員情報編集</span>
-                    </h2>
-                </header>
-                <div class="alert-box mgnt10-15 mgnb10-15" style="display: none;"></div>
+                {{#unless isApplican}}
+                {{> components/pageTitle jpTitle='会員情報編集' }}
+                {{/unless}}
 
-                <section class="drop-shadow-box">
+                <div class="alert-box mgnt10-15 mgnb10-15" style="display: none;"></div>
+                <section class="drop-shadow-box app-mt-30">
                     <!--          <div class="form-preface">-->
                     <table class="tbl-form tbl-th-25prc">
                         <tr>

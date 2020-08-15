@@ -37,7 +37,7 @@ function __getCurentUserOffline() {
     var data = {};
     data.data = userData;
     __generateUserQRCode(data);
-    $('.drop-shadow-box').append(__generateUserInfo(data));
+    $('.step1').append(__generateUserInfo(data));
   } else {
     console.log(errorThrown);
     console.log(textStatus);
