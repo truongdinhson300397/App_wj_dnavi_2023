@@ -378,6 +378,19 @@ function dumpEventData(event) {
       });
     }
   }
+  if (typeof isApplican !== "undefined" && isApplican) {
+    $('.btn-open-map').on('click', function () {
+      if (applican.device.platform === 'Android') {
+        applican.launcher.urlScheme('https://www.google.com/maps/search/?api=1&query=' + event.latitude + ',' + event.longitude + '', function (err) {
+          console.log('schema for map error: ', err);
+        });
+      } else {
+        applican.launcher.urlScheme('http://maps.apple.com/?q=' + event.latitude + ',' + event.longitude + '&z=21&t=s', function (err) {
+          console.log('schema for map error: ', err);
+        });
+      }
+    });
+  }
   // dump children events
   if (!_.isEmpty(event.related_events) || (event.related_events && event.related_events.length > 0)) {
     dumpChildEventData(event.related_events.childrens);
