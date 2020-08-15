@@ -539,3 +539,12 @@ function adjustHeaderSpacing() {
     const $header = $('#header')
     $header.length > 0 && $header.height() > 0 && $('.app-contents').css('paddingTop', $header.height())
 }
+
+function checkNativeFooterStatus() {
+    const tabList = [
+        '',
+    ];
+    const url = window.location.pathname;
+    const filename = url.substring(url.lastIndexOf('/')+1);
+
+}
