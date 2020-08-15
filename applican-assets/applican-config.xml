@@ -16,6 +16,12 @@
 
 	<property name="NATIVE_TAB_BAR">true</property>
 	<property name="NATIVE_TAB_COUNT">5</property>
+	<property name="NATIVE_TAB_DEFAULT_URL">index.html?launch_tab=3</property>
+	<property name="NATIVE_TAB_AUTO_RELOAD1">true</property>
+	<property name="NATIVE_TAB_AUTO_RELOAD2">true</property>
+	<property name="NATIVE_TAB_AUTO_RELOAD3">true</property>
+	<property name="NATIVE_TAB_AUTO_RELOAD4">true</property>
+	<property name="NATIVE_TAB_AUTO_RELOAD5">true</property>
 	<property name="NATIVE_TAB_URL1">CL2100.html</property>
 	<property name="NATIVE_TAB_URL2">CL4100.html</property>
 	<property name="NATIVE_TAB_URL3">CL0020.html</property>
