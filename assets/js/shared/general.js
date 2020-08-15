@@ -795,7 +795,8 @@ fixMetaTag();
 
 function removeFirstOpen() {
   localStorage.removeItem('isFirstOpen');
-  window.location.href = link.top;
+  localStorage.setItem('openTutorialFromMenu', '1');
+  location.reload();
 }
 function getPushToken() {
   function getPushTokenSuccess(res){
