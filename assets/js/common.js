@@ -898,7 +898,7 @@ if (!Array.prototype.findIndex) {
 // Add contract year to href
 function toLocationHref(path) {
   if (typeof isApplican !== "undefined" && isApplican) {
-    location.href = path;
+    location.href = 'local://' + path;
   } else {
     var contractTerm = globalInfo("contract_term");
     location.href = "/" + contractTerm + path;
