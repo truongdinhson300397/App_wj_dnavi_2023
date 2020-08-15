@@ -858,3 +858,14 @@ function getUserDataForQR() {
 function removeUserDataForQR() {
   localStorage.removeItem('qrUserData');
 }
+document.addEventListener('deviceready', function () {
+  var isFirstOpen = globalInfo('isFirstOpen');
+  var fileName = window.location.href.replace(/^.*[\\\/]/, '')
+  if (fileName != 'tutorial.html'
+      && typeof isApplican !== "undefined"
+      && isApplican
+      && (typeof isFirstOpen === 'undefined'
+      || isFirstOpen === null)) {
+    applican.launcher.webview('tutorial.html', {withoutToolbar: true});
+  }
+});

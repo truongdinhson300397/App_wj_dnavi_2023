@@ -1,8 +1,13 @@
 document.addEventListener('deviceready', function () {
     if (_.isUndefined(localStorage.getItem('isFirstOpen')) || _.isNull(localStorage.getItem('isFirstOpen'))) {
+        applican.webView.addLaunchWebviewCloseEventListener(function () {
+            localStorage.setItem('isFirstOpen', '1');
+            localStorage.setItem('contract_term_id', 2);
+            setContractTerm(2022, 2);
+        });
         //
         $("#first-open-app").css("display", "block");
-        $(".wrapper").css("display", "none");
+        // $(".wrapper").css("display", "none");
         var prefix = '';
         if (globalInfo('contract_term_id') != 1) {
             prefix = term[globalInfo('contract_term_id') - 1].term + '/';
@@ -64,5 +69,4 @@ $('#btn-skip, .target-skip').click(function () {
     localStorage.setItem('isFirstOpen', '1');
     localStorage.setItem('contract_term_id', 2);
     setContractTerm(2022, 2);
-    window.location.href = link.top;
 });

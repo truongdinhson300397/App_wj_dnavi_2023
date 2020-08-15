@@ -16,7 +16,7 @@
 
 	<property name="NATIVE_TAB_BAR">true</property>
 	<property name="NATIVE_TAB_COUNT">5</property>
-	<property name="NATIVE_TAB_DEFAULT_URL">index.html?launch_tab=3</property>
+	<property name="NATIVE_TAB_DEFAULT_URL">index.html</property>
 	<property name="NATIVE_TAB_AUTO_RELOAD1">true</property>
 	<property name="NATIVE_TAB_AUTO_RELOAD2">true</property>
 	<property name="NATIVE_TAB_AUTO_RELOAD3">true</property>
@@ -29,6 +29,7 @@
 	<property name="NATIVE_TAB_URL5">CL7200.html</property>
 	<property name="NATIVE_TAB_POSITION">bottom</property>
 	<property name="NATIVE_TAB_HEIGHT">50</property>
+	<property name="NATIVE_TAB_TAP_RELOAD">true</property>
 
 	<property name="NAVIGATION_BAR">false</property>
 
