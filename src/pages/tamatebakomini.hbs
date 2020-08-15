@@ -4,15 +4,11 @@
     {{/content}}
     {{#content "main"}}
         <div class="contents-box">
-            <!--  -->
             <article class="article-box">
-                <header class="article-box-header">
-                    <h2 class="article-box-header-h2">
-                        <span class="article-box-header-h2-jp">玉手箱対策 mini模擬試験</span>
-                        <!-- <br /><span class="article-box-header-h2-eng"></span> -->
-                    </h2>
-                </header>
-                <div class="talc fsz-m">
+                {{#unless isApplican}}
+                {{> components/pageTitle jpTitle='玉手箱対策 mini模擬試験' }}
+                {{/unless}}
+                <div class="talc fsz-m app-mt-30">
                     採用試験には色々な種類があるのを知っていますか？<br/>
                     「玉手箱」テストも多くの企業で使われています。<br/>
                     さあ、まずはチャレンジ！！

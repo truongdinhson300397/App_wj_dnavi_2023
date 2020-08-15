@@ -404,7 +404,7 @@ function headeFooterApp (isLogin) {
     '     <a href="' + link.logout + '" class="app-left-nav-ul-1-li-a">ログアウト</a>' +
     '    </li>' : ''
 
-  var leftNavOuter= '<nav id="leftNav" class="app-left-nav">' +
+  var leftNavOuter='<nav id="leftNav" class="app-left-nav">' +
       ' <div class="app-left-nav-logo-box">' +
       '   <div class="app-left-nav-logo">' +
       '     <a href="' + link.top + '" class="app-left-nav-logo-a app-header-logo-img header-logo-a">' +

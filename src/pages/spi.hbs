@@ -7,14 +7,11 @@
         <div class="contents-box">
             <!--  -->
             <article class="article-box">
-                <header class="article-box-header">
-                    <h2 class="article-box-header-h2">
-                        <span class="article-box-header-h2-jp">SPI全国統一模擬試験</span>
-                        <!-- <br /><span class="article-box-header-h2-eng"></span> -->
-                    </h2>
-                </header>
+                {{#unless isApplican}}
+                {{> components/pageTitle jpTitle='SPI全国統一模擬試験' }}
+                {{/unless}}
                 <!-- TODO: Quiz Notice -->
-                <section class="quiz-notice drop-shadow-box">
+                <section class="quiz-notice drop-shadow-box app-mt-30">
                     <header class="section-box-header">
                         <h3 class="section-box-header-h3">
               <span class="section-box-header-h3-jp txt-blue quiz-number">

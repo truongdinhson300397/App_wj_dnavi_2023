@@ -6,12 +6,10 @@
         <div class="contents-box">
             <!--  -->
             <article class="article-box">
-                <header class="article-box-header">
-                    <h2 class="article-box-header-h2">
-                        <span class="article-box-header-h2-jp">玉手箱対策 苦手克服ドリル</span>
-                    </h2>
-                </header>
-                <div class="talc fsz-m">
+                {{#unless isApplican}}
+                {{> components/pageTitle jpTitle='玉手箱対策 苦手克服ドリル' }}
+                {{/unless}}
+                <div class="talc fsz-m app-mt-30">
                     苦手克服のために、理解を深めるために、<br />
                     自由に問題を選んで練習しましょう！
                 </div>
