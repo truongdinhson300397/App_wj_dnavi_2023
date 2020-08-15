@@ -687,7 +687,6 @@ function setContractTerm(term, logoId) {
 
   // remove query params
   fileName = fileName.replace(/[?].*$/, '');
-  $('.app-contents').prepend('<h1>' + fileName + '</h1>')
 
   if (logoId != null && logoId.length > 0 && headerLogo.length > 0 && fileName !== '/') {
     if (parseInt(logoId) === 2) {
