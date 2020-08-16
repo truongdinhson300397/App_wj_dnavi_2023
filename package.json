@@ -7,9 +7,9 @@
     "webpack": "webpack",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:web": "npm run webpack -- --mode production --config ./webpack.web.config.js",
-    "build:applican": "npm run webpack -- --mode production --config ./webpack.applican.config.js",
+    "build:app": "npm run webpack -- --mode production --config ./webpack.applican.config.js",
     "dev:web": "npm run webpack -- --watch --mode development --config ./webpack.web.config.js",
-    "dev:applican": "npm run webpack -- --watch --mode development --config ./webpack.applican.config.js",
+    "dev:app": "npm run webpack -- --watch --mode development --config ./webpack.applican.config.js",
     "build:all": "npm run build:web && npm run build:applican"
   },
   "author": "",

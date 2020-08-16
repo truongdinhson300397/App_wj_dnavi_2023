@@ -14,7 +14,7 @@
 
   "inAppDomain": "https://www.shukatsu.jp",
 
-  "path": "/public/",
+  "path": "",
   "isApplican": false,
   "link": {
     "top": "/",

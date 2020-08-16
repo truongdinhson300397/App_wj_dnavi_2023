@@ -1,0 +1,261 @@
+{{#extend "components/layout" title="会員登録 （仮IDをお持ちの方）"}}
+    {{#content "header-scripts" mode="append"}}
+        <style>
+          input[type="number"]::-webkit-outer-spin-button,
+          input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+          }
+
+          input[type="number"] {
+            -moz-appearance: textfield;
+          }
+        </style>
+    {{/content}}
+    {{#content "main"}}
+      <!--  -->
+      <div class="contents-box app-mt-30">
+        <article class="article-box">
+          <div class="drop-shadow-box">
+            <header class="article-box-header">
+              <h2 class="article-box-header-h2">
+                <span class="article-box-header-h2-jp">会員登録 <span class="ilb">（仮IDをお持ちの方）</span></span><br/>
+                <span class="article-box-header-h2-eng">REGISTRATION</span>
+              </h2>
+            </header>
+            <div class="article-box-body">
+              <div class="form-preface">
+                メールで届いている仮IDと事前にご登録されている情報を入力してください。<br/>
+                <span class="txt-reduired">＊</span>は必須項目です。<br />
+                <a href="#" onclick="redirectToTemporaryLogin2021()" class="link-text only-2022" style="display: none">2021卒サイトでの会員登録をご希望の方はこちら</a>
+              </div>
+              <div class="alert-box" style="display: none">入力内容に誤りがあります。再度ご確認ください。</div>
+              <table class="tbl-form">
+                <tr>
+                  <th class="required">姓名</th>
+                  <td>
+                    <input type="text" class="input-text input-text-half input-text-left require postdata" placeholder="姓"
+                           name="family_name" id="family_name"/>
+                    <input type="text" class="input-text input-text-half require postdata" placeholder="名"
+                           name="given_name" id="given_name"/>
+                  </td>
+                </tr>
+                <tr>
+                  <th class="required">仮ID</th>
+                  <td>
+                    <input type="text" class="input-text w100prc require postdata" placeholder="仮ID" name="temporary_id" id="temporary_id" onkeypress="preventNonNumericalInput(event, this, 20)"/>
+                  </td>
+                </tr>
+              </table>
+
+              <div class="contact-preface mgnt30-50">
+                以下のうちご登録されている項目を一つ入力してください。
+              </div>
+              <table class="tbl-form tbl-th-25prc mgnb30-50">
+                <tr>
+                  <th>学部・研究科等</th>
+                  <td>
+                    <input type="text" class="input-text w100prc postdata" placeholder="学部・研究科等" name="department"
+                           id="department"/>
+                  </td>
+                </tr>
+                <tr>
+                  <th>学科・専攻等</th>
+                  <td>
+                    <input type="text" class="input-text w100prc postdata" placeholder="学科・専攻等" name="section"
+                           id="section"/>
+                  </td>
+                </tr>
+                <tr>
+                  <th>電話番号</th>
+                  <td>
+                    <input type="text" min="0" class="input-text input-text-tel" placeholder="" name="tel1" id="tel1" data-telgroup="tel1" onkeypress="preventNonNumericalInput(event, this, 4)"/> ー
+                    <input type="text" min="0" class="input-text input-text-tel" placeholder="" name="tel2" id="tel2" data-telgroup="tel1" onkeypress="preventNonNumericalInput(event, this, 4)"/> ー
+                    <input type="text" min="0" class="input-text input-text-tel" placeholder="" name="tel3" id="tel3" data-telgroup="tel1" onkeypress="preventNonNumericalInput(event, this, 4)"/>
+                    <input type="hidden" class="postdata" name="tel" id="tel"/>
+                  </td>
+                </tr>
+                <!-- <tr>
+                  <th>メールアドレス</th>
+                  <td>
+                    <input type="text" class="input-text w100prc" placeholder="メールアドレス" />
+                  </td>
+                </tr> -->
+              </table>
+              <div class="form-btn-box">
+                <a href="javascript:void(0);" class="btn-default btn-disabled w100-50prc" id="submit">進む</a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="article-box pddb0">
+          <div class="drop-shadow-box">
+            <!-- <header class="article-box-header">
+              <h2 class="article-box-header-h2">
+                <span class="article-box-header-h2-jp">お問い合わせはこちら</span>
+              </h2>
+            </header> -->
+            <div class="article-box-body">
+              <ul class="list-nomark-ul block-centering mgnb30-50">
+                <li class="list-nomark-ul-li"><a href="{{link.forgetId}}" class="link-text">仮IDがわからない方はこちら</a></li>
+                <li class="list-nomark-ul-li"><a href="{{link.regist}}" class="link-text">新規に会員登録をしたい方はこちら</a></li>
+                <li class="list-nomark-ul-li"><a href="{{link.loginUser}}" class="link-text">既に本会員の方はこちらからログインしてください</a></li>
+                <li class="list-nomark-ul-li"><a href="{{link.faqList}}" class="link-text">お問い合わせ</a></li>
+              </ul>
+            </div>
+          </div>
+        </article>
+      </div>
+    {{/content}}
+    {{#content "footer-scripts" mode="append"}}
+        <!-- page script -->
+        <script>
+          _headerUIHandler(null, null, false, true);
+          var inputHelper = new InputHelper();
+          var preventNonNumericalInput = inputHelper.preventNonNumericalInput;
+          function redirectToTemporaryLogin2021() {
+              if (typeof isApplican !== "undefined" && isApplican) {
+                  location.href = linkOrBrowser(domain + '2021/login/temporary_user');
+              } else {
+                  location.href = '{{link.loginTemporary}}';
+              }
+          }
+          $(document).ready(function () {
+            if (globalInfo('contract_term_id') == 2) {
+              $('.only-2022').show();
+            } else {
+              $('.only-2022').hide();
+            }
+            // 必須入力済みで、学部・研究科等 / 学科・専攻等 電話番号確認のどれかが入力されていたら、ボタンアクティブ
+            $('input').on('keydown keyup keypress change', function () {
+
+              var requireCheck = '';
+              var tel = '';
+
+              $('.require').each(function () {
+                if ($(this).val() == '') {
+                  requireCheck = 'Not';
+                }
+              });
+
+              //電話番号 入力確認
+              if ($('#tel1').val() == '' || $('#tel2').val() == '' || $('#tel3').val() == '') {
+                tel = 'notTelComplete';
+              }
+              // 必須項目入力後、どれか入力されているかチェック
+              if (requireCheck == '') {
+                if ($('#department').val() == '' && $('#section').val() == '' && tel == 'notTelComplete') {
+                  requireCheck = 'Not';
+                }
+              }
+
+              // 条件を満たしていたらボタンをアクティブ
+              if (requireCheck == '') {
+                $('#submit').removeClass('btn-disabled').addClass('btn-blue');
+              } else {
+                $('#submit').removeClass('btn-blue').addClass('btn-disabled');
+              }
+
+            });
+
+            // 進むボタン押下処理
+            $('#submit').on('click', function () {
+              $('.alert-box').hide();
+              temporaryCheck();
+            });
+
+            // 仮会員チェック
+            function temporaryCheck() {
+
+              // パラメーター変数
+              var familyName = $('#family_name').val();
+              var givenName = $('#given_name').val();
+              var temporaryId = $('#temporary_id').val();
+
+              var departmentParam = '';
+              var sectionParam = '';
+              var telParam = '';
+
+              // validating tel and forming tel data
+              var telParts = ['#tel1', '#tel2', '#tel3'];
+              var noEmptyInput = telParts.every(function(t) {
+                return $(t).val().length > 0
+              });
+              if(noEmptyInput) { // if three input of tel are not empty
+                var tel = telParts.map(function(t) {
+                  return $(t).val();
+                }).toString().split(",").join("-");
+                telParam = '&tel=' + tel;
+              }
+
+              if ($('#department').val() != '') {
+                departmentParam = '&department=' + $('#department').val();
+              }
+              if ($('#section').val() != '') {
+                sectionParam = '&section=' + $('#section').val();
+              }
+
+              var getUrl = rootVariables.apiUrl + '/students/temporary_info?family_name=' + familyName + '&given_name=' + givenName + '&temporary_id=' + temporaryId + departmentParam + sectionParam + telParam;
+              if (typeof isApplican !== "undefined" && isApplican) {
+                  getUrl = getUrl + '&is_applican=true';
+              }
+              $.ajax({
+                url: getUrl,
+                type: 'get',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                success: function (data) {
+                  checkSuccess(data);
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                  console.log(errorThrown);
+                  console.log(textStatus);
+                  console.log(XMLHttpRequest);
+                  checkError(XMLHttpRequest);
+                }
+              });
+
+            }
+
+            function registerContractTerm(registerData) {
+              if (_.isEmpty(registerData)) return;
+              $.ajax({
+                url: rootVariables.apiUrl + '/students/temporary_info/register_contract_term',
+                type: 'POST',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                data: JSON.stringify(registerData),
+                success: function (data) {
+                  localStorage.setItem('temporaryUserInfo', JSON.stringify([data.data]));
+                  toLocationHref(registUrl + '?mode=temporary');
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                  console.log(errorThrown);
+                  console.log(textStatus);
+                  console.log(XMLHttpRequest);
+                  checkError(XMLHttpRequest);
+                  $('#registerUserContractTerm').removeAttr('disabled');
+                }
+              });
+            }
+
+            // チェック完了
+            function checkSuccess(data) {
+              var temporaryUserInfo = JSON.stringify(data['data']);
+              localStorage.setItem('temporaryUserInfo', temporaryUserInfo);
+              toLocationHref(registUrl + '?mode=temporary');
+            }
+
+            // チェックエラー失敗
+            function checkError(data) {
+              $('.alert-box').html(data['responseJSON']['error']['message']).fadeIn();
+              console.log('失敗');
+            }
+
+          });
+        </script>
+    {{/content}}
+{{/extend}}

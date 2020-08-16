@@ -6,31 +6,30 @@
 	<property name="KEEP_SCREEN_ON">true</property>
 
 	<property name="NATIVE_SLIDE_MENU">false</property>
-	<property name="NATIVE_SLIDE_MENU_DEFAULT_COUNT">5</property>
-	<property name="NATIVE_SLIDE_MENU_DEFAULT_IMAGES"></property>
-	<property name="NATIVE_SLIDE_MENU_DEFAULT_RESET">false</property>
-	<property name="NATIVE_SLIDE_MENU_DEFAULT_URLS"></property>
-	<property name="NATIVE_SLIDE_MENU_HEIGHT">40</property>
-	<property name="NATIVE_SLIDE_MENU_POSITION">top</property>
+	<property name="NATIVE_SLIDE_MENU_POSITION">bottom</property>
 	<property name="NATIVE_SLIDE_MENU_WIDTH">80</property>
+	<property name="NATIVE_SLIDE_MENU_HEIGHT">40</property>
+	<property name="NATIVE_SLIDE_MENU_DEFAULT_COUNT">5</property>
+	<property name="NATIVE_SLIDE_MENU_DEFAULT_RESET">true</property>
+	<property name="NATIVE_SLIDE_MENU_DEFAULT_IMAGES">calendar,list,home-active,mobile,user</property>
+	<property name="NATIVE_SLIDE_MENU_DEFAULT_URLS">CL2100.html,CL4100.html,CL0020.html,CL6100.html,CL7200.html</property>
 
-	<property name="NATIVE_TAB_AUTO_RELOAD1">false</property>
-	<property name="NATIVE_TAB_AUTO_RELOAD2">false</property>
-	<property name="NATIVE_TAB_AUTO_RELOAD3">false</property>
-	<property name="NATIVE_TAB_AUTO_RELOAD4">false</property>
-	<property name="NATIVE_TAB_AUTO_RELOAD5">false</property>
-	<property name="NATIVE_TAB_BAR">false</property>
-	<property name="NATIVE_TAB_BADGE_TEXT_COLOR">#ffffff</property>
+	<property name="NATIVE_TAB_BAR">true</property>
 	<property name="NATIVE_TAB_COUNT">5</property>
-	<property name="NATIVE_TAB_DEFAULT_URL"></property>
-	<property name="NATIVE_TAB_HEIGHT">40</property>
+	<property name="NATIVE_TAB_DEFAULT_URL">index.html</property>
+	<property name="NATIVE_TAB_AUTO_RELOAD1">true</property>
+	<property name="NATIVE_TAB_AUTO_RELOAD2">true</property>
+	<property name="NATIVE_TAB_AUTO_RELOAD3">true</property>
+	<property name="NATIVE_TAB_AUTO_RELOAD4">true</property>
+	<property name="NATIVE_TAB_AUTO_RELOAD5">true</property>
+	<property name="NATIVE_TAB_URL1">CL2100.html</property>
+	<property name="NATIVE_TAB_URL2">CL4100.html</property>
+	<property name="NATIVE_TAB_URL3">CL0020.html</property>
+	<property name="NATIVE_TAB_URL4">CL6100.html</property>
+	<property name="NATIVE_TAB_URL5">CL7200.html</property>
 	<property name="NATIVE_TAB_POSITION">bottom</property>
-	<property name="NATIVE_TAB_TAP_RELOAD">false</property>
-	<property name="NATIVE_TAB_URL1"></property>
-	<property name="NATIVE_TAB_URL2"></property>
-	<property name="NATIVE_TAB_URL3"></property>
-	<property name="NATIVE_TAB_URL4"></property>
-	<property name="NATIVE_TAB_URL5"></property>
+	<property name="NATIVE_TAB_HEIGHT">50</property>
+	<property name="NATIVE_TAB_TAP_RELOAD">true</property>
 
 	<property name="NAVIGATION_BAR">false</property>
 
@@ -41,7 +40,7 @@
 	<property name="SCREEN_ORIENTATION_LANDSCAPE">false</property>
 	<property name="SCREEN_ORIENTATION_PORTRAIT">true</property>
 
-	<property name="STATUS_BAR">true</property>
+	<property name="STATUS_BAR">false</property>
 
 	<property name="WEBVIEW_BOUNCES">false</property>
 	<property name="WEBVIEW_BACK">true</property>

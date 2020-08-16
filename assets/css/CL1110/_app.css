@@ -1,0 +1,166 @@
+.reduce-space {
+  padding-top: 50px;
+}
+
+.app-header-logo-img {
+  display: block;
+  vertical-align: middle;
+  width: 125px;
+  height: 45px;
+  margin: 0 auto 20px;
+}
+
+.app-login {
+  padding-bottom: 20px;
+}
+
+.app-login .article-box-header {
+  padding-bottom: 10px;
+}
+
+.app-login .form-btn-box {
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.app-login #form label {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.app-login #form input {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin-top: 8px;
+  background-color: #eeeeee;
+  border-color: #eeeeee;
+  height: 39px;
+}
+
+.app-login .cm-toggle:checked:after {
+  background: #4bda64;
+}
+
+.app-login .switch {
+  position: relative;
+  display: inline-block;
+  width: 43px;
+  height: 27px;
+}
+
+.app-login .switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.app-login .slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.app-login .slider:before {
+  position: absolute;
+  content: "";
+  height: 23px;
+  width: 23px;
+  top: 2px;
+  left: 2px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.app-login input:checked + .slider {
+  background-color: #4cd965;
+}
+
+.app-login input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+.app-login input:checked + .slider:before {
+  -webkit-transform: translateX(16px);
+  -ms-transform: translateX(16px);
+  transform: translateX(16px);
+}
+
+/* Rounded sliders */
+.app-login .slider.round {
+  border-radius: 34px;
+}
+
+.app-login .slider.round:before {
+  border-radius: 50%;
+}
+
+.app-login .remember {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px 0 27px;
+}
+
+.app-login .remember span {
+  color: gray;
+  font-size: 15px;
+}
+
+.app-login .btn-login {
+  background-color: #266ba8;
+  color: white;
+  display: block;
+  padding: 7px 10px;
+  border: none;
+  outline: none;
+  border-radius: 20px;
+  height: 39px;
+  font-size: 15px;
+}
+
+.app-login .list-nomark-ul-li {
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #cacaca;
+}
+
+.app-login .list-nomark-ul-li a {
+  font-size: 14px;
+}
+
+.app-login .list-nomark-ul-li a:not(:last-of-type) {
+  margin-bottom: 10px;
+}
+
+.app-login-addition {
+  margin-bottom: 30px;
+}
+
+.app-login-addition .btnRegist {
+  margin-bottom: 15px;
+  font-size: 15px;
+  padding: 4px 0;
+  height: 39px;
+}
+
+.app-login-addition .list-nomark-ul-li {
+  display: flex;
+  justify-content: center;
+  font-size: 14px;
+}
+
+.app-login-addition .list-nomark-ul-li a {
+  font-size: 14px;
+}

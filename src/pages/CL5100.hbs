@@ -1,0 +1,204 @@
+{{#extend "components/layout" title="情報公開度ランキング  一覧"}}
+    {{#content "header-scripts" mode="append"}}
+        <link rel="stylesheet" href="{{path}}css/ranking.css" type="text/css" media="all"/>
+        <link rel="stylesheet" href="{{path}}css/swiper.css" type="text/css" media="all"/>
+    {{/content}}
+    {{#content "main"}}
+        <div id="disclosure" class="contents-box">
+          <article class="article-box">
+            {{#unless isApplican}}
+            {{> components/pageTitle jpTitle='情報公開度ランキング' enTitle='DISCLOSE RANKING' }}
+            {{/unless}}
+            <div class="contents-preface app-mt-30">
+              学生が「知りたい」「聞きづらい」情報を、企業が公開中！<br/>
+              本選考対策／インターンシップ選考対策／安心して働く／成長支援/評価制度／メリハリのある働き方／外国語の利用／社内交流／離職者数／育休取得者数　ほか
+            </div>
+            <ul class="ranking-tabs-ul">
+              <li class="ranking-tabs-ul-li"><a href="javascript:void(0);" class="ranking-tab-a ranking-tab-a-1"
+                                                onclick="showSection('dvMt91','ranking-tab-a','tab-section',this);"><span
+                class="ranking-stars">★★★</span>情報公開度 91〜100 / 100%</a></li>
+              <li class="ranking-tabs-ul-li"><a href="javascript:void(0);" class="ranking-tab-a ranking-tab-a-2"
+                                                onclick="showSection('dvMt81','ranking-tab-a','tab-section',this);"><span
+                class="ranking-stars">★★☆</span>情報公開度 81〜90 / 100%</a></li>
+              <li class="ranking-tabs-ul-li"><a href="javascript:void(0);" class="ranking-tab-a ranking-tab-a-3"
+                                                onclick="showSection('dvMt71','ranking-tab-a','tab-section',this);"><span
+                class="ranking-stars">★☆☆</span>情報公開度 71〜80 / 100%</a></li>
+              <li class="ranking-tabs-ul-li"><a href="javascript:void(0);" class="ranking-tab-a ranking-tab-a-4"
+                                                onclick="showSection('dvLt70','ranking-tab-a','tab-section',this);"><span
+                class="ranking-stars">☆☆☆</span>情報公開度 〜70 / 100%</a></li>
+            </ul>
+            <div id="dvMt91" class="tab-section tab-section-1">
+              <ul class="ranking-list-ul js-disclosure-ul-1st">
+              </ul>
+              <div class="intern-more-box hidden js-btn-more">
+                <a href="javascript:void(0);" class="intern-more">more</a>
+              </div>
+            </div>
+            <div id="dvMt81" class="tab-section tab-section-2">
+              <ul class="ranking-list-ul js-disclosure-ul-2nd">
+              </ul>
+              <div class="intern-more-box hidden js-btn-more">
+                <a href="javascript:void(0);" class="intern-more">more</a>
+              </div>
+            </div>
+            <div id="dvMt71" class="tab-section tab-section-3">
+              <ul class="ranking-list-ul js-disclosure-ul-3rd">
+              </ul>
+              <div class="intern-more-box hidden js-btn-more">
+                <a href="javascript:void(0);" class="intern-more">more</a>
+              </div>
+            </div>
+            <div id="dvLt70" class="tab-section tab-section-4">
+              <ul class="ranking-list-ul js-disclosure-ul-4th">
+              </ul>
+              <div class="intern-more-box hidden js-btn-more">
+                <a href="javascript:void(0);" class="intern-more">more</a>
+              </div>
+            </div>
+          </article>
+        </div>
+    {{/content}}
+    {{#content "footer-scripts" mode="append"}}
+        <script>
+          _headerUIHandler();
+          var urlHelper = new UrlHelper();
+          var global = {
+            jwt: null,
+            userId: null,
+            isLogin: false,
+            baseApiUrl: rootVariables.apiUrl,
+            partner_id: !(_.isEmpty(globalInfo('partner_id'))) ? globalInfo('partner_id') : 0,
+            contract_term_id: contractTermId,
+            nextPages: [null, null, null, null],
+            perPage: 8,
+            activeTab: parseInt(urlHelper.getParamByName('active_tab')) || 1
+          };
+          var http = new Http(global.baseApiUrl);
+          $(function () {
+            changeTab(global.activeTab);
+            fetchAllDisclosure();
+            onMore();
+
+          });
+
+          function changeTab(index) {
+            index = index || 1;
+            // reset state
+            $('#disclosure .ranking-tabs-ul-li .ranking-tab-a').removeClass('ranking-tab-a-active');
+            $('#disclosure .tab-section').removeClass('tab-section-active');
+            // index from 1 to 4
+            $('#disclosure .tab-section-'+index).addClass('tab-section-active');
+            $('#disclosure .ranking-tab-a-'+index).addClass('ranking-tab-a-active');
+
+          }
+
+          // disclosure
+          function onMore() {
+            $('.tab-section .js-btn-more a').on('click', function (e) {
+              e.preventDefault();
+              var $disclosureUl = $(this).parents('.tab-section ').find('[class*=js-disclosure-ul-]');
+              var _nextUrl = $(this).attr('data-next');
+
+
+              function fetchSuccess(res) {
+                var nextUrl = res.pagination.links.next;
+                dumpDisclosure(res.data, $disclosureUl, nextUrl);
+              }
+              http.fetchAll(_nextUrl, null, null, fetchSuccess, null, true);
+            });
+          }
+
+          function dumpDisclosure(disclosures, $disclosureUl, next) {
+            if (_.isEmpty(disclosures)) {
+              return $disclosureUl.append('<p>表示する企業はありません。</p>');
+            }
+
+            var _formatedDisclosures = disclosures.filter(function (disclose) {
+              if (_.isEmpty(disclose.company) || _.isEmpty(disclose.disclosure)) {
+                return false;
+              }
+              disclose.company.company_main_visual_image_url = _.isEmpty(disclose.company.company_main_visual_image_url)
+                ? 'img/noimg320.png'
+                : disclose.company.company_main_visual_image_url;
+              return disclose;
+            });
+            if (_.isEmpty(_formatedDisclosures)) {
+              return $disclosureUl.append('<p>表示する企業はありません。</p>');
+            }
+
+            _formatedDisclosures.forEach(function (disclose, index) {
+              var _discloseLi = '<li class="ranking-list-ul-li">' +
+                '                  <a href="{{link.companyDetail}}?go_tab=disclosure&company_id=' + disclose.company.company_id +
+                '" class="ranking-list-ul-li-a">' +
+                '                   <img src="' + disclose.company.company_main_visual_image_url + '" alt="' + disclose.company.company_main_visual_image_name +
+                '"/>' +
+                '                     <br/>' + disclose.company.company_name + '</a>' +
+                '                </li>';
+
+              $disclosureUl.append(_discloseLi);
+            });
+            var _$btnMore = $disclosureUl.parents('.tab-section').find('.js-btn-more');
+            _$btnMore.show();
+            // store the next url in data button DOM
+            next = next || null;
+            _$btnMore.find('a').attr('data-next', next);
+            if(_.isEmpty(next)) {
+              _$btnMore.hide();
+              return null;
+            }
+          }
+
+          function fetchDisclosure(query, sucFn, errFn) {
+            query = query || null;
+            // get default query
+            if (_.isEmpty(query)) {
+              query = {
+                contract_term_id: global.contract_term_id,
+                partner_id: global.partner_id,
+                per_page: global.perPage
+              };
+            }
+            // format query to string
+            query = urlHelper.objectToQueryString(query);
+            var url = '/disclosures';
+
+            http.fetchAll(url, query, null, sucFn, errFn);
+          }
+
+          function fetchAllDisclosure() {
+            $('#disclosure [class*=js-disclosure-ul-]').each(function (index, disclosureUl) {
+              function fetchSuccess(res) {
+                var nextUrl = res.pagination.links.next;
+                dumpDisclosure(res.data, $(disclosureUl), nextUrl);
+              }
+
+              function clearBlock() {
+                $(disclosureUl).empty();
+                $(disclosureUl).append('<p>表示する企業はありません。</p>');
+              }
+
+              var _query = {
+                contract_term_id: global.contract_term_id,
+                partner_id: global.partner_id,
+                per_page: global.perPage
+              };
+              if ($(disclosureUl).hasClass('js-disclosure-ul-1st')) {
+                _query.ranking_percent_from = 91;
+                _query.ranking_percent_to = 100;
+              } else if ($(disclosureUl).hasClass('js-disclosure-ul-2nd')) {
+                _query.ranking_percent_from = 81;
+                _query.ranking_percent_to = 90;
+              } else if ($(disclosureUl).hasClass('js-disclosure-ul-3rd')) {
+                _query.ranking_percent_from = 71;
+                _query.ranking_percent_to = 80;
+              } else {
+                _query.ranking_percent_from = 1;
+                _query.ranking_percent_to = 70;
+              }
+              fetchDisclosure(_query, fetchSuccess, clearBlock);
+            });
+          }
+
+        </script>
+    {{/content}}
+{{/extend}}

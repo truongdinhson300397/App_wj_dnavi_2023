@@ -1,0 +1,915 @@
+{{#extend "components/layout" title="会員情報編集"}}
+    {{#content "header-scripts" mode="append"}}
+        <link rel="stylesheet" href="{{path}}css/form.css" type="text/css" media="all"/>
+        <style>
+            .school-tabs-ul-li {
+                cursor: pointer;
+            }
+
+            .postcode-list-box {
+                padding: 0 15px;
+            }
+
+            .postcode-list-ul {
+                margin: 0 auto 10px;
+                padding: 10px;
+                border: 1px solid #bcbcbc;
+                max-height: 300px;
+                overflow: auto;
+            }
+
+            .department-list-ul li span,
+            .postcode-list-ul li span,
+            .school-list li span {
+                cursor: pointer;
+            }
+
+            .postcode-list-ul li span:nth-of-type(1) {
+                margin-right: 30px;
+            }
+
+            .department-list-ul li span:hover,
+            .postcode-list-ul li:hover span,
+            .school-list li span:hover {
+                color: #38A5DE;
+            }
+
+
+            .label-default {
+                cursor: pointer;
+            }
+
+            .input-check {
+                margin-right: 1em;
+                border: 1px solid #bcbcbc;
+                display: inline-block;
+                vertical-align: middle;
+            }
+
+            .input-radio {
+                margin-right: 1em;
+                border: 1px solid #bcbcbc;
+                display: inline-block;
+                vertical-align: middle;
+            }
+
+            input[type="radio"] {
+                opacity: 0;
+                display: none;
+            }
+
+            .radio-span {
+                display: inline-block;
+                background-size: contain;
+                width: 22px;
+                height: 17px;
+                vertical-align: middle;
+            }
+
+            input.error,
+            select.error {
+                background: #ef857d;
+            }
+
+            input.error + span + .text {
+                color: #ef857d;
+            }
+
+
+            input[type="checkbox"] {
+                opacity: 0;
+                display: none;
+            }
+
+            .checkbox-span {
+                display: inline-block;
+                background-size: contain;
+                width: 22px;
+                height: 17px;
+                vertical-align: middle;
+            }
+
+            .form-select {
+                padding: 0.65em 30px 0.65em 15px;
+                border-radius: 1.3em;
+            }
+
+            .input-mode .confirm-item {
+                display: none !important;
+            }
+
+            .confirm-mode .input-item {
+                display: none !important;
+            }
+
+            *.noupdate,
+            .confirm-mode .select-box,
+            .confirm-mode .input-text,
+            .confirm-mode input,
+            .confirm-mode select {
+                pointer-events: none;
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                appearance: none;
+                padding: 0;
+                border: none;
+                background: transparent;
+                font-size: 100%;
+                background: transparent;
+                height: auto;
+                line-height: 1;
+                border-radius: 0;
+                width: 100%;
+            }
+
+            .confirm-mode .select-box:before {
+                content: none;
+            }
+
+            .confirm-mode input:focus,
+            .confirm-mode select:focus {
+                outline: none;
+            }
+
+            .confirm-mode *:placeholder-shown,
+            .confirm-mode *::-webkit-input-placeholder,
+            .confirm-mode *:-moz-placeholder,
+            .confirm-mode *:-ms-input-placeholder {
+                color: transparent;
+            }
+
+            .confirm-mode .search-checkbox-body {
+                padding: 0;
+                display: inline-block;
+            }
+
+            .confirm-mode input[type=radio],
+            .confirm-mode input[type=checkbox],
+            .confirm-mode .checkbox-span,
+            .confirm-mode .radio-span,
+            .confirm-mode .addres-search,
+            .confirm-mode #school-search-btn,
+            .confirm-mode #department-search-btn,
+            .confirm-mode #section-search-btn {
+                display: none !important;
+            }
+
+            .confirm-mode .label-default {
+                cursor: default;
+                display: none;
+                padding: 0;
+                float: left;
+            }
+
+            .confirm-mode .label-default.selected {
+                display: inline-block;
+            }
+
+            .confirm-mode .label-default.selected:after {
+                content: '、';
+                display: inline-block;
+            }
+
+            .confirm-mode .label-default.selected.last:after {
+                content: none;
+            }
+
+            .confirm-mode #working_place_wrap .category-ttl {
+                display: none;
+            }
+
+            .confirm-mode #working_place_wrap .label-default {
+                width: auto;
+            }
+
+            input[type="number"]::-webkit-outer-spin-button,
+            input[type="number"]::-webkit-inner-spin-button {
+                -webkit-appearance: none;
+                margin: 0;
+            }
+
+            input[type="number"] {
+                -moz-appearance: textfield;
+            }
+
+            .confirm-mode .label-columns {
+                display: table-cell;
+            }
+
+        </style>
+    {{/content}}
+    {{#content "main"}}
+        <!-- 会員登録 1 -->
+        <div id="regist" class="contents-box input-mode">
+
+            <!-- 入力確認 -->
+            <article id="regist-header" class="article-box input-area">
+                {{#unless isApplican}}
+                {{> components/pageTitle jpTitle='会員情報編集' }}
+                {{/unless}}
+
+                <div class="alert-box mgnt10-15 mgnb10-15" style="display: none;"></div>
+                <section class="drop-shadow-box app-mt-30">
+                    <!--          <div class="form-preface">-->
+                    <table class="tbl-form tbl-th-25prc">
+                        <tr>
+                            <th class="required">ユーザーID</th>
+                            <td>
+                                <input type="text" class="input-text w100prc input_alphanumeric require postdata noupdate" placeholder="ID" id="login_id" name="login_id" readonly=""/>
+                                <input type="hidden" name="token" id="token" class="postdata">
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th class="required">姓名（漢字）</th>
+                            <td>
+                                <input type="text" class="input-text input-text-half input-text-left input-item require postdata"
+                                       placeholder="姓" name="family_name" id="family_name"/>
+                                <input type="text" class="input-text input-text-half input-item require postdata" placeholder="名"
+                                       name="given_name" id="given_name"/>
+                                <span class="form-note input-item">半角、スペース、記号、機種依存文字は使用できません。</span>
+                                <span class="confirm-item"><span id="confirm-family_name"></span>&nbsp;&nbsp;<span
+                                        id="confirm-given_name"></span></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="required">姓名（フリガナ）</th>
+                            <td>
+                                <input type="text"
+                                       class="input-text input-text-half input-text-left input_2byte_kana input-item require postdata"
+                                       placeholder="セイ" name="family_name_kana" id="family_name_kana"/>
+                                <input type="text" class="input-text input-text-half input_2byte_kana input-item require postdata"
+                                       placeholder="メイ" name="given_name_kana" id="given_name_kana"/>
+                                <span class="form-note input-item">全角カナ</span>
+                                <span class="confirm-item"><span id="confirm-family_name_kana"></span>&nbsp;&nbsp;<span
+                                        id="confirm-given_name_kana"></span></span>
+                            </td>
+                        </tr>
+                    </table>
+                    <!--          </div>-->
+                    <div>
+                        <a href="{{link.myPageResetMail}}" class="link-text" style="margin-top: 30px">  メールアドレスの情報更新はこちらから行ってください</a>
+                    </div>
+                </section>
+
+                <section class="drop-shadow-box mgnt30-50">
+                    <header class="section-box-header">
+                        <h3 class="section-box-header-h3">
+                            <span class="section-box-header-h3-jp">現住所</span>
+                        </h3>
+                    </header>
+                    <div class="form-preface input-item">※現住所が海外の方は日本国内での住所を入力してください。</div>
+
+                    <table class="tbl-form tbl-th-25prc">
+                        <tr>
+                            <th class="required">郵便番号</th>
+                            <td>
+                                <div class="input-item">
+                                    <span>〒</span>
+                                    <input type="text" class="input-text input-text-zip require" name="zip1" id="zip1"
+                                           onkeydown="preventNonNumericalInput(event, this, 3)"/> ー
+                                    <input type="text" class="input-text input-text-zip require" name="zip2" id="zip2"
+                                           onkeydown="preventNonNumericalInput(event, this, 4)"/> <a
+                                        href="javascript:void(0);"
+                                        class="btn-default form-btn-s btn-blue addres-search nowplace">住所検索</a>
+                                    <input type="hidden" class="postdata" value="" name="postcode" id="postcode">
+                                </div>
+                                <span class="form-note input-item">半角数字</span>
+                                <div class="mgnt10-15 input-item">
+                                    <a href="{{linkOrWebview 'https://www.post.japanpost.jp/zipcode/'}}" {{displayWebOnly 'target="_blank"'}}>郵便番号のわからない方はこちら</a>
+                                </div>
+                                <span class="confirm-item"><span id="confirm-zip1"></span>&nbsp;-&nbsp;<span
+                                        id="confirm-zip2"></span></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="required">都道府県</th>
+                            <td>
+                                <input type="text" class="input-text w100prc require postdata" placeholder="郵便番号入力後、住所検索ボタンを押してください"
+                                       name="prefecture_name" id="prefecture_name" readonly/>
+                                <input type="hidden" class="postdata" name="prefecture_id" id="prefecture_id" value="">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="required">市区町村</th>
+                            <td>
+                                <input type="text" class="input-text w100prc require" placeholder="郵便番号入力後、住所検索ボタンを押してください" name="city_name"
+                                       id="city_name" readonly/>
+                                <input type="hidden" class="postdata" name="city_id" id="city_id" value="">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="required">町域・丁目・番地など</th>
+                            <td>
+                                <input type="text" class="input-text w100prc input-item postdata require" placeholder="町域・丁目・番地など"
+                                       name="address_line1" id="address_line1"/>
+                                <span class="confirm-item"><span id="confirm-address_line1"></span></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>アパートやマンションの名称・部屋番号</th>
+                            <td>
+                                <input type="text" class="input-text w100prc input-item postdata" placeholder="アパートやマンションの名称・部屋番号"
+                                       name="address_line2" id="address_line2"/>
+                                <span class="confirm-item"><span id="confirm-address_line2"></span></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="required">電話番号 1</th>
+                            <td>
+                                <div class="input-item">
+                                    <input type="text" min="0" class="input-text input-text-tel require" data-telgroup="tel1" name="mobile1" id="mobile1" onkeypress="preventNonNumericalInput(event, this, 4)"/> ー
+                                    <input type="text" min="0" class="input-text input-text-tel require" data-telgroup="tel1" name="mobile2" id="mobile2" onkeypress="preventNonNumericalInput(event, this, 4)"/> ー
+                                    <input type="text" min="0" class="input-text input-text-tel require" data-telgroup="tel1" name="mobile3" id="mobile3" onkeypress="preventNonNumericalInput(event, this, 4)"/>
+                                    <input type="hidden" class="postdata" name="mobile" id="mobile" value="">
+                                </div>
+                                <span class="form-note input-item">半角数字</span>
+                                <span class="confirm-item">
+                    <span id="confirm-mobile1"></span>&nbsp;-&nbsp;<span id="confirm-mobile2"></span>&nbsp;-&nbsp;<span id="confirm-mobile3"></span>
+                </span>
+                                <div class="mgnt10-15 label-rows">
+                                    <label class="label-default">
+                                        <input type="radio" class="input-radio require postdata" value="false" name="mobile_flg1"/> <span class="text">固定電話</span>
+                                    </label>
+                                    <label class="label-default">
+                                        <input type="radio" class="input-radio require postdata" value="true" name="mobile_flg1"/> <span class="text">携帯電話</span>
+                                    </label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>電話番号 2</th>
+                            <td>
+                                <div class="input-item">
+                                    <input type="text" min="0" class="input-text input-text-tel" data-telgroup="tel2" name="tel1" id="tel1"
+                                           onkeypress="preventNonNumericalInput(event, this, 4)"/> ー
+                                    <input type="text" min="0" class="input-text input-text-tel" data-telgroup="tel2" name="tel2" id="tel2"
+                                           onkeypress="preventNonNumericalInput(event, this, 4)"/> ー
+                                    <input type="text" min="0" class="input-text input-text-tel" data-telgroup="tel2" name="tel3" id="tel3"
+                                           onkeypress="preventNonNumericalInput(event, this, 4)"/>
+                                    <input type="hidden" class="postdata" name="tel" id="tel" value="">
+                                </div>
+                                <span class="form-note input-item">半角数字</span>
+                                <span class="confirm-item" id="confirm-tel"><span id="confirm-tel1"></span>&nbsp;-&nbsp;<span
+                                        id="confirm-tel2"></span>&nbsp;-&nbsp;<span id="confirm-tel3"></span></span>
+                                <div class="mgnt10-15 label-rows">
+                                    <label class="label-default"><input type="radio" class="input-radio postdata" value="false" name="mobile_flg2"/> <span class="text">固定電話</span></label>
+                                    <label class="label-default"><input type="radio" class="input-radio postdata" value="true" name="mobile_flg2"/> <span class="text">携帯電話</span></label>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </section>
+
+                <section class="drop-shadow-box mgnt30-50">
+                    <header class="section-box-header">
+                        <h3 class="section-box-header-h3">
+                            <span class="section-box-header-h3-jp">休暇中の連絡先</span>
+                        </h3>
+                    </header>
+                    <div class="emphasis-box mgnb20-30 label-rows clearfix">
+                        <label class="label-default input-item"><input type="checkbox" class="input-check postdata"
+                                                                       id="is_same_address" name="is_same_address" value="true"/>
+                            現住所と同じ</label>
+                        <span class="confirm-item">現住所と同じ</span>
+                    </div>
+                    <div id="home_address">
+                        <table class="tbl-form tbl-th-25prc">
+                            <tr>
+                                <th class="required">郵便番号</th>
+                                <td>
+                                    <div class="input-item">
+                                        <span>〒</span>
+                                        <input type="text" class="input-text input-text-zip require" name="home_zip1" id="home_zip1"
+                                               onkeydown="preventNonNumericalInput(event, this, 3)"/> ー
+                                        <input type="text" class="input-text input-text-zip require" name="home_zip2" id="home_zip2"
+                                               onkeydown="preventNonNumericalInput(event, this, 4)"/> <a
+                                            href="javascript:void(0);" class="btn-default form-btn-s btn-blue addres-search home">住所検索</a>
+                                        <input type="hidden" class="postdata" name="home_postcode" id="home_postcode" value="">
+                                    </div>
+                                    <span class="form-note input-item">半角数字</span>
+                                    <div class="mgnt10-15 input-item">
+                                        <a href="{{linkOrWebview 'https://www.post.japanpost.jp/zipcode/'}}" {{displayWebOnly 'target="_blank"'}}>郵便番号のわからない方はこちら</a>
+                                    </div>
+                                    <span class="confirm-item"><span id="confirm-home_zip1"></span>&nbsp;-&nbsp;<span
+                                            id="confirm-home_zip2"></span></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="required">都道府県</th>
+                                <td>
+                                    <input type="text" class="input-text w100prc require postdata" placeholder="郵便番号入力後、住所検索ボタンを押してください"
+                                           name="home_prefecture_name" id="home_prefecture_name" readonly/>
+                                    <input type="hidden" class="postdata" name="home_prefecture_id" id="home_prefecture_id" value="">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="required">市区町村</th>
+                                <td>
+                                    <input type="text" class="input-text w100prc require" placeholder="郵便番号入力後、住所検索ボタンを押してください"
+                                           name="home_city_name" id="home_city_name" readonly/>
+                                    <input type="hidden" class="postdata" name="home_city_id" id="home_city_id" value="">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="required">町域・丁目・番地など</th>
+                                <td>
+                                    <input type="text" class="input-text w100prc input-item postdata require" placeholder="町域・丁目・番地など"
+                                           name="home_address_line1" id="home_address_line1"/>
+                                    <span class="confirm-item"><span id="confirm-home_address_line1"></span></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>アパートやマンションの名称・部屋番号</th>
+                                <td>
+                                    <input type="text" class="input-text w100prc input-item postdata" placeholder="アパートやマンションの名称・部屋番号"
+                                           name="home_address_line2" id="home_address_line2"/>
+                                    <span class="confirm-item"><span id="confirm-home_address_line2"></span></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>電話番号</th>
+                                <td>
+                                    <div class="input-item">
+                                        <input type="text" min="0" class="input-text input-text-tel" data-telgroup="tel3" name="home_tel1"
+                                               id="home_tel1" onkeypress="preventNonNumericalInput(event, this, 4)"/> ー
+                                        <input type="text" min="0" class="input-text input-text-tel" data-telgroup="tel3" name="home_tel2"
+                                               id="home_tel2" onkeypress="preventNonNumericalInput(event, this, 4)"/> ー
+                                        <input type="text" min="0" class="input-text input-text-tel" data-telgroup="tel3" name="home_tel3"
+                                               id="home_tel3" onkeypress="preventNonNumericalInput(event, this, 4)"/>
+                                        <input type="hidden" class="postdata" name="home_tel" id="home_tel" value="">
+                                    </div>
+                                    <span class="form-note input-item">半角数字</span>
+                                    <span class="confirm-item" id="confirm-home_tel"><span
+                                            id="confirm-home_tel1"></span>&nbsp;-&nbsp;<span
+                                            id="confirm-home_tel2"></span>&nbsp;-&nbsp;<span id="confirm-home_tel3"></span></span>
+                                    <div class="mgnt10-15 label-rows">
+                                        <label class="label-default">
+                                            <input type="radio" class="input-radio postdata" value="false" name="mobile_flg3"/> <span class="text">固定電話</span>
+                                        </label>
+                                        <label class="label-default">
+                                            <input type="radio" class="input-radio postdata" value="true" name="mobile_flg3"/> <span class="text">携帯電話</span>
+                                        </label>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </section>
+
+                <section class="drop-shadow-box mgnt30-50">
+                    <header class="section-box-header">
+                        <h3 class="section-box-header-h3">
+                            <span class="section-box-header-h3-jp">学校情報</span>
+                        </h3>
+                    </header>
+                    <table class="tbl-form tbl-th-25prc">
+                        <tr>
+                            <th class="required">学校種別</th>
+                            <td id="university_type_wrap" class="label-rows"></td>
+                        </tr>
+                        <tr>
+                            <th class="required">学校名</th>
+                            <td>
+                                <div class="input-text-btn-box clearfix">
+                                    <input type="text" class="input-text input-text-btn-left input-item require postdata" placeholder="検索から選択してください" name="university" id="university" readonly/>
+                                    <span class="confirm-item"><span id="confirm-university"></span></span>
+                                    <input type="hidden" class="postdata" name="university_code" id="university_code" value="">
+                                    <a href="javascript:void(0);" class="btn-default btn-right btn-disabled" onclick="showModal('modalScool')" id="school-search-btn">検索</a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="required">学部・研究科等</th>
+                            <td>
+                                <div class="input-text-btn-box clearfix">
+                                    <input type="text" class="input-text input-text-btn-left input-item require postdata" placeholder="学校名を選択後、検索から選択してください" name="department" id="department" readonly/>
+                                    <span class="confirm-item"><span id="confirm-department"></span></span>
+                                    <input type="hidden" class="postdata" name="department_code" id="department_code" value="">
+                                    <a href="javascript:void(0);" class="btn-default btn-right btn-disabled" onclick="showModal('modalDept')" id="department-search-btn">検索</a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="required">学科・専攻等</th>
+                            <td>
+                                <div class="input-text-btn-box clearfix">
+                                    <input type="text" class="input-text input-text-btn-left input-item require postdata"
+                                           placeholder="学部・研究科等を選択後、検索から選択してください" name="section" id="section" readonly/>
+                                    <span class="confirm-item"><span id="confirm-section"></span></span>
+                                    <input type="hidden" class="postdata" name="section_code" id="section_code" value="">
+                                    <a href="javascript:void(0);" class="btn-default btn-right btn-disabled" onclick="showModal('modalCourse')"
+                                       id="section-search-btn">検索</a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="required">文系・理系区分</th>
+                            <td id="department_type_wrap" class="label-rows"></td>
+                        </tr>
+                        <tr>
+                            <th class="required">学部学科系統</th>
+                            <td>
+                                <div class="select-box">
+                                    <select class="form-select require postdata" id="department_category"
+                                            name="department_category"></select>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="required">卒業年月</th>
+                            <td>
+                                <div class="input-item">
+                                    <div class="select-box select-box-ym">
+                                        <select class="form-select form-select-ym require postdata" name="graduation_year"
+                                                id="graduation_year">
+
+                                        </select>
+                                    </div>
+                                    年
+                                    <div class="select-box select-box-ym">
+                                        <select class="form-select form-select-ym require postdata" name="graduation_month"
+                                                id="graduation_month">
+                                            <option value="3" selected="selected">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                            <option value="10">10</option>
+                                            <option value="11">11</option>
+                                            <option value="12">12</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                        </select>
+                                    </div>
+                                    月
+                                    <input type="hidden" class="postdata" name="graduation_year_month" id="graduation_year_month"
+                                           value="">
+                                </div>
+                                <span class="confirm-item" id="confirm-graduation_year_month"><span id="confirm-graduation_year"></span>年<span
+                                        id="confirm-graduation_month"></span>月</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="required">入社希望年月</th>
+                            <td>
+                                <div class="input-item">
+                                    <div class="select-box select-box-ym">
+                                        <select class="form-select form-select-ym require postdata" name="join_year" id="join_year">
+
+                                        </select>
+                                    </div>
+                                    年
+                                    <div class="select-box select-box-ym">
+                                        <select class="form-select form-select-ym require postdata" name="join_month" id="join_month">
+                                            <option value="3">3</option>
+                                            <option value="4" selected="selected">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                            <option value="10">10</option>
+                                            <option value="11">11</option>
+                                            <option value="12">12</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                        </select>
+                                    </div>
+                                    月
+                                </div>
+                                <input type="hidden" class="postdata" name="join_year_month" id="join_year_month" value="">
+                                <span class="confirm-item" id="confirm-join_year_month"><span id="confirm-join_year"></span>年<span
+                                        id="confirm-join_month"></span>月</span>
+                            </td>
+                        </tr>
+                    </table>
+                </section>
+
+                <section class="drop-shadow-box mgnt30-50">
+                    <header class="section-box-header">
+                        <h3 class="section-box-header-h3">
+                            <span class="section-box-header-h3-jp">登録サイト</span>
+                        </h3>
+                    </header>
+                    <table class="tbl-form tbl-th-25prc">
+                        <tr>
+                            <th class="required">登録サイト</th>
+                            <td class="label-rows">
+                                <label class="label-default"><input type="checkbox" class="input-check require postdata" name="contract_term_id[]" value="1"/> <span class="text">2021年卒</span></label>
+                                <label class="label-default"><input type="checkbox" class="input-check require postdata" name="contract_term_id[]" value="2"/> <span class="text">2022年卒</span></label>
+                                <div id="warnContractTerm">
+                                    <br />
+                                    <br />
+
+                                    <p>
+                                        ※ご自身の卒業予定年に合わせて登録サイトを登録することをお勧めします。<br />
+                                        イベントや企業の掲載・エントリー情報は各卒業年に合わせて異なることがあります。<br />
+                                        2サイトとも同じID・パスワードで登録が可能です。登録サイトの変更も可能ですが、チェックを外した場合、マイページは利用できなくなります。ご了承ください。
+                                    </p>
+
+                                    <ul class="list-nomark-ul mgnb30-50 tbl-th-25prc">
+                                        <li class="list-nomark-ul-li"><a href="{{linkOrBrowser domain '2021/kiyaku'}}" class="link-text" id="kiyaku_2021">2021年卒利用規約</a></li>
+                                        <li class="list-nomark-ul-li"><a href="{{link.kiyaku}}" onclick="return linkTo('{{link.kiyaku}}')" target="_blank" class="link-text">2022年卒利用規約</a></li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </section>
+
+                <section class="drop-shadow-box mgnt30-50" id="question_tab">
+                    <header class="section-box-header">
+                        <h3 class="section-box-header-h3">
+                            <span class="section-box-header-h3-jp">アンケート</span>
+                        </h3>
+                    </header>
+                    <table class="tbl-form tbl-th-25prc">
+                        <tr>
+                            <th>企業紹介サービスの情報提供</th>
+                            <td id="js-is-company-receive" class="label-rows">
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>ダイヤモンド・ヒューマンリソース<span class="ilb">からの</span><span class="ilb">就職に</span><span
+                                    class="ilb">役立つ</span><span class="ilb">情報の</span><span class="ilb">郵送</span></th>
+                            <td id="js-is-diamond-human" class="label-rows">
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>内定期間中や社会人として<span class="ilb">知っておきたい</span><span class="ilb">役立つ</span><span class="ilb">お得情報</span>
+                            </th>
+                            <td id="js-is-valuable-info" class="label-rows">
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>ダイヤモンド・オンライン<span class="ilb">からの</span><span class="ilb">役立つ</span><span class="ilb">情報</span></th>
+                            <td id="js-is-diamond-online" class="label-rows">
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>女子学生向け情報</th>
+                            <td id="js-is-woman-receive" class="label-rows">
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>日本の大学に留学している方</th>
+                            <td id="js-is-japan-study" class="label-columns">
+                                <label class="label-default"><input type="checkbox" class="input-check postdata" name="is_japan_study"
+                                                                    id="is_japan_study"/> 日本の大学に留学している</label>
+                            </td>
+                        </tr>
+                    </table>
+                </section>
+
+                <section class="drop-shadow-box mgnt30-50">
+                    <header class="section-box-header">
+                        <h3 class="section-box-header-h3">
+                            <span class="section-box-header-h3-jp">志望勤務地</span>
+                        </h3>
+                    </header>
+                    <table class="tbl-form tbl-th-25prc">
+                        <tr>
+                            <th>志望勤務地</th>
+                            <td id="working_place_wrap" class="label-rows">
+                                <!--generate by js-->
+                            </td>
+                        </tr>
+                    </table>
+                </section>
+
+                <section class="drop-shadow-box mgnt30-50">
+                    <header class="section-box-header">
+                        <h3 class="section-box-header-h3">
+                            <span class="section-box-header-h3-jp">志望職種</span>
+                        </h3>
+                    </header>
+                    <table class="tbl-form tbl-th-25prc">
+                        <tbody id="job_category_wrap"></tbody>
+                    </table>
+                </section>
+
+                <section class="drop-shadow-box mgnt30-50">
+                    <header class="section-box-header">
+                        <h3 class="section-box-header-h3">
+                            <span class="section-box-header-h3-jp">志望業種</span>
+                        </h3>
+                    </header>
+                    <table class="tbl-form tbl-th-25prc">
+                        <tbody id="industry_type_wrap"></tbody>
+                    </table>
+                </section>
+
+                <section class="drop-shadow-box mgnt30-50">
+                    <header class="section-box-header">
+                        <h3 class="section-box-header-h3">
+                            <span class="section-box-header-h3-jp">保有資格</span>
+                        </h3>
+                    </header>
+                    <table class="tbl-form tbl-th-25prc">
+                        <tbody id="qualification_wrap"></tbody>
+                    </table>
+                </section>
+
+            </article>
+
+            <article class="article-box input-area">
+                <div class="article-box-body">
+                    <div class="talc">
+                        <a href="javascript:void(0);" class="btn-default btn-blue w100-50prc" id="comfirm_btn">確認</a>
+                        <a href="javascript:void(0);" class="btn-default btn-blue w100-50prc" id="regist_btn"
+                           style="display: none;">修正</a>
+                        <a href="javascript: toLocationHref(mypageUrl);" class="btn-default btn-blue w100-50prc" id="mypage_btn"
+                           style="display: none;">マイページへ</a>
+                    </div>
+                </div>
+            </article>
+
+        </div>
+        <!-- modal -->
+        <div id="modalScool" class="modal-outer">
+            <div class="modal">
+                <header class="modal-header">
+                    <h2 class="modal-header-h2"><span class="modal-header-h2-jp">学校名​選択</span></h2>
+                    <a href="javascript:void(0);" class="btn-modal-close" onclick="hideModal('modalScool');"></a>
+                </header>
+                <div class="modal-body">
+                    <div class="modal-preface">学校種別と頭文字を選択すると学校名​の選択肢が表示されます。</div>
+                    <nav class="school-tabs">
+                        <ul class="school-tabs-ul clearfix"></ul>
+                    </nav>
+
+                    <div class="school-body clearfix">
+                        <table class="tbl-school-first-letter">
+                            <tr>
+                                <td><a href="javascript:void(0);" data-kana="ア">あ</a></td>
+                                <td><a href="javascript:void(0);" data-kana="イ">い</a></td>
+                                <td><a href="javascript:void(0);" data-kana="ウ">う</a></td>
+                                <td><a href="javascript:void(0);" data-kana="エ">え</a></td>
+                                <td><a href="javascript:void(0);" data-kana="オ">お</a></td>
+                            </tr>
+                            <tr>
+                                <td><a href="javascript:void(0);" data-kana="カ">か</a></td>
+                                <td><a href="javascript:void(0);" data-kana="キ">き</a></td>
+                                <td><a href="javascript:void(0);" data-kana="ク">く</a></td>
+                                <td><a href="javascript:void(0);" data-kana="ケ">け</a></td>
+                                <td><a href="javascript:void(0);" data-kana="コ">こ</a></td>
+                            </tr>
+                            <tr>
+                                <td><a href="javascript:void(0);" data-kana="サ">さ</a></td>
+                                <td><a href="javascript:void(0);" data-kana="シ">し</a></td>
+                                <td><a href="javascript:void(0);" data-kana="ス">す</a></td>
+                                <td><a href="javascript:void(0);" data-kana="セ">せ</a></td>
+                                <td><a href="javascript:void(0);" data-kana="ソ">そ</a></td>
+                            </tr>
+                            <tr>
+                                <td><a href="javascript:void(0);" data-kana="タ">た</a></td>
+                                <td><a href="javascript:void(0);" data-kana="チ">ち</a></td>
+                                <td><a href="javascript:void(0);" data-kana="ツ">つ</a></td>
+                                <td><a href="javascript:void(0);" data-kana="テ">て</a></td>
+                                <td><a href="javascript:void(0);" data-kana="ト">と</a></td>
+                            </tr>
+                            <tr>
+                                <td><a href="javascript:void(0);" data-kana="ナ">な</a></td>
+                                <td><a href="javascript:void(0);" data-kana="ニ">に</a></td>
+                                <td><a href="javascript:void(0);" data-kana="ヌ">ぬ</a></td>
+                                <td><a href="javascript:void(0);" data-kana="ネ">ね</a></td>
+                                <td><a href="javascript:void(0);" data-kana="ノ">の</a></td>
+                            </tr>
+                            <tr>
+                                <td><a href="javascript:void(0);" data-kana="ハ">は</a></td>
+                                <td><a href="javascript:void(0);" data-kana="ヒ">ひ</a></td>
+                                <td><a href="javascript:void(0);" data-kana="フ">ふ</a></td>
+                                <td><a href="javascript:void(0);" data-kana="ヘ">へ</a></td>
+                                <td><a href="javascript:void(0);" data-kana="ホ">ほ</a></td>
+                            </tr>
+                            <tr>
+                                <td><a href="javascript:void(0);" data-kana="マ">ま</a></td>
+                                <td><a href="javascript:void(0);" data-kana="ミ">み</a></td>
+                                <td><a href="javascript:void(0);" data-kana="ム">む</a></td>
+                                <td><a href="javascript:void(0);" data-kana="メ">め</a></td>
+                                <td><a href="javascript:void(0);" data-kana="モ">も</a></td>
+                            </tr>
+                            <tr>
+                                <td><a href="javascript:void(0);" data-kana="ヤ">や</a></td>
+                                <td>&nbsp;</td>
+                                <td><a href="javascript:void(0);" data-kana="ユ">ゆ</a></td>
+                                <td>&nbsp;</td>
+                                <td><a href="javascript:void(0);" data-kana="ヨ">よ</a></td>
+                            </tr>
+                            <tr>
+                                <td><a href="javascript:void(0);" data-kana="ラ">ら</a></td>
+                                <td><a href="javascript:void(0);" data-kana="リ">り</a></td>
+                                <td><a href="javascript:void(0);" data-kana="ル">る</a></td>
+                                <td><a href="javascript:void(0);" data-kana="レ">れ</a></td>
+                                <td><a href="javascript:void(0);" data-kana="ロ">ろ</a></td>
+                            </tr>
+                            <tr>
+                                <td><a href="javascript:void(0);" data-kana="ワ">わ</a></td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                        </table>
+
+                        <div class="school-list-box">
+                            <ul class="school-list">
+                                <li>学校名の頭文字をクリックしてください。</li>
+                            </ul>
+                            <div class="school-other-box">
+                                <p class="modal-preface">海外の大学の方、学校名が一覧にない方はこちらにご入力ください</p>
+                                <div class="clearfix">
+                                    <input type="text" class="input-text input-text-btn-left" value="" id="school-name-manual-input"/>
+                                    <a href="javascript:void(0);" class="btn-default btn-right btn-blue" id="school-name-manual">設定</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- /modal-body -->
+            </div>
+        </div><!-- /modal-outer -->
+
+        <div id="modalDept" class="modal-outer">
+            <div class="modal">
+                <header class="modal-header">
+                    <h2 class="modal-header-h2"><span class="modal-header-h2-jp">学部設定</span></h2>
+                    <a href="javascript:void(0);" class="btn-modal-close" onclick="hideModal('modalDept');"></a>
+                </header>
+                <div class="modal-body">
+                    <div class="department-school-name"></div>
+                    <div class="department-list-box">
+                        <ul class="department-list-ul">
+                            <li>学部・研究科情報がありません</li>
+                        </ul>
+                        <div class="department-other-box">
+                            <p class="modal-preface">上に学部がない場合は、下欄にご入力ください</p>
+                            <div class="clearfix">
+                                <input type="text" class="input-text input-text-btn-left" value="" id="department-name-manual-input"/>
+                                <a href="javascript:void(0);" class="btn-default btn-right btn-blue" id="department-name-manual">設定</a>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- /modal-body -->
+            </div>
+        </div><!-- /modal-outer -->
+
+        <div id="modalPostCode" class="modal-outer">
+            <div class="modal">
+                <header class="modal-header">
+                    <a href="javascript:void(0);" class="btn-modal-close" onclick="hideModal('modalPostCode');"></a>
+                </header>
+                <div class="modal-body">
+                    <div class="postcode-list-box">
+                        <ul class="postcode-list-ul">
+                            <!-- generated by js-->
+                        </ul>
+                    </div>
+                </div><!-- /modal-body -->
+            </div>
+        </div><!-- /modal-outer -->
+
+        <div id="modalCourse" class="modal-outer">
+            <div class="modal">
+                <header class="modal-header">
+                    <h2 class="modal-header-h2"><span class="modal-header-h2-jp">学科設定</span></h2>
+                    <a href="javascript:void(0);" class="btn-modal-close" onclick="hideModal('modalCourse');"></a>
+                </header>
+                <div class="modal-body">
+                    <div class="department-school-name"></div>
+                    <div class="department-list-box">
+                        <ul class="department-list-ul">
+                            <li>学科・専攻情報がありません</li>
+                        </ul>
+                        <div class="department-other-box">
+                            <p class="modal-preface">上に学部がない場合は、下欄にご入力ください</p>
+                            <div class="clearfix">
+                                <input type="text" class="input-text input-text-btn-left" value="" id="section-name-manual-input"/>
+                                <a href="javascript:void(0);" class="btn-default btn-right btn-blue" id="section-name-manual">設定</a>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- /modal-body -->
+            </div>
+        </div><!-- /modal-outer -->
+    {{/content}}
+    {{#content "footer-scripts" mode="append"}}
+        <script src="{{path}}js/pages/CL7300.js"></script>
+        <script>
+          $(document).ready(function () {
+            if (typeof isApplican !== "undefined" && isApplican) {
+              var contractTermame = globalInfo('user_contract_term_name');
+              $('#kiyaku_2021').attr('href', 'javascript:applican.launcher.urlScheme(\'{{domain}}'
+                + contractTermame + '/kiyaku\');');
+            }
+          });
+        </script>
+    {{/content}}
+{{/extend}}

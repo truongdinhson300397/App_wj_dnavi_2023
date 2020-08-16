@@ -1,0 +1,186 @@
+{{#extend "components/layout" title="エントリー済インターンシップ 一覧"}}
+  {{#content "header-scripts" mode="append"}}
+    <link rel="stylesheet" href="{{path}}css/event.css" type="text/css" media="all"/>
+  {{/content}}
+  {{#content "main"}}
+    <div class="contents-box">
+      <article class="article-box">
+        {{#unless isApplican}}
+        {{> components/pageTitle jpTitle='エントリー済インターンシップ' }}
+        {{/unless}}
+        <ul id='internshipList' class="intern-ul app-mt-30">
+        </ul>
+        <div class="intern-more-box">
+          <a href="javascript:void(0);" class="intern-more" id="__intern-show-more">more</a>
+        </div>
+
+      </article>
+      <article class="mgnb30-50 hidden" id="__no-internship-error">
+        <header class="section-box-header">
+          <h3 class="section-box-header-h3">
+            <span class="section-box-header-h3-jp">エントリー済みのインターンシップはありません。</span>
+          </h3>
+        </header>
+      </article>
+    </div>
+  {{/content}}
+  {{#content "footer-scripts" mode="append"}}
+    <script>
+      _headerUIHandler(null, null, true);
+      $(function () {
+        var contractTermId = globalInfo("contract_term_id");
+        var jwt = globalInfo('jwt_' + contractTermId);
+        var id = globalInfo('id_' + contractTermId);
+        var page = 1;
+
+        function __initEventList() {
+          // TODO: Adjust domain when deploy to staging
+          $.ajax({
+            url: rootVariables.apiUrl + '/students/' + id + '/applied_internships',
+            dataType: 'json',
+            type: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json',
+              'Authorization': 'Bearer ' + jwt
+            },
+            data: {
+              contract_term_id: contractTermId,
+              page: page,
+              per_page: 4
+            },
+            success: function (_res) {
+              if (_res.data.length > 0) {
+                __generateEventList(_res['data']);
+
+                if (page >= _res.pagination.totalPages) {
+                  $('.intern-more-box').hide();
+                }
+
+              } else {
+                $('.intern-more-box').hide();
+              }
+            },
+            error: function (jqXhr, textStatus, errorThrown) {
+              console.log(errorThrown);
+              $('.intern-more-box').hide();
+              $('#__no-internship-error').show();
+            }
+          });
+        }
+
+        function _showMeMore() {
+          $('#__intern-show-more').click(function (e) {
+            e.preventDefault();
+            page = page + 1;
+            __initEventList();
+          });
+        }
+
+        function __generateEventList(_internshipList) {
+          _.forEach(_internshipList, function (_internshipItem_, _idx_) {
+            var contracts = _internshipItem_.company_contract;
+            if (contracts.e2r_pro_id !== null) {
+              fetchCompanyUrlAsura(contracts.e2r_pro_id, _idx_);
+            }
+            $('#internshipList').append(__generateInternshipItem(_internshipItem_, _idx_));
+          });
+        }
+
+        function _getAsuraStudentMypage(_url, _registrantId) {
+          return $.ajax({
+            url: _url + _registrantId,
+            type: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            }
+          });
+        }
+
+        function fetchCompanyUrlAsura(_e2r_pro_id, _idx) {
+          var dataToAsura = {'asura_company_id': _e2r_pro_id};
+          $.ajax({
+            url: apiUrlAsura + '/outside_events/get_company_info',
+            type: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            },
+            data: JSON.stringify(dataToAsura),
+            success: function (res) {
+              var domainAsura = res.response;
+              if (domainAsura !== null) {
+                $.ajax({
+                  url: rootVariables.apiUrl + '/students/' + id + '/is_asura_student',
+                  dataType: 'json',
+                  type: 'GET',
+                  headers: {
+                    Authorization: 'Bearer ' + jwt,
+                    ContentType: 'application/json',
+                    Accept: 'application/json'
+                  },
+                  success: function (_res) {
+                    var registrants = _.find(_res.data, function (_reg) {
+                      return _reg.e2r_pro_id === parseInt(_e2r_pro_id);
+                    });
+                    if (!_.isUndefined(registrants)) {
+                      _getAsuraStudentMypage(domainAsura.mypageService.mypageTopUrl, registrants.registrant_id).done(function (_res) {
+                          if (typeof isApplican !== "undefined" && isApplican) {
+                              $('#url_asura-' + _idx).append('<a href="' + linkOrBrowser(_res.data) + '" class="btn-small btn-green mgnt10-15">企業マイページ</a>');
+                          } else {
+                              $('#url_asura-' + _idx).append('<a href="' + _res.data + '" class="btn-small btn-green mgnt10-15">企業マイページ</a>');
+                          }
+                      });
+                    }
+                  },
+                  error: function (jqXhr, textStatus, errorThrown) {
+                    console.log(errorThrown);
+                  }
+                });
+              }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+              console.log(XMLHttpRequest);
+            }
+          });
+        }
+
+        function __generateInternshipItem(_internshipData, _idx) {
+          var companyName = _internshipData['company']['company_name'];
+          var internTitle = _internshipData['title'];
+          var term = _internshipData['term_select_string'];
+          var venue = _internshipData['place_select_string'];
+
+          var yearFrom = (_internshipData.internship_year_from !== null) ? (_internshipData.internship_year_from + '年') : '';
+          var monthFrom = (_internshipData.internship_month_from !== null) ? (_internshipData.internship_month_from + '月') : '';
+
+          var yearTo = (_internshipData.internship_year_to !== null) ? (' 〜 ' + _internshipData.internship_year_to + '年') : '';
+          var monthTo = (_internshipData.internship_month_to !== null) ? (_internshipData.internship_month_to + '月') : '';
+          var entryDate = moment(_internshipData['user_entry_date']).format('M') + '月' +
+            moment(_internshipData['user_entry_date']).format('D') + '日';
+          return (
+            '<li class="intern-ul-li">' +
+            '<div class="intern-info-box">' +
+            '<div class="intern-loc">' + venue + '</div>' +
+            '<div class="intern-dateday">' + yearFrom + monthFrom + yearTo + monthTo + '</div>' +
+            '<div class="intern-length">' + term + '</div>' +
+            '<div class="intern-cmp">' + companyName + '</div>' +
+            '<div class="intern-ttl">' + internTitle + '</div>' +
+            '</div>' +
+            '<div class="intern-btn-box">' +
+            '<div class="intern-entrydate">' + 'エントリー日：' +
+            '<span class="ilb">' + entryDate + '</span>' +
+            '<a href="{{link.companyDetail}}?company_id=' + _internshipData.company_id + '&go_tab=internship&internship_id=' + _internshipData['internship_id'] + '" class="btn-small btn-blue">詳細</a>' +
+            '<div id="url_asura-' + _idx + '"></div>' +
+            '</div>' +
+            '</li>'
+          );
+        }
+
+        __initEventList();
+        _showMeMore();
+      });
+    </script>
+  {{/content}}
+{{/extend}}

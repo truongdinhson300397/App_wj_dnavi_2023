@@ -1,0 +1,98 @@
+{{#extend "components/layout" title="ログアウト"}}
+    {{#content "header-scripts" mode="append"}}
+        <style type="text/css">
+
+            @media (min-width: 769px) {
+                .tbl-form th {
+                    width: 200px;
+                }
+            }
+        </style>
+    {{/content}}
+    {{#content "main"}}
+        <!--  -->
+        <div class="contents-box app-mt-30">
+            <article class="article-box">
+                <div class="drop-shadow-box">
+                    <header class="article-box-header">
+                        <h2 class="article-box-header-h2">
+                            <span class="article-box-header-h2-jp">ログアウト</span>
+                            <!-- <br /><span class="article-box-header-h2-eng"></span> -->
+                        </h2>
+                    </header>
+                    <div class="article-box-body">
+                        <div class="form-preface">ログアウトしました。</div>
+
+                        <div class="form-btn-box">
+                            <a href="{{link.top}}" class="btn-default btn-blue w100-50prc">トップへ戻る</a>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!--       <article class="article-box">
+                    <header class="app-box-header">
+                      <h2 class="app-box-header-h2">公式アプリをダウンロード！</h2>
+                    </header>
+                    <div class="app-logo-box">
+                      <img src="{{path}}img/logo-apple-app-store.png" class="logo-app-img" alt="" />
+                      <img src="{{path}}img/logo-google-play.png" class="logo-app-img" alt="" />
+                    </div>
+                  </article> -->
+        </div>
+    {{/content}}
+    {{#content "footer-scripts" mode="append"}}
+        <script>
+            var contractTermId = globalInfo("contract_term_id");
+            var partnerId = globalInfo('partner_id');
+            var id = globalInfo('id_' + contractTermId);
+            var jwt = globalInfo('jwt_' + contractTermId);
+            _headerUIHandler(null, null, null, false);
+
+            function logOut() {
+                $.ajax({
+                    url: rootVariables.apiUrl + '/students/logout',
+                    dataType: 'json',
+                    type: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                        'Authorization': 'Bearer ' + jwt
+                    },
+                    success: function (res) {
+                        var status = res.success;
+                        if (status === true) {
+                            const offlineData = new OfflineData(id, jwt, partnerId);
+                            var contractTermId = globalInfo("contract_term_id");
+                            // removeGlobalInfo('jwt');
+                            // removeGlobalInfo('id');
+                            globalInfo("jwt_" + contractTermId, null, {path: "/"});
+                            globalInfo("id_" + contractTermId, null, {path: "/"});
+                            // removeGlobalInfo('contract_term_id');
+                            removeGlobalInfo('partner_id');
+                            removeGlobalInfo('partner_name');
+                            removeGlobalInfo('registrant_id');
+                            removeGlobalInfo('returnUrl', {path: '/'});
+                            removeGlobalInfo("is_registered");
+                            removeUserDataForQR();
+                            offlineData.cleanData();
+                        }
+
+                        dumpGuestHeader();
+                    },
+                    error: function (jqXhr, textStatus, errorThrown) {
+                        console.log(jqXhr);
+                        console.log(errorThrown);
+                    },
+                    complete: function () {
+                        changeAppHeaderNav();
+                    }
+                });
+            }
+
+            $(function () {
+                logOut();
+            });
+        </script>
+    {{/content}}
+{{/extend}}
