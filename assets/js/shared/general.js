@@ -431,7 +431,7 @@ function headeFooterApp (isLogin) {
       '     <a href="#" class="app-left-nav-ul-1-li-a-main-menu">企業</a>' +
       '    </li>' +
       '    <li class="app-left-nav-ul-1-li">' +
-      '     <a href="' + link.companyList + '" class="app-left-nav-ul-1-li-a">企業一覧</a>' +
+      '     <a href="' + link.companyList + '" class="app-left-nav-ul-1-li-a">企業をさがす</a>' +
       '    </li>' +
       '    <li class="app-left-nav-ul-1-li">' +
       '     <a href="' + link.disclosure + '" class="app-left-nav-ul-1-li-a">情報公開度ランキング</a>' +
