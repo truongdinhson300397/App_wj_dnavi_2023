@@ -193,10 +193,17 @@ function _checkIsToken(sucFn, errorFn) {
       }
     },
     error: function (jqXhr, textStatus, errorThrown) {
-      var contractTermId = globalInfo("contract_term_id");
-      if (isOnline()) {
-        globalInfo('jwt_' + contractTermId, null, {path: "/"});
-        globalInfo('id_' + contractTermId, null, {path: "/"});
+      if (!_.isEmpty(jqXhr.responseJSON) && !_.isEmpty(jqXhr.responseJSON.error)
+          && (
+              jqXhr.responseJSON.error == 'Token expired'
+              || jqXhr.responseJSON.error == 'Token invalid'
+              || jqXhr.responseJSON.error == 'Unauthorized'
+          )) {
+        var contractTermId = globalInfo("contract_term_id");
+        if (isOnline()) {
+          globalInfo('jwt_' + contractTermId, null, {path: "/"});
+          globalInfo('id_' + contractTermId, null, {path: "/"});
+        }
       }
 
       if (typeof (errorFn) === 'function') {
