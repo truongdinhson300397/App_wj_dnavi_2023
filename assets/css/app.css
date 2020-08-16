@@ -1493,7 +1493,7 @@
   margin-top: 10px;
 }
 .update-error .btn-back-top {
-  width: 50%;
+  width: 100%;
   margin: 10px auto 0;
   font-size: 14px;
   padding: 9px 25px;
@@ -1505,8 +1505,8 @@
   margin: 30px auto 0 auto;
   display: block;
   vertical-align: middle;
-  width: 100px;
-  height: 37.5px;
+  width: 125px;
+  height: 45px;
 }
 .offline__2021_logo {
   background: url(../img/logo-dnavi-01-01.svg) 0 0 no-repeat;
@@ -1526,7 +1526,7 @@
 .btn-update-version {
   background: #266ba8;
   padding: 9px 25px;
-  width: 50%;
+  width: 100%;
   border: none;
   outline: none;
   border-radius: 20px;
@@ -1534,6 +1534,11 @@
   color: #FFFFFF;
   margin-top: 10px;
   font-size: 14px;
+}
+
+#update-warning .btn-wrapper {
+  padding: 0 30px;
+  width: 100vw;
 }
 
 /* OVERRIDE COMMON CSS */
