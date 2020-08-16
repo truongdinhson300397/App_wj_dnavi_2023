@@ -24,7 +24,7 @@
                         <div class="form-preface">ログアウトしました。</div>
 
                         <div class="form-btn-box">
-                            <a href="{{link.top}}" class="btn-default btn-blue w100-50prc">トップへ戻る</a>
+                            <a id="logoutButton" href="{{link.top}}" class="btn-default btn-blue w100-50prc">トップへ戻る</a>
                         </div>
                     </div>
                 </div>
@@ -48,7 +48,12 @@
             var id = globalInfo('id_' + contractTermId);
             var jwt = globalInfo('jwt_' + contractTermId);
             _headerUIHandler(null, null, null, false);
-
+            var $logoutButton = $('#logoutButton');
+            if (typeof isApplican !== "undefined" && isApplican) {
+                $logoutButton.attr('href', link.top + '?launch_tab=3');
+            } else {
+                $logoutButton.attr('href', link.top);
+            }
             function logOut() {
                 $.ajax({
                     url: rootVariables.apiUrl + '/students/logout',
