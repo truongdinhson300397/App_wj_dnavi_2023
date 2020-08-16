@@ -462,25 +462,9 @@ function headeFooterApp (isLogin) {
       ' </ul>' +
       '</nav>';
 
-  // var footer= '<ul class="app-footer-nav-ul">' +
-  //     ' <li class="app-footer-nav-ul-li"><a href="' + link.top + '" class="app-footer-nav-a"><img src="' + assetsPath + 'img/icon-home.png" class="app-footer-nav-img" alt="top" />TOP</a></li>' +
-  //     ' <li class="app-footer-nav-ul-li"><a href="' + link.eventList + '" class="app-footer-nav-a"><img src="' + assetsPath + 'img/icon-event.png" class="app-footer-nav-img" alt="イベント" />イベント</a></li>' +
-  //     ' <li class="app-footer-nav-ul-li"><a href="' + link.internshipList + '" class="app-footer-nav-a"><img src="' + assetsPath + 'img/icon-company.png" class="app-footer-nav-img" alt="インターン" />インターン</a></li>' +
-  //     ' <li class="app-footer-nav-ul-li"><a href="' + link.contents + '" class="app-footer-nav-a"><img src="' + assetsPath + 'img/icon-contents.png" class="app-footer-nav-img" alt="選考対策" />選考対策</a></li>' +
-  //     ' <li class="app-footer-nav-ul-li"><a href="' + link.myPageTop + '" class="app-footer-nav-a"><img src="' + assetsPath + 'img/icon-mypage.png" class="app-footer-nav-img" alt="マイページ" />マイページ</a></li>' +
-  //     '</ul>';
-  var footer = '';
-
   var isLoginPage = _.includes(location.href, link.loginUser)
-  if (_.includes(location.href, link.myPageResetQuitdnaviUserConfirm)) {
-    $('#header').append('<div class="app-header-box-inner">' +
-      navIcon + '<span class="header-text">退会手続き</span>' + myCodeIcon +
-  '</div>')
-  } else {
-    !isLoginPage && $('#header').append(header).append(partnerHeader);
-  }
+  !isLoginPage && $('#header').append(header).append(partnerHeader);
   $('#leftNavOuter').append(leftNavOuter);
-  $('#footer').append(footer);
   displayContractTerm();
 
   // Hide partner header on scroll
