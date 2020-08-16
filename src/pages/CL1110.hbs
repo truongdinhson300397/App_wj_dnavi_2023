@@ -119,6 +119,13 @@
     {{/content}}
     {{#content "footer-scripts" mode="append"}}
         <script>
+            var url = window.location.pathname;
+            var filename = url.substring(url.lastIndexOf('/')+1);
+            var isForceLogin = localStorage.getItem('force_login');
+
+            if (typeof isApplican !== "undefined" && isApplican && filename.indexOf('#set_active=true') === -1 ) {
+
+            }
             function getParameterByName(name, url) {
                 if (!url) url = window.location.href;
                 name = name.replace(/[\[\]]/g, '\\$&');
@@ -276,7 +283,7 @@
 
                         if (!returnUrl) {
                             // 仮
-                            toLocationHref('{{link.myPageTop}}');
+                            toLocationHref('{{link.top}}?launch_tab=3');
                         } else {
                             removeGlobalInfo('returnUrl', { path: '/' });
                             var isOpenNewTab = globalInfo('isOpenNewTab');
