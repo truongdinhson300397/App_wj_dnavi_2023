@@ -90,6 +90,8 @@
       </div>
     </div>
 
+    {{#if isApplican}} <a id="goEventList" href="{{link.eventList}}"><img src="{{path}}img/2022/app_top_event_banner.png" alt="list image" style="width: 100%"></a> {{/if}}
+
     <!-- find company FOR APP-->
     {{#if isApplican}} {{> app/findCompany }} {{/if}}
 
@@ -111,8 +113,6 @@
         </ul>
       </article>
     </div>
-
-    {{#if isApplican}} <a id="goEventList" href="{{link.eventList}}"><img src="{{path}}img/2022/list-image.png" alt="list image" style="width: 100%"></a> {{/if}}
 
     <!-- block disclosure -->
     {{#unless isApplican}} {{> web/disclosure }} {{/unless}}
