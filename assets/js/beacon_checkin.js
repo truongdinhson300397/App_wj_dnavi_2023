@@ -212,5 +212,6 @@ document.addEventListener('deviceready', function () {
     if(isOnline() && isUserLoggedIn()) {
         const eventProcessor = new EventProcessor();
         eventProcessor.processOfflineData();
+        eventProcessor.process();
     }
 });
