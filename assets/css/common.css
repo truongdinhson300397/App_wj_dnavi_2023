@@ -667,9 +667,13 @@ address {
 
 .nav-ul-2-li-a {
   padding: 15px;
+  border-top: 1px solid #266BA8;
+  border-bottom: 1px solid #266BA8;
+  border-left: 2px solid #266BA8;
+  border-right: 2px solid #266BA8;
   display: block;
   color: #004F93;
-  font-size: 100%;
+  font-size: 133%;
   line-height: 1;
   text-align: center;
   text-decoration: none;
@@ -729,17 +733,17 @@ address {
 
 .nav-ul-3-li-a {
   padding: 15px;
-  /*border-top: 1px solid #d3d3d3;*/
-  /*border-bottom: 1px solid #d3d3d3;*/
+  border-top: 1px solid #d3d3d3;
+  border-bottom: 1px solid #d3d3d3;
   border-left: 2px solid #d3d3d3;
   border-right: 2px solid #d3d3d3;
   display: block;
   color: #004F93;
-  font-size: 100%;
+  font-size: 133%;
   line-height: 1;
   text-align: center;
   text-decoration: none;
-  background: #ffffff;
+  background: #ebebeb;
   position: relative;
 }
 

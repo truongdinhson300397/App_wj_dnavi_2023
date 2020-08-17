@@ -3,4 +3,10 @@
 	<allowed>http://*/*</allowed>
 	<allowed>http://*</allowed>
 	<allowed>https://*</allowed>
+	<rules scope="api" api="applican.launcher.urlscheme">
+		<allowed>https://*/*</allowed>
+		<allowed>http://*/*</allowed>
+		<allowed>http://*</allowed>
+		<allowed>https://*</allowed>
+	</rules>
 </applican-whitelist>

@@ -1,0 +1,86 @@
+{{#extend "components/layout" title="コンテンツ一覧－選考対策・就活準備"}}
+    {{#content "header-scripts" mode="append"}}
+        <link rel="stylesheet" href="{{path}}css/contents.css" type="text/css" media="all" />
+        <style>
+            .notify-box {
+                display: none;
+                margin-bottom: 50px;
+            }
+            .text-notify {
+                text-align: center;
+                font-weight: 600;
+                font-size: 18px;
+            }
+            .notify-top {
+                color: #0f5799;
+            }
+        </style>
+    {{/content}}
+    {{#content "main"}}
+        <div class="contents-box">
+            <article class="article-box">
+                {{#unless isApplican}}
+                {{> components/pageTitle jpTitle='コンテンツ一覧' enTitle='CONTENTS' }}
+                {{/unless}}
+                <!-- notify -->
+                <div class="notify-box app-mt-30">
+                    <p class="text-notify notify-top">4月中旬、公開予定</p>
+                    <p class="text-notify">開催日までしばらくお待ちください。</p>
+                </div>
+                <section class="drop-shadow-box">
+                    <header class="section-box-header">
+                        <h3 class="section-box-header-h3">
+                            <span class="section-box-header-h3-jp">選考対策</span>
+                        </h3>
+                    </header>
+                    <ul class="contents-list-ul">
+                        <li class="contents-list-ul-li">
+                            <a id="spi" href="{{link.contentsSpi}}" class="contents-list-ul-li-a">
+                                <figure class="contents-fig">
+                                    <img src="{{path}}img/spi.jpg" class="contents-img" alt="SPI全国統一模擬試験" />
+                                </figure>
+                                <div class="contents-text">
+                                    <h4 class="contents-ttl">SPI全国統一模擬試験</h4>
+                                    実際の内容に近い問題を解いて本番に備えよう！<br>
+                                    非言語問題と言語問題の両方が体験できます。
+                                </div>
+                            </a>
+                        </li>
+                        <li class="contents-list-ul-li">
+                            <a id="mini" href="{{link.contentsTamatebako_test}}" class="contents-list-ul-li-a">
+                                <figure class="contents-fig">
+                                    <img src="{{path}}img/tatmatebako_mini.jpg" class="contents-img" alt="玉手箱 - mini模擬試験" />
+                                </figure>
+                                <div class="contents-text">
+                                    <h4 class="contents-ttl">玉手箱 - mini模擬試験</h4>
+                                    苦手分野を知って、実力を確認！
+                                </div>
+                            </a>
+                        </li>
+                        <li class="contents-list-ul-li">
+                            <a id="drill" href="{{link.contentsTamatebako_drill}}" class="contents-list-ul-li-a">
+                                <figure class="contents-fig">
+                                    <img src="{{path}}img/tamatebako_drill.jpg" class="contents-img" alt="玉手箱対策 - 苦手克服ドリル" />
+                                </figure>
+                                <div class="contents-text">
+                                    <h4 class="contents-ttl">玉手箱対策 - 苦手克服ドリル</h4>
+                                    解き方をきちんと理解しよう！
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </section>
+
+            </article>
+        </div>
+    {{/content}}
+    {{#content "footer-scripts" mode="append"}}
+        <script>
+            var contractTerm = globalInfo('contract_term');
+
+            $(function(){
+                _headerUIHandler();
+            });
+        </script>
+    {{/content}}
+{{/extend}}

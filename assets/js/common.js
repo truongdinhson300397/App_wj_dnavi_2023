@@ -30,9 +30,9 @@ var mainPaddingTop = Number(mainPaddingTopEnd);
 var link = {};
 if (typeof isApplican !== "undefined" && isApplican) {
   link = {
-    "top": "index.html",
+    "top": "CL0020.html",
     "regist": "CL1010.html",
-    "loginUser": "CL1110.html",
+    "loginUser": "index.html",
     "loginTemporary": "CL1210.html",
     "reminder": "CL1310.html",
     "reminderComplete": "CL1320.html",
@@ -99,7 +99,8 @@ if (typeof isApplican !== "undefined" && isApplican) {
     "faqDetail_6": "CL9260.html",
     "faqDetail_7": "CL9270.html",
     "faqDetail_8": "CL9280.html",
-    "sitemap": "CL9300.html"
+    "sitemap": "CL9300.html",
+    "beacon": "smartCheckin.html"
   }
 } else {
   link = {
@@ -450,7 +451,7 @@ function setRadioBtn(){
 //チェックボックスデザイン
 function setCheckbox(){
 //  if($('input[type="checkbox"]')){
-    $('input[type="checkbox"]').each(function(){
+    $('input[type="checkbox"]:not(.no-style)').each(function(){
       $(this).after('<span class="checkbox-span"></span>');
 //      if($(this).prop('checked')){
 //        $(this).closest('.checkbox-span').addClass('checkbox-span-checked');
@@ -898,7 +899,7 @@ if (!Array.prototype.findIndex) {
 // Add contract year to href
 function toLocationHref(path) {
   if (typeof isApplican !== "undefined" && isApplican) {
-    location.href = path;
+    location.href = 'local://' + path;
   } else {
     var contractTerm = globalInfo("contract_term");
     location.href = "/" + contractTerm + path;

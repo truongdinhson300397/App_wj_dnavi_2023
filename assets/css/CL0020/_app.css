@@ -1,0 +1,276 @@
+.login-content {
+  padding-top: 25px;
+  background-color: #f6f6f6;
+}
+
+.login-content .btn-login-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.login-content .btn-blue::before,
+.login-content .btn-blue::after {
+  background: #266ba8;
+}
+
+.login-content .btn-login-bar a {
+  font-size: 15px;
+  flex-basis: 49%;
+}
+
+.content-padding {
+  padding-left: 14px;
+  padding-right: 6px;
+  color: #666666;
+}
+
+.mainvis-box {
+  margin-bottom: 0 !important;
+}
+
+.pickup-box {
+  background: white;
+  margin-bottom: 0 !important;
+  border-bottom: 1px solid #8080803d;
+}
+
+.pickup-box .article-box-header-h2-jp {
+  color: inherit;
+}
+
+.pickup-box .article-box-header-h2-eng {
+  color: #004F93;
+}
+
+.pickup-box .pickup-ul-li-a {
+  color: black;
+}
+
+.findCompany {
+  background-color: #266ba8;
+  padding-top: 30px;
+}
+
+.findCompany .article-box-header-h2-jp {
+  color: white;
+}
+
+.findCompany .article-box-header-h2-eng {
+  color: white;
+}
+
+.findCompany .search-input-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.findCompany .search-input-box > div {
+  display: flex;
+  align-items: center;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  background-color: white;
+  flex-grow: 2;
+}
+
+.findCompany .search-input-box img {
+  background-color: white;
+  max-width: 25px;
+  width: 1px;
+  margin-left: 12px;
+  margin-right: 8px;
+  flex-grow: 1;
+}
+
+.findCompany .search-input-box .input-text {
+  border: none;
+  border-radius: 0;
+  outline: none;
+  height: 42px;
+  padding: 0 10px 0 0;
+  display: unset;
+  font-size: unset;
+  flex-grow: 1;
+  line-height: inherit;
+}
+
+.findCompany .btn-search-company {
+  font-size: 15px;
+  border: none;
+  height: 42px;
+  outline: none;
+  padding: 0 15px;
+  background-color: #1ab5a6;
+  min-width: 60px;
+  color: white;
+  border-radius: 0 1.5rem 1.5rem 0;
+}
+
+.findCompany .search-options {
+  margin-bottom: 15px;
+  color: white;
+}
+
+.findCompany .search-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.findCompany .search-buttons .btn-default {
+  font-size: 11px;
+  padding: 5px 14px;
+  height: inherit;
+  background-color: #ced3d84f;
+  color: white;
+  text-align: center;
+  flex-grow: 1;
+}
+
+.findCompany .search-buttons .btn-default:nth-of-type(2) {
+  margin: 0 5px;
+}
+
+.findCompany .for-partner {
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+}
+
+.findCompany .for-partner .btn-default {
+  font-size: 11px;
+  padding: 5px 14px;
+  height: inherit;
+  background-color: #ced3d84f;
+  color: white;
+  text-align: center;
+}
+
+.smart-checkin {
+  padding: 30px 0;
+  background-color: #266ba8;
+}
+
+.smart-checkin .announce {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+.smart-checkin img {
+  width: 40px;
+  margin-right: 20px;
+}
+
+.smart-checkin h1 {
+  font-size: 18px;
+}
+
+.smart-checkin .redirect-btn {
+  display: block;
+  padding: 8px 10px;
+  margin: 20px auto auto;
+  border-radius: 20px;
+  background-color: white;
+  color: #266ba8;
+  text-align: center;
+  width: 120px;
+}
+
+.reserved-events {
+  padding-top: 30px;
+  background-color: #f6f6f6;
+}
+
+.reserved-events .article-box-header-h2-jp {
+  color: #004F93;
+}
+
+.reserved-events .event-ul a {
+  width: 100vw;
+}
+
+.reserved-events .event-ul {
+  margin: 20px 0;
+}
+
+.reserved-events .event-ul .event-ul-li {
+  margin-top: 0;
+  margin-bottom: 5px;
+  background-color: white;
+  border: 1px solid #8080803d;
+  padding: 20px;
+  box-shadow: 4px 1px 3px #88888830;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.reserved-events .event-ul .event-ul-li .event-info-box {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.reserved-events .event-ul .event-ul-li .locAndDate {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.event-ul-li .locAndDate .event-loc {
+  width: auto;
+  margin-right: 5px;
+}
+
+.event-ul-li .locAndDate .event-dateday {
+  width: auto !important;
+  line-height: 1;
+}
+
+.reserved-events .more-event {
+  display: block;
+  text-align: center;
+  width: 30%;
+  margin: auto;
+  color: gray;
+  font-size: 15px;
+}
+
+.reserved-events .event-btn-box p {
+  font-size: 20px;
+  color: #d1d1d1;
+}
+
+.information-app {
+  padding-top: 30px;
+}
+
+.information-app h2 {
+  text-align: center;
+  font-size: 16px;
+  color: #266ba8;
+  padding-bottom: 20px;
+}
+
+.information-app .info-1-ul li {
+  color: #666666;
+}
+
+.app-banner {
+  border-bottom: 1px solid #8080803d;
+  padding-top: 30px;
+}
+
+.app-banner header {
+  margin-bottom: 20px;
+}
+
+.app-spare-box .contents-box {
+  padding-top: 30px;
+  border-bottom: 1px solid #8080803d;
+  box-shadow: 4px 1px 3px #88888830;
+}

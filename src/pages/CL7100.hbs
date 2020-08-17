@@ -1,0 +1,109 @@
+{{#extend "components/layout" title="マイコード"}}
+    {{#content "header-scripts" mode="append"}}
+        <link rel="stylesheet" href="{{path}}css/contents.css" type="text/css" media="all"/>
+        <style>
+            .img-qr {
+                display: block;
+                margin: auto;
+                max-width: 300px;
+                text-align: center;
+            }
+            .img-qr img {
+                max-width: 100%;
+                height: auto !important;
+            }
+        </style>
+    {{/content}}
+    {{#content "main"}}
+        <div class="contents-box">
+            <article class="article-box">
+                {{#unless isApplican}}
+                {{> components/pageTitle jpTitle='マイコード' enTitle='MY CODE' }}
+                {{/unless}}
+                <section class="drop-shadow-box app-mt-30">
+                    <div class="contents-preface">イベント会場にてご提示ください。</div>
+                    <figure>
+                        <div id="qr-code" class="img-qr"></div>
+                    </figure>
+                </section>
+                <div class="mgnt30-50">
+                    <a href="{{link.top}}" class="btn-default btn-gray w100-50prc">戻る</a>
+                </div>
+
+            </article>
+        </div>
+    {{/content}}
+    {{#content "footer-scripts" mode="append"}}
+        <script src="{{path}}js/qrcode.js"></script>
+        <script src="{{path}}js/qrcode_SJIS.js"></script>
+        <script src="{{path}}js/qrcode_UTF8.js"></script>
+        <script>
+            _headerUIHandler(null, null, true);
+            $(function () {
+                var contractTermId = globalInfo("contract_term_id");
+                var apiUrl = rootVariables.apiUrl;
+                var jwt = globalInfo('jwt_' + contractTermId);
+                var id = globalInfo('id_' + contractTermId);
+                if (typeof isApplican !== "undefined" && isApplican && !isOnline()) {
+                    __getCurentUserOffline();
+                } else {
+                    __getCurentUser();
+                }
+
+                function __getCurentUser() {
+                    $.ajax({
+                        url: apiUrl + '/students/' + id + '/me',
+                        type: 'get',
+                        headers: {
+                            'Authorization': 'Bearer ' + jwt,
+                            'Content-Type': 'application/json'
+                        },
+                        success: function (data) {
+                            __generateUserQRCode(data);
+                            $('.drop-shadow-box').append(__generateUserInfo(data));
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            console.log(errorThrown);
+                            console.log(textStatus);
+                            console.log(XMLHttpRequest);
+                        }
+                    });
+                }
+
+                function __getCurentUserOffline() {
+                    var userData = getUserDataForQR();
+                    if (userData !== false) {
+                        var data = {};
+                        data.data = userData;
+                        __generateUserQRCode(data);
+                        $('.drop-shadow-box').append(__generateUserInfo(data));
+                    } else {
+                        console.log(errorThrown);
+                        console.log(textStatus);
+                        console.log(XMLHttpRequest);
+                    }
+                }
+
+                function __generateUserInfo(data) {
+                    var userName = data['data']['family_name'] + ' ' + data['data']['given_name'];
+                    var loginID = data['data']['login_id'];
+
+                    return (
+                            '<div class="mgnt30-50 talc">' + userName + '<br />' + loginID + '</div>'
+                    );
+                }
+
+                function __generateUserQRCode(data) {
+                    var rawName = data['data']['family_name'] + data['data']['given_name'];
+                    var userInfo = '{"id":' + parseInt(id) + ',"email":"' + data['data']['login_id'] + '","code":"QRCodeDiamond","name":"' + rawName + '"}';
+                    var typeNumber = 0;
+                    var errorCorrectionLevel = 'L';
+                    var qr = qrcode(typeNumber, errorCorrectionLevel);
+                    qr.addData(userInfo);
+                    qr.make();
+                    $('#qr-code').append(qr.createImgTag(7));
+                }
+            });
+        </script>
+    {{/content}}
+{{/extend}}
