@@ -1,0 +1,112 @@
+{{#extend "components/layout" title="スマートチェックイン"}}
+  {{#content "header-scripts" mode="append"}}
+    <!--css here-->
+    <link rel="stylesheet" href="{{path}}css/smartCheckin.css">
+  {{/content}}
+
+  {{#content "main"}}
+    <div class="smart-checkin">
+      <div class="header">
+        <div class="contents-box">
+          <div class="announce">
+            <img src="{{path}}img/2022/checkin.png" alt="checkin">
+            <div>
+              <p>簡単！スムーズにイベント入場</p>
+              <h1>スマートチェックイン</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="select-method">
+        ※イベント会場の指示に従い、<br/>
+        チェックイン方法を選択してください。
+      </div>
+
+      <div class="step step1">
+        <div class="contents-box">
+          <h1>マイコード(QRコード)</h1>
+          <p>ダイヤモンド就活ナビ会員1名ずつに発行されている</p>
+          <p>マイコード(QRコード)を受付にてご提示ください。</p>
+        </div>
+        <figure>
+          <div id="qr-code" class="img-qr"></div>
+        </figure>
+      </div>
+
+      <div class="step step2">
+        <div class="contents-box">
+          <h1>Beaconでチェックイン</h1>
+          <p>Beaconを使用したチェックインを求められた場合は、</p>
+          <p>下記設定を事前に行なってください。</p>
+
+          <h2 class="sub-highlight">事前準備</h2>
+          <div class="drop-shadow-box mgnt30-50 info-2-box-body">
+            <ul class="prepare-list">
+              <li>アプリでログイン</li>
+              <span>ダイヤモンド就活ナビ2022アプリにログイン。</span>
+              <span>※インターネットに接続できる環境が必要です。</span>
+            </ul>
+            <ul class="prepare-list">
+              <li>端末のBluetoothを｢オン｣に設定</li>
+              <span>端末の設定で、Bluetoothをオンに設定してください。</span>
+            </ul>
+          </div>
+
+          <h2 class="sub-highlight">当日の入場の流れ</h2>
+          <div class="drop-shadow-box mgnt30-50 info-2-box-body">
+            <div class="box">
+              <div class="box1-icons">
+                <div class="img-border">
+                  <img src="{{path}}img/2022/smartcheckin/blue/icon-login.png" alt="">
+                </div>
+                <div class="img-border">
+                  <img src="{{path}}img/2022/smartcheckin/blue/Bluetooth_blue.png" alt="">
+                </div>
+              </div>
+              <div class="content">
+                <button>来場</button>
+                <p>ご来場前に、事前準備の設定をご確認ください。</p>
+              </div>
+            </div>
+          </div>
+          <p class="arrow">↓</p>
+          <div class="drop-shadow-box mgnt30-50 info-2-box-body">
+            <div class="box box2">
+              <div>
+                <img src="{{path}}img/2022/smartcheckin/blue/open-door_blue.png" alt="">
+              </div>
+              <div class="content">
+                <button>入場</button>
+                <p>Beaconの設置している受付を通過してください。</p>
+              </div>
+            </div>
+          </div>
+          <p class="text-below">※アプリを開いた状態か、バックグラウンドで起動してある必要があります。</p>
+          <p class="arrow">↓</p>
+          <div class="drop-shadow-box mgnt30-50 info-2-box-body">
+            <div class="box box3">
+              <div>
+                <img src="{{path}}img/2022/smartcheckin/blue/smartphone_blue.png" alt="">
+              </div>
+              <div class="content">
+                <button>受付完了</button>
+                <p>正常に受付が完了すると、スマートフォンに受付完了の通知が届きます。</p>
+              </div>
+            </div>
+          </div>
+          <p class="text-below">※エラーが表示された場合は受付までお知らせください。</p>
+        </div>
+      </div>
+
+    </div>
+  {{/content}}
+
+  {{#content "footer-scripts" mode="append"}}
+    <!--js here-->
+    <script src="{{path}}js/qrcode.js"></script>
+    <script src="{{path}}js/qrcode_SJIS.js"></script>
+    <script src="{{path}}js/qrcode_UTF8.js"></script>
+    <script src="{{path}}js/pages/beacon/index.js"></script>
+  {{/content}}
+{{/extend}}
