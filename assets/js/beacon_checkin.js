@@ -143,7 +143,7 @@ function EventProcessor() {
         if (!checkResult) return;
         // display when user didn't login
         if (!isUserLoggedIn()) {
-            this.displayLocalNotification(getCurrentTimestamp() / 1000 + 5, false, 'ログイン後にイベント受付が可能です', NotificationType.NOT_LOGGED_IN);
+            this.displayLocalNotification(getCurrentTimestamp() / 1000 + 5, false, '本イベントはスマートチェックインに対応しています。ログインすると、アプリでの参加受付が可能です。 ', NotificationType.NOT_LOGGED_IN);
             await this.saveBeaconInfoForRegister(beaconInfo);
             return;
         } else {
@@ -152,7 +152,7 @@ function EventProcessor() {
         }
         // display local notification when offline
         if (!isOnline()) {
-            this.displayLocalNotification(getCurrentTimestamp() / 1000 + 5, false,'参加を受け付けましたが、完了しませんでした。電波状況の良い場所で再度アプリを起動することで再度参加処理が行われます。', NotificationType.HOLD_DATA);
+            this.displayLocalNotification(getCurrentTimestamp() / 1000 + 5, false,'参加受付は、完了しませんでした。電波状況の良い場所で再度アプリを起動してください。', NotificationType.HOLD_DATA);
             await this.saveBeaconInfoForRegister({...beaconInfo, user_id: id});
             return;
         }
@@ -166,11 +166,13 @@ function EventProcessor() {
     this.register = async function (beaconInfo, callbackDone) {
         this.callApi(beaconInfo.user_id, beaconInfo.major).then(async (resp) => {
             if (resp.message === 'success') {
-                this.displayLocalNotification(getCurrentTimestamp() + 5 * 1000, false, `${resp.event_title}に参加しました`, NotificationType.ALREADY_PARTICIPATED)
+                this.displayLocalNotification(getCurrentTimestamp() + 5 * 1000, false, `${resp.event_title}の参加受付を行いました。入場後に下記のOKをタップしてください。`, NotificationType.ALREADY_PARTICIPATED)
             }
             if (typeof callbackDone === "function") {
                 await callbackDone({...beaconInfo, status: beaconInfoStatus.DONE});
             }
+        }).catch((err) => {
+            this.displayLocalNotification(getCurrentTimestamp() + 5 * 1000, false, `イベント参加処理に失敗しました。この通知が表示された場合は、お近くのスタッフにお知らせください。`)
         });
     }
     this.process = function () {
