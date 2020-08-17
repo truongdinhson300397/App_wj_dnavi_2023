@@ -167,24 +167,26 @@
 }
 
 .smart-checkin h1 {
-  font-size: 22px;
+  font-size: 20px;
   line-height: 1;
 }
 
 .smart-checkin p {
   margin-bottom: 8px;
-  font-size: 15px;;
+  font-size: 14px;
 }
 
 .smart-checkin .redirect-btn {
   display: block;
   padding: 8px 10px;
-  margin: 25px 15px auto;
+  margin: 25px auto auto;
   border-radius: 20px;
   background-color: white;
   color: #266ba8;
   text-align: center;
   font-size: 15px;
+  width: 100%;
+  max-width: 278px;
 }
 
 .reserved-events {

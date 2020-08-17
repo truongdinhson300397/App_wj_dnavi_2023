@@ -12,11 +12,11 @@
 
 .header .announce p {
   margin-bottom: 8px;
-  font-size: 15px;
+  font-size: 14px;
 }
 
 .header .announce h1 {
-  font-size: 22px;
+  font-size: 20px;
   line-height: 1;
 }
 
@@ -141,15 +141,15 @@
 }
 
 .step2 .box1-icons img {
-  width: 30px;
+  width: 26px;
 }
 
 .step2 .box1-icons .img-border {
   border: 2px solid #266ba8;
   padding: 5px;
   border-radius: 55%;
-  width: 45px;
-  height: 60px;
+  width: 47px;
+  height: 47px;
   display: flex;
   justify-content: center;
   align-items: center;
