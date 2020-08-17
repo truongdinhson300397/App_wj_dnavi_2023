@@ -11,15 +11,17 @@
 }
 
 .header .announce p {
-  margin-bottom: 6px;
+  margin-bottom: 8px;
+  font-size: 15px;
 }
 
 .header .announce h1 {
-  font-size: 19px;
+  font-size: 22px;
+  line-height: 1;
 }
 
 .header img {
-  width: 50px;
+  width: 60px;
   margin-right: 20px;
 }
 

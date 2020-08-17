@@ -105,7 +105,9 @@ function _checkNetWork() {
   if(!isOnline() && (ableToDisplay || onBeforeLoginTop)) {
     var loginContent = '<div class="error-mes-version"><hr/></div>' +
         '   <p class="error-mes-version">※オフライン時でも、TOPよりご予約済みのイベント情報の一部のみご確認いただけます。</p>' +
-        '   <a href="' + link.top + '?launch_tab=3" class="btn-white btn-default btn-back-top">TOPに戻る</a>'
+        '     <div class="btn-wrapper"> ' +
+        '       <a href="' + link.top + '?launch_tab=3" class="btn-white btn-default btn-back-top">TOPに戻る</a>' +
+        '     </div>'
     $("body").append('<div id="update-warning"> ' +
         ' <div class="update-error">'+
         '    <div class="update-error__header" ' + (isLoggedIn || qrUserData !== false ? '' : 'style="display: none"') + '>' +
@@ -115,7 +117,9 @@ function _checkNetWork() {
         '     <div class="offline__' + contractTerm + '_logo"></div>' +
         '     <p class="error-mes-version">インターネット接続がありません。<br /><br />' +
         '       ダイヤモンド就活ナビにアクセスするにはWi-Fiネットワークかモバイルデータ通信を利用する必要あります。</p>'+
-        '     <button id="retry-connect" class="btn btn-update-version">リトライ</button>' +
+        '     <div class="btn-wrapper"> ' +
+        '       <button id="retry-connect" class="btn btn-update-version">リトライ</button>' +
+        '     </div>' +
               (isLoggedIn ? loginContent : '') +
         '   </div>' +
         ' </div>' +
