@@ -2,7 +2,7 @@ document.addEventListener('deviceready', function () {
     if (_.isUndefined(localStorage.getItem('isFirstOpen')) || _.isNull(localStorage.getItem('isFirstOpen'))) {
         //
         $("#first-open-app").css("display", "block");
-        $(".wrapper").css("display", "none");
+        // $(".wrapper").css("display", "none");
         var prefix = '';
         if (globalInfo('contract_term_id') != 1) {
             prefix = term[globalInfo('contract_term_id') - 1].term + '/';
@@ -10,29 +10,26 @@ document.addEventListener('deviceready', function () {
         // default is Android even if current device isn't mobile device
         var platform = applican.device.platform;
         // set image
-        if (platform === 'Android') {
-            $('#first-open-app .swiper-wrapper').html('' +
-                '<div class="swiper-slide">\n' +
-                '      <img class="img-tutorial" src="./img/' + prefix + 'android_tutorial_1.png" alt="">' +
-                '    </div>' +
-                '<div class="swiper-slide">\n' +
-                '      <img class="img-tutorial" src="./img/' + prefix + 'android_tutorial_2.png" alt="">' +
-                '    </div>' +
-                '<div class="swiper-slide">\n' +
-                '      <img class="img-tutorial" src="./img/' + prefix + 'android_tutorial_3.png" alt="">' +
-                '    </div>');
-        } else {
-            $('#first-open-app .swiper-wrapper').html('' +
-                '<div class="swiper-slide">\n' +
-                '      <img class="img-tutorial iphone" src="./img/' + prefix + 'tutorial_1.png" alt="">' +
-                '    </div>' +
-                '<div class="swiper-slide">\n' +
-                '      <img class="img-tutorial iphone" src="./img/' + prefix + 'tutorial_2.png" alt="">' +
-                '    </div>' +
-                '<div class="swiper-slide">\n' +
-                '      <img class="img-tutorial iphone" src="./img/' + prefix + 'tutorial_2-1.png" alt="">' +
-                '    </div>');
-        }
+        const devicePath = platform === 'Android' ? 'android' : 'ios'
+        const commonPath = './img/' + prefix + 'tutorial/' + devicePath + '/'
+        const cssClass = platform === 'Android' ? "img-tutorial" : "img-tutorial iphone"
+        $('#first-open-app .swiper-wrapper').html('' +
+            '<div class="swiper-slide">\n' +
+            '    <img class=' + cssClass + ' src="'+ commonPath + 'tutorial1_smart_checkin.png" alt="">' +
+            '</div>' +
+            '<div class="swiper-slide">\n' +
+            '    <img class=' + cssClass + ' src="'+ commonPath + 'tutorial2_offline.png" alt="">' +
+            '</div>' +
+            '<div class="swiper-slide">\n' +
+            '    <img class=' + cssClass + ' src="'+ commonPath + 'tutorial3_push.png" alt="">' +
+            '</div>' +
+            '<div class="swiper-slide">\n' +
+            '    <img class=' + cssClass + ' src="'+ commonPath + 'tutorial4_event.png" alt="">' +
+            '</div>' +
+            '<div class="swiper-slide">\n' +
+            '    <img class=' + cssClass + ' src="'+ commonPath + 'tutorial5_contents.png" alt="">' +
+            '</div>'
+        );
         var swiper = new Swiper('.swiper-tutorial', {
             navigation: {
                 nextEl: '.swiper-button-next',
@@ -51,7 +48,7 @@ document.addEventListener('deviceready', function () {
         $('.target-skip').removeClass('swiper-button-disabled');
 
         swiper.on('slideChange', function () {
-            if (swiper.realIndex === 2) {
+            if (swiper.realIndex === 4) {
                 $('#btn-next').hide();
                 $('#btn-skip').show().removeClass('swiper-button-disabled');
                 $('.target-skip').hide();
@@ -67,5 +64,8 @@ $('#btn-skip, .target-skip').click(function () {
     localStorage.setItem('isFirstOpen', '1');
     localStorage.setItem('contract_term_id', 2);
     setContractTerm(2022, 2);
-    window.location.href = link.top;
+    const openFromMenu = localStorage.getItem('openTutorialFromMenu');
+    if (openFromMenu !== '1') {
+        toLocationHref(link.loginUser + '?launch_tab=3');
+    }
 });

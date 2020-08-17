@@ -18,17 +18,12 @@
     {{/content}}
     {{#content "main"}}
         <div class="contents-box">
-            <!--  -->
             <article class="article-box">
-                <header class="article-box-header">
-                    <h2 class="article-box-header-h2">
-                        <span class="article-box-header-h2-jp">コンテンツ一覧</span><br />
-                        <span class="article-box-header-h2-eng">CONTENTS</span>
-                    </h2>
-
-                </header>
+                {{#unless isApplican}}
+                {{> components/pageTitle jpTitle='コンテンツ一覧' enTitle='CONTENTS' }}
+                {{/unless}}
                 <!-- notify -->
-                <div class="notify-box">
+                <div class="notify-box app-mt-30">
                     <p class="text-notify notify-top">4月中旬、公開予定</p>
                     <p class="text-notify">開催日までしばらくお待ちください。</p>
                 </div>

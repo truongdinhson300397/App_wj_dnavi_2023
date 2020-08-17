@@ -32,7 +32,7 @@ const webpackConfig = {
           { source: './applican-assets/**/*', destination: path.join(...buildPath) },
         ],
         move: [
-          { source: path.join(...buildPath, 'CL0020.html'), destination: path.join(...buildPath, 'index.html') },
+          { source: path.join(...buildPath, 'CL1110.html'), destination: path.join(...buildPath, 'index.html') },
         ],
         archive: [
           { source: path.join(...buildZipPath), destination: path.join(...buildZipPath, zipName) },

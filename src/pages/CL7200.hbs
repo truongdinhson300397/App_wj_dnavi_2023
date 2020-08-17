@@ -17,13 +17,10 @@
         <div class="contents-box">
             <!--  -->
             <article class="article-box">
-                <header class="article-box-header">
-                    <h2 class="article-box-header-h2">
-                        <span class="article-box-header-h2-jp">マイページ</span><br />
-                        <span class="article-box-header-h2-eng">MY PAGE</span>
-                    </h2>
-                </header>
-                <section class="drop-shadow-box">
+                {{#unless isApplican}}
+                {{> components/pageTitle jpTitle='マイページ' enTitle='MY PAGE' }}
+                {{/unless}}
+                <section class="drop-shadow-box app-mt-30">
                     <div class="member-info clearfix">
                         <span id="student-name" class="member-name"></span>
                         <span id="student-school" class="member-school"></span>

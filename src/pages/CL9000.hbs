@@ -11,7 +11,7 @@
     {{/content}}
     {{#content "main"}}
         <!--  -->
-        <div class="contents-box">
+        <div class="contents-box app-mt-30">
             <article class="article-box">
                 <div class="drop-shadow-box">
                     <header class="article-box-header">
@@ -24,7 +24,7 @@
                         <div class="form-preface">ログアウトしました。</div>
 
                         <div class="form-btn-box">
-                            <a href="{{link.top}}" class="btn-default btn-blue w100-50prc">トップへ戻る</a>
+                            <a id="logoutButton" href="{{link.top}}" class="btn-default btn-blue w100-50prc">トップへ戻る</a>
                         </div>
                     </div>
                 </div>
@@ -44,9 +44,16 @@
     {{#content "footer-scripts" mode="append"}}
         <script>
             var contractTermId = globalInfo("contract_term_id");
+            var partnerId = globalInfo('partner_id');
+            var id = globalInfo('id_' + contractTermId);
             var jwt = globalInfo('jwt_' + contractTermId);
             _headerUIHandler(null, null, null, false);
-
+            var $logoutButton = $('#logoutButton');
+            if (typeof isApplican !== "undefined" && isApplican) {
+                $logoutButton.attr('href', link.top + '?launch_tab=3');
+            } else {
+                $logoutButton.attr('href', link.top);
+            }
             function logOut() {
                 $.ajax({
                     url: rootVariables.apiUrl + '/students/logout',
@@ -60,6 +67,7 @@
                     success: function (res) {
                         var status = res.success;
                         if (status === true) {
+                            const offlineData = new OfflineData(id, jwt, partnerId);
                             var contractTermId = globalInfo("contract_term_id");
                             // removeGlobalInfo('jwt');
                             // removeGlobalInfo('id');
@@ -72,6 +80,7 @@
                             removeGlobalInfo('returnUrl', {path: '/'});
                             removeGlobalInfo("is_registered");
                             removeUserDataForQR();
+                            offlineData.cleanData();
                         }
 
                         dumpGuestHeader();

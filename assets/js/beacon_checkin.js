@@ -1,6 +1,9 @@
-const jwt = globalInfo('jwt_' + contractTermId);
-const id = globalInfo('id_' + contractTermId);
-
+if (typeof jwt === 'undefined') {
+    var jwt = globalInfo('jwt_' + contractTermId);
+}
+if (typeof id === 'undefined') {
+    var id = globalInfo('id_' + contractTermId);
+}
 function getCurrentTimestamp() {
     return new Date().getTime();
 }

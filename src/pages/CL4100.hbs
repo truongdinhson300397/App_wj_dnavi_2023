@@ -1,19 +1,15 @@
-{{#extend "components/layout" title="インターンシップ 一覧"}}
+{{#extend "components/layout" title="インターンシップ 一覧" appHeader='インターンシップ&キャリア支援'}}
     {{#content "header-scripts" mode="append"}}
         <link rel="stylesheet" href="{{path}}css/event.css" type="text/css" media="all"/>
     {{/content}}
     {{#content "main"}}
-      <div class="contents-box">
-        <!--  -->
-        <header class="article-box-header">
-          <h2 class="article-box-header-h2">
-            <span class="article-box-header-h2-jp">インターンシップ＆<br>キャリア支援プログラムをさがす</span><br/>
-            <span class="article-box-header-h2-eng">INTERNSHIP SEARCH</span>
-          </h2>
-        </header>
-        <article id="searchBox" class="article-box">
+      <div class="contents-box app-mt-30">
+        {{#unless isApplican}}
+        {{> components/pageTitle jpTitle='キャリア支援プログラムをさがす' enTitle='INTERNSHIP SEARCH' }}
+        {{/unless}}
+        <article id="searchBox" class="article-box app-mt-30">
           <div id="group-search-all" class="drop-shadow-box">
-            <header class="article-box-header">
+            <header class="article-box-header app-mt-30">
               <h2 class="article-box-header-h2">
                 <span class="article-box-header-h2-jp">条件からさがす</span><br/>
                 <span class="article-box-header-h2-eng">SEARCH</span>

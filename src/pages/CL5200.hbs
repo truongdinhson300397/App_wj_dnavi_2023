@@ -9,17 +9,13 @@
     </style>
   {{/content}}
   {{#content "main"}}
-    <!--  -->
-    <div class="contents-box">
+    <div class="contents-box app-mt-30">
       <article class="article-box">
-        <header class="article-box-header">
-          <h2 class="article-box-header-h2">
-            <span class="article-box-header-h2-jp">イメージ検索</span><br/>
-            <span class="article-box-header-h2-eng">IMAGE SEARCH</span>
-          </h2>
-        </header>
+        {{#unless isApplican}}
+        {{> components/pageTitle jpTitle='イメージ検索' enTitle='IMAGE SEARCH' }}
+        {{/unless}}
 
-        <div class="mgnb20-30 clearfix search-box-50prc">
+        <div class="mgnb20-30 clearfix search-box-50prc app-mt-20">
           <div class="select-box search-btn-s-counterpart">
             <select class="image-search-list-select">
             </select>

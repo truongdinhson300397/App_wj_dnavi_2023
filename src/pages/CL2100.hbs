@@ -1,401 +1,336 @@
-{{#extend "components/layout" title="イベント 一覧"}}
-  {{#content "header-scripts" mode="append"}}
-    <link rel="stylesheet" href="{{path}}css/event.css" type="text/css" media="all"/>
-    <link rel="stylesheet" href="{{path}}css/event_asura.css" type="text/css" media="all"/>
-    <style>
-      .list-event-time {
-        width: 100%;
-      }
-
-      .event-time {
-        width: 100%;
-      }
-    </style>
-  {{/content}}
-  {{#content "main"}}
-    <div class="contents-box">
-      <!--  -->
-      <article class="mgnb30-50 hidden" id="__no-event-error">
-        <header class="section-box-header">
-          <h3 class="section-box-header-h3">
-            <span class="section-box-header-h3-jp">ただいま開催予定のEventはありません。</span>
-          </h3>
-        </header>
-      </article>
-      <article class="article-box" id="__events-wrapper">
-        <header class="article-box-header">
-          <h2 class="article-box-header-h2">
-            <span class="article-box-header-h2-jp">開催予定イベント</span><br/>
-            <span class="article-box-header-h2-eng">EVENTS</span>
-          </h2>
-        </header>
-        <p class="hidden empty-event-notice">ただいま開催予定のイベントはありません。</p>
-
-        <section id="liveSeminar-wrapper" class="mgnt30-50">
-          <span id="dvLive" class="anchor"></span>
-          <header class="section-box-header">
-            <h3 class="section-box-header-h3">
-              <span class="section-box-header-h3-jp">LIVEセミナーシリーズ</span>
-            </h3>
-          </header>
-          <figure class="mainvis-box">
-            <img src="{{path}}img/banner-events-01.png" class="event-mainvis-img"/>
-          </figure>
-          <ul id="liveSeminar" class="event-ul">
-          </ul>
-          <div id="eventDivHidden2" class="event-div-hidden">
-            <ul id="liveSeminar-hidden" class="event-ul">
-            </ul>
-          </div>
-          <div id="liveSeminar-show-more" class="event-more-box">
-            <a href="javascript:void(0);" id="event-more-live" class="event-more">more</a>
-          </div>
-        </section>
-
-        <section id="joinedEventAndOther-wrapper" class="mgnt30-50">
-          <span id="dvJoint" class="anchor"></span>
-          <header class="section-box-header">
-            <h3 class="section-box-header-h3">
-              <span class="section-box-header-h3-jp">合同イベント・その他イベント</span>
-            </h3>
-          </header>
-          <figure class="mainvis-box">
-            <img src="{{path}}img/banner-events-02.png" class="event-mainvis-img"/>
-          </figure>
-          <ul id="joinedEventAndOther" class="event-ul">
-          </ul>
-          <div id="eventDivHidden3" class="event-div-hidden">
-            <ul id="joinedEventAndOther-hidden" class="event-ul">
-            </ul>
-          </div>
-          <div id="joinedEventAndOther-show-more" class="event-more-box">
-            <a href="javascript:void(0);" id="event-more-other" class="event-more">more</a>
-          </div>
-        </section>
-
-        <section id="corporateSeminar-wrapper" class="mgnt30-50">
-          <span id="dvSeminar" class="anchor"></span>
-          <header class="section-box-header">
-            <h3 class="section-box-header-h3">
-              <span class="section-box-header-h3-jp">企業単独セミナー</span>
-            </h3>
-          </header>
-          <figure class="mainvis-box">
-            <img src="{{path}}img/banner-events-03.png" class="event-mainvis-img"/>
-          </figure>
-          <ul id="corporateSeminar" class="event-ul">
-          </ul>
-          <div id="eventDivHidden5" class="event-div-hidden">
-            <ul id="corporateSeminar-hidden" class="event-ul">
-            </ul>
-          </div>
-          <div id="corporateSeminar-show-more" class="event-more-box">
-            <a href="javascript:void(0);" class="event-more"
-               onclick="$('#eventDivHidden5').slideDown();$(this).css('display','none');">more</a>
-          </div>
-        </section>
-      </article>
-    </div>
-  {{/content}}
-  {{#content "footer-scripts" mode="append"}}
-    <script>
-      var partner = null;
-      var requestName = window.location.href.replace(window.location.protocol + '//' + window.location.host, '');
-      var currentPartner = requestName.split(/([0-9]{4})/g).slice(-1)[0].split('/')[1];
-
-      if(!_.isUndefined(currentPartner) && !_.isNaN(+currentPartner)) {
-        partner = currentPartner;
-        globalInfo('partner_id', parseInt(partner) || '', {path: "/"});
-      } else {
-        partner = globalInfo('partner_id');
-      }
-
-      _headerUIHandler(null, null, null);
-      $(function () {
-        // hide event Asura when change root
-        var currentPartner = null;
-        if (typeof isApplican !== "undefined" && isApplican) {
-            currentPartner = globalInfo('partner_id');
-        } else {
-            currentPartner = window.location.href.split(/([0-9]{4})/g).slice(-1)[0].split('/')[1];
-        }
-        if (_.isEmpty(currentPartner)) {
-          $('#corporateSeminar-wrapper').hide();
-        }
-
-        var isShowErrorLive = false;
-        var isShowErrorOther = false;
-        var isShowErrorAsura = false;
-        var prefectureIds = globalInfo('prefecture_ids') ? JSON.parse(globalInfo('prefecture_ids')) : [];
-        var webDomain = rootVariables.apiUrl;
-        var partnerId = partner;
-        var arrE2rProId = [];
-        var firstLoad = true;
-        // Call API to get event list
-        function __initEventListLive(page) {
-          page = page || 1;
-          var formData = {
-            contract_term_id: contractTermId,
-            partner_id: !_.isEmpty(partnerId) ? partnerId : 0,
-            per_page: 4,
-            page: page,
-            category: '10'
-          };
-
-          $.ajax({
-            url: webDomain + '/events',
-            dataType: 'json',
-            type: 'GET',
-            contentType: 'application/json',
-            accept: 'application/json',
-            data: formData,
-            success: function (_res) {
-              if (_res.data.length > 0) {
-                //hide btn show more
-                __generateEventLiveList(_res.data);
-                if (_res.pagination.currentPage === _res.pagination.totalPages) {
-                  $('#event-more-live').hide();
-                }
-              } else {
-                isShowErrorLive = true;
-                // Hide event list block when don't have any event
-                $('#liveSeminar-wrapper').hide();
-                if (parseInt(partnerId) !== 0) {
-                  if (isShowErrorLive && isShowErrorOther && isShowErrorAsura) {
-                    $('.empty-event-notice').show();
-                  }
-                } else {
-                  if (isShowErrorLive && isShowErrorOther) {
-                    $('.empty-event-notice').show();
-                  }
-                }
-              }
-            },
-            error: function (jqXhr, textStatus, errorThrown) {
-              $('#liveSeminar-wrapper').hide();
-            }
-          });
-        }
-
-        function __initEventAndOtherList (page) {
-          page = page || 1;
-          var formDataOther = {
-            contract_term_id: contractTermId,
-            partner_id: !_.isEmpty(partnerId) ? partnerId : 0,
-            per_page: 4,
-            page: page,
-            category: '20,30'
-          };
-
-          $.ajax({
-            url: webDomain + '/events',
-            dataType: 'json',
-            type: 'GET',
-            contentType: 'application/json',
-            accept: 'application/json',
-            data: formDataOther,
-            success: function (_res) {
-              if (_res.data.length > 0) {
-                // hide btn show more
-                __generateEventOtherList(_res.data);
-                if (_res.pagination.currentPage === _res.pagination.totalPages) {
-                  $('#event-more-other').hide();
-                }
-              } else {
-                isShowErrorOther = true;
-                $('#joinedEventAndOther-wrapper').hide();
-                if (parseInt(partnerId) !== 0) {
-                  if (isShowErrorLive && isShowErrorOther && isShowErrorAsura) {
-                    $('.empty-event-notice').show();
-                  }
-                } else {
-                  if (isShowErrorLive && isShowErrorOther) {
-                    $('.empty-event-notice').show();
-                  }
-                }
-              }
-            },
-            error: function (jqXhr, textStatus, errorThrown) {
-              $('#joinedEventAndOther-wrapper').hide();
-              $('.empty-event-notice').fadeIn();
-            }
-          });
-        }
-
-        // Generate event list wrapper
-        function __generateEventLiveList(_eventList) {
-          _.forEach(_eventList, function (_eventItem_, _idx_) {
-            $('#liveSeminar').append(__generateEventItem(_eventItem_, _idx_));
-          });
-        }
-
-        function __generateEventOtherList(_eventList) {
-          _.forEach(_eventList, function (_eventItem_, _idx_) {
-            $('#joinedEventAndOther').append(__generateEventItem(_eventItem_, _idx_));
-          });
-        }
-
-        // Generate event items
-        function __generateEventItem(_eventData, _idx) {
-          // Add special class for event item
-          var itemClass = '';
-          if(firstLoad) {
-            if (_idx === 0) {
-              itemClass = 'upper-row';
-            } else if (_idx === 1) {
-              itemClass = 'upper-row-pc';
-            }
+    {{#extend "components/layout" title="イベント 一覧"}}
+      {{#content "header-scripts" mode="append"}}
+        <link rel="stylesheet" href="{{path}}css/event.css" type="text/css" media="all"/>
+        <link rel="stylesheet" href="{{path}}css/event_asura.css" type="text/css" media="all"/>
+        <style>
+          .list-event-time {
+            width: 100%;
           }
 
-          var eventDates = _.groupBy(_eventData.event_dates, 'event_date');
-          var eventDateHtml = '';
-          var eventTimeHtml = '';
+          .event-time {
+            width: 100%;
+          }
+        </style>
+      {{/content}}
+      {{#content "main"}}
+        <div class="contents-box">
+          <!--  -->
+          <article class="mgnb30-50 hidden" id="__no-event-error">
+            <header class="section-box-header">
+              <h3 class="section-box-header-h3">
+                <span class="section-box-header-h3-jp">ただいま開催予定のEventはありません。</span>
+              </h3>
+            </header>
+          </article>
+          <article class="article-box" id="__events-wrapper">
+          {{#unless isApplican}}
+            {{> components/pageTitle jpTitle='開催予定イベント' enTitle='EVENTS' }}
+          {{/unless}}
+            <p class="hidden empty-event-notice app-mt-30">ただいま開催予定のイベントはありません。</p>
 
-          // Generate event date
-          _.forIn(eventDates, function (__eventTime, __eventDate) {
-            var eventDate = moment(__eventDate).format('MM/DD');
-            var eventDay = moment(__eventDate).format('ddd').toUpperCase();
-            eventDateHtml = eventDateHtml + '<span class="event-date">' + eventDate +
-              '</span>' +
-              '<span class="event-day">' + eventDay + '</span>';
+            <section id="liveSeminar-wrapper" class="mgnt30-50">
+              <span id="dvLive" class="anchor"></span>
+              <header class="section-box-header">
+                <h3 class="section-box-header-h3">
+                  <span class="section-box-header-h3-jp">LIVEセミナーシリーズ</span>
+                </h3>
+              </header>
+              <figure class="mainvis-box">
+                <img src="{{path}}img/banner-events-01.png" class="event-mainvis-img"/>
+              </figure>
+              <ul id="liveSeminar" class="event-ul">
+              </ul>
+              <div id="eventDivHidden2" class="event-div-hidden">
+                <ul id="liveSeminar-hidden" class="event-ul">
+                </ul>
+              </div>
+              <div id="liveSeminar-show-more" class="event-more-box">
+                <a href="javascript:void(0);" id="event-more-live" class="event-more">more</a>
+              </div>
+            </section>
 
-            // Generate event time by date
-            _.forEach(__eventTime, function (__date) {
-              var eventTimeFrom = moment(__date.event_time_from, 'HH:mm:ss').format('HH:mm');
-              var eventTimeTo = moment(__date.event_time_to, 'HH:mm:ss').format('HH:mm');
-              eventTimeHtml = eventTimeHtml + '<div class="event-time">' + eventTimeFrom + '〜' + eventTimeTo + '</div>';
-            });
-          });
+            <section id="joinedEventAndOther-wrapper" class="mgnt30-50">
+              <span id="dvJoint" class="anchor"></span>
+              <header class="section-box-header">
+                <h3 class="section-box-header-h3">
+                  <span class="section-box-header-h3-jp">合同イベント・その他イベント</span>
+                </h3>
+              </header>
+              <figure class="mainvis-box">
+                <img src="{{path}}img/banner-events-02.png" class="event-mainvis-img"/>
+              </figure>
+              <ul id="joinedEventAndOther" class="event-ul">
+              </ul>
+              <div id="eventDivHidden3" class="event-div-hidden">
+                <ul id="joinedEventAndOther-hidden" class="event-ul">
+                </ul>
+              </div>
+              <div id="joinedEventAndOther-show-more" class="event-more-box">
+                <a href="javascript:void(0);" id="event-more-other" class="event-more">more</a>
+              </div>
+            </section>
 
-          return (
-            '<li class="event-ul-li ' + itemClass + '">' +
-            '  <div class="event-info-box">' +
-            '    <div class="event-loc">' + _eventData.prefecture + '</div>' +
-            '    <div class="event-dateday">' + eventDateHtml + '</div>' +
-            eventTimeHtml +
-            '    <div class="event-ttl">' + _eventData.title + '</div>' +
-            '  </div>' +
-            '  <div class="event-btn-box">' +
-            '    <a href="{{link.eventDetail}}?event_id=' + _eventData.event_id + '" class="btn-small btn-blue">詳細・予約</a>' +
-            '  </div>' +
-            '</li>'
-          );
-        }
+            <section id="corporateSeminar-wrapper" class="mgnt30-50">
+              <span id="dvSeminar" class="anchor"></span>
+              <header class="section-box-header">
+                <h3 class="section-box-header-h3">
+                  <span class="section-box-header-h3-jp">企業単独セミナー</span>
+                </h3>
+              </header>
+              <figure class="mainvis-box">
+                <img src="{{path}}img/banner-events-03.png" class="event-mainvis-img"/>
+              </figure>
+              <ul id="corporateSeminar" class="event-ul">
+              </ul>
+              <div id="eventDivHidden5" class="event-div-hidden">
+                <ul id="corporateSeminar-hidden" class="event-ul">
+                </ul>
+              </div>
+              <div id="corporateSeminar-show-more" class="event-more-box">
+                <a href="javascript:void(0);" class="event-more"
+                   onclick="$('#eventDivHidden5').slideDown();$(this).css('display','none');">more</a>
+              </div>
+            </section>
+          </article>
+        </div>
+      {{/content}}
+      {{#content "footer-scripts" mode="append"}}
+        <script>
+          var partner = null;
+          var requestName = window.location.href.replace(window.location.protocol + '//' + window.location.host, '');
+          var currentPartner = requestName.split(/([0-9]{4})/g).slice(-1)[0].split('/')[1];
 
-        function eventLiveShowMore () {
-          var page = 1;
-          $('#event-more-other').click(function () {
-            firstLoad = false;
-            page = page + 1;
-            __initEventAndOtherList(page);
-          });
-        }
-
-        function eventAndOtherShowMore () {
-          var page = 1;
-          $('#event-more-live').click(function () {
-            firstLoad = false;
-            page = page + 1;
-            __initEventListLive(page);
-          });
-        }
-
-        ////////////////
-        //  FOR ASURA //
-        ////////////////
-
-        // Get prefecture by company e2r_pro_id of Asura
-        function _getPrefecture() {
-          var formDataOfCompany = {
-            contract_term_id: contractTermId,
-            partner_id: !(_.isEmpty(partnerId)) ? partnerId : 0,
-            per_page: 9999,
-            is_asura: true
-          };
-
-          $.ajax({
-            url: webDomain + '/companies',
-            dataType: 'json',
-            type: 'GET',
-            contentType: 'application/json',
-            accept: 'application/json',
-            data: formDataOfCompany,
-            success: function (_res) {
-              var companies = _res.data;
-              if (companies.length > 0) {
-                filterE2rCompany(companies);
-              } else {
-                $('#corporateSeminar-wrapper').hide();
-                // Hide event list block when don't have any event
-                isShowErrorAsura = true;
-                if (isShowErrorLive && isShowErrorOther && isShowErrorAsura) {
-                  $('.empty-event-notice').show();
-                }
-              }
-            },
-            error: function (jqXhr, textStatus, errorThrown) {
-              $('#corporateSeminar-wrapper').hide();
-              // Hide event list block when don't have any event
-              isShowErrorAsura = true;
-              if (isShowErrorLive && isShowErrorOther && isShowErrorAsura) {
-                $('.empty-event-notice').show();
-              }
-            }
-          });
-        }
-
-        // Compare the company's prefecture with the e2_pro_id with the partner's prefrecture
-        function filterE2rCompany(_companies) {
-          _.filter(_companies, function (__company) {
-            if(__company.contract) {
-              if(__company.contract.e2r_pro === true) {
-                if(__company.contract.e2r_pro_id !== null) {
-                  arrE2rProId.push(parseInt(__company.contract.e2r_pro_id));
-                  return __company.contract.e2r_pro_id;
-                }
-              }
-            }
-          });
-
-          if(arrE2rProId.length > 0) {
-            arrE2rProId =  _.uniq(arrE2rProId);
-            _getEventsFromAsura();
+          if(!_.isUndefined(currentPartner) && !_.isNaN(+currentPartner)) {
+            partner = currentPartner;
+            globalInfo('partner_id', parseInt(partner) || '', {path: "/"});
           } else {
-            $('#corporateSeminar-wrapper').hide();
-            // Hide event list block when don't have any event
-            isShowErrorAsura = true;
-            if (isShowErrorLive && isShowErrorOther && isShowErrorAsura) {
-              $('.empty-event-notice').show();
-            }
+            partner = globalInfo('partner_id');
           }
-        }
 
-        function _getEventsFromAsura() {
-          return $.ajax({
-            url: apiUrlAsura + '/outside_events/get_event_index',
-            dataType: 'json',
-            type: 'POST',
-            contentType: 'application/json',
-            accept: 'application/json',
-            processData: false,
-            success: function (_res) {
-              var _events = _res.response;
-              if (_events.length > 0) {
-                var arrEventOfCompanyHaveE2p = [];
-                _.forEach(_events, function (company) {
-                  _.forEach(arrE2rProId, function (e2rProId) {
-                    if(e2rProId === company.companyId) {
-                      arrEventOfCompanyHaveE2p.push(company);
+          _headerUIHandler(null, null, null);
+          $(function () {
+            // hide event Asura when change root
+            var currentPartner = null;
+            if (typeof isApplican !== "undefined" && isApplican) {
+                currentPartner = globalInfo('partner_id');
+            } else {
+                currentPartner = window.location.href.split(/([0-9]{4})/g).slice(-1)[0].split('/')[1];
+            }
+            if (_.isEmpty(currentPartner)) {
+              $('#corporateSeminar-wrapper').hide();
+            }
+
+            var isShowErrorLive = false;
+            var isShowErrorOther = false;
+            var isShowErrorAsura = false;
+            var prefectureIds = globalInfo('prefecture_ids') ? JSON.parse(globalInfo('prefecture_ids')) : [];
+            var webDomain = rootVariables.apiUrl;
+            var partnerId = partner;
+            var arrE2rProId = [];
+            var firstLoad = true;
+            // Call API to get event list
+            function __initEventListLive(page) {
+              page = page || 1;
+              var formData = {
+                contract_term_id: contractTermId,
+                partner_id: !_.isEmpty(partnerId) ? partnerId : 0,
+                per_page: 4,
+                page: page,
+                category: '10'
+              };
+
+              $.ajax({
+                url: webDomain + '/events',
+                dataType: 'json',
+                type: 'GET',
+                contentType: 'application/json',
+                accept: 'application/json',
+                data: formData,
+                success: function (_res) {
+                  if (_res.data.length > 0) {
+                    //hide btn show more
+                    __generateEventLiveList(_res.data);
+                    if (_res.pagination.currentPage === _res.pagination.totalPages) {
+                      $('#event-more-live').hide();
                     }
-                  });
+                  } else {
+                    isShowErrorLive = true;
+                    // Hide event list block when don't have any event
+                    $('#liveSeminar-wrapper').hide();
+                    if (parseInt(partnerId) !== 0) {
+                      if (isShowErrorLive && isShowErrorOther && isShowErrorAsura) {
+                        $('.empty-event-notice').show();
+                      }
+                    } else {
+                      if (isShowErrorLive && isShowErrorOther) {
+                        $('.empty-event-notice').show();
+                      }
+                    }
+                  }
+                },
+                error: function (jqXhr, textStatus, errorThrown) {
+                  $('#liveSeminar-wrapper').hide();
+                }
+              });
+            }
+
+            function __initEventAndOtherList (page) {
+              page = page || 1;
+              var formDataOther = {
+                contract_term_id: contractTermId,
+                partner_id: !_.isEmpty(partnerId) ? partnerId : 0,
+                per_page: 4,
+                page: page,
+                category: '20,30'
+              };
+
+              $.ajax({
+                url: webDomain + '/events',
+                dataType: 'json',
+                type: 'GET',
+                contentType: 'application/json',
+                accept: 'application/json',
+                data: formDataOther,
+                success: function (_res) {
+                  if (_res.data.length > 0) {
+                    // hide btn show more
+                    __generateEventOtherList(_res.data);
+                    if (_res.pagination.currentPage === _res.pagination.totalPages) {
+                      $('#event-more-other').hide();
+                    }
+                  } else {
+                    isShowErrorOther = true;
+                    $('#joinedEventAndOther-wrapper').hide();
+                    if (parseInt(partnerId) !== 0) {
+                      if (isShowErrorLive && isShowErrorOther && isShowErrorAsura) {
+                        $('.empty-event-notice').show();
+                      }
+                    } else {
+                      if (isShowErrorLive && isShowErrorOther) {
+                        $('.empty-event-notice').show();
+                      }
+                    }
+                  }
+                },
+                error: function (jqXhr, textStatus, errorThrown) {
+                  $('#joinedEventAndOther-wrapper').hide();
+                  $('.empty-event-notice').fadeIn();
+                }
+              });
+            }
+
+            // Generate event list wrapper
+            function __generateEventLiveList(_eventList) {
+              _.forEach(_eventList, function (_eventItem_, _idx_) {
+                $('#liveSeminar').append(__generateEventItem(_eventItem_, _idx_));
+              });
+            }
+
+            function __generateEventOtherList(_eventList) {
+              _.forEach(_eventList, function (_eventItem_, _idx_) {
+                $('#joinedEventAndOther').append(__generateEventItem(_eventItem_, _idx_));
+              });
+            }
+
+            // Generate event items
+            function __generateEventItem(_eventData, _idx) {
+              // Add special class for event item
+              var itemClass = '';
+              if(firstLoad) {
+                if (_idx === 0) {
+                  itemClass = 'upper-row';
+                } else if (_idx === 1) {
+                  itemClass = 'upper-row-pc';
+                }
+              }
+
+              var eventDates = _.groupBy(_eventData.event_dates, 'event_date');
+              var eventDateHtml = '';
+              var eventTimeHtml = '';
+
+              // Generate event date
+              _.forIn(eventDates, function (__eventTime, __eventDate) {
+                var eventDate = moment(__eventDate).format('MM/DD');
+                var eventDay = moment(__eventDate).format('ddd').toUpperCase();
+                eventDateHtml = eventDateHtml + '<span class="event-date">' + eventDate +
+                  '</span>' +
+                  '<span class="event-day">' + eventDay + '</span>';
+
+                // Generate event time by date
+                _.forEach(__eventTime, function (__date) {
+                  var eventTimeFrom = moment(__date.event_time_from, 'HH:mm:ss').format('HH:mm');
+                  var eventTimeTo = moment(__date.event_time_to, 'HH:mm:ss').format('HH:mm');
+                  eventTimeHtml = eventTimeHtml + '<div class="event-time">' + eventTimeFrom + '〜' + eventTimeTo + '</div>';
                 });
-                if(arrEventOfCompanyHaveE2p.length > 0) {
-                  // order asc event
-                  arrEventOfCompanyHaveE2p = _.sortBy(arrEventOfCompanyHaveE2p, ['heldDate', function( _event) {
-                    return _event.timezones[0].fromTime;
-                  }], ['asc', 'asc']);
-                  __generateEventListForAsura(arrEventOfCompanyHaveE2p);
-                } else {
+              });
+
+              return (
+                '<li class="event-ul-li ' + itemClass + '">' +
+                '  <div class="event-info-box">' +
+                '    <div class="event-loc">' + _eventData.prefecture + '</div>' +
+                '    <div class="event-dateday">' + eventDateHtml + '</div>' +
+                eventTimeHtml +
+                '    <div class="event-ttl">' + _eventData.title + '</div>' +
+                '  </div>' +
+                '  <div class="event-btn-box">' +
+                '    <a href="{{link.eventDetail}}?event_id=' + _eventData.event_id + '" class="btn-small btn-blue">詳細・予約</a>' +
+                '  </div>' +
+                '</li>'
+              );
+            }
+
+            function eventLiveShowMore () {
+              var page = 1;
+              $('#event-more-other').click(function () {
+                firstLoad = false;
+                page = page + 1;
+                __initEventAndOtherList(page);
+              });
+            }
+
+            function eventAndOtherShowMore () {
+              var page = 1;
+              $('#event-more-live').click(function () {
+                firstLoad = false;
+                page = page + 1;
+                __initEventListLive(page);
+              });
+            }
+
+            ////////////////
+            //  FOR ASURA //
+            ////////////////
+
+            // Get prefecture by company e2r_pro_id of Asura
+            function _getPrefecture() {
+              var formDataOfCompany = {
+                contract_term_id: contractTermId,
+                partner_id: !(_.isEmpty(partnerId)) ? partnerId : 0,
+                per_page: 9999,
+                is_asura: true
+              };
+
+              $.ajax({
+                url: webDomain + '/companies',
+                dataType: 'json',
+                type: 'GET',
+                contentType: 'application/json',
+                accept: 'application/json',
+                data: formDataOfCompany,
+                success: function (_res) {
+                  var companies = _res.data;
+                  if (companies.length > 0) {
+                    filterE2rCompany(companies);
+                  } else {
+                    $('#corporateSeminar-wrapper').hide();
+                    // Hide event list block when don't have any event
+                    isShowErrorAsura = true;
+                    if (isShowErrorLive && isShowErrorOther && isShowErrorAsura) {
+                      $('.empty-event-notice').show();
+                    }
+                  }
+                },
+                error: function (jqXhr, textStatus, errorThrown) {
                   $('#corporateSeminar-wrapper').hide();
                   // Hide event list block when don't have any event
                   isShowErrorAsura = true;
@@ -403,107 +338,169 @@
                     $('.empty-event-notice').show();
                   }
                 }
+              });
+            }
+
+            // Compare the company's prefecture with the e2_pro_id with the partner's prefrecture
+            function filterE2rCompany(_companies) {
+              _.filter(_companies, function (__company) {
+                if(__company.contract) {
+                  if(__company.contract.e2r_pro === true) {
+                    if(__company.contract.e2r_pro_id !== null) {
+                      arrE2rProId.push(parseInt(__company.contract.e2r_pro_id));
+                      return __company.contract.e2r_pro_id;
+                    }
+                  }
+                }
+              });
+
+              if(arrE2rProId.length > 0) {
+                arrE2rProId =  _.uniq(arrE2rProId);
+                _getEventsFromAsura();
               } else {
+                $('#corporateSeminar-wrapper').hide();
                 // Hide event list block when don't have any event
                 isShowErrorAsura = true;
-                $('#corporateSeminar-wrapper').hide();
                 if (isShowErrorLive && isShowErrorOther && isShowErrorAsura) {
                   $('.empty-event-notice').show();
                 }
               }
-            },
-            error: function (jqXhr, textStatus, errorThrown) {
-              isShowErrorAsura = true;
-              $('#corporateSeminar-wrapper').hide();
-              if (isShowErrorLive && isShowErrorOther && isShowErrorAsura) {
-                $('.empty-event-notice').show();
-              }
-              console.log(errorThrown);
             }
-          });
-        }
 
-        function __generateEventListForAsura(_eventData, _idx) {
-          var _eventGroupvar = 'corporateSeminar';
-          if (_eventData.length > 0) {
-            // Loop through all on event category
-            _.forEach(_eventData, function (_eventItem_, _idx_) {
-              if (_idx_ < 4) {
-                // Generate event item base on category limit 4
-                $('#' + _eventGroupvar).append(__generateEventItemForAsura(_eventItem_, _idx_));
+            function _getEventsFromAsura() {
+              return $.ajax({
+                url: apiUrlAsura + '/outside_events/get_event_index',
+                dataType: 'json',
+                type: 'POST',
+                contentType: 'application/json',
+                accept: 'application/json',
+                processData: false,
+                success: function (_res) {
+                  var _events = _res.response;
+                  if (_events.length > 0) {
+                    var arrEventOfCompanyHaveE2p = [];
+                    _.forEach(_events, function (company) {
+                      _.forEach(arrE2rProId, function (e2rProId) {
+                        if(e2rProId === company.companyId) {
+                          arrEventOfCompanyHaveE2p.push(company);
+                        }
+                      });
+                    });
+                    if(arrEventOfCompanyHaveE2p.length > 0) {
+                      // order asc event
+                      arrEventOfCompanyHaveE2p = _.sortBy(arrEventOfCompanyHaveE2p, ['heldDate', function( _event) {
+                        return _event.timezones[0].fromTime;
+                      }], ['asc', 'asc']);
+                      __generateEventListForAsura(arrEventOfCompanyHaveE2p);
+                    } else {
+                      $('#corporateSeminar-wrapper').hide();
+                      // Hide event list block when don't have any event
+                      isShowErrorAsura = true;
+                      if (isShowErrorLive && isShowErrorOther && isShowErrorAsura) {
+                        $('.empty-event-notice').show();
+                      }
+                    }
+                  } else {
+                    // Hide event list block when don't have any event
+                    isShowErrorAsura = true;
+                    $('#corporateSeminar-wrapper').hide();
+                    if (isShowErrorLive && isShowErrorOther && isShowErrorAsura) {
+                      $('.empty-event-notice').show();
+                    }
+                  }
+                },
+                error: function (jqXhr, textStatus, errorThrown) {
+                  isShowErrorAsura = true;
+                  $('#corporateSeminar-wrapper').hide();
+                  if (isShowErrorLive && isShowErrorOther && isShowErrorAsura) {
+                    $('.empty-event-notice').show();
+                  }
+                  console.log(errorThrown);
+                }
+              });
+            }
+
+            function __generateEventListForAsura(_eventData, _idx) {
+              var _eventGroupvar = 'corporateSeminar';
+              if (_eventData.length > 0) {
+                // Loop through all on event category
+                _.forEach(_eventData, function (_eventItem_, _idx_) {
+                  if (_idx_ < 4) {
+                    // Generate event item base on category limit 4
+                    $('#' + _eventGroupvar).append(__generateEventItemForAsura(_eventItem_, _idx_));
+                  } else {
+                    // Add the rest of event item into hidden path, will show when [show more] has been clicked
+                    $('#' + _eventGroupvar + '-hidden').append(__generateEventItemForAsura(_eventItem_, _idx_));
+                  }
+                });
+
+                // Hide [show more] when events <= 4
+                if (_eventData.length < 4) {
+                  $('#' + _eventGroupvar + '-show-more').hide();
+                }
               } else {
-                // Add the rest of event item into hidden path, will show when [show more] has been clicked
-                $('#' + _eventGroupvar + '-hidden').append(__generateEventItemForAsura(_eventItem_, _idx_));
+                // Hide event based on category block when don't any event
+                $('#' + _eventGroupvar + '-wrapper').hide();
               }
-            });
-
-            // Hide [show more] when events <= 4
-            if (_eventData.length < 4) {
-              $('#' + _eventGroupvar + '-show-more').hide();
             }
-          } else {
-            // Hide event based on category block when don't any event
-            $('#' + _eventGroupvar + '-wrapper').hide();
-          }
-        }
 
-        function __generateEventItemForAsura(_eventData, _idx) {
-          $('.empty-event-notice').hide();
-          // Add special class for event item
-          var itemClass = '';
-          if (_idx === 0) {
-            itemClass = 'upper-row';
-          } else if (_idx === 1) {
-            itemClass = 'upper-row-pc';
-          }
-          var eventDates = _eventData.heldDate;
-          var eventDateHtml = '';
-          var eventTimeHtml = '';
-          // Generate event date
-          var eventDate = moment(eventDates).format('MM/DD');
-          var eventDay = moment(eventDates).format('ddd').toUpperCase();
-          eventDateHtml = eventDateHtml + '<span class="event-date">' + eventDate +
-            '</span>' +
-            '<span class="event-day">' + eventDay + '</span>';
+            function __generateEventItemForAsura(_eventData, _idx) {
+              $('.empty-event-notice').hide();
+              // Add special class for event item
+              var itemClass = '';
+              if (_idx === 0) {
+                itemClass = 'upper-row';
+              } else if (_idx === 1) {
+                itemClass = 'upper-row-pc';
+              }
+              var eventDates = _eventData.heldDate;
+              var eventDateHtml = '';
+              var eventTimeHtml = '';
+              // Generate event date
+              var eventDate = moment(eventDates).format('MM/DD');
+              var eventDay = moment(eventDates).format('ddd').toUpperCase();
+              eventDateHtml = eventDateHtml + '<span class="event-date">' + eventDate +
+                '</span>' +
+                '<span class="event-day">' + eventDay + '</span>';
 
-          // Generate event time by date
-          _.forEach(_eventData.timezones, function (__date) {
-            var eventTimeFrom = moment(__date['fromTime'], 'HH:mm:ss').format('HH:mm');
-            var eventTimeTo = moment(__date['toTime'], 'HH:mm:ss').format('HH:mm');
-            eventTimeHtml = eventTimeHtml + '<div class="event-time">' + eventTimeFrom + '〜' + eventTimeTo + '</div>';
+              // Generate event time by date
+              _.forEach(_eventData.timezones, function (__date) {
+                var eventTimeFrom = moment(__date['fromTime'], 'HH:mm:ss').format('HH:mm');
+                var eventTimeTo = moment(__date['toTime'], 'HH:mm:ss').format('HH:mm');
+                eventTimeHtml = eventTimeHtml + '<div class="event-time">' + eventTimeFrom + '〜' + eventTimeTo + '</div>';
+              });
+              var filterField = ['prefName', 'publicName', 'companyName'];
+              // filter key
+              filterField.map(function(key) {
+                _eventData[key] =  _eventData[key] || '';
+              });
+              return (
+                '<li class="event-ul-li ' + itemClass + '">' +
+                '  <div class="event-info-box">' +
+                '    <div class="event-loc">' + _eventData.prefName + '</div>' +
+                '    <div class="event-dateday">' + eventDateHtml + '</div>' +
+                '<div class="list-event-time">' + eventTimeHtml + '</div>' +
+                '    <div class="event-com">' + _eventData.companyName + '</div>' +
+                '  </div>' +
+                '  <div class="event-btn-box">' +
+                '    <a href="{{link.eventDetail}}?eventOf=ASURA&step_id=' + _eventData.stepId + '&asura_company_id=' +
+                _eventData.companyId + '&event_held_date_id=' + _eventData.eventHeldDateId + '" class="btn-small btn-blue">詳細・予約</a>' +
+                '  </div>' +
+                '</li>'
+              );
+            }
+
+            // Init event list
+            eventLiveShowMore ();
+            __initEventListLive();
+            eventAndOtherShowMore();
+            __initEventAndOtherList();
+            if (parseInt(partnerId) !== 0 && partnerId !== '' && !_.isUndefined(partnerId)) {
+              _getPrefecture();
+            } else {
+              $('#corporateSeminar-wrapper').hide();
+            }
           });
-          var filterField = ['prefName', 'publicName', 'companyName'];
-          // filter key
-          filterField.map(function(key) {
-            _eventData[key] =  _eventData[key] || '';
-          });
-          return (
-            '<li class="event-ul-li ' + itemClass + '">' +
-            '  <div class="event-info-box">' +
-            '    <div class="event-loc">' + _eventData.prefName + '</div>' +
-            '    <div class="event-dateday">' + eventDateHtml + '</div>' +
-            '<div class="list-event-time">' + eventTimeHtml + '</div>' +
-            '    <div class="event-com">' + _eventData.companyName + '</div>' +
-            '  </div>' +
-            '  <div class="event-btn-box">' +
-            '    <a href="{{link.eventDetail}}?eventOf=ASURA&step_id=' + _eventData.stepId + '&asura_company_id=' +
-            _eventData.companyId + '&event_held_date_id=' + _eventData.eventHeldDateId + '" class="btn-small btn-blue">詳細・予約</a>' +
-            '  </div>' +
-            '</li>'
-          );
-        }
-
-        // Init event list
-        eventLiveShowMore ();
-        __initEventListLive();
-        eventAndOtherShowMore();
-        __initEventAndOtherList();
-        if (parseInt(partnerId) !== 0 && partnerId !== '' && !_.isUndefined(partnerId)) {
-          _getPrefecture();
-        } else {
-          $('#corporateSeminar-wrapper').hide();
-        }
-      });
-    </script>
-  {{/content}}
-{{/extend}}
+        </script>
+      {{/content}}
+    {{/extend}}

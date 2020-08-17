@@ -1,6 +1,7 @@
 var partner = null;
 var requestName = window.location.href.replace(window.location.protocol + '//' + window.location.host, '');
 var currentPartner = requestName.split(/([0-9]{4})/g).slice(-1)[0].split('/')[1];
+var offlineData;
 
 if(!_.isUndefined(currentPartner) && !_.isNaN(+currentPartner)) {
   partner = currentPartner;
@@ -33,21 +34,38 @@ var contractTermId = _.isEmpty(globalInfo('contract_term_id')) ? __contractTerm 
 var webDomain = rootVariables.apiUrl;
 var arrE2rProId = [];
 var prefectureIds = globalInfo('prefecture_ids') ? JSON.parse(globalInfo('prefecture_ids')) : [];
+if (typeof isApplican !== "undefined" && isApplican) {
+  document.addEventListener('deviceready', function () {
+    offlineData = new OfflineData(id, jwt, partnerId);
 
-$(function () {
-  initPage();
+    initPage();
 
-  //ASURA
-  if (parseInt(global.partner_id) !== 0 && !_.isUndefined(global.partner_id) && global.partner_id !== '') {
-    _getPrefecture();
-  } else {
-    $('#corporateSeminar-wrapper').hide();
-  }
+    //ASURA
+    if (parseInt(global.partner_id) !== 0 && !_.isUndefined(global.partner_id) && global.partner_id !== '') {
+      _getPrefecture();
+    } else {
+      $('#corporateSeminar-wrapper').hide();
+    }
 
-  // dump header layout
-  _headerUIHandler(logined, guest);
+    // dump header layout
+    _headerUIHandler(logined, guest);
 
-});
+  });
+} else {
+  $(function () {
+    initPage();
+
+    //ASURA
+    if (parseInt(global.partner_id) !== 0 && !_.isUndefined(global.partner_id) && global.partner_id !== '') {
+      _getPrefecture();
+    } else {
+      $('#corporateSeminar-wrapper').hide();
+    }
+
+    // dump header layout
+    _headerUIHandler(logined, guest);
+  });
+}
 
 function initPage() {
   // hide default block
@@ -126,6 +144,11 @@ function fetchData() {
   }
   // fetch when logined
   if (global.isLogin) {
+    fetchReservedEvents();
+  }
+  if (!isOnline()
+    && typeof isApplican !== 'undefined'
+    && isApplican) {
     fetchReservedEvents();
   }
 }
@@ -207,14 +230,26 @@ function fetchReservedEvents(query) {
   var url = '/students/' + global.userId + '/booked_events';
 
   function fetchSuccess(res) {
+    if (isOnline() && typeof isApplican !== "undefined" && isApplican) {
+      offlineData.saveBookedEvents(res);
+    }
     dumpReservedEvents(res.data);
   }
 
   function clearBlock() {
     $('#information').remove();
   }
-
-  http.fetchAll(url, query, global.jwt, fetchSuccess, clearBlock);
+  if (!isOnline()
+      && typeof isApplican !== "undefined"
+      && isApplican) {
+    $('.banner-image-2022, #find-company, #goEventList').hide();
+    if (isUserLoggedIn()) {
+      $('#reserved-events').show();
+    }
+    offlineData.getOfflineData('booked_events', fetchSuccess);
+  } else {
+    http.fetchAll(url, query, global.jwt, fetchSuccess, clearBlock);
+  }
 }
 
 // main visual
@@ -606,54 +641,6 @@ function fetchAllJobCategory(query) {
   }
 
   http.fetchAll(url, query, null, fetchSuccess, clearBlock);
-
-}
-
-
-//current events
-function dumpCurrentEvents(events) {
-  if (_.isEmpty(events)) {
-    return $('.current-events').remove();
-  }
-  var $eventUl = $('.current-events .js-event-ul');
-  $eventUl.empty();
-
-  var _formatedEvents = _formatEvents(_.cloneDeep(events));
-
-  var eventLimit = 4;
-  var counter = 1;
-
-  _formatedEvents.forEach(function (event) {
-    event.event_dates.forEach(function (eventDate) {
-      if (counter > eventLimit) return;
-      counter++;
-      var _eventDate = moment(eventDate.event_date, 'YYYY-MM-DD');
-      var _eventTimeFrom = moment(eventDate.event_time_from, 'HH:mm:ss');
-      var _eventTimeTo = moment(eventDate.event_time_to, 'HH:mm:ss');
-      var $eventLi = $('<li class="event-ul-li">' +
-        '              <div class="event-info-box">' +
-        '                <div class="event-loc">' + event.prefecture + '</div>' +
-        '                <div class="event-dateday"><span class="event-date">' + _eventDate.format('MM/DD') + '</span><span class="event-day">' + _eventDate.format('ddd').toUpperCase() + '</span></div>' +
-        '                <div class="event-time">' + _eventTimeFrom.format('HH:mm') + ' 〜 ' + _eventTimeTo.format('HH:mm') + '</div>' +
-        '                <div class="event-ttl">' + event.title + '</div>' +
-        '              </div>' +
-        '              <div class="event-btn-box">' +
-        '                <a href="' + link.eventDetail + '?event_id=' + event.event_id + '" class="btn-small btn-blue">詳細・予約</a>' +
-        '              </div>' +
-        '            </li>');
-      $eventUl.append($eventLi);
-    });
-  });
-
-  $eventUl.find('.event-ul-li').each(function (index, li) {
-    var $eventLi = $(li);
-    if (index === 0) {
-      $eventLi.addClass('upper-row');
-    } else if (index === 1) {
-      $eventLi.addClass('upper-row-pc');
-    } else {/*do not thing*/
-    }
-  });
 }
 
 function fetchCurrentEvents(query) {
@@ -703,6 +690,42 @@ function dumpBanner(banners) {
       '            <a href="' + linkUrl + '" class="banner-area-ul-li-a"><img src="' + banner.image_url + '" alt="' + banner.image_name + '"/></a>' +
       '          </li>';
     $bannerUl.append(_bannerLi);
+  });
+}
+
+//current events
+function dumpCurrentEvents(events) {
+  if (_.isEmpty(events)) {
+    return $('.current-events').remove();
+  }
+  var $eventUl = $('.current-events .js-event-ul');
+  $eventUl.empty();
+
+  var _formatedEvents = _formatEvents(_.cloneDeep(events));
+
+  var eventLimit = 4;
+  var counter = 1;
+
+  _formatedEvents.forEach(function (event) {
+    event.event_dates.forEach(function (eventDate) {
+      if (counter > eventLimit) return;
+      counter++;
+      var _eventDate = moment(eventDate.event_date, 'YYYY-MM-DD');
+      var _eventTimeFrom = moment(eventDate.event_time_from, 'HH:mm:ss');
+      var _eventTimeTo = moment(eventDate.event_time_to, 'HH:mm:ss');
+      var $eventLi = $('<li class="event-ul-li">' +
+        '              <div class="event-info-box">' +
+        '                <div class="event-loc">' + event.prefecture + '</div>' +
+        '                <div class="event-dateday"><span class="event-date">' + _eventDate.format('MM/DD') + '</span><span class="event-day">' + _eventDate.format('ddd').toUpperCase() + '</span></div>' +
+        '                <div class="event-time">' + _eventTimeFrom.format('HH:mm') + ' 〜 ' + _eventTimeTo.format('HH:mm') + '</div>' +
+        '                <div class="event-ttl">' + event.title + '</div>' +
+        '              </div>' +
+        '              <div class="event-btn-box">' +
+        '                <a href="' + link.eventDetail + '?event_id=' + event.event_id + '" class="btn-small btn-blue">詳細・予約</a>' +
+        '              </div>' +
+        '            </li>');
+      $eventUl.append($eventLi);
+    });
   });
 }
 

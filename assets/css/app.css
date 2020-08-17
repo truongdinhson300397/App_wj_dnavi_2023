@@ -1,6 +1,13 @@
 @charset 'UTF-8';
 
 /*********************************************************************************************
+ utils css
+*********************************************************************************************/
+.app-mt-30 {
+  margin-top: 30px;
+}
+
+/*********************************************************************************************
  header
 *********************************************************************************************/
 .app-header-box {
@@ -11,7 +18,7 @@
   transition-property: all;
   transition-duration: .2s;
   transition-timing-function: ease-in-out;
-  transition-delay: 0;
+  transition-delay: 0s;
   z-index: 50;
 }
 
@@ -30,18 +37,20 @@
   align-items: center;
   width: 100%;
   table-layout: fixed;
+  height: 62px;
 }
 
 .app-header-box-inner .btn-back {
   width: 12px;
   margin-left: 7px;
-  margin-right: 30px;
+  margin-right: 20px;
 }
 
 .app-header-box-inner .header-text {
   display: block;
   text-align: center;
   font-size: 14px;
+  font-weight: bold;
 }
 
 .app-header-nav {
@@ -164,9 +173,9 @@
 }
 
 /***** ↓tablet *************************/
-@media (min-width: 769px) {
+/* @media (min-width: 769px) {
 
-}
+} */
 /***** ↑tablet *************************/
 
 
@@ -210,6 +219,10 @@
   margin-top: 10px;
 }
 
+.app-left-nav-gray a {
+  color: #666666 !important;
+}
+
 .app-left-nav-icon {
   display: flex;
   width: 30px;
@@ -224,12 +237,18 @@
   height: 45px;
 }
 
-.app-left-nav-icon {
+.app-left-nav-logo-box .app-left-nav-icon {
   position: absolute;
-  right: 10px;
-  top: 10px;
-  width: 15px;
-  height: 15px;
+  right: 7px;
+  top: 6px;
+  width: initial;
+  font-size: 20px;
+  line-height: 1;
+  color: gray;
+}
+
+.app-left-nav-logo-box .app-left-nav-icon .close-btn {
+  padding: 5px 10px;
 }
 
 .app-left-nav-icon-a:hover {
@@ -405,16 +424,6 @@
   display: none;
 }
 
-.app-left-nav-ul-2 {
-}
-
-.app-left-nav-2-open {
-
-}
-
-.app-left-nav-ul-2-li {
-}
-
 .app-left-nav-ul-2-li-a {
   padding: 15px;
   border-top: 1px solid #266BA8;
@@ -471,15 +480,15 @@
   display: none;
 }
 
-.app-left-nav-ul-3 {
-}
+/* .app-left-nav-ul-3 {
+} */
 
-.app-left-nav-3-open {
+/* .app-left-nav-3-open { */
 
-}
+/* } */
 
-.app-left-nav-ul-3-li {
-}
+/* .app-left-nav-ul-3-li {
+} */
 
 .app-left-nav-ul-3-li-a {
   padding: 15px;
@@ -612,9 +621,6 @@
 /****************************************************
  info-1
 *****************************************************/
-.info-1-box {
-  /*margin: 0 auto 30px;*/
-}
 
 .info-1-box-header-h2 {
   padding-bottom: 10px;
@@ -623,8 +629,8 @@
   line-height: 1;
 }
 
-.info-1-ul {
-}
+/* .info-1-ul {
+} */
 
 .info-1-ul-li {
   font-size: 15px;
@@ -632,19 +638,19 @@
 
 
 /***** ↓tablet/pc *************************/
-@media (min-width: 769px) {
-  .info-1-box {
+/* @media (min-width: 769px) { */
+  /* .info-1-box { */
     /*margin: 0 auto 50px;*/
-  }
+  /* } */
 
-  .info-1-box-header-h2 {
+  /* .info-1-box-header-h2 {
 
-  }
+  } */
 
-  .info-1-ul {
-  }
+  /* .info-1-ul {
+  } */
 
-}
+/* } */
 /***** ↑tablet/pc *************************/
 
 
@@ -1299,8 +1305,8 @@
 
 /***** ↓tablet/pc *************************/
 @media (min-width: 769px) {
-  .event-ul {
-  }
+  /* .event-ul {
+  } */
 
   .event-ul-li {
     margin-top: 40px;
@@ -1320,8 +1326,8 @@
     width: 100px;
   }
 
-  .event-ttl {
-  }
+  /* .event-ttl {
+  } */
 }
 /***** ↑tablet/pc *************************/
 
@@ -1484,11 +1490,10 @@
   position: relative;
 }
 .update-error hr {
-  width: 83%;
-  margin-top: 30px;
+  margin-top: 10px;
 }
 .update-error .btn-back-top {
-  width: 50%;
+  width: 100%;
   margin: 10px auto 0;
   font-size: 14px;
   padding: 9px 25px;
@@ -1500,8 +1505,8 @@
   margin: 30px auto 0 auto;
   display: block;
   vertical-align: middle;
-  width: 100px;
-  height: 37.5px;
+  width: 125px;
+  height: 45px;
 }
 .offline__2021_logo {
   background: url(../img/logo-dnavi-01-01.svg) 0 0 no-repeat;
@@ -1516,11 +1521,12 @@
 .error-mes-version {
   font-size: 15px;
   padding: 30px 30px 6px;
+  width: 100vw;
 }
 .btn-update-version {
   background: #266ba8;
   padding: 9px 25px;
-  width: 50%;
+  width: 100%;
   border: none;
   outline: none;
   border-radius: 20px;
@@ -1528,6 +1534,11 @@
   color: #FFFFFF;
   margin-top: 10px;
   font-size: 14px;
+}
+
+#update-warning .btn-wrapper {
+  padding: 0 30px;
+  width: 100vw;
 }
 
 /* OVERRIDE COMMON CSS */

@@ -17,9 +17,9 @@
   "path": "",
   "isApplican": true,
   "link": {
-    "top": "index.html",
+    "top": "CL0020.html",
     "regist": "CL1010.html",
-    "loginUser": "CL1110.html",
+    "loginUser": "index.html",
     "loginTemporary": "CL1210.html",
     "reminder": "CL1310.html",
     "reminderComplete": "CL1320.html",
@@ -88,6 +88,6 @@
     "faqDetail_7": "CL9270.html",
     "faqDetail_8": "CL9280.html",
     "sitemap": "CL9300.html",
-    "beaconPage": "#"
+    "beacon": "smartCheckin.html"
   }
 }

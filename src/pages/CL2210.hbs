@@ -661,6 +661,7 @@
                 Accept: 'application/json'
               },
               success: function (isAsuraStudentRes) {
+
                 fetchStudent().done(function (studentRes) {
                   dumpPostDataForAsura(isAsuraStudentRes.data, studentRes.data);
                   if (forAsura) {

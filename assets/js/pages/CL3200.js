@@ -1,3 +1,5 @@
+var partnerId = globalInfo('partner_id');
+var offlineData;
 _headerUIHandler(logined, guest, null);
 var contractTermId = globalInfo("contract_term_id");
 var studentId = globalInfo('id_' + contractTermId);
@@ -482,8 +484,7 @@ function guest() {
   isLogin = false;
   $('#js-request-login-message').fadeIn();
 }
-
-$(document).ready(function () {
+function onLoad() {
   // if contract term id is 2 add text
   if(contractTermId === 2 || contractTermId === '2') {
     $('.text-top-tabs').append('2020年3月現在の企業情報です。ダイヤモンド就活ナビ2022でのインターンシップ情報掲載や募集要項の掲載をお約束するものではありません。');
@@ -585,17 +586,17 @@ $(document).ready(function () {
           var getDay = moment(item_date.event_date).format('ddd').toUpperCase();
           var getDate = moment(item_date.event_date).format('MM/DD');
           var tagsLi = ' <li class="event-ul-li "' + classLi + '"">' +
-            '   <div class="event-info-box">' +
-            '     <div class="event-loc">' + item.prefecture + '</div>' +
-            '     <div class="event-dateday"><span class="event-date">' + getDate + '</span><span class="event-day">' +
-            getDay + '</span></div>' +
-            '     <div class="event-time">' + getHourMinuteForm + '〜' + getHourMinuteTo + '</div>' +
-            '     <div class="event-ttl">' + item.title + '</div>' +
-            '    </div>' +
-            '   <div class="event-btn-box">' +
-            '     <a href="' + link.eventDetail + '?event_id=' + item.event_id + '" class="btn-small btn-blue">詳細・予約</a>' +
-            '   </div>' +
-            ' </li>';
+              '   <div class="event-info-box">' +
+              '     <div class="event-loc">' + item.prefecture + '</div>' +
+              '     <div class="event-dateday"><span class="event-date">' + getDate + '</span><span class="event-day">' +
+              getDay + '</span></div>' +
+              '     <div class="event-time">' + getHourMinuteForm + '〜' + getHourMinuteTo + '</div>' +
+              '     <div class="event-ttl">' + item.title + '</div>' +
+              '    </div>' +
+              '   <div class="event-btn-box">' +
+              '     <a href="' + link.eventDetail + '?event_id=' + item.event_id + '" class="btn-small btn-blue">詳細・予約</a>' +
+              '   </div>' +
+              ' </li>';
 
           $('#list-company').append(tagsLi);
         }
@@ -604,8 +605,8 @@ $(document).ready(function () {
 
     if (i > 10) {
       var btnShowMore = '<div id="corporateSeminar-show-more" class="event-more-box">' +
-        '  <a href="' + link.eventList + '" class="event-more">more</a>' +
-        '</div>';
+          '  <a href="' + link.eventList + '" class="event-more">more</a>' +
+          '</div>';
       $('#data-dnavi').append(btnShowMore);
     }
   }
@@ -615,31 +616,46 @@ $(document).ready(function () {
   // 企業情報取得
   function companyDataGet() {
     renderCallCount++;
-    $.ajax({
-      url: rootVariables.apiUrl + '/companies/' + companyId,
-      type: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      data: {
-        contract_term_id: contractTermId,
-        partner_id: partnerId
-      },
-      success: function (result) {
+    if (!isOnline()
+        && typeof isApplican !== "undefined"
+        && isApplican) {
+      offlineData.getCompanyFromOfflineData(companyId, function (data) {
+        var result = {data: [data]};
         if (result && result.data && Array.isArray(result.data) && result.data.length > 0) {
+          $('#tabs').remove();
+          $('.companies-disclosure').remove();
           companyDataGetSuccess(result);
           // Get event asura by pre code
           eventAsuraByPrefCode(result.data[0].contract);
-
         } else {
           companyDataGetError();
         }
-
-      },
-      error: function (XMLHttpRequest, textStatus, errorThrown) {
-        companyDataGetError();
-      }
-    });
+      });
+    } else {
+      $.ajax({
+        url: rootVariables.apiUrl + '/companies/' + companyId,
+        type: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        data: {
+          contract_term_id: contractTermId,
+          partner_id: partnerId
+        },
+        success: function (result) {
+          if (result && result.data && Array.isArray(result.data) && result.data.length > 0) {
+            companyDataGetSuccess(result);
+            // Get event asura by pre code
+            eventAsuraByPrefCode(result.data[0].contract);
+          } else {
+            companyDataGetError();
+          }
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+          companyDataGetError();
+        }
+      });
+    }
   }
 
   // 企業情報処理
@@ -653,13 +669,17 @@ $(document).ready(function () {
       // ロゴ挿入
       var logo = (c.company_logo_url !== null && c.company_logo_url.length > 0) ? c.company_logo_url : noimageUrl;
       var mainVisual = (c.company_main_visual_image_url !== null && c.company_main_visual_image_url.length > 0) ? c.company_main_visual_image_url : noimageUrl;
+      if (!isOnline()) {
+        $('.companies-logo-fig .companies-logo-wrapper').remove();
+        $('.companies-detail-main-fig').remove();
+      }
       if (c.is_visible == 1) {
-        $('.companies-logo-fig .companies-logo-wrapper').html('<img src="' + logo + '" class="companies-logo-img" alt="' + c.company_logo_name + '">');
+        $('.companies-logo-fig .companies-logo-wrapper').html('<img src="' + logo + '" class="companies-logo-img" onerror="$(this).parents(\'.companies-logo-wrapper\').remove()" alt="' + c.company_logo_name + '">');
       } else {
         $('.companies-logo-fig .companies-logo-wrapper').hide();
         $('.companies-logo-fig .companies-description').css('position', 'initial').css('margin-left', '0');
       }
-      $('.companies-detail-main-fig').html('<img src="' + mainVisual + '" class="companies-detail-main-img" alt="' + c.company_main_visual_image_name + '">');
+      $('.companies-detail-main-fig').html('<img src="' + mainVisual + '" class="companies-detail-main-img" onerror="this.remove()" alt="' + c.company_main_visual_image_name + '">');
 
       // 企業名挿入
       $('.companies-nm').html(c.company_name);
@@ -717,9 +737,9 @@ $(document).ready(function () {
           classes += ' tag-id-' + id;
         });
         images = images + '<li class="companies-detail-images-ul-li"><a href="' + imageSearchUrl + '?company_id='+ companyId +
-          '" class="companies-detail-images-ul-li-a"><img src="' + c.company_images[i]['image_url'] +
-          '" class="companies-detail-images-img ' + classes + '" alt="' + c.company_images[i]['comment'] +
-          '" /></a></li>';
+            '" class="companies-detail-images-ul-li-a"><img src="' + c.company_images[i]['image_url'] +
+            '" class="companies-detail-images-img ' + classes + '" alt="' + c.company_images[i]['comment'] +
+            '" /></a></li>';
       }
       tags.forEach(function(tag){
         var aElement = $('<a href="#" class="tags tag-clickable"></a>');
@@ -861,7 +881,7 @@ $(document).ready(function () {
                   linkUrl = linkOrWebview(linkUrl);
                 }
                 linkElm = linkElm + '<li class="links-ul-li"><a href="' + linkUrl +
-                  '" class="links-ul-li-a">' + linkData['link' + i + '_title'] + '</a></li>';
+                    '" class="links-ul-li-a">' + linkData['link' + i + '_title'] + '</a></li>';
               }
             }
             $('.links-ul').append(linkElm);
@@ -898,7 +918,7 @@ $(document).ready(function () {
     renderCallCount++;
     $.ajax({
       url: rootVariables.apiUrl + '/disclosures/find_one?contract_term_id=' + contractTermId + '&company_id=' +
-        companyId,
+          companyId,
       type: 'GET',
       headers: {
         'Content-Type': 'application/json'
@@ -1080,7 +1100,7 @@ $(document).ready(function () {
             $('.tab-contents-recruit .' + key).remove();
           }
         } else if (typeof (recruitOutputData[key]) == 'string' || typeof (recruitOutputData[key]) == 'number' ||
-          typeof (recruitOutputData[key]) == 'object') {
+            typeof (recruitOutputData[key]) == 'object') {
           if (recruitOutputData[key] != null) {
             if (key === 'link_url1_title') {
               if (typeof isApplican !== "undefined" && isApplican) {
@@ -1133,9 +1153,9 @@ $(document).ready(function () {
                   }
                   _.forIn(formatedFreeField, function (value, key) {
                     _template += '<tr id="link_url1_url_wrap">' +
-                      '                <th class="w15em line-break">' + value['title'] + '</th>' +
-                      '                <td class="line-break">' + value['content'] + '</td>' +
-                      '           </tr>';
+                        '                <th class="w15em line-break">' + value['title'] + '</th>' +
+                        '                <td class="line-break">' + value['content'] + '</td>' +
+                        '           </tr>';
                   });
                   $('#free-fields').append(_template);
                 }
@@ -1284,7 +1304,7 @@ $(document).ready(function () {
     // NOTE : approve_status='1,2' mean get all internships including waiting for approval.
     $.ajax({
       url: rootVariables.apiUrl + '/internships?partner_id=' + partnerId + '&contract_term_id=' + contractTermId +
-        '&company_id=' + companyId + '&approve_status=1,2',
+          '&company_id=' + companyId + '&approve_status=1,2',
       type: 'GET',
       headers: headers,
       success: function (result) {
@@ -1310,8 +1330,8 @@ $(document).ready(function () {
         // '?company_id=' + companyId + '&internship_id=' + intern[i]['internship_id'] + '#tabArea">' +
         // intern[i]['title'] + '</a></li>';
         internshipTitles = internshipTitles +
-          '<li class="category-list-ul-li"><a href="javascript:void(0)" data-internship-id="' +
-          interns[i]['internship_id'] + '" class="intership-tab-a">' + interns[i]['title'] + '</a></li>';
+            '<li class="category-list-ul-li"><a href="javascript:void(0)" data-internship-id="' +
+            interns[i]['internship_id'] + '" class="intership-tab-a">' + interns[i]['title'] + '</a></li>';
       }
       $('#internship-titles').html(internshipTitles);
     } else {
@@ -1556,7 +1576,15 @@ $(document).ready(function () {
       }
     });
   }
-});
+}
+if (typeof isApplican !== "undefined" && isApplican) {
+  document.addEventListener('deviceready', function () {
+    offlineData = new OfflineData(id, jwt, partnerId);
+    onLoad();
+  });
+} else {
+  $(document).ready(onLoad);
+}
 
 function dumpListCompanyAsura(_datas) {
   $('.companies-event-label-box').append('<span class="companies-event-label companies-event-reservation">企業セミナー予約受付中</span>');
