@@ -6,13 +6,10 @@
     <!--  -->
     <div class="contents-box">
       <article class="article-box">
-        <header class="article-box-header space-for-partner">
-          <h2 class="article-box-header-h2">
-            <span class="article-box-header-h2-jp">企業をさがす</span><br/>
-            <span class="article-box-header-h2-eng">SEARCH</span>
-          </h2>
-        </header>
-        <h3 class="search-header-h3">
+        {{#unless isApplican}}
+        {{> components/pageTitle jpTitle='企業をさがす' enTitle='SEARCH' }}
+        {{/unless}}
+        <h3 class="search-header-h3 app-mt-30">
           <span class="search-header-h3-search">詳細検索</span>
         </h3>
 

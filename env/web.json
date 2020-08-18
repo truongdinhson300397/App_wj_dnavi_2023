@@ -14,7 +14,7 @@
 
   "inAppDomain": "https://www.shukatsu.jp",
 
-  "path": "",
+  "path": "/public/",
   "isApplican": false,
   "link": {
     "top": "/",
@@ -87,6 +87,7 @@
     "faqDetail_6": "/faq/detail_6",
     "faqDetail_7": "/faq/detail_7",
     "faqDetail_8": "/faq/detail_8",
+    "faqDetail_9": "/faq/detail_9",
     "sitemap": "/sitemap"
   }
 }

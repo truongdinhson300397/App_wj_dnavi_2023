@@ -101,7 +101,9 @@ function _checkNetWork() {
   if(!isOnline() && (ableToDisplay || onBeforeLoginTop)) {
     var loginContent = '<div class="error-mes-version"><hr/></div>' +
         '   <p class="error-mes-version">※オフライン時でも、TOPよりご予約済みのイベント情報の一部のみご確認いただけます。</p>' +
-        '   <a href="' + link.top + '?launch_tab=3" class="btn-white btn-default btn-back-top">TOPに戻る</a>'
+        '     <div class="btn-wrapper"> ' +
+        '       <a href="' + link.top + '?launch_tab=3" class="btn-white btn-default btn-back-top">TOPに戻る</a>' +
+        '     </div>'
     $("body").append('<div id="update-warning"> ' +
         ' <div class="update-error">'+
         '    <div class="update-error__header" ' + (isLoggedIn || qrUserData !== false ? '' : 'style="display: none"') + '>' +
@@ -111,7 +113,9 @@ function _checkNetWork() {
         '     <div class="offline__' + contractTerm + '_logo"></div>' +
         '     <p class="error-mes-version">インターネット接続がありません。<br /><br />' +
         '       ダイヤモンド就活ナビにアクセスするにはWi-Fiネットワークかモバイルデータ通信を利用する必要あります。</p>'+
-        '     <button id="retry-connect" class="btn btn-update-version">リトライ</button>' +
+        '     <div class="btn-wrapper"> ' +
+        '       <button id="retry-connect" class="btn btn-update-version">リトライ</button>' +
+        '     </div>' +
               (isLoggedIn ? loginContent : '') +
         '   </div>' +
         ' </div>' +
@@ -434,13 +438,13 @@ function headeFooterApp (isLogin) {
       '     <a href="#" class="app-left-nav-ul-1-li-a-main-menu">企業</a>' +
       '    </li>' +
       '    <li class="app-left-nav-ul-1-li">' +
-      '     <a href="' + link.companyList + '" class="app-left-nav-ul-1-li-a">企業をさがす</a>' +
+      '     <a href="javascript:switchTab(\'' + link.companyList + '\', 3);" class="app-left-nav-ul-1-li-a">企業をさがす</a>' +
       '    </li>' +
       '    <li class="app-left-nav-ul-1-li">' +
-      '     <a href="' + link.disclosure + '" class="app-left-nav-ul-1-li-a">情報公開度ランキング</a>' +
+      '     <a href="javascript:switchTab(\'' + link.disclosure + '\', 3);" class="app-left-nav-ul-1-li-a">情報公開度ランキング</a>' +
       '    </li>' +
       '    <li class="app-left-nav-ul-1-li">' +
-      '     <a href="' + link.companyImage + '" class="app-left-nav-ul-1-li-a">イメージ検索</a>' +
+      '     <a href="javascript:switchTab(\'' + link.companyImage + '\', 3);" class="app-left-nav-ul-1-li-a">イメージ検索</a>' +
       '    </li>' +
       '    </ul>' +
       '   <ul class="app-left-nav-ul-1">' +
@@ -874,3 +878,16 @@ document.addEventListener('deviceready', function () {
     applican.launcher.webview('tutorial.html', {withoutToolbar: true});
   }
 });
+
+function switchTab(pageUrl, tabNumber) {
+    localStorage.setItem('nextPageUrl', pageUrl);
+    location.href = '?launch_tab=' + tabNumber;
+}
+
+function processSwitchTab() {
+  var nextPageUrl = localStorage.getItem('nextPageUrl');
+  if (typeof nextPageUrl !== "undefined" && nextPageUrl !== null) {
+    localStorage.removeItem('nextPageUrl');
+    toLocationHref(nextPageUrl);
+  }
+}
