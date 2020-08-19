@@ -37,7 +37,8 @@ var prefectureIds = globalInfo('prefecture_ids') ? JSON.parse(globalInfo('prefec
 if (typeof isApplican !== "undefined" && isApplican) {
   document.addEventListener('deviceready', function () {
     offlineData = new OfflineData(id, jwt, partnerId);
-
+    // dump header layout
+    _headerUIHandler(logined, guest);
     initPage();
 
     //ASURA
@@ -49,6 +50,9 @@ if (typeof isApplican !== "undefined" && isApplican) {
   });
 } else {
   $(function () {
+    // dump header layout
+    _headerUIHandler(logined, guest);
+
     initPage();
 
     //ASURA
@@ -59,8 +63,6 @@ if (typeof isApplican !== "undefined" && isApplican) {
     }
   });
 }
-// dump header layout
-_headerUIHandler(logined, guest);
 
 function initPage() {
   // hide default block
