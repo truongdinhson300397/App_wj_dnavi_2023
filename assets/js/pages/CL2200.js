@@ -173,17 +173,26 @@ function fetchEvent(query) {
     function fetchErr() {
       _emptyEvent();
     }
-    if (!isOnline()
-        && typeof isApplican !== "undefined"
+    if (typeof isApplican !== "undefined"
         && isApplican) {
-      var eventIdDecoded = +event_id;
-      if (!_.isNumber(eventIdDecoded) || _.isNaN(eventIdDecoded)) {
-        eventIdDecoded = atob(event_id);
-      }
-      offlineData.getEvent(eventIdDecoded, function (data) {
-        var res = {data: data};
-        fetchSuccess(res);
+      applican.connection.getCurrentConnectionType((result) => {
+        if (result === 'UNKNOWN' || result === 'NONE') {
+          var eventIdDecoded = +event_id;
+          if (!_.isNumber(eventIdDecoded) || _.isNaN(eventIdDecoded)) {
+            eventIdDecoded = atob(event_id);
+          }
+          offlineData.getEvent(eventIdDecoded, function (data) {
+            var res = {data: data};
+            fetchSuccess(res);
+          });
+        } else {
+          http.fetchOne(url, query, global.jwt, fetchSuccess, fetchErr, false);
+        }
+        //
+      }, (error) => {
+        http.fetchOne(url, query, global.jwt, fetchSuccess, fetchErr, false);
       });
+
     } else {
       http.fetchOne(url, query, global.jwt, fetchSuccess, fetchErr, false);
     }
