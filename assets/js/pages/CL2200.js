@@ -1,6 +1,10 @@
 var urlHelper = new UrlHelper();
 var ggmapEvent;
-if (isOnline()) {
+if (isOnline()
+    && typeof GMaps !== 'undefined'
+    && "object" === typeof window.google
+    && window.google.maps
+) {
   ggmapEvent = new GoogleMapForEvent();
 } else {
   $('#googlemap').hide();
@@ -81,8 +85,12 @@ function guest() {
 }
 
 function commonAction() {
-  fetchEvent();
-  goToBookDetail();
+  // navigator.onLine is not trust able
+  // https://developer.mozilla.org/en-US/docs/Web/API/NavigatorOnLine/onLine
+  setTimeout(function () {
+    fetchEvent();
+    goToBookDetail();
+  }, 500);
 }
 
 function isLoginedAsura() {
