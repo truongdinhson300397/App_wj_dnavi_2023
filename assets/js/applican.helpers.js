@@ -244,17 +244,32 @@ function SimpleStorageWrapper(simpleStorageInstance) {
         });
     }
 }
+function ConnectionWrapper(connectionInstance) {
+    var connection;
+    if (typeof connectionInstance !== "undefined") {
+        connection = connectionInstance;
+    } else {
+        throw new Error('Missing connection instance!');
+    }
+    this.getCurrentConnectionType = function () {
+        return new Promise(function (resolve, reject) {
+            connection.getCurrentConnectionType(resolve, reject);
+        });
+    }
+}
 function ApplicanWrapper(applicanInstance) {
     if (typeof applicanInstance !== "undefined") {
         this.applican = applicanInstance;
         this.beacon = new BeaconWrapper(this.applican.beacon);
         this.simpleStorage = new SimpleStorageWrapper(this.applican.simpleStorage);
-        this.localNotification = new LocalNotificationWrapper(this.applican.localNotification)
+        this.localNotification = new LocalNotificationWrapper(this.applican.localNotification);
+        this.connection = new ConnectionWrapper(this.applican.connection);
     } else if(typeof applican !== "undefined") {
         this.applican = applican;
         this.beacon = new BeaconWrapper(applican.beacon);
         this.simpleStorage = new SimpleStorageWrapper(applican.simpleStorage);
         this.localNotification = new LocalNotificationWrapper(applican.localNotification);
+        this.connection = new ConnectionWrapper(applican.connection);
     } else {
         throw new Error('Missing applican instance!');
     }
