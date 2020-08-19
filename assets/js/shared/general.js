@@ -96,10 +96,13 @@ function checkVersion () {
   });
 }
 
-function _checkNetWork() {
+function _checkNetWork(skipCheckPage) {
   var qrUserData = getUserDataForQR();
   var isLoggedIn = isUserLoggedIn();
   var notDisplayedPage = ['myPageAppliedEvent', 'eventDetail', 'companyDetail', 'top', 'beacon', 'myPageMycode']
+  if (typeof skipCheckPage === 'boolean' && skipCheckPage === true) {
+    notDisplayedPage = [];
+  }
   var ableToDisplay = _.every(notDisplayedPage, page => !_.includes(location.href, link[page]))
   var onBeforeLoginTop = !isLoggedIn && _.includes(location.href, link.top) // user are in top page, not login and no internet
   if(!isOnline() && (ableToDisplay || onBeforeLoginTop)) {

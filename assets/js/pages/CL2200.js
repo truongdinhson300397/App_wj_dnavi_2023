@@ -319,9 +319,16 @@ function dumpEventData(event) {
   var eventSummary = trimStr(event.summary);
   if (eventSummary) {
     var reLink = new RegExp(/href=(['"])(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})(['"])/gm);
-    eventSummary = eventSummary.replace(reLink, function (match, g1, g2, g3) {
-      return 'href=' + g1 + linkOrWebview(g2) + g3;
-    });
+    if (isOnline()) {
+      eventSummary = eventSummary.replace(reLink, function (match, g1, g2, g3) {
+        return 'href=' + g1 + linkOrWebview(g2) + g3;
+      });
+    } else {
+      eventSummary = eventSummary.replace(reLink, function (match, g1, g2, g3) {
+        return 'href=' + g1 + 'javascript:_checkNetWork(true);' + g3;
+      });
+    }
+
     $('[data-api="event_summary"]').html(eventSummary);
   }else {
     $('[data-api="event_summary"]').parents('dl').hide();
