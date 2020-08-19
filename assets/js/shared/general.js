@@ -96,17 +96,20 @@ function checkVersion () {
   });
 }
 
-function _checkNetWork() {
+function _checkNetWork(skipCheckPage) {
   var qrUserData = getUserDataForQR();
   var isLoggedIn = isUserLoggedIn();
   var notDisplayedPage = ['myPageAppliedEvent', 'eventDetail', 'companyDetail', 'top', 'beacon', 'myPageMycode']
+  if (typeof skipCheckPage === 'boolean' && skipCheckPage === true) {
+    notDisplayedPage = [];
+  }
   var ableToDisplay = _.every(notDisplayedPage, page => !_.includes(location.href, link[page]))
   var onBeforeLoginTop = !isLoggedIn && _.includes(location.href, link.top) // user are in top page, not login and no internet
   if(!isOnline() && (ableToDisplay || onBeforeLoginTop)) {
     var loginContent = '<div class="error-mes-version"><hr/></div>' +
         '   <p class="error-mes-version">※オフライン時でも、TOPよりご予約済みのイベント情報の一部のみご確認いただけます。</p>' +
         '     <div class="btn-wrapper"> ' +
-        '       <a href="' + link.top + '?launch_tab=3" class="btn-white btn-default btn-back-top">TOPに戻る</a>' +
+        '       <a href="' + link.top + '?launch_tab=1" class="btn-white btn-default btn-back-top">TOPに戻る</a>' +
         '     </div>'
     $("body").append('<div id="update-warning"> ' +
         ' <div class="update-error">'+
@@ -380,7 +383,7 @@ function headeFooterApp (isLogin) {
   var listPage = [
     'top', 'companyList', 'disclosure', 'companyImage',
     'eventList', 'internshipList', 'contents', 'myPageTop',
-    'faqList', 'kiyaku2022', 'privacy'
+    'faqList'
   ]
   var displayList = _.some(listPage, page => _.includes(location.href, link[page]))
   var navIcon = displayList
@@ -418,7 +421,7 @@ function headeFooterApp (isLogin) {
   var leftNavOuter='<nav id="leftNav" class="app-left-nav">' +
       ' <div class="app-left-nav-logo-box">' +
       '   <div class="app-left-nav-logo">' +
-      '     <a href="' + link.top + '?launch_tab=3" class="app-left-nav-logo-a app-header-logo-img header-logo-a">' +
+      '     <a href="' + link.top + '?launch_tab=1" class="app-left-nav-logo-a app-header-logo-img header-logo-a">' +
       '     </a>' +
       '    </div>' +
       '    <div class="app-left-nav-icon">' +
@@ -459,7 +462,7 @@ function headeFooterApp (isLogin) {
       '     <a href="javascript:removeFirstOpen()" class="app-left-nav-ul-1-li-a">チュートリアル</a>' +
       '    </li>' +
       '    <li class="app-left-nav-ul-1-li app-left-nav-gray">' +
-      '     <a href="' + link.faqList + '" class="app-left-nav-ul-1-li-a">FAQ</a>' +
+      '     <a href="' + link.faqList + '" class="app-left-nav-ul-1-li-a">FAQ・お問い合わせ</a>' +
       '    </li>' +
       '    <li class="app-left-nav-ul-1-li app-left-nav-gray">' +
       '     <a href="' + (globalInfo('contract_term_id') == 1 ? link.kiyaku : link.kiyaku2022) + '" class="app-left-nav-ul-1-li-a">利用規約</a>' +
@@ -533,7 +536,7 @@ function _headerUIHandler(nextFn, errorNextFn, isRequireLogin, onlyForGuest) {
   // If user is logged in, redirect back to TOP page
   if(onlyForGuest && isUserLoggedIn()) {
     if (typeof isApplican !== "undefined" && isApplican) {
-      return toLocationHref(link.top + '?launch_tab=3');
+      return toLocationHref(link.top + '?launch_tab=1');
     } else {
       return toLocationHref(link.top);
     }

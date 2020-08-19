@@ -38,6 +38,14 @@ if (typeof displayWebOnly === "undefined") {
         return content;
     }
 }
+
+function replaceHrefToWebview(content) {
+    var reLink = new RegExp(/href=(['"])(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})(['"])/gm);
+    return content.replace(reLink, function (match, g1, g2, g3) {
+        return 'href=' + g1 + linkOrWebview(g2) + g3;
+    });
+}
+// Beacon
 var watchId;
 function beaconError(error){
     var dump = "Error\n";
