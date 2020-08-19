@@ -1051,6 +1051,9 @@ function dumpNotice(notices) {
   formatedNotices.forEach(function (notice) {
     var _noticeLi = null;
     if (_.isNull(notice.link_url)) {
+      if (typeof isApplican !== "undefined" && isApplican) {
+        notice.contents = replaceHrefToWebview(notice.contents);
+      }
       _noticeLi = '<li class="drop-shadow-box mgnt30-50 info-2-box-body line-break">' + notice.contents + '</li>';
     } else {
       var linkUrl = notice.link_url;
