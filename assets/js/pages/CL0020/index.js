@@ -46,10 +46,6 @@ if (typeof isApplican !== "undefined" && isApplican) {
     } else {
       $('#corporateSeminar-wrapper').hide();
     }
-
-    // dump header layout
-    _headerUIHandler(logined, guest);
-
   });
 } else {
   $(function () {
@@ -61,11 +57,10 @@ if (typeof isApplican !== "undefined" && isApplican) {
     } else {
       $('#corporateSeminar-wrapper').hide();
     }
-
-    // dump header layout
-    _headerUIHandler(logined, guest);
   });
 }
+// dump header layout
+_headerUIHandler(logined, guest);
 
 function initPage() {
   // hide default block
