@@ -28,14 +28,30 @@ function EventProcessor() {
     this.getObjectData = function (key) {
         return this.getData(key).then((resp) => {
             return new Promise((resolve, reject) => {
-                resolve(!_.isEmpty(resp) ? JSON.parse(resp + '') : {});
+                if (!_.isEmpty(resp)) {
+                    if (typeof resp === 'string') {
+                        resolve(JSON.parse(resp+''));
+                    } else {
+                        resolve(resp);
+                    }
+                } else {
+                    resolve({});
+                }
             });
         });
     }
     this.getArraytData = function (key) {
         return this.getData(key).then((resp) => {
             return new Promise((resolve, reject) => {
-                resolve(!_.isEmpty(resp) ? JSON.parse(resp + '') : []);
+                if (!_.isEmpty(resp)) {
+                    if (typeof resp === 'string') {
+                        resolve(JSON.parse(resp+''));
+                    } else {
+                        resolve(resp);
+                    }
+                } else {
+                    resolve([]);
+                }
             });
         });
     }
@@ -55,7 +71,7 @@ function EventProcessor() {
         //     status: beaconInfoStatus
         // }
         // if receive incorrect accuracy, do nothing
-        if (beaconInfo.accuracy === -1 || beaconInfo > minimumAccuracy) return false;
+        if (beaconInfo.accuracy === -1 || beaconInfo.accuracy > minimumAccuracy) return false;
         //
         const oldBeaconInfo = await this.getObjectData(storeKey);
         if (oldBeaconInfo !== null) {
@@ -122,20 +138,29 @@ function EventProcessor() {
             });
         });
     }
-    this.callApi = async function (userId, eventDateId) {
-        return await $.ajax({
-            url: rootVariables.apiUrl + '/smart_checkin/checkin',
-            dataType: 'json',
-            type: 'POST',
-            headers: {
-                contentType: 'application/json',
-                accept: 'application/json'
-            },
-            data: {
-                student_id: userId,
-                event_date_id: eventDateId,
-            }
-        })
+    this.callApi = function (userId, eventDateId) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                url: rootVariables.apiUrl + '/smart_checkin/checkin',
+                dataType: 'json',
+                type: 'POST',
+                headers: {
+                    contentType: 'application/json',
+                    accept: 'application/json'
+                },
+                data: {
+                    student_id: userId,
+                    event_date_id: eventDateId,
+                },
+                success: function (data) {
+                    resolve(data);
+                },
+                error: function (jqXhr, textStatus, errorThrown) {
+                    reject(jqXhr);
+                    // What's next?
+                }
+            })
+        });
     }
     this.preRegister = async function (beaconInfo) {
         const storeKey = this.generateStoreKey(beaconInfo);
@@ -159,20 +184,20 @@ function EventProcessor() {
         console.log('register ', beaconInfo.uuid, beaconInfo.major);
         const oldBeaconInfo = await this.getObjectData(storeKey);
         await this.saveData(storeKey, {...oldBeaconInfo, status: beaconInfoStatus.PROCESSING, started_at: getCurrentTimestamp()});
-        await this.register(beaconInfo, async () => {
+        await this.register(oldBeaconInfo, async () => {
             await this.saveData(storeKey, {...oldBeaconInfo, status: beaconInfoStatus.DONE});
         });
     };
     this.register = async function (beaconInfo, callbackDone) {
         this.callApi(beaconInfo.user_id, beaconInfo.major).then(async (resp) => {
             if (resp.message === 'success') {
-                this.displayLocalNotification(getCurrentTimestamp() + 5 * 1000, false, `${resp.event_title}の参加受付を行いました。入場後に下記のOKをタップしてください。`, NotificationType.ALREADY_PARTICIPATED)
+                this.displayLocalNotification(getCurrentTimestamp() / 1000 + 5, false, `${resp.event_title}の参加受付を行いました。入場後に下記のOKをタップしてください。`, NotificationType.ALREADY_PARTICIPATED)
             }
             if (typeof callbackDone === "function") {
                 await callbackDone({...beaconInfo, status: beaconInfoStatus.DONE});
             }
         }).catch((err) => {
-            this.displayLocalNotification(getCurrentTimestamp() + 5 * 1000, false, `イベント参加処理に失敗しました。この通知が表示された場合は、お近くのスタッフにお知らせください。`)
+            this.displayLocalNotification(getCurrentTimestamp() / 1000 + 5, false, `イベント参加処理に失敗しました。この通知が表示された場合は、お近くのスタッフにお知らせください。`)
         });
     }
     this.process = function () {
@@ -196,8 +221,8 @@ function EventProcessor() {
                         const beaconInfo = {
                             uuid: uuid
                         };
-                        return applicanWrapper.beacon.watchBeacon(beaconInfo, async (beaconInfo) => {
-                            await this.preRegister(beaconInfo);
+                        return applicanWrapper.beacon.watchBeacon(beaconInfo, async (beaconInfoResult) => {
+                            await this.preRegister(beaconInfoResult);
                         }, () => {
                             console.log('success to watch');
                         });
