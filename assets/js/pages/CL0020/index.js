@@ -63,8 +63,6 @@ if (typeof isApplican !== "undefined" && isApplican) {
     }
   });
 }
-// dump header layout
-_headerUIHandler(logined, guest);
 
 function initPage() {
   // hide default block
