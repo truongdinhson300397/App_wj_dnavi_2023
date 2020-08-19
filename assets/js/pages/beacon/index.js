@@ -21,7 +21,7 @@ function __getCurentUser() {
     },
     success: function (data) {
       __generateUserQRCode(data);
-      $('.step1').append(__generateUserInfo(data));
+      $('.step1 .drop-shadow-box').append(__generateUserInfo(data));
     },
     error: function (XMLHttpRequest, textStatus, errorThrown) {
       console.log(errorThrown);
@@ -37,7 +37,7 @@ function __getCurentUserOffline() {
     var data = {};
     data.data = userData;
     __generateUserQRCode(data);
-    $('.step1').append(__generateUserInfo(data));
+    $('.step1 .drop-shadow-box').append(__generateUserInfo(data));
   } else {
     console.log(errorThrown);
     console.log(textStatus);

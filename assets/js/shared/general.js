@@ -380,7 +380,7 @@ function headeFooterApp (isLogin) {
   var listPage = [
     'top', 'companyList', 'disclosure', 'companyImage',
     'eventList', 'internshipList', 'contents', 'myPageTop',
-    'faqList', 'kiyaku2022', 'privacy'
+    'faqList'
   ]
   var displayList = _.some(listPage, page => _.includes(location.href, link[page]))
   var navIcon = displayList
@@ -459,7 +459,7 @@ function headeFooterApp (isLogin) {
       '     <a href="javascript:removeFirstOpen()" class="app-left-nav-ul-1-li-a">チュートリアル</a>' +
       '    </li>' +
       '    <li class="app-left-nav-ul-1-li app-left-nav-gray">' +
-      '     <a href="' + link.faqList + '" class="app-left-nav-ul-1-li-a">FAQ</a>' +
+      '     <a href="' + link.faqList + '" class="app-left-nav-ul-1-li-a">FAQ・お問い合わせ</a>' +
       '    </li>' +
       '    <li class="app-left-nav-ul-1-li app-left-nav-gray">' +
       '     <a href="' + (globalInfo('contract_term_id') == 1 ? link.kiyaku : link.kiyaku2022) + '" class="app-left-nav-ul-1-li-a">利用規約</a>' +
