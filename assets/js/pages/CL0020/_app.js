@@ -14,12 +14,12 @@ function dumpReservedEvents(events) {
   }
   var _formatedEvents = _formatEvents(_.cloneDeep(events));
 
-  var eventLimit = 4;
-  var counter = 1;
+  var eventLimit = 3;
+  var counter = 0;
 
   _formatedEvents.forEach(function (event) {
     event.event_dates.forEach(function (eventDate) {
-      if (counter > eventLimit) return;
+      if (counter >= eventLimit) return;
       counter++;
       var _eventDate = moment(eventDate.event_date, 'YYYY-MM-DD');
       var _eventTimeFrom = moment(eventDate.event_time_from, 'HH:mm:ss');

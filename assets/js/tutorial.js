@@ -66,6 +66,6 @@ $('#btn-skip, .target-skip').click(function () {
     setContractTerm(2022, 2);
     const openFromMenu = localStorage.getItem('openTutorialFromMenu');
     if (openFromMenu !== '1') {
-        toLocationHref(link.loginUser + '?launch_tab=3');
+        toLocationHref(link.loginUser + '?launch_tab=1');
     }
 });

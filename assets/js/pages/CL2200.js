@@ -1,6 +1,10 @@
 var urlHelper = new UrlHelper();
 var ggmapEvent;
-if (isOnline()) {
+if (isOnline()
+    && typeof GMaps !== 'undefined'
+    && "object" === typeof window.google
+    && window.google.maps
+) {
   ggmapEvent = new GoogleMapForEvent();
 } else {
   $('#googlemap').hide();
@@ -81,8 +85,12 @@ function guest() {
 }
 
 function commonAction() {
-  fetchEvent();
-  goToBookDetail();
+  // navigator.onLine is not trust able
+  // https://developer.mozilla.org/en-US/docs/Web/API/NavigatorOnLine/onLine
+  setTimeout(function () {
+    fetchEvent();
+    goToBookDetail();
+  }, 500);
 }
 
 function isLoginedAsura() {
@@ -165,17 +173,26 @@ function fetchEvent(query) {
     function fetchErr() {
       _emptyEvent();
     }
-    if (!isOnline()
-        && typeof isApplican !== "undefined"
+    if (typeof isApplican !== "undefined"
         && isApplican) {
-      var eventIdDecoded = +event_id;
-      if (!_.isNumber(eventIdDecoded) || _.isNaN(eventIdDecoded)) {
-        eventIdDecoded = atob(event_id);
-      }
-      offlineData.getEvent(eventIdDecoded, function (data) {
-        var res = {data: data};
-        fetchSuccess(res);
+      applican.connection.getCurrentConnectionType((result) => {
+        if (result === 'UNKNOWN' || result === 'NONE') {
+          var eventIdDecoded = +event_id;
+          if (!_.isNumber(eventIdDecoded) || _.isNaN(eventIdDecoded)) {
+            eventIdDecoded = atob(event_id);
+          }
+          offlineData.getEvent(eventIdDecoded, function (data) {
+            var res = {data: data};
+            fetchSuccess(res);
+          });
+        } else {
+          http.fetchOne(url, query, global.jwt, fetchSuccess, fetchErr, false);
+        }
+        //
+      }, (error) => {
+        http.fetchOne(url, query, global.jwt, fetchSuccess, fetchErr, false);
       });
+
     } else {
       http.fetchOne(url, query, global.jwt, fetchSuccess, fetchErr, false);
     }
@@ -319,9 +336,16 @@ function dumpEventData(event) {
   var eventSummary = trimStr(event.summary);
   if (eventSummary) {
     var reLink = new RegExp(/href=(['"])(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})(['"])/gm);
-    eventSummary = eventSummary.replace(reLink, function (match, g1, g2, g3) {
-      return 'href=' + g1 + linkOrWebview(g2) + g3;
-    });
+    if (isOnline()) {
+      eventSummary = eventSummary.replace(reLink, function (match, g1, g2, g3) {
+        return 'href=' + g1 + linkOrWebview(g2) + g3;
+      });
+    } else {
+      eventSummary = eventSummary.replace(reLink, function (match, g1, g2, g3) {
+        return 'href=' + g1 + 'javascript:_checkNetWork(true);' + g3;
+      });
+    }
+
     $('[data-api="event_summary"]').html(eventSummary);
   }else {
     $('[data-api="event_summary"]').parents('dl').hide();
