@@ -210,7 +210,11 @@
           .confirm-mode .label-columns .label-default.selected + .yes + .no {
             display: none !important;
           }
-
+          @media (min-width: 769px) {
+              .terms-dl-dd dd {
+                  padding: 0 0 0 10px;
+              }
+          }
         </style>
     {{/content}}
     {{#content "main"}}
@@ -1624,16 +1628,22 @@
                     </dd>
                     <p class="terms-dl-dt">
                         第８条（権利義務の譲渡禁止）
+                    </p>
+                    <p dir="ltr">
                         利用者は、当社の事前の承諾なく、本アプリに関する利用者としての地位および本規約に基づく権利もしくは義務を第三者へ譲渡し、または担保に供することはできません。
                     </p>
+                    <br />
                     <p class="terms-dl-dt">
                         第9条（規約の変更）
+                    </p>
+                    <p dir="ltr">
                         当社は本利用規約を随時変更することができるものとします。この場合、利用者には以後変更後の利用規約が適用されます。
                     </p>
+                    <br />
                     <p class="terms-dl-dt">
                         第10条（存続規定・分離規定）
                     </p>
-                    <dd>
+                    <dd class="terms-dl-dd">
                         <p dir="ltr">
                             1. 本規約は、利用者が本アプリの利用等を終了した場合も、本アプリの利用等に関する事項について適用または準用されるものとします。
                         </p>
@@ -1641,7 +1651,7 @@
                             2. 法令や確定判決等により本規約の一部が無効と判断された場合も、本規約のその他の規定は有効に存続するものとします。
                         </p>
                     </dd>
-                    <p dir="ltr">
+                    <p class="terms-dl-dt" dir="ltr">
                         第11条（準拠法・専属合意管轄裁判所）
                     </p>
                     <p dir="ltr">
