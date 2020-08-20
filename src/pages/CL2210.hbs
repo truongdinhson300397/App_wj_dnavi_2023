@@ -288,7 +288,19 @@
             },
             data: postData,
             success: function (_res) {
-              toLocationHref('{{link.myPageAppliedEvent}}');
+              if (typeof isApplican !== "undefined" && isApplican) {
+                  var offlineData = new OfflineData(data.id, data.jwt, partnerId);
+                  offlineData.prepareData()
+                          .then()
+                          .catch(function (err) {
+                              console.log('failed to prepare offline data: ', err);
+                          })
+                          .finally(() => {
+                              toLocationHref('{{link.myPageAppliedEvent}}');
+                          });
+              } else {
+                  toLocationHref('{{link.myPageAppliedEvent}}');
+              }
             },
             error: function (jqXhr, textStatus, errorThrown) {
               console.log(errorThrown);
