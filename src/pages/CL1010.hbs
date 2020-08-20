@@ -210,7 +210,11 @@
           .confirm-mode .label-columns .label-default.selected + .yes + .no {
             display: none !important;
           }
-
+          @media (min-width: 769px) {
+              .terms-dl-dd dd {
+                  padding: 0 0 0 10px;
+              }
+          }
         </style>
     {{/content}}
     {{#content "main"}}
