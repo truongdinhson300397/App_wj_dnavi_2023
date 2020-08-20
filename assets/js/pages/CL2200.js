@@ -295,6 +295,10 @@ function _refactorEventForAsura(_eventAsura) {
   return eventRefactored;
 }
 
+$('#retry-connect').on('click', function () {
+  window.location.reload();
+});
+
 function openWebView(url) {
   if (isOnline()) {
     applican.launcher.webview(url);
