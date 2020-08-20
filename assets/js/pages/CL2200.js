@@ -295,7 +295,7 @@ function _refactorEventForAsura(_eventAsura) {
   return eventRefactored;
 }
 
-$('#retry-connect').on('click', function () {
+$(document).on('click', '#retry-connect', function () {
   window.location.reload();
 });
 
