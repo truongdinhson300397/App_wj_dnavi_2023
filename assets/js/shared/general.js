@@ -472,7 +472,7 @@ function headeFooterApp (isLogin) {
       '    </li>' +
            logout +
       '    </ul>' +
-      '    <div class="app-left-nav-ul-1-li-version">バージョン1.1.4</div>' +
+      '    <div class="app-left-nav-ul-1-li-version"></div>' +
       ' </ul>' +
       '</nav>';
 
