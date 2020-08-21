@@ -24,8 +24,8 @@ var term = [
 
 // set version
 var version = {
-  "android":"1.1.5",
-  "ios":"1.1.5",
+  "android":"1.1.6",
+  "ios":"1.1.6",
   "version_contract_term": 2
 };
 
