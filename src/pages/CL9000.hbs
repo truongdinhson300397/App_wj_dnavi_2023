@@ -24,7 +24,6 @@
                         <div class="form-preface">ログアウトしました。</div>
 
                         <div class="form-btn-box">
-                            <a id="logoutButton" href="{{link.top}}" class="btn-default btn-blue w100-50prc">トップへ戻る</a>
                         </div>
                     </div>
                 </div>
@@ -49,10 +48,16 @@
             var jwt = globalInfo('jwt_' + contractTermId);
             _headerUIHandler(null, null, null, false);
             var $logoutButton = $('#logoutButton');
-            if (typeof isApplican !== "undefined" && isApplican) {
-                $logoutButton.attr('href', link.top + '?launch_tab=1');
-            } else {
-                $logoutButton.attr('href', link.top);
+            function goToTopPage() {
+                setTimeout(function () {
+                    if (typeof isApplican !== "undefined" && isApplican) {
+                        removeGlobalInfo('returnUrl', {path: '/'});
+                        switchTab(link.top, 1);
+                    } else {
+                        removeGlobalInfo('returnUrl', {path: '/'});
+                        $logoutButton.attr('href', link.top);
+                    }
+                }, 500);
             }
             function logOut() {
                 $.ajax({
@@ -81,6 +86,11 @@
                             removeGlobalInfo("is_registered");
                             removeUserDataForQR();
                             offlineData.cleanData();
+                            if (typeof isApplican !== "undefined" && isApplican) {
+                                $('.form-btn-box').append('<a id="logoutButton" href="javascript:goToTopPage();" class="btn-default btn-blue w100-50prc">トップへ戻る</a>');
+                            } else {
+                                $('.form-btn-box').append('<a id="logoutButton" href="' + link.top + '" class="btn-default btn-blue w100-50prc">トップへ戻る</a>');
+                            }
                         }
 
                         dumpGuestHeader();

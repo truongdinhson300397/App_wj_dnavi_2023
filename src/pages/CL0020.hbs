@@ -185,14 +185,6 @@
     <script src="{{path}}js/pages/CL0020/_web.js"></script>
     {{/if}}
     <script>
-      if (typeof isApplican !== "undefined" && isApplican) {
-          var offlineData = new OfflineData(data.id, data.jwt, partnerId);
-          offlineData.prepareData()
-                  .then()
-                  .catch(function (err) {
-                      console.log('failed to prepare offline data: ', err);
-                  });
-      }
       $(document).ready(function () {
         var currentPartner = window.location.href.split(/([0-9]{4})/g).slice(-1)[0].split('/')[1];
         var contractTermId = globalInfo('contract_term_id');
