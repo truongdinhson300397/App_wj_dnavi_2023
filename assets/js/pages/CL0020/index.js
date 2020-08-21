@@ -34,6 +34,59 @@ var contractTermId = _.isEmpty(globalInfo('contract_term_id')) ? __contractTerm 
 var webDomain = rootVariables.apiUrl;
 var arrE2rProId = [];
 var prefectureIds = globalInfo('prefecture_ids') ? JSON.parse(globalInfo('prefecture_ids')) : [];
+
+function checkVersionAgain() {
+  // check version again
+  // TODO: short-time fix, need to fix later
+  $.ajax({
+    url: rootVariables.apiUrl  + '/check_version',
+    dataType: 'json',
+    type: 'POST',
+    headers:{
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+    data: JSON.stringify(version),
+    success: function (res) {
+      setTimeout(function () {
+        var $versionBlock = $('.app-left-nav-ul-1-li-version');
+        if(res.status === 200) {
+          var data = res.data;
+          if(window.applican.device.platform === 'iOS') {
+            //app store
+            $versionBlock.html('<span>バージョン　' + version.ios + '</span>');
+            if(data.ios_update === true) {
+              $("body").append('<div id="update-warning"> ' +
+                  ' <div class="update-error">'+
+                  '   <p class="error-mes">新しいバージョンがあります。新しいバージョンを更新するには、「はい」を押してください。!</p>'+
+                  '   <a href="itms-apps://itunes.apple.com/app/id1524423441" class="btn btn-update-version">はい</a>' +
+                  ' </div>' +
+                  '</div>');
+            }
+          } else {
+            //ch play
+            $versionBlock.html('<span>バージョン　' + version.android + '</span>');
+            if(data.android_update === true) {
+              $("body").append('<div id="update-warning"> ' +
+                  ' <div class="update-error">'+
+                  '   <p class="error-mes">新しいバージョンがあります。新しいバージョンを更新するには、「はい」を押してください。!</p>'+
+                  '   <a href="https://play.google.com/store/apps/details?id=jp.co.diamondhr.shukatsu.navi2022.stg&hl=ja" class="btn btn-update-version">はい</a>' +
+                  ' </div>' +
+                  '</div>');
+            }
+          }
+        }
+      }, 2000);
+    },
+    error: function (error, jqXhr, textStatus, errorThrown) {
+      //maintenance
+      // window.location.href = 'https://dev.admin.dia-navi.cloud3rs.io/';
+      // window.location.href = 'https://stg.admin.dia-navi.cloud3rs.io/';
+      // window.location.href = 'https://admin.shukatsu.jp/';
+    }
+  });
+}
+
 if (typeof isApplican !== "undefined" && isApplican) {
   document.addEventListener('deviceready', function () {
     offlineData = new OfflineData(id, jwt, partnerId);
@@ -45,6 +98,7 @@ if (typeof isApplican !== "undefined" && isApplican) {
     // dump header layout
     _headerUIHandler(logined, guest);
     initPage();
+    checkVersionAgain();
 
     //ASURA
     if (parseInt(global.partner_id) !== 0 && !_.isUndefined(global.partner_id) && global.partner_id !== '') {
@@ -59,6 +113,7 @@ if (typeof isApplican !== "undefined" && isApplican) {
     _headerUIHandler(logined, guest);
 
     initPage();
+    checkVersionAgain();
 
     //ASURA
     if (parseInt(global.partner_id) !== 0 && !_.isUndefined(global.partner_id) && global.partner_id !== '') {
