@@ -441,13 +441,13 @@ function headeFooterApp (isLogin) {
       '     <a href="#" class="app-left-nav-ul-1-li-a-main-menu">企業</a>' +
       '    </li>' +
       '    <li class="app-left-nav-ul-1-li">' +
-      '     <a href="javascript:switchTab(\'' + link.companyList + '\', 3);" class="app-left-nav-ul-1-li-a">企業をさがす</a>' +
+      '     <a href="javascript:switchTab(\'' + link.companyList + '\', 1);" class="app-left-nav-ul-1-li-a">企業をさがす</a>' +
       '    </li>' +
       '    <li class="app-left-nav-ul-1-li">' +
-      '     <a href="javascript:switchTab(\'' + link.disclosure + '\', 3);" class="app-left-nav-ul-1-li-a">情報公開度ランキング</a>' +
+      '     <a href="javascript:switchTab(\'' + link.disclosure + '\', 1);" class="app-left-nav-ul-1-li-a">情報公開度ランキング</a>' +
       '    </li>' +
       '    <li class="app-left-nav-ul-1-li">' +
-      '     <a href="javascript:switchTab(\'' + link.companyImage + '\', 3);" class="app-left-nav-ul-1-li-a">イメージ検索</a>' +
+      '     <a href="javascript:switchTab(\'' + link.companyImage + '\', 1);" class="app-left-nav-ul-1-li-a">イメージ検索</a>' +
       '    </li>' +
       '    </ul>' +
       '   <ul class="app-left-nav-ul-1">' +
