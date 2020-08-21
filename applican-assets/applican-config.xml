@@ -16,7 +16,7 @@
 
 	<property name="NATIVE_TAB_BAR">true</property>
 	<property name="NATIVE_TAB_COUNT">5</property>
-	<property name="NATIVE_TAB_DEFAULT_URL">index.html</property>
+	<property name="NATIVE_TAB_DEFAULT_URL">index.html?first_open=true</property>
 	<property name="NATIVE_TAB_AUTO_RELOAD1">true</property>
 	<property name="NATIVE_TAB_AUTO_RELOAD2">true</property>
 	<property name="NATIVE_TAB_AUTO_RELOAD3">true</property>

@@ -520,6 +520,11 @@ function OfflineData(userId, jwt, partnerId) {
         });
     }
     this.prepareData = () => {
+        if (typeof userId === 'undefined'
+            || typeof jwt === 'undefined'
+            || typeof partnerId === 'undefined') {
+            return console.error('Missing data to store offline data');
+        }
         return this.getListForAsura()
             .then(this.getBookedEvents)
             .then(this.getCompanies)

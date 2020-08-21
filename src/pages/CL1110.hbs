@@ -128,8 +128,17 @@
                 if (!results[2]) return '';
                 return decodeURIComponent(results[2].replace(/\+/g, ' '));
             }
+            if (!_.isEmpty(getParameterByName('first_open'))) {
+                removeGlobalInfo('returnUrl', { path: '/'});
+            }
             _headerUIHandler(null, null, false, true);
             $(document).ready(function () {
+                if (isUserLoggedIn()) {
+                    setTimeout(function () {
+                        location.href = 'CL0020.html?launch_tab=1';
+                    }, 1000);
+                    // location.href = 'CL0020.html?launch_tab=1';
+                }
                 var userDataTemp, loginTermTemp;
                 // ログインボタン押下処理
                 $('#login-btn').on('click', function () {
@@ -273,10 +282,12 @@
                         }
                         saveUserData(data, loginTerm);
                         var returnUrl = globalInfo('returnUrl') || getParameterByName('returnUrl');
-
+                        if (returnUrl == link.logout) {
+                            returnUrl = null;
+                        }
                         if (!returnUrl) {
                             // 仮
-                            toLocationHref('{{link.top}}?launch_tab=1');
+                            location.href = '{{link.top}}';
                         } else {
                             removeGlobalInfo('returnUrl', { path: '/' });
                             var isOpenNewTab = globalInfo('isOpenNewTab');

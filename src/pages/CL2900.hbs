@@ -151,6 +151,11 @@
                   success: function (_res) {
                       if (typeof isApplican !== "undefined" && isApplican) {
                           offlineData.saveBookedEvents(_res);
+                          offlineData.getCompanies(_res)
+                                  .then()
+                                  .catch(function (err) {
+                                      console.log('failed to get companies', err);
+                                  });
                       }
                       if (_res.data && _res.data.length > 0) {
                           dnaviEvents = __refactorEvent(_res.data);

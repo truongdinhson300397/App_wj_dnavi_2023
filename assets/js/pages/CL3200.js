@@ -621,7 +621,7 @@ function onLoad() {
         && isApplican) {
       offlineData.getCompanyFromOfflineData(companyId, function (data) {
         var result = {data: [data]};
-        if (result && result.data && Array.isArray(result.data) && result.data.length > 0) {
+        if (data && result && result.data && Array.isArray(result.data) && result.data.length > 0) {
           $('#tabs').remove();
           $('.companies-disclosure').remove();
           companyDataGetSuccess(result);
