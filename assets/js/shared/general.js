@@ -64,7 +64,7 @@ function checkVersion () {
               $("body").append('<div id="update-warning"> ' +
                   ' <div class="update-error">'+
                   '   <p class="error-mes">新しいバージョンがあります。新しいバージョンを更新するには、「はい」を押してください。!</p>'+
-                  '   <a href="itms-apps://itunes.apple.com/app/id13400-07962" class="btn btn-update-version">はい</a>' +
+                  '   <a href="itms-apps://itunes.apple.com/app/id1524423441" class="btn btn-update-version">はい</a>' +
                   ' </div>' +
                   '</div>');
             }
