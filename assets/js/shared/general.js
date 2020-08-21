@@ -75,7 +75,7 @@ function checkVersion () {
               $("body").append('<div id="update-warning"> ' +
                   ' <div class="update-error">'+
                   '   <p class="error-mes">新しいバージョンがあります。新しいバージョンを更新するには、「はい」を押してください。!</p>'+
-                  '   <a href="https://play.google.com/store/apps/details?id=jp.co.diamondhr.shukatsu.navi2022.stg&hl=ja" class="btn btn-update-version">はい</a>' +
+                  '   <a href="https://play.google.com/store/apps/details?id=jp.co.diamondhr.shukatsu.navi2022" class="btn btn-update-version">はい</a>' +
                   ' </div>' +
                   '</div>');
             }
