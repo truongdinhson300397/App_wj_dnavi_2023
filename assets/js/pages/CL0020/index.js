@@ -37,6 +37,11 @@ var prefectureIds = globalInfo('prefecture_ids') ? JSON.parse(globalInfo('prefec
 if (typeof isApplican !== "undefined" && isApplican) {
   document.addEventListener('deviceready', function () {
     offlineData = new OfflineData(id, jwt, partnerId);
+    offlineData.prepareData()
+        .then()
+        .catch(function (err) {
+          console.log('failed to prepare offline data: ', err);
+        });
     // dump header layout
     _headerUIHandler(logined, guest);
     initPage();
