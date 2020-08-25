@@ -53,6 +53,13 @@ const commonAppOptions = {
       }
       return stringOrEmpty(a) + stringOrEmpty(b) + stringOrEmpty(c);
     });
+    Handlebars.registerHelper("openBrowser", function (link) {
+      const data = require("./env/applican.json");
+      if (data.isApplican) {
+        return new Handlebars.SafeString('javascript:applican.launcher.urlScheme(\'' + link +'\');');
+      }
+      return new Handlebars.SafeString(link);
+    });
     Handlebars.registerHelper("linkOrBrowser", function(link) {
       const data = require("./env/applican.json");
       if (data.isApplican) {
