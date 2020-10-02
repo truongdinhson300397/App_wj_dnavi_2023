@@ -971,8 +971,8 @@ function onLoad() {
           $info.parents('.js-disclosure-section').removeClass('hidden');
 
         } else if (typeof (disc[key]) == 'string' || typeof (disc[key]) == 'number' || typeof (disc[key]) == 'object') {
-          if (_.includes(percentField, key) && parseFloat(parseFloat(disc[key]).toFixed(1))) {
-            $info.html(parseFloat(parseFloat(disc[key]).toFixed(1)));
+          if (_.includes(percentField, key) && !_.isNull(disc[key])) {
+            $info.html(parseFloat(disc[key]).toFixed(1));
             $info.parents('[class*=wrap]').fadeIn();
             $info.parents('.js-disclosure-section').removeClass('hidden');
           } else if (disc[key] !== '' && disc[key] != null && disc[key] != undefined) {
@@ -1077,8 +1077,8 @@ function onLoad() {
             $('.tab-contents-recruit .recruitment_wrap').remove();
           }
         } else if (_.includes(DECIMAL_FIELDS, key)) {
-          var _value = parseFloat(parseFloat(recruitOutputData[key]).toFixed(1));
-          if (_value) {
+          var _value = parseFloat(recruitOutputData[key]).toFixed(1);
+          if (!_.isNull(_value)) {
             $('.tab-contents-recruit .' + key).html(_value);
           } else {
             $('.tab-contents-recruit .' + key + '_wrap').remove();
