@@ -87,7 +87,8 @@
         }
 
         .intro-qr-img {
-          max-width: 150px;
+            padding-top: 5px;
+            max-width: 210px;
         }
       }
 
@@ -174,7 +175,7 @@
               </table>
             </div>
             <figure id="qrScreen" class="intro-qr-fig intro-border-top">
-              <img data-api="qr-data" src="" class="intro-qr-img" alt=""/>
+<!--              <img data-api="qr-data" src="" class="intro-qr-img" alt=""/>-->
             </figure>
             <!--  -->
             <div id="privacyPolicy">
@@ -214,6 +215,9 @@
     </div>
   {{/content}}
   {{#content "footer-scripts" mode="append"}}
-    <script src="{{path}}js/pages/CL2300.js"></script>
+      <script src="{{path}}js/qrcode.js"></script>
+      <script src="{{path}}js/qrcode_SJIS.js"></script>
+      <script src="{{path}}js/qrcode_UTF8.js"></script>
+      <script src="{{path}}js/pages/CL2300.js"></script>
   {{/content}}
 {{/extend}}
