@@ -1077,8 +1077,8 @@ function onLoad() {
             $('.tab-contents-recruit .recruitment_wrap').remove();
           }
         } else if (_.includes(DECIMAL_FIELDS, key)) {
-          var _value = parseFloat(recruitOutputData[key]).toFixed(1);
-          if (!_.isNull(_value)) {
+          if (!_.isNull(recruitOutputData[key])) {
+            var _value = parseFloat(recruitOutputData[key]).toFixed(1);
             $('.tab-contents-recruit .' + key).html(_value);
           } else {
             $('.tab-contents-recruit .' + key + '_wrap').remove();
