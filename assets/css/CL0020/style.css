@@ -147,7 +147,7 @@
     margin-top: 20px;
     text-align: center;
     flex-basis: 48.2%;
-    padding: 0 4px 0 4px;
+    padding: 0 10px 0 10px;
 }
 
 .live-seminar-ul-li.upper-row {
@@ -178,6 +178,7 @@
 
 .live-seminar-day {
     margin-left: 5px;
+    margin-top: 5px;
     border-radius: 50%;
     display: inline-block;
     width: 3em;

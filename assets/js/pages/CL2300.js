@@ -115,14 +115,17 @@ function fetchCurrentUser(query) {
 }
 
 function generateQRCode(user) {
-  var data = {
-    'id': user.id,
-    'email': user.email1,
-    'code': 'QRCodeDiamond',
-    'name': user.family_name + user.given_name
-  };
-  var _url = 'https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=' + JSON.stringify(data);
-  $('[data-api="qr-data"]').attr('src', _url);
+  var qrElem = $('#qrScreen');
+
+  var rawName = user.family_name + user.given_name;
+  var userInfo = '{"id":' + parseInt(user.id) + ',"email":"' + user.login_id + '","code":"QRCodeDiamond","name":"' + rawName + '"}';
+  var typeNumber = 0;
+  var errorCorrectionLevel = 'L';
+  var qr = qrcode(typeNumber, errorCorrectionLevel);
+  qr.addData(userInfo);
+  qr.make();
+  qrElem.append(qr.createImgTag(7));
+  qrElem.find('img').addClass('intro-qr-img').removeAttr('height');
 }
 
 function filterBookedEvent(event) {
