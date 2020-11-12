@@ -41,10 +41,11 @@ function _fetchUpdateEmail(_postData) {
                 var show_errors = '';
                 _.forEach(errors, function (error) {
                     _.forEach(error, function (err) {
-                        show_errors += '<p>' + err + '</p>';
+                        show_errors += '<p class="tall">' + err + '</p>';
                     });
+                    show_errors += '</br>'
                 });
-                $('#div-err').html(show_errors);
+                $('#div-err').html(show_errors.replace(/<\/br>*$/, ""));
                 scrollTop();
             }
 

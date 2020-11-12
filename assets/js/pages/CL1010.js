@@ -43,8 +43,8 @@ function _dumpPrefecture(prefectureGrs) {
     if (attrs && Array.isArray(attrs)) {
       attrs.forEach(function (prefec) {
         var _item = '<label class="label-default w8em">' +
-          '<input type="checkbox" class="input-check postdata" name="working_place[]" value="'+prefec.prefecture_id+'">' +
-          '<span class="checkbox-span"></span> <span class="text">'+prefec.prefecture+'</span>' +
+          '<input type="checkbox" class="input-check postdata" name="working_place[]" value="' + prefec.prefecture_id + '">' +
+          '<span class="checkbox-span"></span> <span class="text">' + prefec.prefecture + '</span>' +
           '</label>';
         $checkBoxBody.append(_item);
       });
@@ -178,9 +178,7 @@ $(document).ready(function () {
     $('#regist-cancel-btn').on('click', function (e) {
       var isSure = confirm("登録せずにトップページに戻ります。よろしいでしょうか。");
       if(isSure) {
-        $('#regist-fonfirm .to-confirm').remove();
-      } else {
-        e.preventDefault();
+        window.location.href = `/${contractTerm}`;
       }
     });
 // 登録確認ボタン（同意）
@@ -1707,7 +1705,6 @@ $(document).ready(function () {
 
         var num = null;
         var normalradioKeys = ['is_company_receive', 'is_diamond_human', 'is_valuable_info', 'is_diamond_online','is_woman_receive',  'is_same_address', 'mobile_flg1','mobile_flg2', 'mobile_flg3' ];
-        var normalCheckBoxKeys = ['working_place'];
         // データを挿入
         for (key in temporaryUserInfoArry) {
           if (_.includes(normalradioKeys, key)) {
@@ -1727,13 +1724,7 @@ $(document).ready(function () {
             num = temporaryUserInfoArry[_key];
             // radio button
             $(document).find('[name="' + key + '"]').val([num]);
-          } else if(_.includes(normalCheckBoxKeys, key)) {
-            num = temporaryUserInfoArry[key];
-            if(!_.isEmpty(num) && typeof(num) == 'string' ){
-              num = num.split(',');
-            }
-            $(document).find('[name="' + key + '[]"]').val(num);
-          }else {
+          } else {
             $(document).find('[name="' + key + '"]').val(temporaryUserInfoArry[key]);
           }
         }

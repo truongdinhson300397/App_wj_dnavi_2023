@@ -20,6 +20,10 @@
         font-size: 12px;
         color: #d00;
       }
+      .note--bold{
+          font-weight: bold;
+          margin-top: 10px;
+      }
     </style>
   {{/content}}
   {{#content "main"}}
@@ -53,13 +57,17 @@
                 『エントリーが完了するまでブラウザは閉じずにお待ちください。』<br />
                 エントリーが完了すると、マイページのエントリー済企業の一覧に移動します。<br />
               </div>
+              <div class="w100-50prc note note--bold">
+                    一部のオンラインイベントでは、予約者情報が参加企業に提供されることがあります。詳細は各イベント主催者および、イベント予約画面でご確認ください。
+              </div>
             </div>
 
             <div class="preface-outer-box">
               <div class="preface-box">
                 <!-- <h4 class="preface-h4">イベントご予約時、ご登録情報から以下の情報が企業に送信されます。</h4> -->
-                <div class="preface-emphasis talc">イベントご予約時、ご登録情報から以下の情報が企業に送信されます。</div>
+                <div class="preface-emphasis talc">イベントご予約時、ご登録情報から以下の情報がイベント主催者に送信されます。</div>
                 <ul class="list-disc-ul block-centering mgnt20-30 mgnb20-30">
+                  <li class="list-disc-ul-li">ID</li>
                   <li class="list-disc-ul-li">姓名</li>
                   <li class="list-disc-ul-li">メールアドレス</li>
                   <li class="list-disc-ul-li">現住所</li>
@@ -67,6 +75,7 @@
                   <li class="list-disc-ul-li">休暇中の連絡先</li>
                   <li class="list-disc-ul-li">学校情報</li>
                   <li class="list-disc-ul-li">保有資格</li>
+                  <li class="list-disc-ul-li">イベント予約参加履歴</li>
                 </ul>
 
                 登録情報は企業への送信の前に確認・変更が可能です。<br/>
