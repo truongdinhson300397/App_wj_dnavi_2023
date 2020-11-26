@@ -19,7 +19,7 @@ function EventProcessor() {
         ALREADY_PARTICIPATED: 2,
         HOLD_DATA: 3,
     };
-    const minimumAccuracy = 10;
+    const minimumAccuracy = 1;
     const throttleRequestTime = 60; // seconds
     const applicanWrapper = new ApplicanWrapper();
     this.getData = function (key) {
