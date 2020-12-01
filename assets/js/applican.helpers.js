@@ -68,7 +68,7 @@ function watchError(error) {
 function watchBeacon() {
     console.log('watch beacon');
     // 監視するビーコンの情報
-    var beaconInfo = { uuid: '00000000-0000-0000-0000-000000000000'};
+    var beaconInfo = { uuid: '11111111-1111-1111-1111-111111111111'};
     // ビーコンの監視の開始
     watchId = applican.beacon.watchBeacon(beaconInfo, watchBeaconResult, watchBeaconSuccess, watchError);
     return watchId;
