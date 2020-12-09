@@ -354,7 +354,7 @@ function fetchMainVisual(query) {
   query = query || null;
   // get default query
   if (_.isEmpty(query)) {
-    query = {contract_term_id: global.contract_term_id, partner_id: global.partner_id, per_page: 4, page: 1};
+    query = {contract_term_id: global.contract_term_id, partner_id: global.partner_id, per_page: 5, page: 1};
   }
   // format query to string
   query = urlHelper.objectToQueryString(query);
