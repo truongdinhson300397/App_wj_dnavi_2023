@@ -309,6 +309,16 @@ function LocalStorageWrapper() {
             }
         });
     };
+    this.clear = () => {
+        return new Promise((resolve, reject) => {
+            try {
+                localStorage.clear();
+                resolve();
+            } catch (err) {
+                reject(err);
+            }
+        });
+    };
 }
 function OfflineData(userId, jwt, partnerId) {
     const applicanWrapper = {
@@ -544,7 +554,7 @@ function OfflineData(userId, jwt, partnerId) {
             });
     };
     this.cleanData = () => {
-      applicanWrapper
+      return applicanWrapper
           .simpleStorage.remove('list_for_asura')
           .then(applicanWrapper.simpleStorage.remove('booked_events'))
           .then(applicanWrapper.simpleStorage.remove('companies'))

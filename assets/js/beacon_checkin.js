@@ -19,8 +19,10 @@ function EventProcessor() {
         ALREADY_PARTICIPATED: 2,
         HOLD_DATA: 3,
     };
-    const minimumAccuracy = 10;
+    const minimumAccuracy = 1;
     const throttleRequestTime = 60; // seconds
+    const detectTimeLimit = 30; // seconds
+    const delayTimeToShowMessage = 1; // seconds
     const applicanWrapper = new ApplicanWrapper();
     this.getData = function (key) {
         return applicanWrapper.simpleStorage.get(key);
@@ -75,17 +77,16 @@ function EventProcessor() {
         //
         const oldBeaconInfo = await this.getObjectData(storeKey);
         if (oldBeaconInfo !== null) {
-            const newLastCall = new Date(oldBeaconInfo.last_call + throttleRequestTime * 1000).getTime();
+            // const newLastCall = new Date(oldBeaconInfo.last_call + throttleRequestTime * 1000).getTime();
             // if status is done or just call, nothing to do
             if (oldBeaconInfo.status === beaconInfoStatus.DONE
                 || (
                     oldBeaconInfo.status === beaconInfoStatus.PROCESSING
-                    && oldBeaconInfo.started_at + 30 * 1000 > getCurrentTimestamp())
-                || newLastCall > getCurrentTimestamp()) return false;
-            await this.saveData(storeKey, {...beaconInfo, last_call: getCurrentTimestamp(), status: beaconInfo.status || beaconInfoStatus.JUST_INIT});
+                    && oldBeaconInfo.started_at + throttleRequestTime * 1000 > getCurrentTimestamp())) return false;
+            await this.saveData(storeKey, {...oldBeaconInfo, ...beaconInfo, detected_at: getCurrentTimestamp(), status: beaconInfo.status || beaconInfoStatus.JUST_INIT});
             return true;
         }
-        await this.saveData(storeKey, {...beaconInfo, last_call: getCurrentTimestamp(), status: beaconInfoStatus.JUST_INIT});
+        await this.saveData(storeKey, {...beaconInfo, detected_at: getCurrentTimestamp(), status: beaconInfoStatus.JUST_INIT});
         return true;
     }
     this.displayLocalNotification = function (fireDateUnixTime, repeat, message, alertId, url) {
@@ -128,9 +129,10 @@ function EventProcessor() {
     }
     this.processOfflineData = function () {
         this.getArraytData('offlineInfo').then((offlineInfo) => {
-            _.forEach(offlineInfo, (beaconInfo) => {
+            _.forEach(offlineInfo, async (beaconInfo) => {
                 if (beaconInfo.status === beaconInfoStatus.JUST_INIT) {
-                    this.register(beaconInfo, async (newBeaconInfo) => {
+                    console.log('offline data', beaconInfo);
+                    await this.register({...beaconInfo, user_id: id}, async (newBeaconInfo) => {
                         console.log(newBeaconInfo);
                         await this.updateSingleOfflineInfo(newBeaconInfo);
                     });
@@ -166,38 +168,56 @@ function EventProcessor() {
         const storeKey = this.generateStoreKey(beaconInfo);
         const checkResult = await this.checkBeaconInfo(beaconInfo);
         if (!checkResult) return;
+        let oldBeaconInfo = await this.getObjectData(storeKey);
         // display when user didn't login
         if (!isUserLoggedIn()) {
-            this.displayLocalNotification(getCurrentTimestamp() / 1000 + 5, false, '本イベントはスマートチェックインに対応しています。ログインすると、アプリでの参加受付が可能です。 ', NotificationType.NOT_LOGGED_IN);
+            if (typeof oldBeaconInfo.last_detected_at !== 'undefined'
+                && oldBeaconInfo.detected_at - oldBeaconInfo.last_detected_at < detectTimeLimit * 1000) {
+                await this.saveData(storeKey, {...oldBeaconInfo, ...beaconInfo, last_detected_at: getCurrentTimestamp()})
+                return;
+            }
+            this.displayLocalNotification(getCurrentTimestamp() / 1000 + delayTimeToShowMessage, false, '本イベントはスマートチェックインに対応しています。ログインすると、アプリでの参加受付が可能です。 ', NotificationType.NOT_LOGGED_IN);
             await this.saveBeaconInfoForRegister(beaconInfo);
+            await this.saveData(storeKey, {...oldBeaconInfo, ...beaconInfo, last_detected_at: getCurrentTimestamp()})
             return;
-        } else {
-            // if user logged in, save it to simple store
-            await this.saveData(storeKey, {...beaconInfo, user_id: id});
         }
+        // if user logged in, save it to simple store
+        await this.saveData(storeKey, {...oldBeaconInfo, ...beaconInfo, user_id: id});
         // display local notification when offline
         if (!isOnline()) {
-            this.displayLocalNotification(getCurrentTimestamp() / 1000 + 5, false,'参加受付は、完了しませんでした。電波状況の良い場所で再度アプリを起動してください。', NotificationType.HOLD_DATA);
+            if (typeof oldBeaconInfo.last_show_offline_message_at !== 'undefined') {
+                return;
+            }
+            await this.saveData(storeKey, {...oldBeaconInfo, ...beaconInfo, last_show_offline_message_at: getCurrentTimestamp()})
+            this.displayLocalNotification(getCurrentTimestamp() / 1000 + delayTimeToShowMessage, false,'参加受付は、完了しませんでした。電波状況の良い場所で再度アプリを起動してください。', NotificationType.HOLD_DATA);
             await this.saveBeaconInfoForRegister({...beaconInfo, user_id: id});
             return;
         }
+        // if device is online, remove last_show_offline_message_at key
+        await this.saveData(storeKey, {...oldBeaconInfo, ...beaconInfo, last_show_offline_message_at: undefined})
+        oldBeaconInfo = await this.getObjectData(storeKey);
+        // check throttle request time
+        const newLastCall = new Date(oldBeaconInfo.last_call + throttleRequestTime * 1000).getTime();
+        if (typeof oldBeaconInfo.last_call !== 'undefined' && newLastCall > getCurrentTimestamp()) {
+            return;
+        }
         console.log('register ', beaconInfo.uuid, beaconInfo.major);
-        const oldBeaconInfo = await this.getObjectData(storeKey);
-        await this.saveData(storeKey, {...oldBeaconInfo, status: beaconInfoStatus.PROCESSING, started_at: getCurrentTimestamp()});
-        await this.register(oldBeaconInfo, async () => {
-            await this.saveData(storeKey, {...oldBeaconInfo, status: beaconInfoStatus.DONE});
+        await this.saveData(storeKey, {...oldBeaconInfo, last_call: getCurrentTimestamp(), status: beaconInfoStatus.PROCESSING, started_at: getCurrentTimestamp()});
+        await this.register({...oldBeaconInfo, user_id: id}, async () => {
+            await this.saveData(storeKey, {...oldBeaconInfo, ...beaconInfo, status: beaconInfoStatus.DONE});
         });
     };
     this.register = async function (beaconInfo, callbackDone) {
         this.callApi(beaconInfo.user_id, beaconInfo.major).then(async (resp) => {
+            console.log('content message', resp);
             if (resp.message === 'success') {
-                this.displayLocalNotification(getCurrentTimestamp() / 1000 + 5, false, `${resp.event_title}の参加受付を行いました。入場後に下記のOKをタップしてください。`, NotificationType.ALREADY_PARTICIPATED)
+                this.displayLocalNotification(getCurrentTimestamp() / 1000 + delayTimeToShowMessage, false, `${resp.event_title}の参加受付を行いました。入場後に下記のOKをタップしてください。`, NotificationType.ALREADY_PARTICIPATED)
             }
             if (typeof callbackDone === "function") {
                 await callbackDone({...beaconInfo, status: beaconInfoStatus.DONE});
             }
         }).catch((err) => {
-            this.displayLocalNotification(getCurrentTimestamp() / 1000 + 5, false, `イベント参加処理に失敗しました。この通知が表示された場合は、お近くのスタッフにお知らせください。`)
+            this.displayLocalNotification(getCurrentTimestamp() / 1000 + delayTimeToShowMessage, false, `イベント参加処理に失敗しました。この通知が表示された場合は、お近くのスタッフにお知らせください。`)
         });
     }
     this.process = function () {
@@ -222,6 +242,7 @@ function EventProcessor() {
                             uuid: uuid
                         };
                         return applicanWrapper.beacon.watchBeacon(beaconInfo, async (beaconInfoResult) => {
+                            console.log('detected', beaconInfoResult, getCurrentTimestamp());
                             await this.preRegister(beaconInfoResult);
                         }, () => {
                             console.log('success to watch');
@@ -240,5 +261,10 @@ document.addEventListener('deviceready', function () {
     if(isOnline() && isUserLoggedIn()) {
         eventProcessor.processOfflineData();
     }
+    window.addEventListener('online', function () {
+        if(isOnline() && isUserLoggedIn()) {
+            eventProcessor.processOfflineData();
+        }
+    });
     eventProcessor.process();
 });

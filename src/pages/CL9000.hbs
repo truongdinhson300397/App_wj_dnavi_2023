@@ -87,6 +87,8 @@
                             removeUserDataForQR();
                             offlineData.cleanData();
                             if (typeof isApplican !== "undefined" && isApplican) {
+                                const applicanWrapper = new ApplicanWrapper();
+                                applicanWrapper.simpleStorage.clear();
                                 $('.form-btn-box').append('<a id="logoutButton" href="javascript:goToTopPage();" class="btn-default btn-blue w100-50prc">トップへ戻る</a>');
                             } else {
                                 $('.form-btn-box').append('<a id="logoutButton" href="' + link.top + '" class="btn-default btn-blue w100-50prc">トップへ戻る</a>');
