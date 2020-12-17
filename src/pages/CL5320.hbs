@@ -56,7 +56,7 @@
               </table>
               <div class="singon-btn-box">
                 <a href="{{link.contact}}?is_back=true" class="btn-default singon-btn-flex btn-gray btn-first">戻る</a>
-                <a href="#" class="btn-default singon-btn-flex btn-blue" onclick="__letMeContact(event)">送信</a>
+                <button id="let_me_contact" class="btn-default singon-btn-flex btn-blue" onclick="__letMeContact(event)">送信</button>
               </div>
             </div>
           </section>
@@ -64,107 +64,108 @@
       </div>
     {{/content}}
     {{#content "footer-scripts" mode="append"}}
-        <script>
-          _headerUIHandler(null, null, null);
-          var REQUIRED = ['full_name', 'login_id', 'university', 'department', 'email', 'type', 'phone', 'contents'];
+    <script>
+      _headerUIHandler(null, null, null);
+      var REQUIRED = ['full_name', 'login_id', 'university', 'department', 'email', 'type', 'phone', 'contents'];
 
-          $(function () {
-            clearText();
-            if (_.isUndefined(localStorage['family_name'])) {
-              toLocationHref("{{link.contact}}");
+      $(function () {
+        clearText();
+        if (_.isUndefined(localStorage['family_name'])) {
+          toLocationHref("{{link.contact}}");
+        }
+
+        var formData = _.map(REQUIRED, function (_form) {
+          if (_form === 'full_name') {
+            return {
+              name: _form,
+              value: localStorage['family_name'] + ' ' + localStorage['given_name']
+            };
+          } else if (_form === 'type') {
+            return {
+              name: _form,
+              value: JSON.parse(localStorage['type']).selectValue
+            };
+          } else if (_form === 'phone') {
+            return {
+              name: _form,
+              value: localStorage['phone1'] + '-' + localStorage['phone2'] + '-' + localStorage['phone3']
+            };
+          } else {
+            return {
+              name: _form,
+              value: localStorage[_form]
+            };
+          }
+        });
+
+        setTimeout(function () {
+          loadForm(formData);
+        });
+      });
+
+      function loadForm(_formData) {
+        _.forEach(_formData, function (_form) {
+          $('#' + _form.name).text(_form.value);
+        });
+      }
+
+      function clearText() {
+        _.forEach(REQUIRED, function (_form) {
+          $('#' + _form).text('');
+        });
+      }
+
+      function __letMeContact(e) {
+        e.preventDefault();
+        $('#let_me_contact').prop('disabled', true).css('cursor', 'not-allowed');
+        var REQUIRED = ['family_name', 'given_name', 'login_id', 'university', 'department', 'email', 'type', 'phone', 'contents'];
+        var paramToServer = {};
+        _.forEach(REQUIRED, function (_key) {
+          if (!_.isEmpty(localStorage[_key]) || _key === 'phone') {
+            if (_key === 'type') {
+              paramToServer.type = JSON.parse(localStorage['type']).selectKey.toString();
+            } else if (_key === 'phone') {
+              paramToServer.phone =localStorage['phone1'] + '-' + localStorage['phone2'] + '-' + localStorage['phone3']
+            } else {
+              paramToServer[_key] = localStorage[_key];
             }
-
-            var formData = _.map(REQUIRED, function (_form) {
-              if (_form === 'full_name') {
-                return {
-                  name: _form,
-                  value: localStorage['family_name'] + ' ' + localStorage['given_name']
-                };
-              } else if (_form === 'type') {
-                return {
-                  name: _form,
-                  value: JSON.parse(localStorage['type']).selectValue
-                };
-              } else if (_form === 'phone') {
-                return {
-                  name: _form,
-                  value: localStorage['phone1'] + '-' + localStorage['phone2'] + '-' + localStorage['phone3']
-                };
-              } else {
-                return {
-                  name: _form,
-                  value: localStorage[_form]
-                };
-              }
-            });
-
-            setTimeout(function () {
-              loadForm(formData);
-            });
-          });
-
-          function loadForm(_formData) {
-            _.forEach(_formData, function (_form) {
-              $('#' + _form.name).text(_form.value);
-            });
           }
+        });
 
-          function clearText() {
-            _.forEach(REQUIRED, function (_form) {
-              $('#' + _form).text('');
-            });
-          }
+        var contractTermId = globalInfo("contract_term_id");
+        var userId = globalInfo('id_' + contractTermId);
+        var token = globalInfo('jwt_' + contractTermId);
 
-          function __letMeContact(e) {
-            e.preventDefault();
-            var REQUIRED = ['family_name', 'given_name', 'login_id', 'university', 'department', 'email', 'type', 'phone', 'contents'];
-            var paramToServer = {};
-            _.forEach(REQUIRED, function (_key) {
-              if (!_.isEmpty(localStorage[_key]) || _key === 'phone') {
-                if (_key === 'type') {
-                  paramToServer.type = JSON.parse(localStorage['type']).selectKey.toString();
-                } else if (_key === 'phone') {
-                  paramToServer.phone =localStorage['phone1'] + '-' + localStorage['phone2'] + '-' + localStorage['phone3']
-                } else {
-                  paramToServer[_key] = localStorage[_key];
-                }
-              }
-            });
-
-            var contractTermId = globalInfo("contract_term_id");
-            var userId = globalInfo('id_' + contractTermId);
-            var token = globalInfo('jwt_' + contractTermId);
-
-            // Send contract_term_id
-            paramToServer.contract_term_id = contractTermId;
-            if (typeof isApplican !== "undefined" && isApplican) {
-                paramToServer.is_applican = true;
+        // Send contract_term_id
+        paramToServer.contract_term_id = contractTermId;
+        if (typeof isApplican !== "undefined" && isApplican) {
+            paramToServer.is_applican = true;
+        }
+        $.ajax({
+          url: rootVariables.apiUrl + '/students/contact',
+          dataType: 'json',
+          type: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ' + token
+          },
+          data: JSON.stringify(paramToServer),
+          success: function () {
+            var contactFormKeyListStr = localStorage['contactFormKeyList'];
+            if (!_.isEmpty(contactFormKeyListStr)) {
+                var contactFormKeyList = JSON.parse(localStorage['contactFormKeyList']);
+                _.forEach(contactFormKeyList, function (item) {
+                   localStorage.removeItem(item);
+                });
             }
-            $.ajax({
-              url: rootVariables.apiUrl + '/students/contact',
-              dataType: 'json',
-              type: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-                'Authorization': 'Bearer ' + token
-              },
-              data: JSON.stringify(paramToServer),
-              success: function () {
-                var contactFormKeyListStr = localStorage['contactFormKeyList'];
-                if (!_.isEmpty(contactFormKeyListStr)) {
-                    var contactFormKeyList = JSON.parse(localStorage['contactFormKeyList']);
-                    _.forEach(contactFormKeyList, function (item) {
-                       localStorage.removeItem(item);
-                    });
-                }
-                toLocationHref("{{link.contactComplete}}");
-              },
-              error: function (jqXhr, textStatus, errorThrown) {
-                console.log(errorThrown);
-              }
-            });
+            toLocationHref("{{link.contactComplete}}");
+          },
+          error: function (jqXhr, textStatus, errorThrown) {
+            console.log(errorThrown);
           }
-        </script>
+        });
+      }
+    </script>
     {{/content}}
 {{/extend}}
