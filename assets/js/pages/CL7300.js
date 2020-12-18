@@ -1117,9 +1117,11 @@ $(document).ready(function () {
     if ($('#is_same_address').prop('checked') == true) {
       $('#home_postcode').val($('#postcode').val());
       $('#home_prefecture_id').val($('#prefecture_id').val());
-      $('#home_address_line1').val($('#city_name').val());
+      $('#home_address_line1').val($('#address_line1').val());
       $('#home_address_line2').val($('#address_line2').val());
     }
+
+    $('#home_postcode').val() == $('#postcode').val() && $('#home_prefecture_id').val() == $('#prefecture_id').val() ? $('#is_same_address').val('true') : $('#is_same_address').val('false');
 
     // 卒業年月、入社希望年月挿入
     var graduationMonth = '0' + $('#graduation_month').val();
@@ -1146,7 +1148,7 @@ $(document).ready(function () {
       postData['mobile_flg3'] = null;
     }
 
-    // set null home_address_line1 & home_address_line2
+    // set null home_address_line1 & home_address_line2 & home_tel & tel
     var homeAddressLine1 =  $('#home_address_line1').val();
     var homeAddressLine2 =  $('#home_address_line2').val();
     if(homeAddressLine1.length === 0) {
@@ -1154,6 +1156,12 @@ $(document).ready(function () {
     }
     if(homeAddressLine2.length === 0) {
       postData['home_address_line2'] = null;
+    }
+    if($('#home_tel1').val() == '' && $('#home_tel2').val() == '' && $('#home_tel3').val() == '') {
+      postData['home_tel'] = null;
+    }
+    if($('#tel1').val() == '' && $('#tel2').val() == '' && $('#tel3').val() == '') {
+      postData['tel'] = null;
     }
 
     var addressLine2 =  $('#address_line2').val();
