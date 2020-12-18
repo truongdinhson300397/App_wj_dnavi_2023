@@ -13,7 +13,7 @@ function renderFooter() {
         '<div class="footer-nav-outer">'+
           '<div class="footer-nav">'+
           '<ul class="footer-nav-ul">'+
-              '<li class="footer-nav-ul-li"><a href="http://www.diamondhr.co.jp/">運営会社</a></li>'+
+              '<li class="footer-nav-ul-li"><a href="https://www.diamondhr.co.jp/">運営会社</a></li>'+
               '<li class="footer-nav-ul-li"><a href="' + link.kiyaku + '">利用規約</a></li>'+
               '<li class="footer-nav-ul-li"><a href="' + link.privacy + '">プライバシーポリシー</a></li>'+
               '<li class="footer-nav-ul-li"><a href="' + link.sitemap + '">サイトマップ</a></li>'+
