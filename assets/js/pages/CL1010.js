@@ -213,6 +213,8 @@ $(document).ready(function () {
       $('#home_zip1,#home_zip2,#home_prefecture_name,#home_city_name,#home_address_line1').removeClass('error');
       $("[name='mobile_flg3']").prop('checked', false);
       if ($('#is_same_address').prop('checked') == true) {
+          $('#is_same_address').val('true');
+          $('#is_same_address').attr('checked', 'checked');
         $('#home_address input').val('');
 
         // Reassign value of mobile_flg3
@@ -222,6 +224,10 @@ $(document).ready(function () {
 
         $('#home_zip1,#home_zip2,#home_prefecture_name,#home_city_name,#home_address_line1').removeClass('require');
       } else {
+          $('#is_same_address').val('false');
+          $('#is_same_address').removeAttr('checked');
+          $('#home_prefecture_name').val('');
+          $('#home_city_name').val('');
         $('#home_zip1,#home_zip2,#home_prefecture_name,#home_city_name,#home_address_line1').addClass('require');
       }
     }
