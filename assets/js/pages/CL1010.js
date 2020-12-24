@@ -213,6 +213,8 @@ $(document).ready(function () {
       $('#home_zip1,#home_zip2,#home_prefecture_name,#home_city_name,#home_address_line1').removeClass('error');
       $("[name='mobile_flg3']").prop('checked', false);
       if ($('#is_same_address').prop('checked') == true) {
+          $('#is_same_address').val('true');
+          $('#is_same_address').attr('checked', 'checked');
         $('#home_address input').val('');
 
         // Reassign value of mobile_flg3
@@ -222,6 +224,10 @@ $(document).ready(function () {
 
         $('#home_zip1,#home_zip2,#home_prefecture_name,#home_city_name,#home_address_line1').removeClass('require');
       } else {
+          $('#is_same_address').val('false');
+          $('#is_same_address').removeAttr('checked');
+          $('#home_prefecture_name').val('');
+          $('#home_city_name').val('');
         $('#home_zip1,#home_zip2,#home_prefecture_name,#home_city_name,#home_address_line1').addClass('require');
       }
     }
@@ -1464,7 +1470,11 @@ $(document).ready(function () {
       if ($('#is_same_address').prop('checked') == true) {
         $('#home_postcode').val($('#postcode').val());
         $('#home_prefecture_id').val($('#prefecture_id').val());
+        $('#home_address_line1').val($('#address_line1').val());
+        $('#home_address_line2').val($('#address_line2').val());
       }
+
+      $('#home_postcode').val() == $('#postcode').val() && $('#home_prefecture_id').val() == $('#prefecture_id').val() ? $('#is_same_address').val('true') : $('#is_same_address').val('false');
 
       // 卒業年月、入社希望年月挿入
       var graduationMonth = '0' + $('#graduation_month').val();
@@ -1488,8 +1498,26 @@ $(document).ready(function () {
       if(isTemporaryMode && $("#email2").val().length === 0) {
         postData.email2 = "";
       }
-      if (typeof isApplican !== "undefined" && isApplican) {
-          postData.is_applican = true;
+
+      // set null home_address_line1 & home_address_line2 & home_tel & tel
+      var homeAddressLine1 =  $('#home_address_line1').val();
+      var homeAddressLine2 =  $('#home_address_line2').val();
+      if(homeAddressLine1.length === 0) {
+        postData['home_address_line1'] = null;
+      }
+      if(homeAddressLine2.length === 0) {
+        postData['home_address_line2'] = null;
+      }
+      if($('#home_tel1').val() == '' && $('#home_tel2').val() == '' && $('#home_tel3').val() == '') {
+        postData['home_tel'] = null;
+      }
+      if($('#tel1').val() == '' && $('#tel2').val() == '' && $('#tel3').val() == '') {
+        postData['tel'] = null;
+      }
+
+      var addressLine2 =  $('#address_line2').val();
+      if(addressLine2.length === 0) {
+        postData['address_line2'] = null;
       }
 
       postData = JSON.stringify(postData);

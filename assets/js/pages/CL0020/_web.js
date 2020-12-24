@@ -62,7 +62,7 @@ function dumpSpareBox(spareBoxes) {
       '                <span class="article-box-header-h2-jp">' + box.title + '</span>' +
       '              </h2>' +
       '            </header>' +
-      '            <div class="article-box-body spare-box spare-box-horizontal">' +
+      '            <div class="article-box-body spare-box">' +
       _image +
       '             <p class="line-break"> ' + _contents + '</p>' +
       '            </div>' +

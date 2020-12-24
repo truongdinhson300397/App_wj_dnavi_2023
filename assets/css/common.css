@@ -1367,11 +1367,16 @@ address {
   padding: 0 15px;
   border-radius: 1.3em;
   display: block;
+  border-width: 1px;
   font-size: 1.5rem;
   /*font-weight: bold;*/
   height: 2em;
   line-height: 2em;
   vertical-align: middle;
+}
+
+#let_me_contact {
+  border-color: #ffffff;
 }
 
 .btn-default:before,
