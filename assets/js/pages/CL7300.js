@@ -1426,6 +1426,8 @@ $(document).ready(function () {
 
     checkFlagAndOnChange();
 
+    departmentSearch();
+    sectionSearch();
   }
 
   // 会員情報を取得

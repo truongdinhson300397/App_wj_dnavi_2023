@@ -1827,6 +1827,8 @@ $(document).ready(function () {
 
         checkFlagAndOnChange();
 
+        departmentSearch();
+        sectionSearch();
       }
     }
   }
