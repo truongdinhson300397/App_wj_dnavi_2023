@@ -590,6 +590,12 @@ $(document).ready(function () {
         // 学部・研究科等のボタンをアクティブに
         $('#department-search-btn').addClass('btn-blue').removeClass('btn-disabled');
         $('#modalScool').fadeOut();
+
+        // handing show modalDept and modalCourse
+        $('#modalDept .department-school-name').html(schoolName);
+        $('#modalDept .department-list-ul').html('<li>学部・研究科情報がありません</li>');
+        $('#modalCourse .department-school-name').html(schoolName);
+        $('#modalCourse .department-list-ul').html('<li>学科・専攻情報がありません</li>');
       }
     });
   }
@@ -608,6 +614,10 @@ $(document).ready(function () {
         // 学科・専攻等のボタンをアクティブに
         $('#section-search-btn').addClass('btn-blue').removeClass('btn-disabled');
         $('#modalDept').fadeOut();
+
+        // handing show modalCourse
+        $('#modalCourse .department-school-name').html($('#university').val() + ' ' + depName);
+        $('#modalCourse .department-list-ul').html('<li>学科・専攻情報がありません</li>');
       }
     });
   }
@@ -1416,6 +1426,8 @@ $(document).ready(function () {
 
     checkFlagAndOnChange();
 
+    departmentSearch();
+    sectionSearch();
   }
 
   // 会員情報を取得
