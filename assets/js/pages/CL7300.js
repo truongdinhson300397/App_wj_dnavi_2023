@@ -1127,6 +1127,7 @@ $(document).ready(function () {
     if ($('#is_same_address').prop('checked') == true) {
       $('#home_postcode').val($('#postcode').val());
       $('#home_prefecture_id').val($('#prefecture_id').val());
+      $('#home_city_id').val($('#city_id').val());
       $('#home_address_line1').val($('#address_line1').val());
       $('#home_address_line2').val($('#address_line2').val());
     }
