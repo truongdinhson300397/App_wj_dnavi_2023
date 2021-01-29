@@ -1530,7 +1530,11 @@ $(document).ready(function () {
       if(addressLine2.length === 0) {
         postData['address_line2'] = null;
       }
-
+    
+        if (typeof isApplican !== "undefined" && isApplican) {
+            postData['is_applican'] = true;
+        }
+        
       postData = JSON.stringify(postData);
 
       $.ajax({
