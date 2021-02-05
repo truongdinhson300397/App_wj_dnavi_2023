@@ -514,9 +514,9 @@ function displaySearchCompanyButtons() {
       }).join(',');
     }
     jsBtnSearchDetail2.attr('href', link.companyList + '?working_place=' + prefectures);
-    if (contractTermId != 2) {
+    // if (contractTermId != 2) {
       $('#find-company .js-btn-search-detail-2.hidden').removeClass('hidden');
-    }
+    // }
     fetchCompanyEmployeeSize();
   } else {
     fetchAllPrefecture();
