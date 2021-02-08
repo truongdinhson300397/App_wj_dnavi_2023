@@ -100,7 +100,8 @@ if (typeof isApplican !== "undefined" && isApplican) {
     "faqDetail_7": "CL9270.html",
     "faqDetail_8": "CL9280.html",
     "sitemap": "CL9300.html",
-    "beacon": "smartCheckin.html"
+    "beacon": "smartCheckin.html",
+    "myPageEnteredCompany": "CL3900.html"
   }
 } else {
   link = {
