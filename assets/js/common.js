@@ -101,7 +101,7 @@ if (typeof isApplican !== "undefined" && isApplican) {
     "faqDetail_8": "CL9280.html",
     "sitemap": "CL9300.html",
     "beacon": "smartCheckin.html",
-    "myPageEnteredCompany": "CL3900.html"
+    "companyEnteredCompany": "CL3900.html"
   }
 } else {
   link = {
@@ -151,6 +151,7 @@ if (typeof isApplican !== "undefined" && isApplican) {
     "myPageEnteredInternship": "/mypage/entered_internship",
     "myPageMycode": "/mypage/mycode",
     "myPageTop": "/mypage/top",
+    "companyEnteredCompany": "/mypage/entered_company",
     "myPageMemberinfoEdit": "/mypage/memberinfo/edit",
     "myPageResetMail": "/mypage/reset_mail",
     "myPageResetMailComplete": "/mypage/reset_mail/complete",
