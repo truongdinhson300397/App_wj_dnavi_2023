@@ -34,7 +34,7 @@
                             </a>
                         </li>
                         <li class="mypage-btn-ul-li">
-                            <a id="applied-recruit"  href="{{myPageEnteredCompany}}" class="mypage-btn">
+                            <a id="applied-recruit"  href="{{link.companyEnteredCompany}}" class="mypage-btn">
                                 <span class="mypage-btn-ttl mypage-btn-ttl-02">エントリー済企業（採用）</span>
                                 <span class="mypage-btn-txt">エントリー済み企業の確認</span>
                             </a>
@@ -79,10 +79,10 @@
                 var studentId = globalInfo('id_' + contractTermId);
                 var token = globalInfo('jwt_' + contractTermId);
 
-                if (contractTermId == 2) {
-                    $('#applied-recruit').addClass('disabled');
-                    // $('#applied-internship').addClass('disabled');
-                }
+                // if (contractTermId == 2) {
+                //     $('#applied-recruit').addClass('disabled');
+                //     // $('#applied-internship').addClass('disabled');
+                // }
 
                 function _getStudentInfo () {
                     $.ajax({
