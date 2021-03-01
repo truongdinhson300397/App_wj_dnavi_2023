@@ -485,10 +485,10 @@ function guest() {
   $('#js-request-login-message').fadeIn();
 }
 function onLoad() {
-  // if contract term id is 2 add text
-  if(contractTermId === 2 || contractTermId === '2') {
-    $('.text-top-tabs').append('2020年3月現在の企業情報です。ダイヤモンド就活ナビ2022でのインターンシップ情報掲載や募集要項の掲載をお約束するものではありません。');
-  }
+  // // if contract term id is 2 add text
+  // if(contractTermId === 2 || contractTermId === '2') {
+  //   $('.text-top-tabs').append('2020年3月現在の企業情報です。ダイヤモンド就活ナビ2022でのインターンシップ情報掲載や募集要項の掲載をお約束するものではありません。');
+  // }
 
   // Add return url after success login
   $("#login-btn").on("click", function(e) {
