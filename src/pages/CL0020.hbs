@@ -28,12 +28,6 @@
           width: 100%;
         }
       }
-      .js-time_limited_on{
-          display: block;
-      }
-      .js-time_limited_off{
-          display: none;
-      }
     </style>
   {{/content}}
   {{#content "main"}}
@@ -135,7 +129,7 @@
     <!--      </div>-->
 
     <!--     remove banner 2022-->
-    <div data-appear_time="2021/03/08 11:30:00" data-disappear_time="2021/03/08 13:00:00" class="contents-box article-box js-time_limited banner-image-2022" id="enquete-image">
+    <div class="contents-box article-box banner-image-2022" id="enquete-image">
         <a href="{{linkOrWebview (concat domain '2022/diamond_enquete')}}">
             <img src="{{path}}img/dnavi_22_monitor_mar.jpg" alt="">
         </a>
@@ -199,25 +193,6 @@
         if (contractTermId == 2) {
           $('title').text('ダイヤモンド就活ナビ2022：学生のための就職活動・採用・IS情報サイト');
         }
-
-          // Show Hide banner
-          $(".js-time_limited").each(function () {
-              var appearTime = $(this).data("appear_time");
-              var disappearTime = $(this).data("disappear_time");
-              var dateStart = Date.parse(appearTime);
-              var dateEnd = Date.parse(disappearTime);
-              // 現在の日時をもつDateオブジェクトを作成
-              var date = new Date();
-              var current = date.toLocaleString('ja-JP', {timeZone: 'Japan'});
-              var dateCurrent = Date.parse(current);
-              if (dateStart < dateCurrent && dateEnd > dateCurrent) {
-                  $(this).addClass("js-time_limited_on");
-                  $(this).removeClass("js-time_limited_off");
-              } else {  // 同じ時間、もしくはそれ以前ならば
-                  $(this).addClass("js-time_limited_off");
-                  $(this).removeClass("js-time_limited_on");
-              }
-          });
       });
     </script>
   {{/content}}
