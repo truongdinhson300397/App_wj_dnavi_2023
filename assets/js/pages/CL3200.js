@@ -1669,6 +1669,7 @@ function dumpListCompanyAsura(_datas) {
       }
     });
     if (_datas.length > 4) {
+      var company_id = _datas[0]['companyId'];
       var btnShowMore = '<div id="corporateSeminar-show-more" class="event-more-box">' +
           '  <a href="' + link.companyDetail + '?company_id=' + company_id + '&page=all' +
           '" class="event-more">more</a>' +
