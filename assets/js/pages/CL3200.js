@@ -1644,13 +1644,11 @@ function dumpListCompanyAsura(_datas) {
       // only show 4 item
       if (idx < 4) {
         var getTimeForm = '';
-        
         _.forEach(item.timezones, function (item_date) {
           var getHourMinuteForm = moment(item_date.fromTime, 'HHmm').format('HH:mm');
           var getHourMinuteTo = moment(item_date.toTime, 'HHmm').format('HH:mm');
           getTimeForm += getHourMinuteForm + '〜' + getHourMinuteTo + ' ';
         });
-        
         var getDay = moment(item.heldDate, 'YYYY/MM/DD').format('ddd').toUpperCase();
         var getDate = moment(item.heldDate, 'YYYY/MM/DD').format('MM/DD');
         var tagsLi = ' <li class="event-ul-li "' + classLi + '"">' +
@@ -1667,15 +1665,13 @@ function dumpListCompanyAsura(_datas) {
             '" class="btn-small btn-blue">詳細・予約</a>' +
             '   </div>' +
             ' </li>';
-        
         $('#list-company-asura').append(tagsLi);
       }
     });
     if (_datas.length > 4) {
-      var company_id = _datas[0]['companyId'];
       var btnShowMore = '<div id="corporateSeminar-show-more" class="event-more-box">' +
-          '  <a href="/company/detail?company_id=' + company_id + '&page=all' +
-          '" class="event-more">more</a>'  +
+          '  <a href="' + link.companyDetail + '?company_id=' + company_id + '&page=all' +
+          '" class="event-more">more</a>' +
           '</div>';
       $('#data-asura').append(btnShowMore);
     }
