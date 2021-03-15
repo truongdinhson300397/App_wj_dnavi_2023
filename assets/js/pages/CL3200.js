@@ -1592,7 +1592,7 @@ function dumpListCompanyAsura(_datas) {
   
   var tagUl = '<ul id="list-company-asura" class="event-ul showForEvent"></ul>';
   $('#data-asura').append(tagUl);
-  var numItems = 2;
+  var numItems = 4;
   
   _.forEach(_datas, function (item, idx) {
     var classLi = null;
@@ -1636,7 +1636,7 @@ function dumpListCompanyAsura(_datas) {
   });
   
   // Show more if items > 4
-  if (_datas.length > 2) {
+  if (_datas.length > 4) {
     var btnShowMore = '<div id="corporateSeminar-show-more" class="event-more-box">' +
         '  <a href="javascript:void(0);" class="event-more">more</a>'  +
         '</div>';
