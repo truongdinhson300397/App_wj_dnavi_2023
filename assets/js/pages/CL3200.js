@@ -1626,7 +1626,7 @@ function dumpListCompanyAsura(_datas) {
         '     <div class="event-ttl">' + item.publicName + '</div>' +
         '    </div>' +
         '   <div class="event-btn-box">' +
-        '     <a href="/event/detail?eventOf=ASURA&step_id=' + item.stepId + '&asura_company_id=' + item.companyId +
+        '     <a href="' + link.eventDetail + '?eventOf=ASURA&step_id=' + item.stepId + '&asura_company_id=' + item.companyId +
         '&event_held_date_id=' + item.eventHeldDateId + '&asura_student_id=' + (registrantId ? registrantId : null) +
         '" class="btn-small btn-blue">詳細・予約</a>' +
         '   </div>' +
