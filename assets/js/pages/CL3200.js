@@ -1587,94 +1587,73 @@ if (typeof isApplican !== "undefined" && isApplican) {
 }
 
 function dumpListCompanyAsura(_datas) {
-  var url  = window.location.href;
-  var param = url.split('?')[1];
-  var arrayParam = param.split('&');
   $('.companies-event-label-box').append('<span class="companies-event-label companies-event-reservation">企業セミナー予約受付中</span>');
   $('#data-asura-title').show();
-
-  var tagUl = '<ul id="list-company-asura" class="event-ul"></ul>';
-  $('#data-asura').append(tagUl);
   
-  if(arrayParam.length > 1){
-    _.forEach(_datas, function (item, idx) {
-      var classLi = null;
-      if (idx === 0) {
-        classLi = 'upper-row';
-      } else if (idx == 1) {
-        classLi = 'upper-row';
-      }
-      // Show all item
-      var getTimeForm = '';
-      
-      _.forEach(item.timezones, function (item_date) {
-        var getHourMinuteForm = moment(item_date.fromTime, 'HHmm').format('HH:mm');
-        var getHourMinuteTo = moment(item_date.toTime, 'HHmm').format('HH:mm');
-        getTimeForm += getHourMinuteForm + '〜' + getHourMinuteTo + ' ';
-      });
-      
-      var getDay = moment(item.heldDate, 'YYYY/MM/DD').format('ddd').toUpperCase();
-      var getDate = moment(item.heldDate, 'YYYY/MM/DD').format('MM/DD');
-      var tagsLi = ' <li class="event-ul-li "' + classLi + '"">' +
-          '   <div class="event-info-box">' +
-          '     <div class="event-loc">' + item.prefName + '</div>' +
-          '     <div class="event-dateday"><span class="event-date">' + getDate + '</span><span class="event-day">' +
-          getDay + '</span></div>' +
-          '     <div class="event-time">' + getTimeForm + '</div>' +
-          '     <div class="event-ttl">' + item.publicName + '</div>' +
-          '    </div>' +
-          '   <div class="event-btn-box">' +
-          '     <a href="/event/detail?eventOf=ASURA&step_id=' + item.stepId + '&asura_company_id=' + item.companyId +
-          '&event_held_date_id=' + item.eventHeldDateId + '&asura_student_id=' + (registrantId ? registrantId : null) +
-          '" class="btn-small btn-blue">詳細・予約</a>' +
-          '   </div>' +
-          ' </li>';
-      
-      $('#list-company-asura').append(tagsLi);
-      $('#list-company-asura').find('#corporateSeminar-show-more').hide();
-    });
-  }else {
-    _.forEach(_datas, function (item, idx) {
-      var classLi = null;
-      if (idx === 0) {
-        classLi = 'upper-row';
-      } else if (idx == 1) {
-        classLi = 'upper-row';
-      }
-      // only show 4 item
-      if (idx < 4) {
-        var getTimeForm = '';
-        _.forEach(item.timezones, function (item_date) {
-          var getHourMinuteForm = moment(item_date.fromTime, 'HHmm').format('HH:mm');
-          var getHourMinuteTo = moment(item_date.toTime, 'HHmm').format('HH:mm');
-          getTimeForm += getHourMinuteForm + '〜' + getHourMinuteTo + ' ';
-        });
-        var getDay = moment(item.heldDate, 'YYYY/MM/DD').format('ddd').toUpperCase();
-        var getDate = moment(item.heldDate, 'YYYY/MM/DD').format('MM/DD');
-        var tagsLi = ' <li class="event-ul-li "' + classLi + '"">' +
-            '   <div class="event-info-box">' +
-            '     <div class="event-loc">' + item.prefName + '</div>' +
-            '     <div class="event-dateday"><span class="event-date">' + getDate + '</span><span class="event-day">' +
-            getDay + '</span></div>' +
-            '     <div class="event-time">' + getTimeForm + '</div>' +
-            '     <div class="event-ttl">' + item.publicName + '</div>' +
-            '    </div>' +
-            '   <div class="event-btn-box">' +
-            '     <a href="/event/detail?eventOf=ASURA&step_id=' + item.stepId + '&asura_company_id=' + item.companyId +
-            '&event_held_date_id=' + item.eventHeldDateId + '&asura_student_id=' + (registrantId ? registrantId : null) +
-            '" class="btn-small btn-blue">詳細・予約</a>' +
-            '   </div>' +
-            ' </li>';
-        $('#list-company-asura').append(tagsLi);
-      }
-    });
-    if (_datas.length > 4) {
-      var company_id = _datas[0]['companyId'];
-      var btnShowMore = '<div id="corporateSeminar-show-more" class="event-more-box">' +
-          '  <a href="' + link.companyDetail + '?company_id=' + company_id + '&page=all' +
-          '" class="event-more">more</a>' +
-          '</div>';
-      $('#data-asura').append(btnShowMore);
+  var tagUl = '<ul id="list-company-asura" class="event-ul showForEvent"></ul>';
+  $('#data-asura').append(tagUl);
+  var numItems = 2;
+  
+  _.forEach(_datas, function (item, idx) {
+    var classLi = null;
+    if (idx === 0) {
+      classLi = 'upper-row';
+    } else if (idx == 1) {
+      classLi = 'upper-row';
+    } else {
+      classLi = '';
     }
+    var getTimeForm = '';
+    
+    _.forEach(item.timezones, function (item_date) {
+      var getHourMinuteForm = moment(item_date.fromTime, 'HHmm').format('HH:mm');
+      var getHourMinuteTo = moment(item_date.toTime, 'HHmm').format('HH:mm');
+      getTimeForm += getHourMinuteForm + '〜' + getHourMinuteTo + ' ';
+    });
+    
+    // only show 4 item
+    if (idx >= numItems) {
+      classLi += ' hidden';
+    }
+    var getDay = moment(item.heldDate, 'YYYY/MM/DD').format('ddd').toUpperCase();
+    var getDate = moment(item.heldDate, 'YYYY/MM/DD').format('MM/DD');
+    var tagsLi = ' <li class="event-ul-li ' + classLi + '">' +
+        '   <div class="event-info-box">' +
+        '     <div class="event-loc">' + item.prefName + '</div>' +
+        '     <div class="event-dateday"><span class="event-date">' + getDate + '</span><span class="event-day">' +
+        getDay + '</span></div>' +
+        '     <div class="event-time">' + getTimeForm + '</div>' +
+        '     <div class="event-ttl">' + item.publicName + '</div>' +
+        '    </div>' +
+        '   <div class="event-btn-box">' +
+        '     <a href="/event/detail?eventOf=ASURA&step_id=' + item.stepId + '&asura_company_id=' + item.companyId +
+        '&event_held_date_id=' + item.eventHeldDateId + '&asura_student_id=' + (registrantId ? registrantId : null) +
+        '" class="btn-small btn-blue">詳細・予約</a>' +
+        '   </div>' +
+        ' </li>';
+    
+    $('#list-company-asura').append(tagsLi);
+  });
+  
+  // Show more if items > 4
+  if (_datas.length > 2) {
+    var btnShowMore = '<div id="corporateSeminar-show-more" class="event-more-box">' +
+        '  <a href="javascript:void(0);" class="event-more">more</a>'  +
+        '</div>';
+    $('#data-asura').append(btnShowMore);
   }
+  
+  // Handing click more
+  $('#data-asura .event-more').on('click', function () {
+    var li = $('#list-company-asura > .event-ul-li.hidden');
+    if (li.length > 0) {
+      var items = $(li).slice(0, numItems);
+      items.each(function (index, item) {
+        $(item).removeClass('hidden');
+      });
+      if (li.length - items.length === 0) {
+        $(this).hide();
+      }
+    }
+  });
 }
