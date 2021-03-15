@@ -1647,7 +1647,7 @@ function dumpListCompanyAsura(_datas) {
   $('#data-asura .event-more').on('click', function () {
     var li = $('#list-company-asura > .event-ul-li.hidden');
     if (li.length > 0) {
-      var items = $(li).slice(0, numItems);
+      var items = $(li).slice(0, li.length);
       items.each(function (index, item) {
         $(item).removeClass('hidden');
       });
